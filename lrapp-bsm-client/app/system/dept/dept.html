@@ -1,5 +1,5 @@
 <div ng-controller="deptCtrl">
-    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('system/dept/deptGrid.html')" ng-show="isGrid"></div>
-    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/dept/deptCard.html')" ng-show="isCard"></div>
-    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/dept/deptForm.html')" ng-show="isForm"></div>
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/dept/deptGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/dept/deptCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/dept/deptForm.html')" ng-show="!isGrid&&!isCard"></div>
 </div>

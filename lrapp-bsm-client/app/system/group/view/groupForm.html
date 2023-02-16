@@ -1,20 +1,87 @@
-<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
-    <div class="lr-contant text-right" add-form-btn>
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar" >
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
     </div>
     <div class="lr-contant">
-        <div class="form-group">
-            <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">角色编码：</label>
-                <div class="col-md-7">
-                    <input class="form-control" ng-verify="{ required: true,max:20}" type="text" ng-model="VO.groupCode">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">角色名称：</label>
-                <div class="col-md-7">
-                    <input class="form-control" ng-verify="{ required: true,max:32}" type="text" ng-model="VO.groupName">
-                </div>
-            </div>
-        </div>
+           <!-- <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>-->
+                        <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">角色编码：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-verify="{ required: false,max:20}" ng-disabled="isDisabled" type="text" ng-model="VO.group_code">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">角色名称：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-verify="{ required: false,max:32}" ng-disabled="isDisabled" type="text" ng-model="VO.group_name">
+                                </div>
+                                </div>
+                              <!--  <div class="col-md-4">
+                                    <label class="col-md-5 control-label">所属机构：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                                           url="'orgRef/queryForGrid'" ng-click="" popup-model="VO"
+                                           popup-model-field="'pk_org'"
+                                           ng-model="VO.pk_org.name" type="text" placeholder="">
+                                </div>
+                                </div>-->
+                        </div>
+                    <!--    <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">录入人：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                                           url="'userRef/queryForGrid'" ng-click="" popup-model="VO"
+                                           popup-model-field="'pk_operator'"
+                                           ng-model="VO.pk_operator.name" type="text" placeholder="">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">录入日期：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" wdate-picker ng-model="VO.operate_date">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">录入时间：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.operate_time">
+                                </div>
+                                </div>
+                        </div>-->
+           <!-- </accordion-group>
+        </accordion>-->
     </div>
 </form>

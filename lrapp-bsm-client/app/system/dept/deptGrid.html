@@ -1,35 +1,76 @@
-<div class="form-horizontal">
-
-    <div class="lr-grid-container">
-        <div class="lr-grid-toolbar">
-            <div class="btn-group text-right" add-grid-btn>
-
-                <button class="btn btn-primary btn-sm" ng-click="onAdd()">
-                    <i class="fa fa-plus"></i>
-                    增加
-                </button>
-                <button class="btn btn-primary btn-sm" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'','',true)">
-                    <i class="fa fa-edit"></i>
-                    修改
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="panel panel-white">
-                    <div class="panel-body">
-                        <div class="box-tree">
-                            <abn-tree tree-data="orgTreeData" on-select="selectItem(branch)" expand-level="2" icon-leaf="ti-file" icon-expand="ti-plus" icon-collapse="ti-minus"></abn-tree>
-                        </div>
+<div class="form-horizontal" >
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-9 col-sm-6">
-                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle()">
+            </accordion-heading>
+            <form class="form-horizontal">
+                                        <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="col-md-4 control-label">搜索</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" type="text" ng-model="QUERY['wideArea']"/>
+                                        </div>
+                                    </div>
+                        </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div style="margin-top: 25px">
+        <accordion>
+            <accordion-group is-open="true"  grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar" >
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" >
+                                    <button class="btn lr-main-btn" ng-click="onAdd()">
+                                        <i class="fa fa-plus"></i>
+                                    增加
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                        <i class="fa fa-plus"></i>
+                                    修改
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onDelete()" ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                        <i class="fa fa-plus"></i>
+                                    删除
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onCard()">
+                                        <i class="fa fa-plus"></i>
+                                    卡片
+                                    </button>
+                            <button class="btn lr-main-btn" ng-click="viewClause(gridApi)" ng-disabled="checkStatus(gridApi,'','',true)" >
+                                <i class="fa fa-joomla"></i>
+                                查看附件
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
                     <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
                 </div>
-            </div>
-        </div>
-
+            </accordion-group>
+        </accordion>
     </div>
 </div>

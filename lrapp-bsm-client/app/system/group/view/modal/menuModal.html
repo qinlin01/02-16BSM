@@ -1,40 +1,36 @@
-<div class="container-fluid container-fullw">
-    <div><h5 class="text-bold">正在为<span style="color: red">{{roleobj.groupName}}</span>分配资源</h5></div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="panel-heading">
-                <h5 class="text-bold">资源清单</h5>
-                <button class="btn lr-main-btn" ng-click="onAllGroup()" style="margin-top: -10px;float: right">
-                    <i class="fa fa-exchange"></i>
-                    分配所有权限
-                </button>
-            </div>
-            <div uib-collapse="panel1" ng-init="panel1=false" class="panel-wrapper">
-                <div ui-grid="groupPowerGridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-tree-view class="grid" style="min-height: 500px;"></div>
-            </div>
-        </div>
+<div class="lr-grid-container">
+    <div><h3>请为<span style="color: red">{{roleobj.group_name}}</span>分配资源</h3></div>
+    <div>
+        <accordion>
+            <accordion-group is-open="true">
+                <accordion-heading class="lr-page-bg-white">
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div class="lr-group-left">
+                        <span class="spanFont">资源清单</span>
+                        <button class="btn lr-main-btn" ng-click="onAllGroup()"  style="margin-top: -10px;float: right">
+                            <i class="fa fa-remove"></i>
+                            分配所有权限
+                        </button>
+                        <div ui-grid="groupPowerGridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-tree-view class="grid" style="min-height: 500px;"></div>
+                    </div>
 
-        <div class="col-sm-6">
-            <div class="panel-heading">
-                <h5 class="text-bold">获得资源</h5>
-                <button class="btn lr-main-btn" ng-click="onPowerDelete()" ng-disabled="checkStatus(addGroupPowerGridOptions.gridApi,'','',false)" style="margin-top: -10px;float: right">
-                    <i class="fa fa-trash"></i>
-                    删除
-                </button>
-            </div>
-            <div uib-collapse="panel1" ng-init="panel1=false" class="panel-wrapper">
-                <div ui-grid="addGroupPowerGridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-tree-view class="grid" style="min-height: 500px;"></div>
-            </div>
-        </div>
+                    <div class="lr-group-right">
+                        <span class="spanFont">获得资源</span>
+                        <button class="btn lr-main-btn" ng-click="onPowerDelete()" ng-disabled="checkStatus(addGroupPowerGridOptions.gridApi,'','',false)" style="margin-top: -10px;float: right">
+                            <i class="fa fa-remove"></i>
+                            删除
+                        </button>
+                        <div ui-grid="addGroupPowerGridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-tree-view class="grid" style="min-height: 500px;"></div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="approvalbut" style="margin-top: 5px;padding: 5px">
-                <button class="btn btn-light-blue" ng-click="saveAuthority()">
-                    <i class="fa  fa-check"></i>
-                    提交
-                </button>
-            </div>
-        </div>
+    <div class="approvalbut" style="margin-top: 5px;padding: 5px">
+        <button class="btn btn-light-blue" ng-click="saveAuthority()">
+            <i class="fa  fa-check"></i>
+            提交
+        </button>
     </div>
 </div>

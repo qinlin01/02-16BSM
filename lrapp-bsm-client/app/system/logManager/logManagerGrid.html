@@ -17,12 +17,12 @@
                             <span>重置</span>
                         </button>
                         <!--<button class="btn lr-main-btn" ng-click="onBackup();">-->
-                        <!--<i class="fa fa-undo"></i>-->
-                        <!--<span>备份</span>-->
+                            <!--<i class="fa fa-undo"></i>-->
+                            <!--<span>备份</span>-->
                         <!--</button>-->
                         <!--<button class="btn lr-main-btn" ng-click="onRevert();">-->
-                        <!--<i class="fa fa-undo"></i>-->
-                        <!--<span>还原</span>-->
+                            <!--<i class="fa fa-undo"></i>-->
+                            <!--<span>还原</span>-->
                         <!--</button>-->
                     </div>
                 </accordion-heading>
@@ -59,19 +59,17 @@
             <div class="col-md-4">
                 <label class="col-md-4 control-label">操作人</label>
                 <div class="col-md-8">
-                    <input class="form-control"  type="text" ng-model="QUERY['create_by']">
+                    <input class="form-control" ui-popup-ref
+                           url="'userRef/queryForGrid'" popup-model="QUERY"
+                           popup-model-field="'pkOperator'"
+                           ng-model="QUERY.pkOperator.name" type="text" placeholder="">
 
                 </div>
             </div>
             <div class="col-md-4">
                 <label class="col-md-4 control-label">操作日期</label>
                 <div class="col-md-8">
-                    <div class="input-group " moment-picker="QUERY['operateDate']" locale="zh-cn" today="true"  start-view="day" format="YYYY-MM-DD">
-                        <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
-                        <input class="form-control" ng-verify="{required:true}"  ng-model="QUERY['operateDate']"
-                               ng-model-options="{ updateOn: 'blur' }">
-                    </div>
-<!--                    <input class="form-control" type="text" wdate-picker ng-model="QUERY['operateDate']"/>-->
+                    <input class="form-control" type="text" wdate-picker ng-model="QUERY['operateDate']"/>
 
                 </div>
             </div>
@@ -104,8 +102,45 @@
                     </select>
                 </div>
             </div>
-
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">制单年度</label>
+                <div class="col-md-8">
+                    <select class="form-control" ng-model="QUERY['operate_year']"
+                            ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                        <option value="">-请选择-</option>
+                    </select>
+                </div>
+            </div>
         </div>
+        <!--<div class="form-group">-->
+            <!--<div class="col-md-4">-->
+                <!--<label class="col-md-4 control-label">根据用户身份排序</label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<select class="form-control" ng-model="QUERY['sort_pkOperator_name']"-->
+                            <!--ng-options="item.name as item.name for item in SELECT.SORT_PKOPERATOR_NAME_TYPE">-->
+                        <!--<option value="">&#45;&#45;请选排序规则&#45;&#45;</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">-->
+                <!--<label class="col-md-4 control-label">事件类型排序</label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<select class="form-control" ng-model="QUERY['sort_auditClassify']"-->
+                            <!--ng-options="item.name as item.name for item in SELECT.SORT_EVENT_TYPE">-->
+                        <!--<option value="">&#45;&#45;请选择排序规则&#45;&#45;</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">-->
+                <!--<label class="col-md-4 control-label">根据时间排序</label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<select class="form-control" ng-model="QUERY['sort_operateTime']"-->
+                            <!--ng-options="item.name as item.name for item in SELECT.SORT_OPERATETIME_TYPE">-->
+                        <!--<option value="">&#45;&#45;请选择排序规则&#45;&#45;</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </form>
     </accordion-group>
     </accordion>
@@ -122,6 +157,64 @@
                             <span class="lr-page-color">查询结果</span>
                         </div>
                         <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                            <!-- <button class="btn lr-main-btn" ng-click="onAdd()">
+                                 <i class="fa fa-plus"></i>
+                                 增加
+                             </button>
+                             &lt;!&ndash;  ng-disabled="checkStatus(gridApi,'billstatus','37',false)"&ndash;&gt;
+                             <button class="btn lr-main-btn" ng-click="onEdit()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                 <i class="fa fa-plus"></i>H
+                                 修改
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onDelete()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                 <i class="fa fa-plus"></i>
+                                 删除
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onDiscard()">
+                                 <i class="fa fa-plus"></i>
+                                 作废
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onCard()">
+                                 <i class="fa fa-plus"></i>
+                                 卡片
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onSubmit()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                 <i class="fa fa-plus"></i>
+                                 提交
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onAudit()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus','33',false)">
+                                 <i class="fa fa-plus"></i>
+                                 审核
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onRecall()">
+                                 <i class="fa fa-plus"></i>
+                                 撤回
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onLinkAuditFlow()">
+                                 <i class="fa fa-plus"></i>
+                                 查看流程图
+                             </button>
+                             &lt;!&ndash;<button class="btn lr-main-btn" ng-click="onUpload()">
+                                 <i class="fa fa-plus"></i>
+                             附件管理
+                             </button>&ndash;&gt;
+                             <button class="btn lr-main-btn" ng-click="onPrintReportBill()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus',[31,35,34,36],false)">
+                                 <i class="fa fa-plus"></i>
+                                 查看签报单
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="onPrintCheckBill()"
+                                     ng-disabled="checkStatus(gridApi,'billstatus','34',false)">
+                                 <i class="fa fa-plus"></i>
+                                 查看批复单
+                             </button>
+                             <button class="btn lr-main-btn" ng-click="viewClause(gridApi)"projectApp
+                                     ng-disabled="checkStatus(gridApi,'','',true)">
+                             </button>-->
                         </div>
                     </div>
                 </accordion-heading>
@@ -138,18 +231,21 @@
             <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
                 <accordion-heading class="lr-page-bg-white">
     </div>
+    </accordion-heading>
+    </accordion-group>
+    </accordion>
 </div>
-<div style="grid-auto-rows: auto" class="form-group pull-right">
-    <button class="btn lr-main-btn" ng-click="onBackup();">
-        <i class="fa fa-undo"></i>
-        <span>备份</span>
-    </button>
-    <button class="btn lr-main-btn" ng-click="onRevert();">
-        <i class="fa fa-undo"></i>
-        <span>还原</span>
-    </button>
-</div>
-<div style="grid-auto-rows: auto" class="form-group pull-right">
+    <div style="grid-auto-rows: auto" class="form-group pull-right">
+        <button class="btn lr-main-btn" ng-click="onBackup();">
+            <i class="fa fa-undo"></i>
+            <span>备份</span>
+        </button>
+        <button class="btn lr-main-btn" ng-click="onRevert();">
+            <i class="fa fa-undo"></i>
+            <span>还原</span>
+        </button>
+    </div>
+    <div  style="grid-auto-rows: auto" class="form-group pull-right">
     <div class="col-md-4">
         <label class="col-md-4 control-label">还原开始日期</label>
         <div class="col-md-8">
@@ -172,4 +268,10 @@
             <span><h4>{{VO.currentSize}}</h4></span>
         </div>
     </div>
+    </div>
+    </accordion-heading>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
 </div>

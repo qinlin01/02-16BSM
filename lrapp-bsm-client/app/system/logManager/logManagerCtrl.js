@@ -3,7 +3,7 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
         $scope.status = {open: true};
         $scope.initVO = function () {
             return {
-                revertFileName: []
+                revertFileName:[]
             };
         };
         //主表数据
@@ -15,7 +15,7 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
             //     data:encryptByDES('LogManagerController','12345678')
             // });
             return {
-                sort_rule: '时间降序'
+                sort_rule:'时间降序'
             }
         };
         $scope.QUERY = $scope.initQUERY();
@@ -31,7 +31,7 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
             //     return false;
             // }
             layer.load(2);
-            $http.post($scope.basePath + "sys/logManager/queryForGrid", {
+            $http.post($scope.basePath + "logManager/queryForGrid", {
                 params: angular.toJson(data),
                 page: $scope.gridApi ? $scope.gridApi.page : $scope.gridOptions.page,
                 pageSize: $scope.gridApi ? $scope.gridApi.pageSize : $scope.gridOptions.pageSize
@@ -41,14 +41,53 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
                     if (!$scope.query) {
                         $scope.query = $scope.gridOptions.columnDefs;
                     }
-                    $scope.gridOptions.data = response.data.records;
-                    $scope.gridOptions.totalItems = response.data.total;
+                    $scope.gridOptions.data = response.result.Rows;
+                    $scope.gridOptions.totalItems = response.result.Total;
                 }
                 layer.closeAll('loading');
             });
         };
+        $scope.queryAllForGrid = function (data) {
+            layer.load(2);
+            if (!$scope.queryData) {
+                $scope.queryData = $scope.gridOptions.columnDefs;
+            }
+            return $http.post($rootScope.basePath + "logManager/queryAllForGrid", {
+                params: angular.toJson(data),
+                page: $scope.gridApi ? $scope.gridApi.page : $scope.gridOptions.page,
+                pageSize: $scope.gridApi ? $scope.gridApi.pageSize : $scope.gridOptions.pageSize,
+                fields: angular.toJson($scope.queryData),
+            }).success(function (response) {
+                    let data = angular.fromJson(SM2Decrypt(response));
+                    window.open($rootScope.basePath + "uploadFile/downLoadByUrl?url=" + encodeURI(encodeURI(data.downPath)));
+                    layer.closeAll('loading');
+                }).error(function () {
+                    layer.closeAll('loading');
+                });
+        };
+        $scope.findOne = function (pk) {
+            $scope.pk = pk;
+            $http.post($scope.basePath + "user/findOne", {pk: pk}).success(function (response) {
+                layer.closeAll('loading');
+                if (response && response.code == "200") {
+                    angular.assignData($scope.VO, response.result);
+                } else {
+                    if (response) {
+                        if (response.msg) {
+                            // e.g. 字符转换为Entity Name
+                            response.msg = response.msg.replace(/(\D{1})/g, function (matched) {
+                                var rs = asciiChartSet_c2en[matched];
+                                return rs == undefined ? matched : rs;
+                            });
+                            layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                        }
+                    }
+                    //  layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                }
+            });
+        };
         $scope.onWatchRecordSize = function () {
-            $http.post($scope.basePath + "sys/logManager/onWatchRecordSize", {}).success(function (response) {
+            $http.post($scope.basePath + "logManager/onWatchRecordSize",{}).success(function (response) {
                 if (response && response.code == "200") {
                     $scope.VO.currentSize = response.currentSize;
                 }
@@ -56,7 +95,7 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
         };
         $scope.onBackup = function () {
             layer.load(2);
-            $http.post($scope.basePath + "sys/logManager/onBackUp", {}).success(function (response) {
+            $http.post($scope.basePath + "logManager/onBackUp",{}).success(function (response) {
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
@@ -69,10 +108,7 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
             //     closeBtn: 1
             // });
             layer.load(2);
-            $http.post($scope.basePath + "sys/logManager/onBeforeRevert", {
-                revertBeginDate: $scope.VO.revertBeginDate,
-                revertEndDate: $scope.VO.revertEndDate
-            }).success(function (response) {
+            $http.post($scope.basePath + "logManager/onBeforeRevert",{revertBeginDate: $scope.VO.revertBeginDate,revertEndDate:$scope.VO.revertEndDate}).success(function (response) {
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
@@ -197,22 +233,22 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
             exporterOlderExcelCompatibility: false,
             exporterCsvFilename: '系统日志.csv',
             columnDefs: [
-                {name: 'funcName', displayName: '功能节点名称', width: 100},
-                {name: 'type', displayName: '事件类型', width: 100, cellFilter: 'SELECT_LOG_TYPE'},
-                {name: 'title', displayName: '亊件描述', width: 200},
-                {name: 'requestUri', displayName: '请求地址', width: 230},
-                {name: 'exception', displayName: '异常信息', width: 230},
-                {name: 'exceptionType', displayName: '异常类型', width: 100, cellFilter: 'SELECT_LOG_EXCEPTION'},
-                {name: 'clientIp', displayName: '客户端IP', width: 100,},
-                {name: 'createBy', displayName: '操作人', width: 100,},
-                {name: 'createTime', displayName: '亊件日期', width: 150, cellFilter: 'date:"yyyy-MM-dd"'},
-                {name: 'operationName', displayName: '操作类型', width: 100},
+                {name: 'nodeName', displayName: '功能节点名称', width: 100},
+                {name: 'describe', displayName: '亊件描述', width: 100},
+                {name: 'exeResult', displayName: '亊件结果', width: 100,},
+                {name: 'ip', displayName: '客户端IP', width: 100,},
+                {name: 'pkOperator.name', displayName: '操作人', width: 100,},
+                {name: 'pkOperator.code', displayName: '操作人编码', width: 100,},
+                {name: 'operateDate', displayName: '亊件日期', width: 100,},
+                {name: 'operateTime', displayName: '亊件时间', width: 100,},
+                {name: 'pkOrg.name', displayName: '机构', width: 100,},
+                {name: 'pkDept.name', displayName: '部门', width: 100,},
+                {name: 'auditClassify', displayName: '事件类型', width: 100,},
+                {name: 'operate', displayName: '操作类型', width: 100,cellFilter:'SELECT_OPERATE'},
                 //{name: 'isBackUp', displayName: '是否已备份', width: 100,}
             ],
             exporterAllDataFn: function () {
-                return $scope.queryAllForGrid($scope.QUERY).then(function () {
-                    $scope.gridOptions.useExternalPagination = false;
-                });
+                $scope.queryAllForGrid($scope.QUERY);
             },
         };
         $scope.gridOptions.onRegisterApi = function (gridApi) {
@@ -254,4 +290,150 @@ app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $statePara
 
 
 });
-``
+app.controller('dealAppAttachmentLogCtrl', ['$scope', '$rootScope', '$http', '$location', 'ngDialog', 'FileUploader', 'ngVerify', function ($scope, $rootScope, $http, $location, ngDialog, FileUploader, ngVerify) {
+    /**
+     * 初始化页面变更方法
+     */
+    $scope.initPage = function () {
+        $scope.ref = {
+            pk: '0001AA100000000GQYSH',
+            code: 'YX000',
+            name: '附件'
+        };
+        $scope.delVO = [];
+        $scope.delItems = [];
+        $scope.VOs = [];
+        $scope.subData = {};
+        $scope.isCanUpLoad = false;
+        //  控制是否可以上传附件
+        // if ($scope.VO.billstatus == $rootScope.SELECT.BILL_STATUS[2].id) {
+        //     $scope.isCanUpLoad = true;
+        // } else {
+        //     $scope.isCanUpLoad = false;
+        // }
+
+
+    };
+
+    /**
+     * 初始化按钮事件
+     */
+    $scope.initButton = function () {
+        /**
+         * 保存
+         */
+        $scope.onSubSave = function () {
+            ngVerify.check('dealAttachmentsForm', function (errEls) {
+                if (errEls && errEls.length) {
+                    return angular.alert($rootScope.getDisName("请先填写所有必输项", "!"),
+                        {skin: 'layui-layer-lan', closeBtn: 1});
+                } else {
+                    if (!($scope.VOs.length > 0)) {
+                        //   回写附件来源类型f
+                        $scope.aVO.source_billtypeVO = {
+                            bill_name: '国网客户信息',
+                        };
+                        //   回写附件上传人
+                        $scope.aVO.upload_operator = {
+                            name: $rootScope.userVO.name,
+                            pk: $rootScope.userVO.pk
+                        }
+                        //   回写附件上传时间
+                        /* $scope.aVO.operate_date = new Date().format('yyyy-MM-dd');*/
+                        $scope.aVO.upload_date = $rootScope.workDate;
+                        $scope.aVO.attachment_source = $rootScope.SELECT.ATTACHMENT_SOURCE[1].id;
+                        $scope.$parent.confirm($scope.aVO);
+                    } else {
+                        /* if ($scope.delVO.length > 0) {
+                         var index = 0;
+                         for(var i=0;i<$scope.delVO.length;i++){
+                         if($scope.delVO[i]==null){
+                         index = index +1;
+                         }
+                         }
+                         if(index!=$scope.delVO.length){
+                         $scope.$parent.delVO;
+                         $scope.VOs=[];
+                         for(var i=0;i<$scope.delVO.length;i++){
+                         if($scope.delVO[i]!=null){
+                         $scope.VOs.push($scope.delVO[i]);
+                         }
+                         }
+                         }
+
+                         }*/
+                        $scope.tmpVO = [];
+                        angular.forEach($scope.VOs, function (item) {
+                            $scope.flag = false;
+                            for (var j = 0; j < $scope.delItems.length; j++) {
+                                if (item.pk_project_id == $scope.delItems[j].pk_project_id) {
+                                    $scope.flag = true;
+                                    return;
+                                }
+                            }
+                            if ($scope.flag == true) {
+                                //noinspection JSAnnotator
+                                return;
+                            }
+                            if (item != null && item) {
+                                item.source_billtypeVO = {
+                                    bill_name: '国网客户信息'
+                                };
+                                item.upload_operator = {
+                                    name: $rootScope.userVO.name,
+                                    pk: $rootScope.userVO.pk
+                                }
+                                item.attachment_source = $rootScope.SELECT.ATTACHMENT_SOURCE[1].id;
+                                item.upload_date = new Date().format("yyyy-MM-dd HH:mm:ss");
+                                $scope.tmpVO.push(item);
+
+                            }
+
+                        });
+                        $scope.VOs = [];
+                        angular.assignData($scope.VOs, $scope.tmpVO)
+                        $scope.$parent.confirm($scope.VOs);
+                        $scope.VOs = [];
+                    }
+                    ngDialog.close();
+                }
+            }, true);
+
+        };
+        /**
+         * 取消
+         */
+        $scope.onSubCancel = function () {
+            angular.assignData($scope.aVO, $scope.subData);
+            ngDialog.close();
+        };
+    };
+
+    /**
+     * 初始化弹窗form的VO
+     */
+    $scope.initVO = function () {
+        if ($scope.$parent && $scope.$parent.aVO) {
+            //载体类型
+            // $scope.$parent.aVO.carrier_type = $rootScope.SELECT.CARRIER_TYPE[0].id;
+            // $scope.$parent.aVO.doc_type = $rootScope.SELECT.DOC_TYPE[1].id;
+            // $scope.$parent.aVO.attachment_source = $rootScope.SELECT.ATTACHMENT_SOURCE[1].id;
+            $scope.subData = angular.copy($scope.$parent.aVO);
+        } else {
+            $scope.$parent.aVO = null;
+            // $scope.$parent.aVO.carrier_type = $rootScope.SELECT.CARRIER_TYPE[0].id;
+            // $scope.$parent.aVO.doc_type = $rootScope.SELECT.DOC_TYPE[1].id;
+            // $scope.$parent.aVO.attachment_source = $rootScope.SELECT.ATTACHMENT_SOURCE[1].id;
+            $scope.subData = angular.copy($scope.$parent.aVO);
+        }
+        return $scope.subData;
+    };
+    $scope.ifSession = function () {
+
+    }
+    // $scope.ifSession();
+    $scope.initButton();
+    $scope.initPage();
+    $scope.aVO = $scope.initVO();
+
+}]);

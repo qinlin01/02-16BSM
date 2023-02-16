@@ -1,26 +1,30 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $controller) {
-
-    $controller('baseController', {
-        $rootScope: $rootScope, $scope: $scope, $http: $http, ngVerify: ngVerify
-    });
-
+app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {
             return {
+                pk_operator: $rootScope.userVO.pk,
+                pkDept: $rootScope.deptVO,
+                operate_date: new Date().format("yyyy-MM-dd"),
+                operate_time: new Date().format("yyyy-MM-dd HH:mm:ss"),
+                isContinue: 0,
                 dr: 0,
-                groupCode: "",
-                groupName: "",
+                group_code:"",
+                group_name:"",
+                pk_operator:"",
+                pk_org:$rootScope.orgVO.pk,
+                costscale: [],
+                coomedium: []
             };
         };
         //主表数据
         $scope.VO = $scope.initVO();
         //初始化查询
-        $scope.initQUERY = function () {
-            return {"operate_year": new Date().format("yyyy")}
+       $scope.initQUERY = function () {
+            return { "operate_year": new Date().format("yyyy")}
         };
         $scope.QUERY = $scope.initQUERY();
     };
@@ -29,28 +33,36 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
         //列表查询
         $scope.queryForGrid = function (data) {
             layer.load(2);
-            $http.post($scope.basePath + "sys/group/queryForGrid", {
+            $http.post($scope.basePath + "group/queryForGrid", {
                 params: angular.toJson(data),
                 page: $scope.gridApi ? $scope.gridApi.page : $scope.gridOptions.page,
                 pageSize: $scope.gridApi ? $scope.gridApi.pageSize : $scope.gridOptions.pageSize
             }).success(function (response) {
                 if (response.code == 200) {
-                    $scope.gridOptions.data = response.data.records;
-                    $scope.gridOptions.totalItems = response.data.total;
+                    $scope.gridOptions.data = response.result.Rows;
+                    $scope.gridOptions.totalItems = response.result.Total;
                 }
                 layer.closeAll('loading');
             });
         };
         $scope.findOne = function (pk) {
             $scope.pk = pk;
-            $http.post($scope.basePath + "sys/group/findOne", {pk: pk}).success(function (response) {
+            $http.post($scope.basePath + "group/findOne", {pk: pk}).success(function (response) {
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
-                    angular.assignData($scope.VO, response.data);
+                    angular.assignData($scope.VO, response.result);
                 } else {
-                    if (response.msg) {
-                        layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                    if(response){
+                        if (response.msg) {
+                            // e.g. 字符转换为Entity Name
+                            response.msg = response.msg.replace(/(\D{1})/g, function(matched) {
+                                var rs = asciiChartSet_c2en[matched];
+                                return rs == undefined ? matched : rs;
+                            });
+                            layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                        }
                     }
+                   // layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
                 }
             });
         };
@@ -59,45 +71,58 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
          * */
         $scope.onSaveVO = function () {
             layer.load(2);
-            $http.post($rootScope.basePath + "sys/group/save", {
-                data: angular.toJson($scope.VO),
-                funcCode: $scope.funcCode
-            })
+            $http.post($rootScope.basePath + "group/save", {data: angular.toJson($scope.VO), funCode:$scope.funCode})
                 .success(function (response) {
-                    if (!response.code == 200) {
+                    if (!response.flag) {
                         $scope.isGrid = false;
-                        $scope.isForm = false;
-                        $scope.isCard = true;
+                        $scope.isBack = false;
+                        $scope.isEdit = false;
+                        $scope.isDisabled = true;
                         angular.assignData($scope.VO, response.result);
                         layer.closeAll('loading');
-                    } else {
+                        $scope.isSubEdit = false;
+                    }
+                    if (response) {
                         if (response.msg) {
+                            // e.g. 字符转换为Entity Name
+                            response.msg = response.msg.replace(/(\D{1})/g, function (matched) {
+                                var rs = asciiChartSet_c2en[matched];
+                                return rs == undefined ? matched : rs;
+                            });
                             layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
                         }
                     }
+                    // layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
                 });
 
         };
     };
 
     $scope.initFunction = function () {
+        $scope.changeOpen = function () {
+            $scope.status.open = !$scope.status.open;
+        };
+        $scope.onRowDblClick = function (item) {
+            if(item && item.id){
+                $scope.onCard(item.id);
+            }
+        };
     };
     $scope.initButton = function () {
         /*
          分配资源
          */
-        $scope.onAuthorization = function () {
+        $scope.onAuthorization = function(){
             var rows = $scope.gridApi.selection.getSelectedRows();
-            if (!rows || rows.length != 1) return layer.alert("请选择一条数据!", {skin: 'layui-layer-lan', closeBtn: 1});
+            if(!rows || rows.length !=1 ) return layer.alert("请选择一条数据!", {skin: 'layui-layer-lan',closeBtn: 1});
             layer.load(2);
             ngDialog.openConfirm({
-                template: getURL('system/group/view/modal/menuModal.html'),
+                template: 'view/group/modal/menuModal.html',
                 controller: 'menuModalCtrl',
-                className: 'ngdialog-theme-plain',
-                width: 1000,
-                height: 750,
-                data: {obj: rows[0]},
-                closeByDocument: false,
+                data:{obj:rows[0]},
+                closeByDocument: true,
+                closeByEscape: true,
+                cache:false
             }).then(function (value) {
                 $scope.queryForGrid($scope.QUERY);
             }, function (reason) {
@@ -109,7 +134,7 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
         $scope.onView = function () {
 
             //  控制字表按钮的显示
-            $scope.isForm = false;
+            $scope.isEdit = false;
             if ($scope.isGrid) {
                 var rows = $scope.gridApi.selection.getSelectedRows();
                 if (!rows || rows.length != 1) return layer.alert("请选择一条单据进行查看!", {
@@ -117,19 +142,19 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
                     closeBtn: 1
                 });
                 // layer.load(2);
-                $scope.findOne(rows[0].pkGroup, function (response) {
+                $scope.findOne(rows[0].id, function (response) {
                     $scope.isGrid = false;
                     $scope.isBack = false;
-                    $scope.isForm = false;
+                    $scope.isEdit = false;
                     $scope.isDisabled = true;
                 });
             }
         };
 
         $scope.onAdd = function () {
-            $scope.form = true;
+            $scope.form=true;
             $scope.isGrid = false;
-            $scope.isForm = true;
+            $scope.isEdit = true;
             $scope.isDisabled = false;
             $scope.tabDisabled = true;
             $scope.isBack = true;
@@ -142,23 +167,23 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
          */
         $scope.onEdit = function () {
             //  控制字表按钮的显示
-            $scope.isForm = true;
+            $scope.isEdit = true;
             if ($scope.isGrid) {
                 $scope.isGrid = false;
-                $scope.form = true;
+                $scope.form=true;
                 var rows = $scope.gridApi.selection.getSelectedRows();
                 if (!rows || rows.length != 1) return layer.alert("请选择一条数据进行修改!", {
                     skin: 'layui-layer-lan',
                     closeBtn: 1
                 });
-                $scope.findOne(rows[0].pkGroup);
+                $scope.findOne(rows[0].id);
                 $scope.isBack = true;
-                $scope.isForm = true;
+                $scope.isEdit = true;
                 $scope.isDisabled = false;
             } else {
                 $scope.isGrid = false;
                 $scope.isBack = true;
-                $scope.isForm = true;
+                $scope.isEdit = true;
                 $scope.isDisabled = false;
             }
         };
@@ -179,7 +204,7 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
                 function () {
                     var ids = [];
                     for (var i = 0; i < rows.length; i++) {
-                        ids.push(rows[i].pkGroup);
+                        ids.push(rows[i].id);
                     }
                     layer.load(2);
                     $http.post($scope.basePath + "group/delete", {ids: angular.toJson(ids)}).success(function (response) {
@@ -196,33 +221,33 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
             );
         };
 
+        /*
+         * 关联
+         * */
+        $scope.onLink = function () {
+
+        };
 
         /**
          * 取消功能
          */
         $scope.onCancel = function () {
-            $scope.isGrid = true;
-            $scope.isCard = false;
-            $scope.isForm = false;
-            $scope.isForm = false;
-            $scope.bindData($scope.initVO());
+            $scope.isDisabled = true;
+            $scope.isEdit = false;
+            $scope.isBack = false;
         };
         /**
          * 返回
          */
         $scope.onBack = function () {
-            //阻止页面渲染
-            $scope.isGrid = true;
             $scope.isCard = false;
-            $scope.isForm = false;
-            $scope.isForm = false;
-            $scope.initData();
+            $scope.isGrid = true;
+            $scope.isEdit = false;
+            $scope.isDisabled = true;
+            //阻止页面渲染
+            $scope.form=false;
+            $scope.card=false;
             $scope.queryForGrid($scope.QUERY);
-            angular.forEach($rootScope.currentTabs, function (item, index) {
-                if ($scope.funcCode == item.pkGroup) {
-                    item.billId = null;
-                }
-            });
         };
         /**
          * 保存判断必输项
@@ -246,7 +271,7 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
         };
         $scope.onReset = function () {
             $scope.QUERY = $scope.initQUERY();
-            $scope.QUERY.pkGroup = null;
+            $scope.QUERY.id = null;
         };
 
         /**
@@ -276,9 +301,14 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
     };
 
     $scope.initPage = function () {
+        $scope.form=false;
+        $scope.card=false;
+
         $scope.isGrid = true;
         $scope.isCard = false;
-        $scope.isForm = false;
+        $scope.isEdit = false;
+        $scope.isDisabled = true;
+        $scope.queryShow = true;
 
         $scope.gridOptions = {
             rowTemplate: "<div ng-dblclick=\"grid.appScope.onRowDblClick(row.entity)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell dbl-click-row></div>",
@@ -291,9 +321,13 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
             paginationPageSize: 100,
             useExternalPagination: true,
             columnDefs: [
-                {name: 'groupCode', displayName: '角色编码', width: 120,},
-                {name: 'groupName', displayName: '角色名称', width: 170,},
-                {name: 'menuName', displayName: '资源名称', cellTooltip: true, headerTooltip: true, width: 150,},
+                {name: 'group_code', displayName: '角色编码', width: 100,},
+                {name: 'group_name', displayName: '角色名称', width: 100,},
+                {name: 'menuName', displayName: '资源名称',cellTooltip: true, headerTooltip: true, width: 150,},
+                {name: 'pk_org_name', displayName: '所属机构', width: 100,},
+                {name: 'pk_operator_name', displayName: '录入人', width: 100,},
+                {name: 'operate_date', displayName: '录入日期', width: 100, cellFilter: 'date:"yyyy-MM-dd"'},
+                {name: 'operate_time', displayName: '录入时间', width: 100,},
             ],
             data: []
         };
@@ -332,110 +366,79 @@ app.controller('groupCtrl', function ($rootScope, $scope, $http, $stateParams, u
     $scope.initFunction();
     $scope.initButton();
     $scope.initPage();
-    $scope.onQuery();
 
 
 });
 
-app.controller('menuModalCtrl', function ($rootScope, $scope, $http, $timeout, ngDialog, $compile) {
+app.controller('menuModalCtrl', function ($rootScope,$scope, $http,$timeout,ngDialog,$compile) {
     $scope.roleobj = $scope.ngDialogData.obj;
-    $scope.roles = [];
-    $scope.findGroupRole = function () {
-        $http.post($scope.basePath + "sys/menu/findGroupRole", {pk: $scope.roleobj.pkGroup}).success(function (response) {
-            if (response.code == 200) {
-                // angular.forEach(response.data, function (obj, index) {
-                //     $scope.roles.push(obj);
-                // });
-                $scope.addGroupPowerGridOptions.data = response.data;
-                $scope.queryForGridGroup();
-            }
-        });
-    }
     //列表查询
     $scope.queryForGridGroup = function (data) {
         layer.load(2);
-        $http.post($scope.basePath + "sys/menu/queryForGrid").success(function (response) {
+        $http.post($scope.basePath + "menu/queryForGrid").success(function (response) {
             if (response.code == 200) {
-                $scope.groupPowerGridOptions.data = response.data;
-                // $timeout(function () {
-                //     var menu = $scope.roles.toString();
-                //     for (var i = 0; i < $scope.roles.length && menu != null; i++) {
-                //         angular.forEach($scope.groupPowerGridOptions.data, function (obj, index) {
-                //             if (menu.indexOf(obj.menuId) != -1) {
-                //                 $scope.gridApi.selection.selectRow($scope.groupPowerGridOptions.data[i], false);
-                //             }
-                //         });
-                //
-                //     }
-                // }, 5);
+                $scope.groupPowerGridOptions.data = response.result.Rows;
+                $timeout(function() {
+                    var menu = $scope.roleobj.menuName && $scope.roleobj.menuName.split(',');
+                    for (var i = 0;i<$scope.groupPowerGridOptions.data.length&&menu != null;i++){
+                        if(menu.indexOf($scope.groupPowerGridOptions.data[i].pk) != -1){
+                            $scope.gridApi.selection.selectRow($scope.groupPowerGridOptions.data[i],false);
+                        }
+                    }
+                },5);
             }
             layer.closeAll('loading');
         });
     };
-    $scope.findGroupRole();
-    $scope.groupPowerGridOptions = {
+    $scope.queryForGridGroup();
+    $scope.groupPowerGridOptions= {
         enableRowSelection: true,
         enableSelectAll: true,
         enableFullRowSelection: true,//是否点击cell后 row selected
         enableRowHeaderSelection: true,
         multiSelect: true,//多选
-        showTreeExpandNoChildren: false,
+        showTreeExpandNoChildren: true,
         useExternalPagination: true,
-        // enableFiltering: true,
+        enableFiltering: true,
         columnDefs: [
-            {name: 'menuId', displayName: '节点编码', width: 100,},
-            {name: 'parentName', displayName: '父节点名称', width: 120,},
-            {name: 'menuName', displayName: '节点名称', width: 120,},
+            {name: 'pk', displayName: '节点编码', width: 100,},
+            {name: 'parent_name', displayName: '父节点名称', width: 120,},
+            {name: 'menu_name', displayName: '节点名称', width: 120,},
         ],
         data: []
     };
-    $scope.groupPowerGridOptions.onRegisterApi = function (gridApi) {
+    $scope.groupPowerGridOptions.onRegisterApi = function(gridApi){
         //set gridApi on scope
         $scope.gridApi = gridApi;
         //添加行头
-        $scope.gridApi.core.addRowHeaderColumn({
-            name: 'rowHeaderCol',
-            displayName: '',
-            width: 30,
-            cellTemplate: 'ui-grid/rowNumberHeader'
-        });
+        $scope.gridApi.core.addRowHeaderColumn( { name: 'rowHeaderCol', displayName: '', width: 30, cellTemplate: 'ui-grid/rowNumberHeader'} );
         $scope.gridApi.selection.on.rowSelectionChanged($scope, function (row, event) {
-            // var rows = $scope.gridApi.selection.getSelectedRows();
-            var rows = row.entity;
-            if (row.isSelected) {
-                $scope.pushChildren(rows);
+            if ($scope.addGroupPowerGridOptions.data.indexOf(row.entity) == -1) {
+                $scope.addGroupPowerGridOptions.data.push(row.entity);
             }
-            // angular.forEach(rows.children, function (obj, index) {
-            //     $scope.pushChildren(obj);
-            // });
         });
     };
-    $scope.addGroupPowerGridOptions = {
+    $scope.addGroupPowerGridOptions= {
         enableRowSelection: true,
         enableSelectAll: true,
         enableFullRowSelection: true,//是否点击cell后 row selected
         enableRowHeaderSelection: true,
         multiSelect: true,//多选
-        showTreeExpandNoChildren: false,
+        showTreeExpandNoChildren: true,
         useExternalPagination: true,
-        // enableFiltering: true,
+        enableFiltering: true,
         columnDefs: [
-            {name: 'menuId', displayName: '节点编码', width: 100,},
-            {name: 'parentName', displayName: '父节点名称', width: 120,},
-            {name: 'menuName', displayName: '节点名称', width: 120,},
+            {name: 'pk', displayName: '节点编码', width: 100,},
+            {name: 'parent_name', displayName: '父节点名称', width: 120,},
+            {name: 'menu_name', displayName: '节点名称', width: 120,},
         ],
         data: []
     };
-    $scope.addGroupPowerGridOptions.onRegisterApi = function (gridApi) {
+    $scope.addGroupPowerGridOptions.onRegisterApi = function(gridApi){
         //set gridApi on scope
         $scope.addGroupPowerGridOptions.gridApi = gridApi;
         //添加行头
-        $scope.addGroupPowerGridOptions.gridApi.core.addRowHeaderColumn({
-            name: 'rowHeaderCol',
-            displayName: '',
-            width: 30,
-            cellTemplate: 'ui-grid/rowNumberHeader'
-        });
+        $scope.addGroupPowerGridOptions.gridApi.core.addRowHeaderColumn( { name: 'rowHeaderCol', displayName: '', width: 30, cellTemplate: 'ui-grid/rowNumberHeader'} );
     };
     $scope.saveAuthority = function () {
         var rows = $scope.addGroupPowerGridOptions.data;
@@ -446,13 +449,13 @@ app.controller('menuModalCtrl', function ($rootScope, $scope, $http, $timeout, n
         var authority = {};
         var ids = [];
         for (var i = 0; i < rows.length; i++) {
-            ids.push(rows[i].menuId);
+            ids.push(rows[i].pk);
         }
         authority.menuId = ids;
-        authority.role = $scope.roleobj.pkGroup;
+        authority.role = $scope.roleobj.pk_group;
         layer.load(2);
-        $http.post($rootScope.basePath + "sys/menu/addGroupPwor", {data: angular.toJson(authority)})
-            .success(function (response) {
+        $http.post($rootScope.basePath + "menu/addGroupPwor",{data:angular.toJson(authority)})
+            .success(function(response) {
                 if (response.code == 200) {
                     $scope.$parent.confirm();
                     layer.alert("资源分配完成！", {skin: 'layui-layer-lan', closeBtn: 1});
@@ -461,12 +464,41 @@ app.controller('menuModalCtrl', function ($rootScope, $scope, $http, $timeout, n
             });
     };
 
-    $scope.onAllGroup = function () {
-        $scope.addGroupPowerGridOptions.data = [];
-        angular.forEach($scope.groupPowerGridOptions.data, function (obj, index) {
-            $scope.addGroupPowerGridOptions.data.push(obj);
-        });
-        // $scope.addGroupPowerGridOptions.data = $scope.groupPowerGridOptions.data;
+    $scope.changeNav = function (dom,data) {
+        if(data instanceof Array){
+            var tindex = 0;
+            for(var i =0 ;i<data.length; i++){
+                var html = "";
+                if(data[i].Icon == ""){
+                    html = '<li ui-sref-active="active"> <a ui-sref="'+data[i].menu_url+'" class="auto"> <div class="item-content"> <div class="item-media"> <i class="'+data[i].Icon+'"></i> </div> <div class="item-inner" ng-click=clickMenu("'+ data[i].pk +'","'+ data[i].menu_url +'","'+ data[i].menu_name +'")><span class="title" >'+ data[i].menu_name+'</span> </div> </div> </a> </li>'
+                }else{
+                    html = '<li ng-class="{active:$state.includes('+data[i].menu_url+')}"> <a  class="auto"> <div class="item-content"><div class="item-media">  <i class="'+data[i].Icon+'"></i> </div> <div class="item-inner"> <span class="pull-right text-muted"><i class="fa fa-fw fa-angle-right text"></i><i class="fa fa-fw fa-angle-down text-active"></i></span><span class="title" >'+ data[i].menu_name+'</span> </div> </div> </a> </li>'
+                }
+                var dom1 = $(html);
+                if(data[i].parentId != null && data[i].parentId != ""){
+                    if(tindex == 0){
+                        var html2 = '<ul class="sub-menu"></ul>'
+                        var dom2 = $(html2);
+                        dom2.append(dom1);
+                        dom.append(dom2);
+                    }else{
+                        $(dom).find('ul').first().append(dom1);
+                    }
+                    tindex = 1;
+                }else{
+                    dom.append(dom1);
+                }
+                if(data[i].children && data[i].children.length != 0){
+                    $scope.changeNav(dom1,data[i].children);
+                }
+            }
+        }
+        $scope.newElm = $compile($scope.newElm)($scope);
+        return $scope.newElm;
+    };
+
+    $scope.onAllGroup = function(){
+        $scope.addGroupPowerGridOptions.data = $scope.groupPowerGridOptions.data;
     }
 
     $scope.onPowerDelete = function () {
@@ -479,33 +511,11 @@ app.controller('menuModalCtrl', function ($rootScope, $scope, $http, $timeout, n
         $scope.deleteWithChildren(rows);
 
     }
-
-    $scope.pushChildren = function (rows) {
-
-        var rowdata = rows;
-        var isselect = false;
-        for (let i = 0; i < $scope.addGroupPowerGridOptions.data.length; i++) {
-            if ($scope.addGroupPowerGridOptions.data[i].menuId == rowdata.menuId) {
-                isselect = true;
-                break;
-            }
-        }
-        if (isselect) {
-            return;
-        }
-        $scope.addGroupPowerGridOptions.data.push(rowdata);
-        if (rows.children && rows.children.length > 0) {
-            angular.forEach(rows.children, function (obj, index) {
-                $scope.pushChildren(obj);
-            });
-        }
-    }
-
     $scope.deleteWithChildren = function (rows) {
         for (var j = 0; j < rows.length; j++) {
 
             for (var i = 0; i < $scope.addGroupPowerGridOptions.data.length; i++) {
-                if ($scope.addGroupPowerGridOptions.data[i].menuId == rows[j].menuId) {
+                if ($scope.addGroupPowerGridOptions.data[i].pk == rows[j].pk) {
                     $scope.addGroupPowerGridOptions.data.splice(i, 1);
                 }
             }

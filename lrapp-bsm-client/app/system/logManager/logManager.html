@@ -1,3 +1,4 @@
 <div ng-controller="logManagerCtrl">
-    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('system/logManager/logManagerGrid.html')" ></div>
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/logManager/logManagerGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/logManager/logManagerCard.html')" ng-show="isCard"></div>
 </div>
