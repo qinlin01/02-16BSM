@@ -1,0 +1,263 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.agentName}}</h4>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>执业人员信息编号：</span><span class="fontStyle">{{VO.agentCode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执业人员类型：</span><span class="fontStyle">{{VO.agentType | SELECT_AGENTTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>工号：</span><span class="fontStyle">{{VO.workNo}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>姓名：</span><span class="fontStyle">{{VO.agentName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>性别：</span><span class="fontStyle">{{VO.gender | SELECT_SEXTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>证件类型：</span><span class="fontStyle">{{VO.certType | SELECT_CERTCODETYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>证件号码：</span><span class="fontStyle">{{VO.documentCode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>手机号：</span><span class="fontStyle">{{VO.telephoneNo}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <!--                <div class="col-md-4">-->
+                <!--                    <span>是否公司内部员工：</span><span class="fontStyle">{{VO.ifInternal | SELECT_YESNO}}</span>-->
+                <!--                </div>-->
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>执业区域：</span><span class="fontStyle">{{VO.responsibleArea}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执业证名称：</span><span class="fontStyle">{{VO.licensedName | SELECT_ZYZTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执业证编号：</span><span class="fontStyle">{{VO.licensedNo}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>执业登记日期：</span><span class="fontStyle">{{VO.licensedDate}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执业登记状态：</span><span class="fontStyle">{{VO.practiceRegistrationStatus | SELECT_PRACTICE_REGISTRATION_STATUS}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执业登记注销日期：</span><span class="fontStyle">{{VO.licensedEndDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>职工状态：</span><span class="fontStyle">{{VO.agentState | SELECT_STAFFTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>入职日期：</span><span class="fontStyle">{{VO.inTheDate}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>离职日期：</span><span class="fontStyle">{{VO.outTheDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否独立个人保险代理人工商登记：</span><span class="fontStyle">{{VO.personalAgentBusinessRegistration | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否允许互联网营销宣传：</span><span class="fontStyle">{{VO.internetMarketingPublicity | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否独立个人保险代理人：</span><span class="fontStyle">{{VO.personalAgent | SELECT_YESNO}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>所属机构：</span><span class="fontStyle">{{VO.Affiliation | SELECT_STAFFTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务范围：</span><span class="fontStyle">{{VO.businessScope}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否兼职：</span><span class="fontStyle">{{VO.ifPartTime | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.agentType == 2">
+                    <span>工作单位：</span><span class="fontStyle">{{VO.workUnits}}</span>
+                </div>
+            </div>
+
+
+            <div class="col-md-12" ng-if="VO.agentType == 2">
+                <div class="col-md-4">
+                    <span>开户行：</span><span class="fontStyle">{{VO.bankName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>银行卡号：</span><span class="fontStyle">{{VO.bankNumber}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4" ng-if="VO.agentType == 2">
+                    <span>协议生效日期：</span><span class="fontStyle">{{VO.agreementStartDate| date_cell_date}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.agentType == 2">
+                    <span>协议到期日期：</span><span class="fontStyle">{{VO.agreementEndDate| date_cell_date}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+                    <span>合同生效日期：</span><span class="fontStyle">{{VO.contStartDate}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+                    <span>合同到期日期：</span><span class="fontStyle">{{VO.contEndDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否注销：</span><span class="fontStyle">{{VO.ifCancellation | SELECT_YESNO}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390">奖惩记录</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>奖惩类型</th>
+                        <th>日期</th>
+                        <th>事项描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.rewardPunishmentList">
+                        <td>{{item.rewardPunishmentType | SELECT_REWARDPUNISHMENTTYPE}}</td>
+                        <td>{{item.acceptDate| date_cell_date}}</td>
+                        <td>{{item.memo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+                <p style="font-size: 14px;color: #748390">薪酬</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>薪酬金额（元）</th>
+                        <th>发放日期</th>
+                        <th>说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.compensationList">
+                        <td>{{item.wage}}</td>
+                        <td>{{item.acceptDate }}</td>
+                        <td>{{item.memo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390">岗前培训记录</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>培训名称</th>
+                        <th>开始日期</th>
+                        <th>结束日期</th>
+                        <th>培训地点</th>
+                        <th>培训方式</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.trainingRecordList">
+                        <td>{{item.trainingName}}</td>
+                        <td>{{item.startDate | date_cell_date}}</td>
+                        <td>{{item.endDate | date_cell_date}}</td>
+                        <td>{{item.pkAreacl.name}}</td>
+                        <td>{{item.trainingType| SELECT_ENUMTRAINTYPE}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive" ng-if="VO.agentType == 2">
+                <p style="font-size: 14px;color: #748390">合同信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>经法合同编号</th>
+                        <th>经法合同名称</th>
+                        <th>协议生效日期</th>
+                        <th>协议到期日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.contractList">
+                        <td>{{item.economicContract.code}}</td>
+                        <td>{{item.economicContract.name}}</td>
+                        <td>{{item.contStartDate| date_cell_date}}</td>
+                        <td>{{item.contEndDate| date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>附件名称</th>
+                        <th>上载时间</th>
+                        <th>下载</th>
+                        <th>在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

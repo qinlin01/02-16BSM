@@ -1,0 +1,172 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group lr-btn-fixed">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onConfirm()" ng-if="checkStatus(gridApi,'billstatus',[28,46],false)">
+                <i class="ti-check"></i>
+                <span>确认完成</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46||VO.billstatus==36)">-->
+                <!--<i class="fa fa-edit"></i>-->
+                <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.serialNo}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>流水号：</span><span class="fontStyle">{{VO.serialNo}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>客户编号：</span><span class="fontStyle">{{VO.pkCustomer.code}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>客户相关部门/单位：</span><span class="fontStyle">{{VO.deptName}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>客户联系人：</span><span class="fontStyle">{{VO.contact}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>职务：</span><span class="fontStyle">{{VO.principalship}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>联系方式：</span><span class="fontStyle">{{VO.contactFashion}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>提交日期：</span><span class="fontStyle">{{VO.commitDate | date_cell_date}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>提交地点：</span><span class="fontStyle">{{VO.commitAddres}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>编发日期：</span><span class="fontStyle">{{VO.compileDate | date_cell_date}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>日常咨询方式：</span><span class="fontStyle">{{VO.dayConsult}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>保单维护方式：</span><span class="fontStyle">{{VO.insureBill}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>协助索赔方式：</span><span class="fontStyle">{{VO.assistCompensate}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>客户回访周期：</span><span class="fontStyle">{{VO.visitFrequencyType | SELECT_FREQUENCYTYPE}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>回访次数：</span><span class="fontStyle">{{VO.visitLimitCount}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>客户培训周期：</span><span class="fontStyle">{{VO.trainFrequencyType | SELECT_FREQUENCYTYPE}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>培训次数：</span><span class="fontStyle">{{VO.trainLimitCount}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>保险公司服务质量评价周期：</span><span class="fontStyle">{{VO.assessFrequencyType | SELECT_INSUREFREQUENCYTYPE}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>评价次数：</span><span class="fontStyle">{{VO.assessLimitCount}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>客户服务工作报告周期：</span><span class="fontStyle">{{VO.reportFrequency}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>报告次数：</span><span class="fontStyle">{{VO.reportLimitCount}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                                </div>
+                    </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                                <tab index="1" heading="客户服务计划子表" select="selectTab('cusServicePlanBGridOptions')">
+                                    <div ui-grid="cusServicePlanBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                                </tab>
+                        <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <table style="width: 100%; text-align: center;">
+                <tr >
+                    <td>操作人</td>
+                    <td>提交人</td>
+                    <td>提交时间</td>
+                    <td>处理人</td>
+                    <td>处理时间</td>
+                    <td>审批结果</td>
+                    <td>审批意见</td>
+                    <td>处理状态</td>
+                    <td>持续时间</td>
+                </tr>
+                <tr ng-repeat="item in VO.taskHis" style="color: black;">
+
+                    <td ng-bind-html="item.operate_name" style="padding-top: 5px;"></td>
+                    <td ng-bind-html="item.pk_submitter.name"></td>
+                    <td ng-bind-html="item.submit_time"></td>
+
+                    <td ng-bind-html="item.pk_process.name"></td>
+                    <td ng-bind-html="item.process_time"></td>
+
+                    <td ng-bind-html="item.result"></td>
+                    <td ng-bind-html="item.opinion"></td>
+                    <td ng-bind-html="item.process_status | SELECT_WORKFLOW_PROCESS_STATUS"></td>
+                    <td ng-bind-html="item.durationLabel"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

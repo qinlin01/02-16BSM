@@ -1,0 +1,138 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-controller="insurancemanVOGridOptionsCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    保险人信息 <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="panel-body">
+                    <form name="form">
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险人名称：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insurancemanpk">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险人地址：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insuranceaddr">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险人联系人姓名：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insurancelinkman">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险人联系电话：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insurancelinktel">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">是否代收保费：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.replace">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">是否全额解付：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.pay">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保费金额不含增值税：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.vdef4">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">佣金金额不含增值税：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.vdef2">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">承保比例(%)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insurancerate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险金额/赔偿限额(元)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.vdef1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">保险保费(元)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.insurancemoney">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">佣金比例(%)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.commisionrate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">佣金金额(元)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.feemount">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">是否主承保：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.chiefman">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">备注：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="insurancemanVO.memo">
+                                            </div>
+                                        </div>
+                                </div>
+                    </form>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

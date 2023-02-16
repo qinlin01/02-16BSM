@@ -1,0 +1,90 @@
+<div class="main-form-style"  ng-controller="dealAppAttachmentCtrl"  >
+    <form  name="dealAttachmentsForm" verify-scope="tipStyle: 1">
+        <div ng-controller="upLoadCtrls">
+            <div class="form-horizontal" >
+                <accordion class="" close-others="oneAtATime">
+                    <div ng-init="status={open:true}"></div>
+                    <accordion-group is-open="true" class="lr-page-bg-gray">
+                        <accordion-heading class="lr-page-bg-white">
+                            <div class="btn lr-page-bg-indigo">
+                                <i class="fa fa-paperclip lr-page-color" aria-hidden="true"></i>
+                                <span class="lr-page-color" ng-bind="getDisName('附件信息','')"></span>
+                            </div>
+                            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <div class="col-md-7">
+                                        <button class="btn btn-sm btn-info" ng-verify="{control:'dealAttachmentsForm',disabled:false,tipStyle:1}" ng-click="upLoadAll();" ng-bind="getDisName('批量上传','')"></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="col-md-5 control-label" ng-bind="getDisName('选择附件','：')"></label>
+
+                                    <div class="col-md-7">
+                                        <table>
+                                            <tr>
+                                                <td data-ng-show="!isCanUpLoad">
+                                                    <input class="form-control" ng-model="getDisName('请选择附件','')" style="width: 152px;" type="text">
+                                                </td>
+                                                <td data-ng-show="isCanUpLoad">
+                                                    <input class="form-control" ng-model="getDisName('不可上传附件','')" style="width: 152px;" type="text">
+                                                </td>
+                                                <td>
+                                                    <input type="file"  nv-file-select="" ng-disabled="isCanUpLoad" multiple uploader="uploader" style="filter:alpha(opacity: 0); opacity:0; position:absolute; left:0; top:0; width:100%; height:100%; display:block; cursor:pointer;" value="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-repeat="item in uploader.queue">
+                                <div class="col-md-3" style="padding-right: 0px; ">
+                                    <label class="col-md-5 control-label" ng-bind="getDisName('文件名称','：')"></label>
+                                    <div class="col-md-7">
+                                        <input  class="form-control" ng-model="item.file.name" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-right: 0px; ">
+                                    <label class="col-md-5 control-label" ng-bind="getDisName('文档分类','：')"></label>
+                                    <div class="col-md-7">
+                                        <input class="form-control"  ng-disabled="isSubDisabled" ui-popup-ref url="'documentRef/queryForGrid'" ng-click="" popup-model="item"
+                                               popup-model-field="'pk_document_dir'" ng-model="item.pk_document_dir.name" type="text"
+                                               popup-init="ref" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-right: 0px; ">
+                                    <div class="col-md-4" style="padding: 5px;">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="progress" style="background-color: #fcfffa;  height: 13px; margin-top: 10px;">
+                                            <div class="progress-bar bg-info" role="progressbar" style="border-radius: 2px;display: block; width: 0%; box-shadow:0px 0px 10px 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A;background-color: #FFFFFF;" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-right: 0px; ">
+                                    <div class="col-md-4" style="padding: 5px;">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <button class="btn btn-sm lr-sub-btn" ng-click="item.remove()" ng-bind="getDisName('删除','')"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </div>
+            <div class="pull-right" >
+                <button ng-click="onSubSave()" ng-disabled="getIfUploads()"  style="margin-right: 10px;" class="btn btn-sm lr-sub-btn" >
+                    <span ng-bind="getDisName('确定')"></span>
+                </button>
+                <button ng-click="onSubCancel()" style="margin-right: 10px;"class="btn btn-sm lr-sub-btn" >
+                    <span ng-bind="getDisName('取消')"></span>
+                </button>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,166 @@
+<div class="form-horizontal" >
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <div ng-init="queryTotal = false"></div>
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">起保年度</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['year']"
+                                    ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                <option value="">--请选择起保年度--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">起保月度</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['month']"
+                                    ng-options="item.id as item.name for item in SELECT.MARMONTH">
+                                <option value="">--请选择起保月度--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">截止月度</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['month1']"
+                                    ng-options="item.id as item.name for item in SELECT.MARMONTH">
+                                <option value="">--请选择截止月度--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">保单号</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control" type="text" ng-model="QUERY['zm']"/>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-4">
+                        <label class="col-md-4 control-label">承包公司</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control" type="text" ng-model="QUERY['code']"/>
+                        </div>
+                    </div>-->
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">投保人</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control"  type="text" ng-model="QUERY['begin']"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">险种</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control" type="text" ng-model="QUERY['type']"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">立项编号</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control" type="text" ng-model="QUERY['project_code']"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">建立部门</label>
+                        <div class="col-md-8">
+                            <input class="col-md-12 form-control"  type="text" ng-model="QUERY['dept']"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true"  grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar" >
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <!--  <div class="btn-group lr-grid-btn-right" >
+                              <button class="btn lr-main-btn" ng-click="onAdd()">
+                                  <i class="fa fa-plus"></i>
+                                  增加
+                              </button>
+                              <button class="btn lr-main-btn" ng-click="onEdit()">
+                                  <i class="fa fa-plus"></i>
+                                  修改
+                              </button>
+                              <button class="btn lr-main-btn" ng-click="onSave()">
+                                  <i class="fa fa-plus"></i>
+                                  保存
+                              </button>
+                              <button class="btn lr-main-btn" ng-click="onCancel()">
+                                  <i class="fa fa-plus"></i>
+                                  取消
+                              </button>
+                              <button class="btn lr-main-btn" ng-click="onDelete()">
+                                  <i class="fa fa-plus"></i>
+                                  删除
+                              </button>
+                              <button class="btn lr-main-btn" ng-click="onCard()">
+                                  <i class="fa fa-plus"></i>
+                                  卡片
+                              </button>
+                               <button class="btn lr-main-btn" ng-click="viewClause(gridApi)" ng-disabled="checkStatus(gridApi,'','',true)" >
+                                <i class="fa fa-joomla"></i>
+                                查看附件
+                            </button>
+                          </div>-->
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <tabset justified="false" ng-if="chilbTable">
+            <tab index="1" heading="险种信息" select="selectTab('mainInsuranceGridOptions')">
+                <div ui-grid="mainInsuranceGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="被保险人信息" select="selectTab('insurancedManGridOptions')">
+                <div ui-grid="insurancedManGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="3" heading="保险人信息" select="selectTab('insuranceManGridOptions')">
+                <div ui-grid="insuranceManGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="4" heading="收付款信息" select="selectTab('paymentGridOptions')">
+                <div ui-grid="paymentGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>

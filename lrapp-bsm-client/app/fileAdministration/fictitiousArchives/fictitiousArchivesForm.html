@@ -1,0 +1,590 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+
+            <button class="btn lr-main-btn" ng-click="onBack()" ng-show="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onPullData(VO)">
+                <i class="fa fa-edit"></i>
+                <span>更新</span>
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onSave(VO)"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}"
+                    ng-if="!isGrid&&!isCard&&isEdit||VO.fbillstatus==1">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onFileSubmit()" ng-if="VO.billstatus==31||VO.billstatus==36">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onRecall()" ng-if="VO.billstatus==33||VO.billstatus==32">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()">
+                <i class="fa fa-plus"></i>
+                <span>查看流程图</span>
+            </button>
+        </div>
+    </div>
+    <div class="alert alert-success" style="background-color: #edfaff;color: #6c7072">
+        <p style="font-weight: bold">
+            <i class="fa fa-info-circle fa-2x" style="color: #0a9dc7">  帮助信息</i>
+            <br><br>
+            1.保险建议书，保险方案，保险条款必须上传其中一个
+        </p>
+    </div>
+    <div class="lr-contant">
+        <accordion class="">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">项目信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">立项名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref="projectRef"
+                                   url="archivesPath+'fileAdministration/fileAdministrationRef'" ng-click=""
+                                   popup-model="VO"
+                                   popup-model-field="'pkProject'" popup-model-value="param"
+                                   ng-model="VO.pkProject.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">立项编号 ：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkProject.code">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户产权关系：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkProject.tradetype_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务类型：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-value="VO.pkProject.c_2_type|SELECT_MARKETTYPE">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">立项经办人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-value="VO.pkProject.pkOperator_name">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">业务状态：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-verify ng-model="VO.bussinessStatus" ng-disabled="isDisable"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.BUSSINESSSTATUS">
+                                <option value="">--请选择业务状态--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+        <accordion class="">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">档案基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">经纪业务档案编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.fbillno">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">档案状态：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-value="VO.fbillstatus|SELECT_BUSSINESFILESSTATUS">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">档案经办人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkOperator.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">档案所属期：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-verify  ng-model="VO.period"
+                                    ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                <option value="">--请选择所属期--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label" for="exampleFormControlTextarea1">备注：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" type="text"  value="" ng-disabled="isDisable" style="resize:none"
+                                  ng-model="VO.c1Execitem">
+                            </textarea>
+                        </div>
+                </div>
+                </div>
+            </accordion-group>
+        </accordion>
+        <table class="table table-hover" id="sample-table-1">
+            <thead>
+            <tr>
+                <th>档案状态一览(份)</th>
+                <th></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th class="hidden-xs"></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="center">
+                    <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="基础档案"><i class="fa fa-pencil"></i></a>
+                    基础档案</td>
+                <td class="lr-verify">保险经纪委托协议：{{VO.fileStatusList.entrustmentAgreement}}</td>
+                <td class="lr-verify">客户告知书：{{VO.fileStatusList.customerNotification}}</td>
+                <td class="lr-verify">投保人声明：{{VO.fileStatusList.policyholderStatement}}</td>
+                <td class="lr-verify">保险条款：{{VO.fileStatusList.insuranceClause}}</td>
+                <td class="lr-verify">保险产品：{{VO.fileStatusList.insuranceProducts}}</td>
+                <td class="lr-verify">保险经纪业务委托协议模板：{{VO.fileStatusList.entrustmentAgreementTemplate}}</td>
+                <td class="lr-verify">客户告知书模板：{{VO.fileStatusList.customerNotificationTemplate}}</td>
+                <td class="lr-verify">保险建议书：{{VO.fileStatusList.insuranceProposal}}</td>
+                <td class="lr-verify">保险方案：{{VO.fileStatusList.insurancePlan}}</td>
+            </tr>
+            <tr>
+                <td class="center">
+                    <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="结算档案"><i class="fa fa-pencil"></i></a>
+                    结算档案</td>
+                <td class="lr-verify">结算对账单：{{VO.fileStatusList.fictitiousClearing}}</td>
+                <td class="lr-verify">代收客户保险费通知书：{{VO.fileStatusList.collectPremiumAdviceForClients}}</td>
+                <td class="lr-verify">代付客户保险费通知书：{{VO.fileStatusList.noticeOfPremiumPaymentOnBehalfOfCustomer}}</td>
+                <td class="lr-verify">业务收入确认书：{{VO.fileStatusList.businessIncomeConfirmation}}</td>
+                <td class="lr-verify">发票开具申请单：{{VO.fileStatusList.invoiceApplicationForm}}</td>
+                <td class="lr-verify">发票扫描件：{{VO.fileStatusList.scannedInvoice}}</td>
+                <td class="lr-verify">资金到账通知书：{{VO.fileStatusList.receiptNoitce}}</td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+            </tr>
+            <tr>
+                <td class="center">
+                    <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="合同档案"><i class="fa fa-pencil"></i></a>
+                    合同档案</td>
+                <td class="hidden-xs">经纪业务委托合同：{{VO.fileStatusList.entrustmentContract}}</td>
+                <td class="lr-verify">经纪业务合作协议：{{VO.fileStatusList.cooperationAgreement}}</td>
+                <td class="lr-verify">经纪业务三方协议：{{VO.fileStatusList.tripartiteAgreement}}</td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+            </tr>
+            <tr>
+                <td class="center">
+                    <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="单据档案"><i class="fa fa-pencil"></i></a>
+                    单据档案</td>
+                <td class="lr-verify">保单：{{VO.fileStatusList.insurancePolicy}}</td>
+                <td class="hidden-xs">批单：{{VO.fileStatusList.endorsement}}</td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+            </tr>
+            <tr>
+                <td class="center">
+                    <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="其他档案"><i class="fa fa-pencil"></i></a>
+                    其他档案</td>
+                <td class="lr-verify">领取报酬情况表：{{VO.fileStatusList.drawReward}}</td>
+                <td class="lr-verify">装盒照片：{{VO.fileStatusList.boxPictures}}</td>
+                <td class="hidden-xs">其他附件：{{VO.fileStatusList.otherAttachments}}</td>
+                <td class="lr-verify">保险公司合作谈判文件：{{VO.fileStatusList.cooperationTalkFile}}</td>
+                <td class="hidden-xs">风险合规会审查材料：{{VO.fileStatusList.riskComplianceFile}}</td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+                <td class="hidden-xs"></td>
+            </tr>
+            </tbody>
+        </table>
+        <accordion close-others="oneAtATime" class="" >
+              <div ng-if="VO.bussinessStatus ==1">
+
+                  <div class="table-responsive">
+                      <p style="font-size: 16px;color: #8e8e93">保险产品</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>互联网产品类型</th>
+                              <th>产品名称</th>
+                              <th>保险公司</th>
+                              <th>生效日期</th>
+                              <th>失效日期</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in VO.insuranceProduct">
+                              <td>{{item.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</td>
+                              <td>{{item.insuranceManProduct}}</td>
+                              <td>{{item.insuranceMan}}</td>
+                              <td>{{item.startDate | date_cell_date}}</td>
+                              <td>{{item.endDate | date_cell_date}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      <hr/>
+                      <p style="font-size: 16px;color: #8e8e93">基础档案</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>档案类型</th>
+                              <th>档案名称</th>
+                              <th>互联网产品类型</th>
+                              <th>产品名称</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in VO.baseFiles">
+                              <td>{{item.archivesType | SELECT_PRODUCTDATAFILETYPE}}</td>
+                              <td>{{item.archivesName}}</td>
+                              <td>{{item.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</td>
+                              <td>{{item.insuranceManProduct}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      <hr/>
+                      <p style="font-size: 16px;color: #8e8e93">其它基础档案</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>档案类型</th>
+                              <th>档案名称</th>
+                              <th>更新时间</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in VO.otherBaseFiles">
+                              <td>{{item.archivesType | SELECT_PRODUCTDATAFILETYPE}}</td>
+                              <td>{{item.archivesName}}</td>
+                              <td>{{item.updateTime | date_cell_date}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      <hr/>
+                      <p style="font-size: 16px;color: #8e8e93">结算对账单</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>档案类型</th>
+                              <th>档案名称</th>
+                              <th>上载时间</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in VO.fictitiousClearing">
+                              <td>结算对账单</td>
+                              <td>{{item.archivesName}}</td>
+                              <td>{{item.updateTime}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div class="form-group" aria-expanded="true">
+                      <accordion-group class="lr-page-bg-gray" is-open="true">
+                          <accordion-heading class="lr-page-bg-white">
+                              <div class="btn lr-page-bg-indigo" style="margin-left: 15px">
+                                  <i class="fa fa-hand-o-right lr-page-color"></i>
+                                  <span class="lr-page-color">基础档案</span>
+                              </div>
+                          </accordion-heading>
+                          <div class="pull-right lr-mr10 lr-mt10">
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onUploads('baseArchivesGridOptions');">增加
+                              </button>
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onDeleteLine('baseArchivesGridOptions');">删除
+                              </button>
+                          </div>
+                          <tabset justified="false" aria-expanded="true">
+                              <tab index="3" heading="基础档案" select="selectTab('baseArchivesGridOptions')">
+                                  <div ui-grid="baseArchivesGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                       ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                       style="height: 200px"></div>
+                              </tab>
+                          </tabset>
+                      </accordion-group>
+                  </div>
+
+                  <div class="form-group" aria-expanded="true" id="junctionFilesId">
+                      <accordion-group class="lr-page-bg-gray" is-open="true">
+                          <accordion-heading class="lr-page-bg-white">
+                              <div class="btn lr-page-bg-indigo" style="margin-left: 15px">
+                                  <i class="fa fa-hand-o-right lr-page-color"></i>
+                                  <span class="lr-page-color">结算档案</span>
+                              </div>
+                          </accordion-heading>
+                          <div class="pull-right lr-mr10 lr-mt10">
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onUploads('clearingFilesGridOptions');">增加
+                              </button>
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onDeleteLine('clearingFilesGridOptions');">删除
+                              </button>
+                          </div>
+                          <tabset justified="false" aria-expanded="true">
+                              <tab index="3" heading="结算档案" select="selectTab('clearingFilesGridOptions')">
+                                  <div ui-grid="clearingFilesGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                       ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                       style="height: 200px"></div>
+                              </tab>
+                          </tabset>
+                      </accordion-group>
+                  </div>
+
+                  <div class="form-group" id="mainContractId">
+                      <accordion-group class="lr-page-bg-gray" is-open="true">
+                          <accordion-heading class="lr-page-bg-white">
+                              <div class="btn lr-page-bg-indigo">
+                                  <i class="fa fa-hand-o-right lr-page-color" style="margin-left: 15px"></i>
+                                  <span class="lr-page-color">合同档案</span>
+                              </div>
+                          </accordion-heading>
+                          <div class="pull-right lr-mr10 lr-mt10">
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="relationPage('mainContractGridOptions');">增加
+                              </button>
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onDeleteLine('mainContractGridOptions');">删除
+                              </button>
+                          </div>
+                          <tabset justified="false" aria-expanded="true">
+                              <tab heading="合同档案" select="selectTab('mainContractGridOptions')">
+                                  <div ui-grid="mainContractGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                       ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                       style="height: 200px"></div>
+                              </tab>
+                          </tabset>
+                      </accordion-group>
+                  </div>
+                  <div class="form-group" id="uploadContractFileId">
+                      <accordion-group class="lr-page-bg-gray" is-open="true">
+                          <accordion-heading class="lr-page-bg-white">
+                              <div class="btn lr-page-bg-indigo">
+                                  <i class="fa fa-hand-o-right lr-page-color" style="margin-left: 15px"></i>
+                                  <span class="lr-page-color">其他合同附件信息</span>
+                              </div>
+                          </accordion-heading>
+                          <div class="pull-right lr-mr10 lr-mt10">
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onUploads('uploadContractFileGridOptions');">增加
+                              </button>
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onDeleteLine('uploadContractFileGridOptions');">删除
+                              </button>
+                          </div>
+                          <tabset justified="false" aria-expanded="true">
+                              <tab heading="其他合同附件信息" select="selectTab('uploadContractFileGridOptions')">
+                                  <div ui-grid="uploadContractFileGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                       ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                       style="height: 200px"></div>
+                              </tab>
+                          </tabset>
+                      </accordion-group>
+                  </div>
+
+                  <div class="table-responsive">
+                      <p style="font-size: 16px;color: #8e8e93">保单附件</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>序号</th>
+                              <th>保单信息编号</th>
+                              <th>保单号</th>
+                              <th>保单附件</th>
+                              <th>关联的对账单名称</th>
+                              <th>互联网产品类型</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in internetBillFilesContainer.tablePageData">
+                              <td>{{$index+1}}</td>
+                              <td>{{item.insuranceinfono}}</td>
+                              <td>{{item.insuranceno}}</td>
+                              <td></td>
+                              <td>{{item.fictitiousBillName}}</td>
+                              <td>{{item.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="row" ng-show="internetBillFilesContainer.tablePageDataAll.length > 10">
+                      <div class="pull-right">
+                          <nav>
+                              <ul class="pagination">
+                                  <li>
+                                      <a ng-click="selectTablePage(1,'internetBillFilesContainer')" role="button">
+                                          <span role="button">首页</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="tablePrevious('internetBillFilesContainer')" role="button">
+                                          <span role="button">上一页</span>
+                                      </a>
+                                  </li>
+                                  <li ng-repeat="page in internetBillFilesContainer.tablePagesList"
+                                      ng-class="{active: tableActivePage(page,'internetBillFilesContainer')}"
+                                      role="button">
+                                      <a ng-click="selectTablePage(page,'internetBillFilesContainer')">{{ page
+                                          }}</a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="tableNext('internetBillFilesContainer')" role="button">
+                                          <span role="button">下一页</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="selectTablePage(internetBillFilesContainer.tablePages,'internetBillFilesContainer')"
+                                         role="button">
+                                          <span role="button">末页</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </nav>
+                      </div>
+                  </div>
+                  <div class="table-responsive">
+                      <p style="font-size: 16px;color: #8e8e93">批单附件</p>
+                      <hr/>
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                              <th>序号</th>
+                              <th>批单信息编号</th>
+                              <th>批单号</th>
+                              <th>批单附件</th>
+                              <th>关联保单号</th>
+                              <th>批单对账单信息编号</th>
+                              <th>互联网产品类型</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="item in endorsementFilesContainer.tablePageData">
+                              <td>{{$index+1}}</td>
+                              <td>{{item.vbillno}}</td>
+                              <td>{{item.insurancecheckno}}</td>
+                              <td></td>
+                              <td>{{item.insuranceno}}</td>
+                              <td>{{item.endorsementsCode}}</td>
+                              <td>{{item.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="row" ng-show="endorsementFilesContainer.tablePageDataAll.length > 10">
+                      <div class="pull-right">
+                          <nav>
+                              <ul class="pagination">
+                                  <li>
+                                      <a ng-click="selectTablePage(1,'endorsementFilesContainer')" role="button">
+                                          <span role="button">首页</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="tablePrevious('endorsementFilesContainer')" role="button">
+                                          <span role="button">上一页</span>
+                                      </a>
+                                  </li>
+                                  <li ng-repeat="page in endorsementFilesContainer.tablePagesList"
+                                      ng-class="{active: tableActivePage(page,'endorsementFilesContainer')}"
+                                      role="button">
+                                      <a ng-click="selectTablePage(page,'endorsementFilesContainer')">{{ page
+                                          }}</a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="tableNext('endorsementFilesContainer')" role="button">
+                                          <span role="button">下一页</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a ng-click="selectTablePage(endorsementFilesContainer.tablePages,'endorsementFilesContainer')"
+                                         role="button">
+                                          <span role="button">末页</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </nav>
+                      </div>
+                  </div>
+                  <div class="form-group" id="dealAttachmentBId">
+                      <accordion-group class="lr-page-bg-gray" is-open="true">
+                          <accordion-heading class="lr-page-bg-white">
+                              <div class="btn lr-page-bg-indigo" style="margin-left: 15px">
+                                  <i class="fa fa-hand-o-right lr-page-color"></i>
+                                  <span class="lr-page-color">其他附件</span>
+                              </div>
+                          </accordion-heading>
+                          <div class="pull-right lr-mr10 lr-mt10">
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onUploads('dealAttachmentBGridOptions');">上传
+                              </button>
+                              <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                                      ng-click="onDeleteLine('dealAttachmentBGridOptions');">删除
+                              </button>
+                          </div>
+                          <tabset justified="false">
+                              <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                                  <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                       ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                       style="height: 200px"></div>
+                              </tab>
+                          </tabset>
+                      </accordion-group>
+                  </div>
+              </div>
+          </accordion>
+    </div>
+</form>

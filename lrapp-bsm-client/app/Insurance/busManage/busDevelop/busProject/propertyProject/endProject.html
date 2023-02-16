@@ -1,0 +1,43 @@
+<div class="main-form-style">
+    <form  name="dealAttachmentsForm" verify-scope="tipStyle: 1">
+            <div class="form-horizontal" >
+                <accordion class="" close-others="oneAtATime">
+                    <div ng-init="status={open:true}"></div>
+                    <accordion-group is-open="true" class="lr-page-bg-gray">
+                        <accordion-heading class="lr-page-bg-white">
+                            <div class="btn lr-page-bg-indigo">
+                                <i class="fa fa-paperclip lr-page-color" aria-hidden="true"></i>
+                                <span class="lr-page-color">项目终止原因</span>
+                            </div>
+                            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">项目终结原因：</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="VO.ceaseReason"
+                                                required
+                                                ng-options="item.id as item.name for item in SELECT.CEASEREASONTYPE">
+                                            <option value="">--请选择--</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </div>
+            <div class="pull-right" >
+                <button ng-click="onSubSaveVO()"  style="margin-right: 10px;" class="btn btn-sm lr-sub-btn" >
+                    <span >确定</span>
+                </button>
+                <button ng-click="onSubCancel()" style="margin-right: 10px;"class="btn btn-sm lr-sub-btn" >
+                    <span>取消</span>
+                </button>
+            </div>
+            <div style="clear: both"></div>
+    </form>
+</div>

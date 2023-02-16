@@ -1,0 +1,6 @@
+<div ng-controller="fileAdministrationCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/fileAdministration/fileAdministrationGrid.html')" ng-show="isGrid"></div>
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/fileAdministration/fileAdministrationForm.html')" ng-show="!isGrid&&!isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/fileAdministration/fileAdministrationCard.html')" ng-show="isCard&&!isOld"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/fileAdministration/fileAdministrationCardOld.html')" ng-show="isCard&&isOld"></div>
+</div>

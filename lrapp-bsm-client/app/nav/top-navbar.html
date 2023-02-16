@@ -1,0 +1,38 @@
+<!-- start: TOP NAVBAR -->
+<!-- start: NAVBAR HEADER -->
+<!--<div>
+
+</div>-->
+<img ng-src="{{logo}}" style="height: 49px; position: fixed;z-index:10 "/>
+<!-- end: NAVBAR HEADER -->
+<!-- start: NAVBAR COLLAPSE -->
+<div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
+    <ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
+        <!-- start: USER OPTIONS DROPDOWN -->
+        <li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
+            <a href class="dropdown-toggle" uib-dropdown-toggle>
+                <img src="img/default-user.png" alt="{{user.name}}">
+                <span class="username">{{userVO.name}} <i class="ti-angle-down"></i></i></span> </a>
+
+            <ul class="dropdown-menu dropdown-dark">
+                <li>
+                    <a ng-click="changePwd()">修改密码</a>
+                </li>
+                <li>
+                    <a ng-click="logout()"> 注销 </a>
+                </li>
+            </ul>
+        </li>
+        <!-- end: USER OPTIONS DROPDOWN -->
+    </ul>
+    <!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+    <div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true">
+        <div class="arrow-left"></div>
+        <div class="arrow-right"></div>
+    </div>
+    <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+</div>
+<a class="sidebar-mobile-toggler dropdown-off-sidebar hidden-md hidden-lg" ng-click="toggle('off-sidebar')"> &nbsp; </a>
+<a class="dropdown-off-sidebar hidden-sm hidden-xs" ng-click="toggle('off-sidebar')"> &nbsp; </a>
+<!-- end: NAVBAR COLLAPSE -->
+<!-- start: TOP NAVBAR -->

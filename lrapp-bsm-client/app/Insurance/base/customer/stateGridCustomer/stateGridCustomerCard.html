@@ -1,0 +1,139 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==0||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&VO.billstatus==40||VO.billstatus==32||VO.billstatus==33">
+                <i class="ti-check"></i>
+                <span>复核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.c0Name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 1?'span-background-tg':VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                    <span class="span-background-zc">{{VO.tag}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户编号：</span><span class="fontStyle">{{VO.c0Code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户代码：</span><span class="fontStyle">{{VO.signcustomerno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>注册号/统一社会信用代码：</span><span class="fontStyle">{{VO.c1Institution}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>上级管理单位：</span><span class="fontStyle">{{VO.upCustomer.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户级别：</span><span class="fontStyle">{{VO.c1Level | SELECT_CUSTOMERLEVELTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>行业类别：</span><span class="fontStyle">{{VO.tradetype.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>单位性质：</span><span class="fontStyle">{{VO.enumEntkind.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>所在区域：</span><span class="fontStyle">{{VO.c1Province.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>地址：</span><span class="fontStyle">{{VO.c0Address}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>传真：</span><span class="fontStyle">{{VO.c1Fax}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>公司电话：</span><span class="fontStyle">{{VO.c1Phone}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">
+                            <div ui-grid="accountGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+                        </tab>
+                        <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">
+                            <div ui-grid="linkmanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+                        </tab>
+                        <tab index="3" heading="部门信息" select="selectTab('customerDeptGridOptions')">
+                            <div ui-grid="customerDeptGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+                        </tab>
+                        <tab index="5" heading="变更信息" select="selectTab('customerChangeCompareGridOptions')">
+                            <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="4" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+</form>

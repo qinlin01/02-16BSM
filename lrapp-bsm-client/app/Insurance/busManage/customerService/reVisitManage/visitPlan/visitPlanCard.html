@@ -1,0 +1,74 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group" add-card-btn>
+            <button class="btn btn-azure" ng-click="onConfirm()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46)">
+                <i class="fa fa-chevron-left"></i>
+                <span>确认完成</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onPrint()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>打印</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.serialNo}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>客户回访计划编号：</span><span class="fontStyle">{{VO.serialNo}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>回访计划年度：</span><span class="fontStyle">{{VO.planYear | SELECT_BUSIYEAR}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>回访计划月度：</span><span class="fontStyle">{{VO.planMonth | SELECT_MARMONTH}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                                </div>
+                    </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                                <tab index="1" heading="客户回访计划子表" select="selectTab('visitPlanBGridOptions')">
+                                    <div ui-grid="visitPlanBGridOptions"  ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                                </tab>
+                        <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+</form>

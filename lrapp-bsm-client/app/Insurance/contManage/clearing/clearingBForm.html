@@ -1,0 +1,118 @@
+<div class="main-form-style" ng-controller="clearingBCtrl">
+    <div class="form-horizontal">
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button class="btn lr-main-btn" ng-click="onQueryChildren();">
+                                <i class="fa fa-search"></i>
+                                <span>查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onResetChildren();">
+                                <i class="fa fa-undo"></i>
+                                <span>重置</span>
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">保（批）单信息编号</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.srcBillno">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">保（批）单号或合同号</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.insuranceno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">来源类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-verify ng-model="QUERYCHILDREN.dataType"
+                                        required
+                                        ng-options="item.id as item.name for item in SELECT.TYPEBUSINESS">
+                                    <option value="">--请选择来源类型--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">收付款类型</label>
+                            <div class="col-md-6">
+                                <select class="form-control" ng-disabled="true" ng-verify
+                                        ng-model="QUERYCHILDREN.inoutType"
+                                        required
+                                        ng-options="item.id as item.name for item in SELECT.ITEMTYPE">
+                                    <option value="">--请选择收付款类型--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">立项名称</label>
+                            <div class="col-md-6">
+                                <input class="form-control" ng-verify ui-popup-ref="projectRef"
+                                       url="'projectRef/queryForGrid'" ng-click="" popup-model="QUERYCHILDREN"
+                                       popup-model-field="'pkProject'"
+                                       ng-model="QUERYCHILDREN.pkProject.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">计划日期</label>
+                            <div class="col-md-6">
+                                <input class="form-control" wdate-picker type="text" ng-model="QUERYCHILDREN.plan_date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">佣金金额</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="number" ng-model="QUERYCHILDREN.factMoney">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">往来对象</label>
+                            <div class="col-md-6">
+                                <input class="form-control" ng-verify ui-popup-ref
+                                       url="'insuranceCustomerRef/queryForGrid'" ng-click="" popup-model="QUERYCHILDREN"
+                                       popup-model-field="'pkCustomer'"
+                                       ng-model="QUERYCHILDREN.pkCustomer.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="col-md-6 control-label">投保人名称</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.estimatename">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <div ui-grid="clearingBGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns
+             class="grid" style="height:300px"></div>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()" style="margin-right: 10px;" class="btn btn-sm btn-info">确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;" class="btn btn-sm btn-info">返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>
+

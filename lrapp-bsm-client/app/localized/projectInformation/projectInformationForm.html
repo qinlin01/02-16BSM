@@ -1,0 +1,264 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave(null)"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure"  type="button" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">客户名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.customer_name">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">项目名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" ng-model="VO.project_name" type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">投保险种：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ui-popup-ref="issueRef"
+                           url="'insuranceRef/queryForGrid'" ng-click="" ng-disabled="isInsurancetype" ng-verify popup-model="VO" is-tree="true"
+                           popup-model-field="'insurancetype'"
+                           ng-model="VO.insurancetype.name" type="text" placeholder="请选择">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">地域：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.project_address">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">保单号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify ng-disabled="isInsurance_no" ng-model="VO.insurance_no" type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">保险人名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" ng-model="VO.insurance_people" type="text">
+                </div>
+            </div>
+        </div>
+            <div class="form-group" ng-if = "VO.projectType == 2">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">险种类别：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" ng-model="VO.insurance_type" type="text">
+                    </div>
+            </div>
+
+            </div>
+        </accordion-group>
+        </accordion>
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">签单保费：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" format-number="" type="text" ng-model="VO.service_premium">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">佣金合计：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" format-number="" ng-model="VO.service_income" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">应收服务费：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" format-number="" ng-model="VO.service_fee_receivable" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">已结服务费：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" format-number="" ng-model="VO.service_charge_received" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">未收服务费：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" format-number="" ng-model="VO.unpaid_service_charge" type="text">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        </accordion>
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+<!--                <div class="col-md-4">-->
+<!--                    <label class="col-md-5 control-label">项目联系人：</label>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <input class="form-control" ng-verify  ng-model="VO.project_contact" type="text">-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">项目联系人：</label>
+                    <div class="col-md-7">
+<!--                        <input class="form-control" ng-verify ui-popup-ref="issueRef"-->
+<!--                               url="localizedPath + 'LocalPerson/referToPro'" ng-click="" popup-model="VO"-->
+<!--                               popup-model-field="'ProPerson'"-->
+<!--                               ng-model="VO.ProPerson.personName" type="text" placeholder=""/>-->
+                        <input class="form-control" ng-verify  ng-model="VO.project_contact" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">项目联系人方式：</label>
+                    <div class="col-md-7">
+<!--                        <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}"  ng-model="VO.person.personTel" type="text">-->
+                        <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}"  ng-model="VO.project_contactway" type="text">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <input type="button" url="localizedPath + 'LocalPerson/referToPro'" ng-click="" popup-model="VO"
+                               popup-model-field="'ProPerson'" placeholder="" class="btn btn-sm btn-info ng-scope" ng-verify ui-popup-ref="issueRef"  value="查询项目联系人">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+<!--                <div class="col-md-4">-->
+<!--                    <label class="col-md-5 control-label">中建联系人：</label>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <input class="form-control" ng-verify  ng-model="VO.contact" type="text">-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">中建联系人：</label>
+                    <div class="col-md-7">
+<!--                        <input class="form-control" ng-verify ui-popup-ref="issueRef"-->
+<!--                               url="localizedPath + 'LocalPerson/referToCus'" ng-click="" popup-model="VO"-->
+<!--                               popup-model-field="'CusPerson'"-->
+<!--                               ng-model="VO.CusPerson.personName" type="text" placeholder=""/>-->
+                        <input class="form-control" ng-verify  ng-model="VO.contact" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">中建联系人方式：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}"  ng-model="VO.contactway" type="text">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <input type="button" url="localizedPath + 'LocalPerson/referToCus'" ng-click="" popup-model="VO"
+                               popup-model-field="'CusPerson'" placeholder="" class="btn btn-sm btn-info ng-scope" ng-verify ui-popup-ref="issueRef"  value="查询中建联系人">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+<!--                <div class="col-md-4">-->
+<!--                    <label class="col-md-5 control-label">保险公司联系人：</label>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <input class="form-control" ng-verify  ng-model="VO.insurance_contact" type="text">-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保险公司联系人：</label>
+                    <div class="col-md-7">
+<!--                        <input class="form-control" ng-verify ui-popup-ref="issueRef"-->
+<!--                               url="localizedPath + 'LocalPerson/referToIns'" ng-click="" popup-model="VO"-->
+<!--                               popup-model-field="'InsPerson'"-->
+<!--                               ng-model="VO.InsPerson.personName" type="text" placeholder=""/>-->
+                        <input class="form-control" ng-verify  ng-model="VO.insurance_contact" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保险公司联系人方式：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: true}"  ng-model="VO.insurance_contactway" type="text">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <input type="button" url="localizedPath + 'LocalPerson/referToIns'" ng-click="" popup-model="VO"
+                               popup-model-field="'InsPerson'" placeholder="" class="btn btn-sm btn-info ng-scope" ng-verify ui-popup-ref="issueRef"  value="查询保险公司联系人">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        </accordion>
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label ">保险起始日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control"  ng-verify ng-disabled="isBegin_time"   type="text" wdate-picker
+                               ng-model="VO.begin_time">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label ">保险到期日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="isEnd_time"  type="text" wdate-picker
+                               ng-model="VO.end_time">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">项目状态：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-verify  ng-model="VO.project_state"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.SELECTPROJECTINFORMATIONSTATETYPE">
+                            <option value="">--项目状态--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </accordion-group>
+        </accordion>
+
+        <accordion close-others="oneAtATime" class="">
+            <div class="form-group"style="margin-top: 50px">
+                <accordion-group class="lr-page-bg-gray" is-open="true">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo" style="margin-left: 15px">
+                            <span class="lr-page-color">附件信息</span>
+                        </div>
+                    </accordion-heading>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" type="button" ng-if="isForm"
+                                ng-click="onUploadsProject();">上传
+                        </button>
+                        <button class="btn btn-sm btn-info" type="button" ng-if="isForm"
+                                ng-click="onDeleteLine();">删除
+                        </button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                 style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </accordion-group>
+            </div>
+        </accordion>
+    </div>
+</form>

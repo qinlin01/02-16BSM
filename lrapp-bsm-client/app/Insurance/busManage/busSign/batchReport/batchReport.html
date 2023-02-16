@@ -1,0 +1,5 @@
+<div ng-controller="batchReportCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/batchReport/batchReportGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/batchReport/batchReportCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/batchReport/batchReportForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

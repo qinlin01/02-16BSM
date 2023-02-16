@@ -1,0 +1,33 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户名称：</span><span class="fontStyle">{{VO.customerName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户产权关系：</span><span class="fontStyle">{{VO.customerPr}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务分类：</span><span class="fontStyle">{{VO.busiTypeName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>所属子公司：</span><span class="fontStyle">{{VO.pkCorp}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

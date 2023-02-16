@@ -1,0 +1,5 @@
+<div ng-controller="againSubscriptionCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/againSubscription/againSubscriptionGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/againSubscription/againSubscriptionCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/againSubscription/againSubscriptionForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

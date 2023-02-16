@@ -1,0 +1,5 @@
+<div ng-controller="referToManageCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/referToManage/referToManageGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/referToManage/referToManageCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/referToManage/referToManageForm.html')" ng-show="isForm"></div>
+</div>

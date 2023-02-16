@@ -1,0 +1,296 @@
+<!-- start: OFF RIGHT SIDEBAR TABSET -->
+<uib-tabset class="sidebar-wrapper" justified="true" >
+
+    <uib-tab>
+        <uib-tab-heading>
+            <i class="ti-bookmark-alt"></i>
+        </uib-tab-heading>
+        <div class="panel-heading ng-scope">
+            <span>最近访问</span>
+        </div>
+        <div class="panel-body ng-scope" ng-controller="oftenUsedCtrl">
+            <div class="sidebar app-aside hidden-print" toggleable parent-active-class="app-slide-off">
+                <div style="float: left; width: 100%;">
+                    <div perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" class="sidebar-container">
+                        <nav>
+                            <nav ng-init="nav()">
+                                <div id="lr-recent-info"></div>
+                            </nav>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </uib-tab>
+
+
+    <!-- start: TAB FAVORITES -->
+    <!-- css样式选择 -->
+    <uib-tab>
+        <uib-tab-heading>
+            <i class="ti-ruler-pencil"></i>
+        </uib-tab-heading>
+
+        <div class="panel-heading ng-scope">
+            样式选择
+        </div>
+        <div class="panel-body ng-scope">
+            <!-- start: FIXED HEADER -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left" >固定页头</span>
+                <span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isNavbarFixed" class="green"></switch>
+		</span>
+            </div>
+            <!-- end: FIXED HEADER -->
+            <!-- start: FIXED SIDEBAR -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left">固定侧边</span>
+                <span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isSidebarFixed" class="green"></switch>
+		</span>
+            </div>
+            <!-- end: FIXED SIDEBAR -->
+            <!-- start: CLOSED SIDEBAR -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left">关闭侧边</span>
+                <span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isSidebarClosed" class="green"></switch>
+		</span>
+            </div>
+            <!-- end: CLOSED SIDEBAR -->
+            <!-- start: FIXED FOOTER -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left">固定页尾</span>
+                <span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isFooterFixed" class="green"></switch>
+		</span>
+            </div>
+            <div class="colors-row setting-box">
+                <div class="color-theme theme-1">
+                    <div class="color-layout">
+                        <label style="background-color: #EFEFF4 !important;"
+                               ng-click=" app.layout.theme='theme-1'; app.layout.logo='assets/images/logo.png'; ">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-1">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="color-theme theme-2">
+                    <div class="color-layout">
+                        <label style="background-color: #22262E !important;"
+                               ng-click=" app.layout.theme='theme-2'; app.layout.logo='assets/images/logo2.png'; ">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-2">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="colors-row setting-box">
+                <div class="color-theme theme-3">
+                    <div class="color-layout">
+                        <label style="background-color: #788290 !important;"
+                               ng-click=" app.layout.theme='theme-3'; app.layout.logo='assets/images/logo2.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-3">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="color-theme theme-4">
+                    <div class="color-layout">
+                        <label style="background-color: #F1F1F1 !important;"
+                               ng-click=" app.layout.theme='theme-4'; app.layout.logo='assets/images/logo.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-4">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="colors-row setting-box">
+                <div class="color-theme theme-5">
+                    <div class="color-layout">
+                        <label style="background-color: #2C3543 !important;"
+                               ng-click=" app.layout.theme='theme-5'; app.layout.logo='assets/images/logo2.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-5">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="color-theme theme-6">
+                    <div class="color-layout">
+                        <label style="background-color: #1C2B36 !important;"
+                               ng-click=" app.layout.theme='theme-6'; app.layout.logo='assets/images/logo2.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-6">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!--//   添加新的样式 theme-lr -->
+            <div class="colors-row setting-box" style="width: 50%">
+                <div class="color-theme theme-lr">
+                    <div class="color-layout">
+                        <label style="background-color: #9F0318 !important;"
+                               ng-click="app.layout.theme='theme-lr'; app.layout.logo='assets/images/logo2.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-lr">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!--6666-->
+                <div class="color-theme theme-6" data-ng-show="false">
+                    <div class="color-layout">
+                        <label style="background-color: #1C2B36 !important;"
+                               ng-click=" app.layout.theme='theme-6'; app.layout.logo='assets/images/logo2.png';">
+                            <input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-6">
+                            <span class="ti-check"></span>
+                            <span class="split header"> <span class="color th-header"></span> <span
+                                    class="color th-collapse"></span> </span>
+                            <span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span
+                                    class="color th-body"></span> </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- end: THEME SWITCHER -->
+        </div>
+        <!-- end: SETTINGS -->
+
+
+    </uib-tab>
+
+    <!-- css样式选择 -->
+    <uib-tab>
+        <uib-tab-heading>
+            <i class="ti-settings"></i>
+        </uib-tab-heading>
+
+        <div class="panel-heading ng-scope">
+            <span>系统设置</span>
+        </div>
+        <div class="panel-body ng-scope">
+            <!-- start: FIXED HEADER -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left" >是否在新的窗口打开节点</span>
+                <span class="setting-switch pull-right">
+                    <switch ng-model="app.layout.isOpenNewWindow" class="green"></switch>
+                </span>
+            </div>
+        </div>
+
+        <div class="panel-body ng-scope">
+            <!-- start: FIXED HEADER -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left">左侧与上侧菜单导航切换</span>
+                <span class="setting-switch pull-right">
+                    <switch ng-model="app.layout.isUseLeftNav" class="green"></switch>
+                </span>
+            </div>
+        </div>
+
+        <div class="panel-body ng-scope">
+            <!-- start: FIXED HEADER -->
+            <div class="setting-box clearfix">
+                <span style="margin-top: 8px;" class="setting-title pull-left" >是否在弹窗中处理待办</span>
+                <span class="setting-switch pull-right">
+                    <switch ng-model="app.layout.isHandleWorkInNode" class="green"></switch>
+                </span>
+            </div>
+        </div>
+    </uib-tab>
+    <!--end: TAB FAVORITES-->
+    <!--start: TAB GENERAL SETTING-->
+
+    <!--  一般设置: 设置一些系统信息  -->
+    <!--<uib-tab>-->
+    <!--<uib-tab-heading>-->
+    <!--<i class="ti-settings"></i>-->
+    <!--</uib-tab-heading>-->
+    <!--<div class="tab-pane" id="settings">-->
+    <!--<div class="sidebar-content" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">-->
+    <!--<h5 class="sidebar-title" translate="offsidebar.settings.MAIN">General Settings</h5>-->
+    <!--<ul class="media-list">-->
+    <!--<li class="media">-->
+    <!--<div class="padding-10">-->
+    <!--<switch ng-model="enable.notifications" ng-init="enable.notifications = true"-->
+    <!--class="green display-table-cell"></switch>-->
+    <!--<span class="display-table-cell vertical-align-middle padding-left-10"-->
+    <!--translate="offsidebar.settings.NOTIFICATIONS">Enable Notifications</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="media">-->
+    <!--<div class="padding-10">-->
+    <!--<switch ng-model="show.email" ng-init="show.email = false"-->
+    <!--class="green display-table-cell"></switch>-->
+    <!--<span class="display-table-cell vertical-align-middle padding-left-10"-->
+    <!--translate="offsidebar.settings.SHOWEMAIL">Show your E-mail</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="media">-->
+    <!--<div class="padding-10">-->
+    <!--<switch ng-model="show.users" ng-init="show.users = true"-->
+    <!--class="green display-table-cell"></switch>-->
+    <!--<span class="display-table-cell vertical-align-middle padding-left-10"-->
+    <!--translate="offsidebar.settings.SHOWUSERS">Show Offline Users</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="media">-->
+    <!--<div class="padding-10">-->
+    <!--<switch ng-model="email.alert" ng-init="email.alert = true"-->
+    <!--class="green display-table-cell"></switch>-->
+    <!--<span class="display-table-cell vertical-align-middle padding-left-10"-->
+    <!--translate="offsidebar.settings.EMAILALERT">E-mail Alerts</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="media">-->
+    <!--<div class="padding-10">-->
+    <!--<switch ng-model="sms.alert" ng-init="sms.alert = false"-->
+    <!--class="green display-table-cell"></switch>-->
+    <!--<span class="display-table-cell vertical-align-middle padding-left-10"-->
+    <!--translate="offsidebar.settings.SMSALERT">SMS Alerts</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="save-options">-->
+    <!--<button class="btn btn-success">-->
+    <!--<i class="icon-settings"></i><span translate="offsidebar.settings.SAVE">Save Changes</span>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</uib-tab>-->
+
+    <!-- end: TAB GENERAL SETTING -->
+</uib-tabset>
+<!-- end: OFF RIGHT SIDEBAR TABSET -->

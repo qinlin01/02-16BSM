@@ -1,0 +1,81 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">-->
+                <!--<i class="fa fa-edit"></i>-->
+                <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.group_name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>角色编码：</span><span class="fontStyle">{{VO.group_code}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>所属机构：</span><span class="fontStyle">{{VO.pk_org.name}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>录入人：</span><span class="fontStyle">{{VO.pk_operator.name}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>录入日期：</span><span class="fontStyle">{{VO.operate_date}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>录入时间：</span><span class="fontStyle">{{VO.operate_time}}</span>
+                                </div>
+                    </div>
+            <div class="col-md-12 card-grid">
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <h5>审批信息</h5>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <span>操作名称</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作人</span>
+                </div>
+                <div class="col-md-2">
+                    <span>执行结果</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作时间</span>
+                </div>
+                <div class="col-md-4">
+                    <span>备注</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

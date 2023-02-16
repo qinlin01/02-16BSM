@@ -1,0 +1,320 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==0||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&VO.billstatus==40">
+                <i class="ti-check"></i>
+                <span>复核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==0)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <!--   <accordion class="" close-others="oneAtATime">
+           <accordion-group is-open="true" class="lr-page-bg-gray">
+               <accordion-heading class="lr-page-bg-white">
+                   <div class="btn lr-page-bg-indigo">
+                       <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                       <span class="lr-page-color">基本信息</span>
+                   </div>
+                   <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                      ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+               </accordion-heading>-->
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">变更流水号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.serial">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">变更类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.cusChangeType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.CUSCHANGETYPE">
+                        <option value="">--请选择变更类型--</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">变更原因：</label>
+                <div class="col-md-7">
+                    <textarea class="form-control" style="resize:none"  ng-verify ng-disabled="isDisabled" type="text" ng-model="VO.sealReason"></textarea>
+                </div>
+            </div>-->
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-12">
+                <label class="col-md-255 control-label lr-verify">变更原因：</label>
+                <div class="col-md-254">
+                    <div simditor toolbar="[]" type="text"  ng-model="VO.sealReason" ng-disabled="isDisabled" ></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保险公司：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref
+                           url="'insuranceCustomerRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'pkCustomer'"
+                           ng-model="VO.pkCustomer.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">保险公司编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isUse||!isProvince" type="text" ng-model="VO.c0Code">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保险公司名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{max:512}" ng-disabled="isUse" type="text" ng-model="VO.c0Name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">注册号/统一社会信用代码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{max:18}" ng-disabled="isUse" type="text"
+                           ng-model="VO.c1Institution">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">是否是集团成员单位：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isUse" ng-model="VO.c0HasCustomerTop"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.YESNO">
+                        <option value="">--请选择是否是集团成员单位--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">省级公司：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isUse||isProvince" ui-popup-ref
+                           url="'insuranceCustomerRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'upCustomerSw'"
+                           ng-model="VO.upCustomerSw.name" type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">单位性质：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify ng-disabled="isUse" ui-popup-ref
+                           url="'companyTypeRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'enumEntkind'"
+                           is-tree="true"
+                           ng-model="VO.enumEntkind.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保险公司类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-verify ng-disabled="isUse" ng-model="VO.enumInsureCompType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.INSURECOMPTYPE">
+                        <option value="">--请选择保险公司类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保险公司级别：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-verify ng-disabled="isDisabled" ng-model="VO.enumInsuranceLevel"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.INSURANCELEVEL">
+                        <option value="">--请选择保险公司级别--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">所在区域：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify ng-disabled="isUse" ui-popup-ref
+                           url="'areaclTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'c1Province'"
+                           is-tree="true"
+                           ng-model="VO.c1Province.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">地址：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:300 }" ng-disabled="isUse" type="text" ng-model="VO.c0Address">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">公司电话：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isUse" type="text" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}" ng-model="VO.c1Phone">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">传真：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isUse" type="text" ng-model="VO.c1Fax">
+                </div>
+            </div>
+        <!--    <div class="col-md-4">
+                <label class="col-md-5 control-label">业务部门：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                           url="'deptTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'pkDept'"
+                           ng-model="VO.pkDept.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">制单时间：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.operateTime">
+                </div>
+            </div>-->
+        </div>
+        <!--   </accordion-group>
+       </accordion>-->
+    </div>
+    <div>
+        <!-- <div class="pull-right lr-mr10 lr-mt10">
+             <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onAddLine();">增行</button>
+             <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
+         </div>-->
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit&&!upOrDown&&!upAndDown" ng-click="onAddLine();">增行</button>
+
+
+            <button class="btn btn-sm btn-info" type="button"
+                    ng-click="onUploads();" ng-show="upOrDown">上传
+            </button>
+            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit&&!upAndDown" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info" type="button"
+                    ng-click="onDownLoads();" ng-show="upOrDown">下载
+            </button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="客户信息变更对比" select="selectTab('customerChangeCompareGridOptions')">
+                <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav  ui-grid-selection class="grid" style="height: 200px"></div>
+            </tab>
+
+            <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">
+                <div ui-grid="accountGridOptions"   ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">
+                <div ui-grid="linkmanGridOptions"   ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+
+            <tab index="2" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions"  ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">复核人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkChecker}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">复核日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.checkDate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">复核时间：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.checkTime}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">复核意见：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.vapprovenote}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

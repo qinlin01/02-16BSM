@@ -1,0 +1,59 @@
+<!-- start: LOGIN -->
+<div class="row lr-login-box" ng-controller="LoginCtrl" ng-show="!isSysLogin">
+    <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-5">
+        <div class="logo">
+        </div>
+        <!-- start: LOGIN BOX -->
+        <div class="box-login">
+            <form class="form-login" ng-keyup="enterKey($event)">
+                <fieldset>
+                    <legend>
+                        用户登录
+                    </legend>
+                    <div class="form-group">
+                         <span class="input-icon">
+                             <input type="text" id="user_code" class="form-control" name="userCode" placeholder="用户名"
+                                    ng-model="loginVO.userCode" autofocus>
+                             <i class="fa fa-user"></i> </span>
+                    </div>
+                    <div class="form-group">
+                         <span class="input-icon">
+                             <input type="password" id="accept" class="form-control" name="accept" placeholder="密码"
+                                    ng-model="loginVO.accept">
+                             <i class="fa fa-lock"></i>
+                             </span>
+                    </div>
+                    <div class="form-group" style="height:32px;">
+                        <div class="col-md-9 col-md-9 col-sm-9 col-xs-8" style="padding: 0px;">
+                             <span class="input-icon">
+                                   <input type="text" class="form-control" id="verify" ng-model="inputCode">
+                                   <i class="fa fa-check"></i>
+                             </span>
+                        </div>
+                        <div class="col-md-3 col-md-3 col-sm-3 col-xs-4" style="padding: 0px;">
+                            <canvas width="150" height="45" id="verifyCanvas" style="display: none;"></canvas>
+                            <img ng-click="createCode()" class="img-responsive" id="code_img"
+                                 style="max-width: 100%;height:31px;margin:1px 2px;display: block;"
+                                 src="data:image/png;base64,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">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <button type="button" id="login" class="btn btn-dark-azure col-md-4 col-md-offset-4"
+                                    ng-click="login()">
+                                登 录
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <!-- start: COPYRIGHT -->
+            <!--            <div class="copyright">-->
+            <!--                {{app.year}} &copy; {{ app.name }} by {{ app.author }}.-->
+            <!--            </div>-->
+            <!-- end: COPYRIGHT -->
+        </div>
+        <!-- end: LOGIN BOX -->
+    </div>
+</div>
+<!-- end: LOGIN -->

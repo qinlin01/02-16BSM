@@ -1,0 +1,144 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46||VO.billstatus==36)">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.pkCustomerTrain.name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4"> <span>培训总结编号：</span><span class="fontStyle">{{VO.serialNo}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训计划时间：</span><span class="fontStyle">{{VO.pkCustomerTrain.train_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训实际时间：</span><span class="fontStyle">{{VO.trainActualDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训对象：</span><span class="fontStyle">{{VO.pkCustomerTrain.c_0_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训目的：</span><span class="fontStyle">{{VO.pkCustomerTrain.train_goal}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训计划地点：</span><span class="fontStyle">{{VO.pkCustomerTrain.allname}}</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <span>培训内容：</span><span class="fontStyle">{{VO.pkCustomerTrain.enum_train_content}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训计划人数：</span><span class="fontStyle">{{VO.pkCustomerTrain.train_pers_num}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训实际人数：</span><span class="fontStyle">{{VO.trainActualNumber}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>收到有效调查表数量：</span><span class="fontStyle">{{VO.trainQuestionnaireCount}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>非常满意(%)：</span><span class="fontStyle">{{VO.trainConditionBest}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>满意(%)：</span><span class="fontStyle">{{VO.trainConditionBetter}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>一般(%)：</span><span class="fontStyle">{{VO.trainConditionGood}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>不满意(%)：</span><span class="fontStyle">{{VO.trainConditionBad}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>培训效果：</span><span class="fontStyle">{{VO.trainEffect}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>培训中发现的问题：</span><span class="fontStyle">{{VO.trainProblem}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>客户希望继续了解的内容：</span><span class="fontStyle">{{VO.hopeRealizeContent}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 card-grid">
+            <div>
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                </div>
+                <tabset justified="false">
+                    <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                        <div ui-grid="dealAttachmentBGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                             ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+</form>

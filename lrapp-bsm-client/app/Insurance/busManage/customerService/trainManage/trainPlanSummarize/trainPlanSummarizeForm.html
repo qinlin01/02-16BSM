@@ -1,0 +1,276 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+ <!--       <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>-->
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">流水号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.serialNo">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkCustomerTrain.train_code">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训主题：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="pkCustomerTrain" ng-verify
+                                   url="'customerTrainRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkCustomerTrain'"
+                                   ng-model="VO.pkCustomerTrain.train_theme" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><!--control-label-->
+                        <label class="col-md-255 control-label">培训目的：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" rows="4" ng-disabled="true" type="text"
+                                      ng-model="VO.pkCustomerTrain.train_goal"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训计划时间：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkCustomerTrain.train_date">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训实际时间：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.trainActualDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训计划地点：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkCustomerTrain.allname">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label">培训对象：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" ng-disabled="true" type="text" rows="4"
+                                      ng-model="VO.pkCustomerTrain.c_0_name"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label">培训内容：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" ng-disabled="true" type="text" rows="4"
+                                      ng-model="VO.pkCustomerTrain.enum_train_content"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训计划人数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkCustomerTrain.train_pers_num">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">培训实际人数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainActualNumber">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">收到有效调查表数量：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainQuestionnaireCount">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">培训效果：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" ng-disabled="isDisabled" type="text" rows="4"
+                                      ng-model="VO.trainEffect"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">非常满意(%)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainConditionBest">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">满意(%)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainConditionBetter">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">一般(%)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainConditionGood">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">不满意(%)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="number"
+                                   ng-model="VO.trainConditionBad">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label" >培训中发现的问题：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" ng-verify="{ required: false,max:2000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="4"
+                                                               ng-model="VO.trainProblem"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label">客户希望继续了解的内容：</label>
+                        <div class="col-md-254 ">
+                                                    <textarea class="form-control" ng-verify="{ required: false,max:2000 }" style="resize:none" rows="4" ng-disabled="isDisabled" type="text"
+                                                              ng-model="VO.hopeRealizeContent"></textarea>
+                        </div>
+                    </div>
+                </div>
+               <!-- <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务部门：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" ui-popup-ref
+                                   url="'deptTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkDept'"
+                                   ng-model="VO.pkDept.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">制单时间：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.operateTime">
+                        </div>
+                    </div>
+                </div>-->
+         <!--   </accordion-group>
+        </accordion>-->
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" ng-show="isEdit&&!upOrDown" ng-click="onAddLine();">增行</button>
+
+            <button class="btn btn-sm btn-info" ng-click="onUploads();" ng-show="upOrDown">上传</button>
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="附件子表" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

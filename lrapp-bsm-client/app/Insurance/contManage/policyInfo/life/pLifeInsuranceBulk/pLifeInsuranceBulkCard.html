@@ -1,0 +1,440 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onEdit()"
+                    ng-if="isCard&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmitSelf()" ng-if="isCard&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="isCard&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isCard&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isCard">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <fieldset>
+            <h4>{{VO.pkProject.name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':'' }} badge" style="float: right">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <span>批量业务信息编号：</span><span class="fontStyle">{{VO.bulkCode}}</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                详细信息
+            </legend>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单性质：</span><span class="fontStyle">{{VO.insurancebillkind | SELECT_INSURANCEBILLKIND}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>包含保单数量：</span><span class="fontStyle">{{VO.billNum}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务签报批复编号：</span><span class="fontStyle">{{VO.pkReport.approval_number}}</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                项目信息
+            </legend>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>立项号：</span><span class="fontStyle">{{VO.pkProject.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务分类：</span><span class="fontStyle">{{VO.busiType.parentName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户产权关系：</span><span class="fontStyle">{{VO.pkProjectKind.name}}</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                保单信息
+            </legend>
+            <div class="col-md-12 card-grid">
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info"  type="button" ng-click="onUploadss()">保单附件批量导入</button>
+                </div>
+                <tabset justified="false">
+                    <tab index="1" heading="保单信息">
+                        <div ui-grid="insurancebillGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                险种信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>险种名称</th>
+                            <th>具体险种</th>
+                            <th>保险金额/赔偿限额（每人）</th>
+                            <th>投保人数</th>
+                            <th>保险金额/赔偿限额（元）</th>
+                            <th>费率（‰）</th>
+                            <th>保费金额不含增值税</th>
+                            <th>佣金金额不含增值税</th>
+                            <th>保费含税（元）</th>
+                            <th>佣金比例（％）</th>
+                            <th>佣金金额（含税）（元）</th>
+                            <th>免赔额（元）</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.insuranceinfo">
+                            <td>{{item.insurancepk.name}}</td>
+                            <td>{{item.vdef6}}</td>
+                            <td>{{item.insurancemoneyoneperson | AMOUNT_FILTER}}</td>
+                            <td>{{item.estimatenum}}</td>
+                            <td>{{item.insurancemoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.chargerate | AMOUNT_FILTER}}</td>
+                            <td>{{item.vdef4 | SELECT_YESNO}}</td>
+                            <td>{{item.vdef2 | SELECT_YESNO}}</td>
+                            <td>{{item.insurancecharge | AMOUNT_FILTER}}</td>
+                            <td>{{item.commisionrate | AMOUNT_FILTER}}</td>
+                            <td>{{item.commisionnum | AMOUNT_FILTER}}</td>
+                            <td>{{item.franchise | AMOUNT_FILTER}}</td>
+                            <td>{{item.cMemo}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                投保人信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>投保人</th>
+                            <th>证件类型</th>
+                            <th>证件号码</th>
+                            <th>性别</th>
+                            <th>联系方式</th>
+                            <th>常驻城市</th>
+                            <th>详细地址</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{billVO.estimatepk.name}}</td>
+                            <td>{{billVO.certType | SELECT_CERTCODETYPE}}</td>
+                            <td>{{billVO.documentCode}}</td>
+                            <td>{{billVO.estimateGender | SELECT_SEXTYPE}}</td>
+                            <td>{{billVO.vdef11}}</td>
+                            <td>{{billVO.estimateCity.name}}</td>
+                            <td>{{billVO.estimateaddr}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                被保人信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>与投保人关系</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>出生日期</th>
+                            <th>证件类型</th>
+                            <th>证件号码</th>
+                            <th>详细地址</th>
+                            <th>联系电话</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>主险保费(元)</th>
+                            <th>附加险保费(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.insurancedman">
+                            <td>{{item.withPolicyholder | SELECT_PERSONNELRELATIONS}}</td>
+                            <td>{{item.insurancedman}}</td>
+                            <td>{{item.sex | SELECT_SEXTYPE}}</td>
+                            <td>{{item.birthdate | date_cell_date}}</td>
+                            <td>{{item.certificatetype | SELECT_CERTCODETYPE}}</td>
+                            <td>{{item.certificateno}}</td>
+                            <td>{{item.insurancedmanaddr}}</td>
+                            <td>{{item.insurancedmanphone}}</td>
+                            <td>{{item.insurancemoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.insurancefee | AMOUNT_FILTER}}</td>
+                            <td>{{item.additioninsurancecharge | AMOUNT_FILTER}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset ng-if="billVO.beneficiary.length!=0">
+            <legend>
+                受益人信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>受益人类型</th>
+                            <th>与被保人关系</th>
+                            <th>姓名</th>
+                            <th>受益比例(%)</th>
+                            <th>证件类型</th>
+                            <th>证件号码</th>
+                            <th>联系方式</th>
+                            <th>联系地址</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.beneficiary">
+                            <td>{{item.beneficiarytype | SELECT_BENEFICIARYTYPE}}</td>
+                            <td>{{item.beneficiaryWithPolicyholder | SELECT_PERSONNELRELATIONS}}</td>
+                            <td>{{item.beneficiary}}</td>
+                            <td>{{item.beneficiaryRatio | AMOUNT_FILTER}}</td>
+                            <td>{{item.beneficiaryCertificatetype | SELECT_CERTCODETYPE}}</td>
+                            <td>{{item.beneficiaryCertificateno}}</td>
+                            <td>{{item.beneficiaryContactInformation}}</td>
+                            <td>{{item.beneficiaryContactAddress}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                保险人信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>保险人名称</th>
+                            <th>保险人地址</th>
+                            <th>保险人联系人姓名</th>
+                            <th>保险人联系电话</th>
+                            <th>是否代收保费</th>
+                            <th>是否全额解付</th>
+                            <th>承保比例(%)</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>保险保费(含税)(元)</th>
+                            <th>佣金金额(含税)(元)</th>
+                            <th>是否主承保</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.insuranceman">
+                            <td>{{item.insurancemanpk.name}}</td>
+                            <td>{{item.insuranceaddr}}</td>
+                            <td>{{item.insurancelinkman}}</td>
+                            <td>{{item.insurancelinktel}}</td>
+                            <td>{{item.replace | SELECT_YESNO}}</td>
+                            <td>{{item.pay | SELECT_YESNO}}</td>
+                            <td>{{item.insurancerate | AMOUNT_FILTER}}</td>
+                            <td>{{item.vdef1 | AMOUNT_FILTER}}</td>
+                            <td>{{item.insurancemoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.feemount | AMOUNT_FILTER}}</td>
+                            <td>{{item.chiefman | SELECT_YESNO}}</td>
+                            <td>{{item.memo}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                收付款信息
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>期数</th>
+                            <th>收付款类型</th>
+                            <th>收付款对象名称</th>
+                            <th>收付款对象类型</th>
+                            <th>收付款比例</th>
+                            <th>计划日期</th>
+                            <th>计划金额</th>
+                            <th>已结算金额</th>
+                            <th>未结算金额</th>
+                            <th>结算日期</th>
+                            <th>业务结算单号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.payment">
+                            <td>{{item.stages}}</td>
+                            <td>{{item.typeMoneyNO | SELECT_TYPEMONEY}}</td>
+                            <td>{{item.company.name}}</td>
+                            <td>{{item.typeCompanyNO | SELECT_CUSTOMERTYPE}}</td>
+                            <td>{{item.scaleMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.planDate | date_cell_date}}</td>
+                            <td>{{item.planMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.factMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.factDate | date_cell_date}}</td>
+                            <td>{{item.vsettlebillno}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                项目附件
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info center">
+                            <th>序号</th>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>下载</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in billVO.dealAttachmentB">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.attachment_name}}</td>
+                            <td>{{item.cUpdate}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                            class="fa fa-download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <!-- 保单附件 原 -->
+<!--        <fieldset ng-if="VO.dealAttachmentB.length!=0">-->
+<!--            <legend>-->
+<!--                保单附件-->
+<!--            </legend>-->
+<!--            <div class="table-responsive">-->
+<!--                <table class="table table-bordered table-hover">-->
+<!--                    <thead>-->
+<!--                    <tr class="info">-->
+<!--                        <th class="center">附件名称</th>-->
+<!--                        <th class="center">上载时间</th>-->
+<!--                        <th class="center">下载</th>-->
+<!--                        <th class="center">在线预览</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr ng-repeat="item in VO.dealAttachmentB">-->
+<!--                        <td>{{item.attachment_name}}</td>-->
+<!--                        <td>{{item.cUpdate}}</td>-->
+<!--                        <td>-->
+<!--                            <div class="visible-md visible-lg hidden-sm hidden-xs">-->
+<!--                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"-->
+<!--                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i-->
+<!--                                        class="fa fa-download"></i></a>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <div class="visible-md visible-lg hidden-sm hidden-xs">-->
+<!--                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"-->
+<!--                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i-->
+<!--                                        class="fa fa-eye"></i></a>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </fieldset>-->
+
+        <fieldset ng-if="VO.dealattachmentb.length!=0">
+            <legend>
+                附件
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr style="background: #fcfaed">
+                            <th>序号</th>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>下载</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealattachmentb">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.attachment_name}}</td>
+                            <td>{{item.cUpdate}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                            class="fa fa-download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+
+        </fieldset>
+    </div>
+</form>

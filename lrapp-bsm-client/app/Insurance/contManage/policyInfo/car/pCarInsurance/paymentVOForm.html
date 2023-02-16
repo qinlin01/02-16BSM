@@ -1,0 +1,108 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-controller="paymentVOGridOptionsCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    收付款信息 <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="panel-body">
+                    <form name="form">
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">期数：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.stages">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">收付款类型：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.typeMoneyNO">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">收付款对象名称：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.company">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">收付款对象类型：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.typeCompanyNO">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">收付款比例：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.scaleMoney">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">计划日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.planDate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">计划金额：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.planMoney">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">已结算金额：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.factMoney">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">未结算金额：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.noPaymentMoney">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">结算日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.factDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">业务结算单号：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="paymentVO.vsettlebillno">
+                                            </div>
+                                        </div>
+                                </div>
+                    </form>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

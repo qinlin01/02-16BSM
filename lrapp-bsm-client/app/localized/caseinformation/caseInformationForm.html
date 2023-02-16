@@ -1,0 +1,316 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-azure" type="button" ng-click="onUpdate()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm&&isUpdate">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm&&isAdd">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onTemporary()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+
+            <button type="button" class="btn btn-azure"  type="button" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-253 control-label lr-verify">项目信息：</label>
+                    <div class="col-md-252">
+                        <input class="form-control" ng-verify ui-popup-ref="issueRef"
+                        url="localizedPath + 'projectInformation/referTo'" ng-click="" popup-model="VO"
+                        popup-model-field="'project_information'"
+                        ng-model="VO.project_information.project_name" type="text" placeholder=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">客户名称：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.project_information.customer_name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">投保险种：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" ng-model="VO.project_information.insurancetype.name" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">保单号：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" ng-model="VO.project_information.insurance_no" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify">索赔类型：</label>
+                    <div class="col-md-8">
+                        <select  class="form-control" ng-model="VO.project_information.projectType" ng-disabled="true"
+                                ng-options="item.id as item.name for item in SELECT.PROJECTTYPES" >
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">项目险种：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" ng-model="VO.project_information.insurance_type" type="text">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        </accordion>
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify">报案号：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-verify  type="text" ng-model="VO.case_no">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify">出险时间：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-verify  wdate-picker type="text" ng-model="VO.lossoccurred_time">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify">索赔金额：</label>
+                    <div class="col-md-8">
+                        <input class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-verify type="text" format-number="" ng-model="VO.claim_amount">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-253 control-label">赔案名称：</label>
+                    <div class="col-md-252">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.case_name" ng-value=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify" >出险原因：</label>
+                    <div class="col-md-8">
+                        <select  class="form-control" ng-verify ng-model="VO.lossoccurred_reason_shorthand"
+                                ng-options="item.id as item.name for item in SELECT.LOSSOCCURREDREASONSHORTHAND" >
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.project_information.projectType == 2 || VO.project_information.projectType == 1">
+                    <label class="col-md-4 control-label">支付比例（%）</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.payout_percentage" ng-value=""/>
+                    </div>
+                </div>
+                <div class="col-md-12" style="margin-top: 7px">
+                    <label class="col-md-253 control-label lr-verify">具体原因：</label>
+                    <div class="col-md-252">
+                        <div simditor toolbar="[]" type="text" ng-model="VO.lossoccurred_reason"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify" >联系人：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.contact" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label lr-verify">联系电话：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}" type="text" ng-model="VO.contact_tel">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        </accordion>
+        <button class="btn lr-insureType-btn" ng-click="onAddassistclaimworkrecord()">
+            <i class="fa fa-plus-square"></i>
+            增加工作记录
+        </button>
+        <div ng-repeat="item in assistclaimworkrecordList">
+        <accordion class="">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-right lr-page-color"></i>
+                    <span class="lr-page-color">协助索赔重点工作记录</span>
+                </div>
+                <div class="form-group" ng-if="VO.project_information.projectType == 2 && VO.project_information.insurance_type == '财产险'">
+                    <div class="col-md-4" >
+                        <label class="col-md-4 control-label lr-verify" >工作类型：</label>
+                        <div class="col-md-8">
+                            <select  class="form-control" ng-verify  ng-model="item.workType"
+                                     ng-options="item.id as item.name for item in SELECT.WORKTYPEUNILFE" >
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8" >
+                        <label class="col-md-8 control-label" style="color: #00a8e2;text-align: left">{{WORKTYPETEXT[item.workType]}}</label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="VO.project_information.projectType == 2 && VO.project_information.insurance_type == '人身险'">
+                    <div class="col-md-4" >
+                        <label class="col-md-4 control-label lr-verify" >工作类型：</label>
+                        <div class="col-md-8">
+                            <select  class="form-control" ng-verify  ng-model="item.workType"
+                                     ng-options="item.id as item.name for item in SELECT.WORKTYPEILFE" >
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8" >
+                        <label class="col-md-8 control-label" style="color: #00a8e2;text-align: left">{{WORKTYPETEXT_rsx[item.workType]}}</label>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label lr-verify" >工作事项：</label>
+                            <div class="col-md-8">
+                                <select  class="form-control" ng-verify  ng-model="item.work_matters" ng-change="onSelect($index)"
+                                        ng-options="item.id as item.name for item in SELECT.WORKRECORDKIND" >
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label lr-verify" >日期：</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-verify wdate-picker ng-model="item.work_date" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="text-align: right">
+                            <button type="button" class="btn btn-azure"
+                                    ng-click="deletelistOptions($index)" type="button">
+                                <i class="fa fa-trash-o"></i>
+                                <span>删除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12" ng-show="assistclaimworkrecordListFlag[$index].isSelect">
+                            <label class="col-md-253 control-label lr-verify">工作内容：</label>
+                            <div class="col-md-252">
+                        <textarea class="form-control ng-pristine ng-valid ng-touched"
+                                  style="resize: none;" ng-verify  type="text" rows="4"
+                                  ng-model="item.work_content" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4" ng-show="assistclaimworkrecordListFlag[$index].isCancelCase">
+                            <label class="col-md-4 control-label" lr-verify>撤案日期：</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text"  wdate-picker ng-model="item.undo_time" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-show="assistclaimworkrecordListFlag[$index].isOverCase">
+                            <label class="col-md-4 control-label" lr-verify>赔款日期：</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text"  wdate-picker ng-model="item.indemnity_time" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-show="assistclaimworkrecordListFlag[$index].isOverCase">
+                            <label class="col-md-4 control-label" lr-verify>赔款金额：</label>
+                            <div class="col-md-8">
+                                <input class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" type="text" format-number="" ng-model="item.indemnity_amount" />
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-show="assistclaimworkrecordListFlag[$index].isOverCase">
+                            <label class="col-md-4 control-label" lr-verify>备注：</label>
+                            <div class="col-md-8">
+                                <input class="form-control"  type="text"  ng-model="item.remark" />
+                            </div>
+                        </div>
+                    </div>
+            </accordion-group>
+        </accordion>
+        </div>
+
+        <accordion close-others="oneAtATime" class="">
+            <div class="form-group"style="margin-top: 50px">
+                <accordion-group class="lr-page-bg-gray" is-open="true">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo" style="margin-left: 15px">
+                            <span class="lr-page-color">附件信息</span>
+                        </div>
+                    </accordion-heading>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" type="button" ng-if="isForm"
+                                ng-click="onUploads();">上传
+                        </button>
+                        <button class="btn btn-sm btn-info" type="button" ng-if="isForm"
+                                ng-click="onDeleteLine();">删除
+                        </button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                 style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </accordion-group>
+            </div>
+        </accordion>
+
+        <accordion class="">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">撤案日期：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" type="text" wdate-picker  ng-model="VO.undo_time">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">赔款日期：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true"  type="text" wdate-picker  ng-model="VO.indemnity_time">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">赔款金额</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true"  type="text" ng-model="VO.indemnity_amount">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">录入机构：</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.entry_organization.name">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        </accordion>
+    </div>
+</form>

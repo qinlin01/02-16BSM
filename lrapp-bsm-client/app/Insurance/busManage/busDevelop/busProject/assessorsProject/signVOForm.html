@@ -1,0 +1,115 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-controller="signVOGridOptionsCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    签报信息 <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="panel-body">
+                    <form name="form">
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">签报内容：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cContent">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">签报处理时间：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cLimitdate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">签报提交时间：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cSigndate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">签报主题：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cTitle">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">签报类型：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cType">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">审核日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.dapprovedate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">制单日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.dmakedate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">审核人：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.vapproveid">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">审核批语：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.vapprovenote">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">备注：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.cMeno">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">操作员：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.voperatorid">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">业务时间：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="signVO.dbilldate">
+                                            </div>
+                                        </div>
+                                </div>
+                    </form>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

@@ -1,0 +1,248 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">批量业务信息编号</label>
+                        <div class="col-md-252">
+                            <input class="form-control" type="text" placeholder="请输入批量业务信息编号"
+                                   ng-model="QUERY['bulk_code']"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单年度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['substr(create_time,1,4)0_0eq']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单月度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['substr(create_time,6,2)0_0eq']"
+                                        ng-options="item.id as item.name for item in SELECT.MONTH">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">保单性质</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-disabled="isDisabled" ng-model="QUERY['insurancebillkind0_0eq']"
+                                        required
+                                        ng-options="item.id as item.name for item in SELECT.INSURANCEBILLKIND">
+                                    <option value="">--请选择保单性质--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">包含保单数量</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['bill_num0_0eq']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">立项号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pk_project0_0Ref_code']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务/项目名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pk_project0_0Ref_name']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务分类</label>
+                            <div class="col-md-8">
+                                <input class="form-control"  ui-popup-ref
+                                       url="'busiType/queryForGrid'" ng-click="" popup-model="QUERY"
+                                       popup-model-field="'busi_type0_0Obj_pk'" popup-model-value="QUERY.busi_type.code"
+                                       is-tree="true"
+                                       ng-model="QUERY.busi_type0_0Obj_pk.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!--                            <label class="col-md-4 control-label">客户产权关系：</label>-->
+                            <label class="col-md-4 control-label ">客户产权关系</label>
+                            <div class="col-md-8">
+                                <input class="form-control"  ui-popup-ref
+                                       url="'projectKindTreeRef/queryForGrid'" ng-click="" popup-model="QUERY"
+                                       popup-model-field="'pk_project_kind0_0Obj_pk'"
+                                       is-tree="true"
+                                       ng-model="QUERY.pk_project_kind0_0Obj_pk.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务签报批复编号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" ng-disabled="!VO.pkProject.name||!isForm" ui-popup-ref="reportRef"
+                                       url="reportUrl(VO.pkProject.pk)" ng-click="" popup-model="VO"
+                                       popup-model-field="'pk_report0_0Obj_pk'"
+                                       ng-model="QUERY.pk_report0_0Obj_pk.name" type="text" placeholder="投标、履约保险延时签报有效期30天，其余险种延时签报有效期15天">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">单据状态</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['billstatus0_0eq']"
+                                        ng-options="item.id as item.name for item in SELECT.TRAINBILLSTATUSTYPE">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">经办人</label>
+                            <div class="col-md-8">
+<!--                                <input class="form-control" type="text" ng-model="QUERY.pk_operator.name"/>-->
+                                <input class="form-control" type="text" ng-model="QUERY['pk_operator0_0Ref_name']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单日期</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker ng-model="QUERY['substr(create_time,1,10)0_0eq']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务单位</label>
+                            <div class="col-md-8">
+                                <input class="form-control" ui-popup-ref
+                                       url="'orgRef/queryForGrid'" ng-click="" popup-model="QUERY"
+                                       popup-model-field="'pk_org0_0Obj_pk'"
+                                       ng-model="QUERY.pk_org0_0Obj_pk.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">部门</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pk_dept0_0Ref_name']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">审核人</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pk_checker0_0Ref_name']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">审核日期</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker ng-model="QUERY['check_date0_0eq']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">最终审核人</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pk_auditor0_0Ref_name']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">最终审核日期</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker ng-model="QUERY['audit_date0_0eq']"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">保费金额</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker ng-model="QUERY['audit_date0_0eq']"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">佣金金额</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker ng-model="QUERY['audit_date0_0eq']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">执业人员</label>
+                            <div class="col-md-8">
+                                <input class="form-control" ng-verify ui-popup-ref url="'commonRef/queryAgentRef'"
+                                       popup-model="QUERY" popup-model-field="'pkAgent'"
+                                       ng-model="QUERY.pkAgent.name" type="text" placeholder="">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <tabset justified="false" ng-if="chilbTable">
+            <tab index="1" heading="保单明细信息">
+                <div ui-grid="insurancebillGridOption" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>

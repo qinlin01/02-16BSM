@@ -1,0 +1,133 @@
+.main-div{
+    margin: 15px;
+    font-size: 14px;
+}
+.main-div div{
+    margin-top: 8px;
+}
+.main-div .title{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+.main-div h4{
+    font-family: "黑体";
+    color: black;
+    font-weight: 600;
+    margin-left: 25px;
+}
+.span-background-tg{
+    background-color: #14892c;
+    border-color: #14892c;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+
+.span-background-bh{
+    background-color: #fff;
+    border-color: #fff;
+    color: #ef0610;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-background-shz{
+    background-color: #ffd351;
+    border-color: #ffd351;
+    color: #594300;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-background-zc{
+    background-color: #4a6785;
+    border-color: #4a6785;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-img{
+    font-weight: 600;
+    color: black;
+}
+.main-div h5{
+    font-family: "黑体";
+    color: black;
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 600;
+/*    margin-left: -15px;*/
+    font-style: italic
+}
+.panel-heading{
+    padding: 0px;
+}
+.lr-verify:after{
+    content: "*";
+    color: red;
+    font-weight: 600;
+    font-family: monospace;
+}
+div.ui-grid-cell select{
+    height: 28px;
+}
+div.ui-grid-cell input:focus {
+    height: 28px;
+}
+div.ui-grid-cell input[type="checkbox"] {
+    height: 28px;
+}
+.div-cao-zuo{
+    padding-top: 7px;
+}
+.fontStyle{
+    color: black;
+  /*  font-weight: 600;*/
+}
+.font-style-audit-title div{
+    margin: 0px;
+    padding: 0px;
+}
+.font-style-audit div{
+    margin: 0px;
+    padding: 0px;
+}
+.font-style-audit div span{
+    color: black;
+    /*  font-weight: 600;*/
+}
+/*吴波*/
+.span-background-yb{
+    background-color: #12854d;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-background-j{
+    background-color: #ffd351;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-background-jj{
+    background-color: #853a15;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.span-background-tj{
+    background-color: #ef0610;
+    color: #fff;
+    border-radius: 10%;
+    font-weight: 600;
+}
+.taskcss{
+    width:1000px;
+    float:left;
+}
+.taskmess{
+    font-size:20px;
+}
+
+.lr-title-menu{
+    display: inline-block;
+}

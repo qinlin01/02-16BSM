@@ -1,0 +1,44 @@
+
+<div class="form-horizontal">
+    <div class="form-group ">
+        <div class="col-md-6">
+            <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+            <span class="lr-page-color">查询条件</span>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group pull-right buttons-widget">
+                <button class="btn btn-primary " ng-click="onQuery();">
+                    <i class="fa fa-search"></i>
+                    <span>查询</span>
+                </button>
+                <button class="btn btn-primary btn-o" ng-click="onReset();">
+                    <i class="fa fa-undo"></i>
+                    <span>重置</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="lr-grid-container">
+    <div class="lr-grid-toolbar">
+        <div class="btn-group text-right" add-grid-btn>
+
+            <button class="btn btn-primary btn-sm" ng-click="onAdd()">
+                <i class="fa fa-plus"></i>
+                增加
+            </button>
+            <button class="btn btn-primary btn-sm" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'','',true)">
+                <i class="fa fa-edit"></i>
+                修改
+            </button>
+            <button class="btn btn-danger btn-sm" ng-click="onDelete()" ng-disabled="checkStatus(gridApi,'','',true)">
+                <i class="fa fa-times"></i>
+                删除
+            </button>
+        </div>
+    </div>
+    <div class="clearfix lr-page-margin" ng-style="gridHtmlHeight()">
+        <div ui-grid="gridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+    </div>
+</div>

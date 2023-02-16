@@ -1,0 +1,5 @@
+<div ng-controller="professionalLiabilityInsuranceCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/pliView/professionalLiabilityInsuranceGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/pliView/professionalLiabilityInsuranceCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/pliView/professionalLiabilityInsuranceForm.html')" ng-show="isEdit"></div>
+</div>

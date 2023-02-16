@@ -1,0 +1,345 @@
+<form class="form-horizontal" name="visitRecForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onConfirm2()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46)">
+                <i class="fa fa-undo"></i>
+                <span>确认完成</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+
+            <!--<button class="btn btn-azure" ng-click="onRollback()" ng-if="!isBack">-->
+            <!--<i class="fa fa-chevron-left"></i>-->
+            <!--<span>退回</span>-->
+            <!--</button>-->
+            <!--<button class="btn btn-azure" ng-click="onVisitHistory()" ng-if="!isGrid&&isEdit">-->
+            <!--<i class="ti-pencil-alt2"></i>-->
+            <!--<span>回访次数记录</span>-->
+            <!--</button>-->
+
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户回访编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.serialNo">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">回访方式：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-verify ng-disabled="isDisabled" ng-model="VO.visitType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.VISITTYPE">
+                                <option value="">--请选择回访方式--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">是否计划内：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.isPlanted"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择是否计划内--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">回访目的 业务洽谈：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.visit1Purpose"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择回访目的业务洽谈--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保险安排：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.visit2Purpose"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择保险安排--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">协助索赔：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.visit3Purpose"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择协助索赔--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">日常拜访：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.visit4Purpose"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择日常拜访--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">节假日拜访：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.visit5Purpose"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                                <option value="">--请选择节假日拜访--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户类型：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref
+                                   url="'projectKindTreeRef/customerTypeRef'" ng-click="" popup-model="VO"
+                                   popup-model-field="'customerType'"
+                                   is-tree="true"
+                                   ng-model="VO.customerType.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                                   url="'customerAgentRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkCustomer'" ng-verify
+                                   ng-model="VO.pkCustomer.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.pkCustomer.code">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户相关单位/部门：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify="{ max:64 }" ng-disabled="isDisabled" type="text" ng-model="VO.visitClidept">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户联系人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify="{ max:20 }" ng-disabled="isDisabled" type="text" ng-model="VO.visitName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">职务：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify="{ max:100 }" ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.respondentTitle">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系方式：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/}" ng-model="VO.coninfor">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">回访实施日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                   ng-model="VO.visitDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">回访地点：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref
+                                   url="'areaclTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'visitAddress'"
+                                   is-tree="true"
+                                   ng-model="VO.visitAddress.name" type="text" placeholder="请选择拜访客户的所在地区">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label lr-verify ">回访任务：</label>
+                        <div class="col-md-254">
+                    <textarea class="form-control" style="resize:none" ng-verify="{ max:128}" ng-disabled="isDisabled" type="text" rows="4"
+                              ng-model="VO.visitAssign"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><!--control-label-->
+                        <label class="col-md-255 control-label ">回访情况记录：</label>
+                        <div class="col-md-254">
+                    <textarea class="form-control" ng-verify="{ required: false,max:1000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="4"
+                              ng-model="VO.visitRecard"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <accordion class="" close-others="oneAtATime">
+                        <accordion-group is-open="true" class="lr-page-bg-gray">
+                            <accordion-heading class="lr-page-bg-white">
+                                <div class="btn lr-page-bg-indigo">
+                                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                                    <span class="lr-page-color">客户反馈问题<b>以下四个内容至少要填入一项。</b></span>
+                                </div>
+                                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                            </accordion-heading>
+                            <div class="form-group">
+                                <div class="col-md-12 control-label"><!--control-label-->
+                                    <label class="col-md-255 control-label">业务需求：</label>
+                                    <div class="col-md-254">
+                    <textarea class="form-control" ng-verify="{ required: false,max:1000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="3"
+                              ng-model="VO.busiements"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><!--control-label-->
+                                    <label class="col-md-255 control-label">服务提升：</label>
+                                    <div class="col-md-254">
+                    <textarea class="form-control" ng-verify="{ required: false,max:1000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="3"
+                              ng-model="VO.serviceImpr"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><!--control-label-->
+                                    <label class="col-md-255 control-label">意见建议：</label>
+                                    <div class="col-md-254">
+                    <textarea class="form-control" ng-verify="{ required: false,max:1000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="3"
+                              ng-model="VO.opinionSugges"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12"><!--control-label-->
+                                    <label class="col-md-255 control-label">其他：</label>
+                                    <div class="col-md-254">
+                    <textarea class="form-control" ng-verify="{ required: false,max:1000}" style="resize:none" ng-disabled="isDisabled" type="text" rows="3"
+                              ng-model="VO.other"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" ng-show="!upOrDown&&isEdit" ng-click="onAddLine();">增行</button>
+            <button class="btn btn-sm btn-info" ng-show="!upOrDown&&isEdit||upOrDown&&isEdit" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info" ng-click="onUploads();" ng-show="upOrDown&&isEdit">上传</button>
+            <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown&&isEdit">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="回访执行人信息" select="selectTab('visitPersonGridOptions')">
+                <div ui-grid="visitPersonGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="2" heading="客户信息" select="selectTab('visitClientGridOptions')">
+                <div ui-grid="visitClientGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

@@ -1,0 +1,179 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单号：</span><span class="fontStyle">{{VO.CORR_INFO_NUM}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.CHG_INFO_NUM}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险公司 ：</span><span class="fontStyle">{{VO.COMPANY_INFO}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>投保人：</span><span class="fontStyle">{{VO.holderInfo[0].NAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保人证件号码：</span><span class="fontStyle">{{VO.holderInfo[0].CARD_NO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保人地址：</span><span class="fontStyle">{{VO.holderInfo[0].POSTAL_ADDRESS}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单生效时间：</span><span class="fontStyle">{{VO.CHG_INSURE_START_DATE | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>起始日期：</span><span class="fontStyle">{{VO.CHG_INSURE_START_DATE | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>到期日期：</span><span class="fontStyle">{{VO.CHG_INSURE_END_DATE | date_cell_date}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险金额/赔偿限额：</span><span class="fontStyle">{{VO.CHG_ALL_FEE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>签单总保费：</span><span class="fontStyle">{{VO.CHG_INSURE_FEE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>经纪公司名称：</span><span class="fontStyle">{{VO.CHG_BROKER_NAME}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>推送时间：</span><span class="fontStyle">{{VO.CHG_POST_TIME | date_cell_date}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">保险险种信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>险种名称</th>
+                            <th>产品名称</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>费率(‰)</th>
+                            <th>保费含税(元)</th>
+                            <th>免赔额(元)</th>
+                            <th class="hidden-xs">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.infoType">
+                            <td >{{item.NAME}}</td>
+                            <td >{{item.INSURE_LITTLE_NAME}}</td>
+                            <td>{{item.ALL_FEE}}</td>
+                            <td>{{item.chargerate|number:6}}</td>
+                            <td>{{item.INSURE_FEE}}</td>
+                            <td>{{item.franchise|AMOUNT_FILTER}}</td>
+                            <td class="hidden-xs">{{item.memo}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">保险人信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>保险人名称</th>
+                            <th class="center">是否代收保费</th>
+                            <th class="center">是否全额解付</th>
+                            <th>承保比例(%)</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>保险保费(含税)(元)</th>
+                            <th class="center">是否主承保</th>
+                            <th class="hidden-xs">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.holderInfo">
+                            <td>{{item.NAME}}</td>
+                            <td class="center">{{item.isReplace|SELECT_YESNO}}</td>
+                            <td class="center">{{item.pay|SELECT_YESNO}}</td>
+                            <td>{{item.INSURE_ACCEPT_SHARE}}</td>
+                            <td>{{item.ALL_FEE |AMOUNT_FILTER}}</td>
+                            <td>{{item.INSURE_FEE|AMOUNT_FILTER}}</td>
+                            <td class="center">{{item.IS_MAIN}}</td>
+                            <td class="hidden-xs">{{item.memo}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-12" ng-if="VO.carInfo.length !=0">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">车辆信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>车牌号</th>
+                            <th>车架号</th>
+                            <th>车型号</th>
+                            <th>车价</th>
+                            <th>生产日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.carInfo">
+                            <td>{{item.CAR_NO}}</td>
+                            <td>{{item.VIN_NO}}</td>
+                            <td>{{item.CAR_TYPE}}</td>
+                            <td>{{item.CAR_PRICE}}</td>
+                            <td>{{item.CAR_DATE|date:"yyyy-MM-dd"}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">被保人信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>被保人</th>
+                            <th>证件类型</th>
+                            <th>证件号码</th>
+                            <th>出生日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(x,item) in VO.beholderInfo">
+                            <td>{{x+1}}</td>
+                            <td>{{item.NAME}}</td>
+                            <td>{{item.CARD_TPYE}}</td>
+                            <td>{{item.CARD_NO}}</td>
+                            <td>{{item.birthdate|date:"yyyy-MM-dd"}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,135 @@
+<div class="form-horizontal" >
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onExport();">
+                            <i class="fa fa-undo"></i>
+                            <span>导出</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">汇总项目</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['pro']"
+                                    ng-options="item.id as item.name for item in SELECT.INSURANCENAME">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">年</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['year']"
+                                    ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">月份</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['month']"
+                                    ng-options="item.id as item.name for item in SELECT.MONTH">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">险种</label>
+                        <div class="col-md-8">
+                            <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                                   url="'insuranceRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'enumEntkind'"
+                                   is-tree="true"
+                                   ng-model="QUERY['VO.insurancename']" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">保险人</label>
+                        <div class="col-md-8">
+                            <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                                   url="'customerInsuRefCOR/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'enumEntkind'"
+                                   ng-verify
+                                   is-tree="true"
+                                   ng-model="QUERY['t.insurancemanpk']" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">保单性质</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['t.insurancebillkind']"
+                                    ng-options="item.id as item.name for item in SELECT.INSURANCEBILLKIND">
+                            </select>
+                        </div>
+                    </div>
+                 </div>
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                    <label class="col-md-4 control-label">投保人</label>
+                    <div class="col-md-8">
+                        <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                               url="'customerInsuRef/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'enumEntkind'"
+                               ng-verify
+                               is-tree="true"
+                               ng-model="QUERY['t.estimatepk']" type="text" placeholder="">
+                    </div>
+                    </div><div class="col-md-4">
+                        <label class="col-md-4 control-label">签单方式</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['t.signmode']"
+                                    ng-options="item.id as item.name for item in SELECT.VDEF11">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">一级业务来源</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['t.duallevel1_name']"
+                                    ng-options="item.id as item.name for item in SELECT.MARTYPE">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">部门</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['deptname']"/>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div id="queryTotal" style="overflow-x: auto; overflow-y: auto;">
+</div>

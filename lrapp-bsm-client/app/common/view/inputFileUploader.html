@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+<!--        <button class="btn btn-success btn-xs" ng-click=uid.click()>-->
+<!--            <span class="glyphicon glyphicon-upload"></span> 上传文件-->
+<!--        </button>-->
+        <input type="file" nv-file-select title="请上传"  id={{uid}}  multiple uploader="uploaderList"
+               >
+    </div>
+</div>
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">文件名称</th>
+                    <th>文件大小</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in modelData">
+                    <td>{{ item.fileName }}</td>
+                    <td>{{ item.fileSize/1024/1024|number:2 }}MB</td>
+                    <td nowrap>
+                        <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" ng-click="removeFile(item)" uib-tooltip="Remove"><i class="fa fa-times fa fa-white text-red"></i></a>
+<!--                        <button type="button" class="btn btn-danger btn-xs" ng-click="removeFile(item)">-->
+<!--                            <span class="glyphicon glyphicon-trash"></span>-->
+<!--                        </button>-->
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+</div>

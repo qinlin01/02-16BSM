@@ -1,0 +1,121 @@
+<!--<div class="form-horizontal" >
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+&lt;!&ndash;            <form class="form-horizontal">
+                                        <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="col-md-4 control-label">搜索</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" type="text" ng-model="QUERY['wideArea']"/>
+                                        </div>
+                                    </div>
+                        </div>
+            </form>&ndash;&gt;
+        </accordion-group>
+    </accordion>
+</div>-->
+
+<div class="lr-grid-container">
+    <div style="margin-top: 25px">
+        <accordion>
+            <accordion-group is-open="true"  grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar" >
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                                    <!--<button class="btn lr-main-btn" ng-click="onAddItem()">
+                                        <i class="fa fa-plus"></i>
+                                    添加目录
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onDeleteItem()">
+                                        <i class="fa fa-plus"></i>
+                                    删除目录
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onAlterItem()">
+                                        <i class="fa fa-plus"></i>
+                                    变更目录
+                                    </button>-->
+                                  <!--  <button class="btn lr-main-btn" ng-click="onAdd()">
+                                        <i class="fa fa-plus"></i>
+                                    添加文档
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onCancel()">
+                                        <i class="fa fa-plus"></i>
+                                    取消
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onEdit()">
+                                        <i class="fa fa-plus"></i>
+                                    修改文档
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onDelete()">
+                                        <i class="fa fa-plus"></i>
+                                    删除文档
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onSubmit()" ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                        <i class="fa fa-plus"></i>
+                                    提交
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onAudit()" ng-disabled="checkStatus(gridApi,'billstatus','33',false)">
+                                        <i class="fa fa-plus"></i>
+                                    审核
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onLinkAuditFlow()">
+                                        <i class="fa fa-plus"></i>
+                                    查看流程图
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onDiscard()">
+                                        <i class="fa fa-plus"></i>
+                                    停用
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onSpread()">
+                                        <i class="fa fa-plus"></i>
+                                    推广
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onCard()">
+                                        <i class="fa fa-plus"></i>
+                                    卡片
+                                    </button>
+                                    <button class="btn lr-main-btn" ng-click="onViewdoc()">
+                                        <i class="fa fa-plus"></i>
+                                    查看文档
+                                    </button>
+                            <button class="btn lr-main-btn" ng-click="viewClause(gridApi)" ng-disabled="checkStatus(gridApi,'','',true)" >
+                                <i class="fa fa-joomla"></i>
+                                查看附件
+                            </button>-->
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-exporter ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+        <tabset justified="false" ng-if="chilbTable">
+            <tab index="1" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>

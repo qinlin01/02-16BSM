@@ -1,0 +1,327 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.ifGetFeeBill==31)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32||VO.ifGetFeeBill==32||VO.ifGetFeeBill==33)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.pkProject.name}}</h4>
+            <div class="col-md-12" ng-if="VO.ifGetFee!='Y'||VO.billstatus != 34">
+                <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':'' }} badge" style="float: right">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+            </div>
+            <div class="col-md-12" ng-if="VO.billstatus == 34&&VO.ifGetFee=='Y'">
+                <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':'' }} badge" style="float: right">{{VO.ifGetFeeBill | SELECT_BILLSTATUS}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>对账单信息编号：</span><span class="fontStyle">{{VO.insuranceinfono}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>对账单建立部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>对账单建立公司：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务/项目名称：</span><span class="fontStyle">{{VO.pkProject.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>立项号：</span><span class="fontStyle">{{VO.pkProject.code}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>对账单名称：</span><span class="fontStyle">{{VO.insuranceno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务种类：</span><span class="fontStyle">{{VO.businessType|SELECT_BUSINESSTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务分类 ：</span><span class="fontStyle">{{VO.pkBusiType.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户产权关系 ：</span><span class="fontStyle">{{VO.pkProjectKind.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否有追溯期：</span><span class="fontStyle">{{VO.ifRetroactive|SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>签单方式：</span><span class="fontStyle">{{VO.signingWay|SELECT_VDEF10}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>互联网产品类别：</span><span
+                        class="fontStyle">{{VO.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</span>
+                </div>
+
+                <div class="col-md-4">
+                    <span>保单件数：</span><span class="fontStyle">{{VO.insuranceNum}}</span>
+                </div>
+            </div>
+            </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">保单金额信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单总保费(元)：</span><span class="fontStyle">{{VO.receivemountBill}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单总佣金(元)：</span><span class="fontStyle">{{VO.receivefeemountBill}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险金额/赔偿限额(元)：</span><span class="fontStyle">{{VO.insurancetotalmoney}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">批单金额信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单保费(元)：</span><span
+                        class="fontStyle">{{VO.endorsementsInsuranceFee}}</span>
+                </div>
+
+                <div class="col-md-4">
+                    <span>批单佣金(元)：</span><span class="fontStyle">{{VO.endorsementsReceiveFee}}</span>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-12 title">
+            <p style="font-size:20px">汇总金额信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险金额/赔偿限额/(元)：</span><span class="fontStyle">{{VO.insurancetotalmoney}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>签单总保费(元)：</span><span class="fontStyle">{{VO.insurancetotalcharge}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>应收保费总期数：</span><span class="fontStyle">{{VO.receiveperiod}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应收保费总额(元)：</span><span class="fontStyle">{{VO.receivemount}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>应解付保费总期数：</span><span class="fontStyle">{{VO.payperiod}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应解付总额(元)：</span><span class="fontStyle">{{VO.paymount}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>应收佣金总期数：</span><span class="fontStyle">{{VO.receivefeeperiod}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应收佣金总额(元)：</span><span class="fontStyle">{{VO.receivefeemount}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>线上金额(元)：</span><span class="fontStyle">{{VO.onlinePartyAmount}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>线下金额(元)：</span><span class="fontStyle">{{VO.offlinePaymentAmount}}</span>
+                </div>
+            </div>
+            </div>
+                <div class="col-md-12 title">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">保险险种信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>险种名称</th>
+                            <th>具体险种</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>费率(‰)</th>
+                            <th>保费(元)</th>
+                            <th>免赔额(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.webInsuranceInfoList">
+                            <td>{{item.pkInsurance.name}}</td>
+                            <td>{{item.insuranceAlias}}</td>
+                            <td>{{item.insurancemoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.chargerate|number:6}}</td>
+                            <td>{{item.insurancecharge|number:2}}</td>
+                            <td>{{item.franchise|AMOUNT_FILTER}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">保险人信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>保险人名称</th>
+                            <th>是否代收保费</th>
+                            <th>是否全额解付</th>
+                            <th>保险金额/赔偿限额(元)</th>
+                            <th>保险保费(元)</th>
+                            <th>佣金比例(%)</th>
+                            <th>佣金金额(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.webInsuranceManList">
+                            <th>{{$index+1}}</th>
+                            <td>{{item.pkInsuranceMan.name}}</td>
+                            <td>{{item.ifReplace|SELECT_YESNO}}</td>
+                            <td>{{item.pay|SELECT_YESNO}}</td>
+                            <td>{{item.insurancemoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.insuranceFee|AMOUNT_FILTER}}</td>
+                            <td>{{item.commisionrate|number:2}}</td>
+                            <td>{{item.feemount|AMOUNT_FILTER}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">收付款信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="center">期数</th>
+                            <th>收付款类型</th>
+                            <th>收付款对象名称</th>
+                            <th>收付款比例</th>
+                            <th>计划日期</th>
+                            <th>计划金额</th>
+                            <th>已结算金额</th>
+                            <th>未结算金额</th>
+                            <th>结算日期</th>
+                            <th>业务结算单号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.webPaymentList">
+                            <td class="center">{{item.stages}}</td>
+                            <td>{{item.typeMoneyNo|SELECT_MONEYTYPE}}</td>
+                            <td>{{item.pkCompany.name}}</td>
+                            <td>{{item.scaleMoney|number:2}}</td>
+                            <td>{{item.planDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.planMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.vsettlebillno}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--关联单据页面动态展示-->
+            <div class="col-md-12" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="col-md-12" style="margin-top: 15px; margin-bottom: 15px">
+                    <div class="table-responsive">
+                        <p style="font-size: 16px;color: #8e8e93">关联保单</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>保单信息编号</th>
+                                <th>保单号</th>
+                                <th>订单号</th>
+                                <th>产品名称</th>
+                                <th>保险金额/赔偿限额</th>
+                                <th>保费</th>
+                                <th>应收佣金</th>
+                                <th>保险起期</th>
+                                <th>保险止期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.internetBillList">
+                                <th>{{$index+1}}</th>
+                                <td>{{item.insuranceinfono}}</td>
+                                <td>{{item.insuranceno}}</td>
+                                <td>{{item.form_id}}</td>
+                                <td>{{item.product_name}}</td>
+                                <td>{{item.insurancetotalmoney|number}}</td>
+                                <td>{{item.insurancetotalcharge|number}}</td>
+                                <td>{{item.commisiontotalnum|number}}</td>
+                                <td>{{item.start_date|date}}</td>
+                                <td>{{item.end_date|date}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">附件<span ng-if="VO.fileList.length==0">（空）</span>
+                        <button type="button" ng-if="VO.fileList.length!=0" class="btn btn-wide btn-dark-blue" ng-click="onDownLoads()">
+                            批量下载<i class="fa fa-cloud-download"></i>
+                        </button>
+                    </p>
+                    <table class="table table-bordered table-hover" ng-if="VO.fileList.length!=0">
+                        <thead>
+                        <tr>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>在线预览</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.fileList">
+                            <td>{{item.file_name}}</td>
+                            <td>{{item.ts | date}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

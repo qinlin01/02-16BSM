@@ -1,0 +1,107 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h2 style="font-size:20px">{{VO.pkProject.project_name}}</h2>
+        </div>
+
+        <div class="col-md-12 title">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <span>客户名称：</span><span
+                        class="fontStyle">{{VO.pkProject.customer_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保险种：</span><span
+                        class="fontStyle">{{VO.pkProject.insurancetype.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <span>主题：</span><span class="fontStyle">{{VO.associationName}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <span>内容：</span>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="fontStyle">{{VO.associationText}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <span>制单日期：</span><span
+                        class="fontStyle">{{VO.createTime}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>单据状态：</span><span
+                        class="fontStyle">{{VO.billstatus | SELECT_LOCALIZEDBILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 title">
+                <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr style="background: #fcfaed">
+                                <th>序号</th>
+                                <th>附件名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.dealattachmentb">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+
+
+    </div>
+    </div>
+</form>

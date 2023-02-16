@@ -1,0 +1,207 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-controller="projectVOGridOptionsCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    业务立项信息 <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="panel-body">
+                    <form name="form">
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">立项编号：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cprocode">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">客户名称：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cinsureman">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">客户编号：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cinsureman.code">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">行业类别：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cinsureman.trade_type">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">单位性质：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cinsureman.enum_entkind">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">立项名称(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cproname">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">项目地址：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cproaddress">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">项目周期(月)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.cperiod_new">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">是否投标：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.ifBid">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">资产规模(万元)(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.f1Assets">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">控股方(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.propertyHoldshare">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">预计业务收入(元)(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.festimateincome">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">预计业务开发成功时间(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.planSucceedDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">业务风险综合评价(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.riskAssess">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">提供服务的内容(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.serveContentType">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">客户意向及需求：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.customerDemand">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">项目简介(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.assess">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">客户简介(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.customerMemo">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">员工数量范围：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.lifeStaffcountScope">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">社会保险情况：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.societyInsure">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">商业保险投保：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.enumLifeBusinessInsure">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">合作中介情况(必填)：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.enumCoomedium">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">投标业务需总部配合准备资料：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.tenderInformation">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">项目终结原因：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="projectVO.ceaseReason">
+                                            </div>
+                                        </div>
+                                </div>
+                    </form>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

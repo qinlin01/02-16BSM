@@ -1,0 +1,94 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.pkAgent.name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务签报：</span><span class="fontStyle">{{VO.pkEconomicContract.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>协议生效日期：</span><span class="fontStyle">{{VO.startDate}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>协议到期日期：</span><span class="fontStyle">{{VO.endDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">手续费信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">是否职域营销</th>
+                        <th class="center">一级险种名称</th>
+                        <th class="center">二级险种名称</th>
+                        <th class="center">三级险种名称</th>
+                        <th class="center">保险产品名称</th>
+                        <th class="center">手续费比例（％）</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.agentRuleBList">
+                        <td>{{item.ifWorksteMarketing | SELECT_YESNO_ANY}}</td>
+                        <td>{{item.pkLevel1Insurances.name}}</td>
+                        <td>{{item.pkLevel2Insurances.name}}</td>
+                        <td>{{item.pkInsurances.name}}</td>
+                        <td>{{item.pkProduct.name}}</td>
+                        <td>{{item.ratio}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>附件名称</th>
+                        <th>上载时间</th>
+                        <th>下载</th>
+                        <th>在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

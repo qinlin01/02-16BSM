@@ -1,0 +1,52 @@
+<div class="main-form-style" ng-controller="projectInfoPageCtrl">
+    <div class="form-horizontal" >
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="btn-group" style="position: relative;float: right;">
+                        <button class="btn lr-main-btn" ng-click="onQueryChildren();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onResetChildren();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </accordion-heading>
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">客户名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.customer_name" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">项目名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.project_name" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <tabset justified="false">
+        <tab heading="项目信息子表" select="selectTab('projectInfoPagesChildren')">
+            <div ui-grid="projectInfoPagesChildren" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 300px"></div>
+        </tab>
+    </tabset>
+    <div class="pull-right">
+        <button ng-click="onConfirm()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

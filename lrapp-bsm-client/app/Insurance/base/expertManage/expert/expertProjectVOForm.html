@@ -1,0 +1,108 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-controller="expertProjectVOGridOptionsCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    专家调用记录及评价 <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="panel-body">
+                    <form name="form">
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">专家主键：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.pkExpert">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">主键：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.pkExpertProject">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">开始日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.startDate">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">结束日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.endDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">立项名称：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.proName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">担任角色：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.role">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">具体工作内容：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.workCont">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">是否在长安公司：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.isChangan">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">业务单位：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.pkOrg">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">平均分数：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.averages">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">项目评价：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                                       ng-model="expertProjectVO.button1">
+                                            </div>
+                                        </div>
+                                </div>
+                    </form>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

@@ -1,0 +1,63 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <!--        新增按钮-->
+            <button class="btn lr-insureType-btn" ng-disabled="addDisabled" ng-click="onAddInformation()">
+                <i class="fa fa-plus-square"></i>
+                <span>添加</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onEdit()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>修改</span>
+            </button>
+            <input type="file" id="updateData"  accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none" onchange="angular.element(this).scope().onImportUploads(false)"/>
+            <button class="btn btn-azure" type="button" ng-if="isForm" ng-click="onImprotDataInfo()">
+                <i class="fa fa-save"></i>
+                <span>批量导入数据</span>
+
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+
+        <div ng-repeat="item in informationAll">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify" >保单信息编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text"  ng-model="item.insuranceinfono">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保单号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text"  ng-model="item.insuranceno">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-azure"
+                                ng-click="deletelistOptions($index)" type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">立项号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control"  type="text"  ng-model="item.projectcode">
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </accordion-group>
+        </accordion>
+        </div>
+    </div>
+</form>

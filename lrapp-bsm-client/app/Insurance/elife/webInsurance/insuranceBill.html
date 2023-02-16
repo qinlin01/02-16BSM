@@ -1,0 +1,78 @@
+<div class="main-form-style" ng-controller="insuranceBillCtrl">
+    <uib-tabset class="tabbable">
+        <uib-tab heading="完全匹配数据">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>上传文件与数据库中完全匹配数据</caption>
+                <table ng-table="goodDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'保单号'">{{vo.insuranceNum}}</td>
+                        <td data-title="'批单号'">{{vo.insuranceChangeNum}}</td>
+                        <td data-title="'投保人'">{{vo.estimateName}}</td>
+                        <td data-title="'单据类型'">{{vo.dataType|SELECT_WEB_DATA_TYPE}}</td>
+                        <td data-title="'产品名称'">{{vo.productType}}</td>
+                        <td data-title="'保费'">{{vo.insuranceFee|number}}</td>
+                        <td data-title="'应收佣金'">{{vo.lawfulCommission|number}}</td>
+                        <td data-title="'保险起期'">{{vo.startDate|date}}</td>
+                        <td data-title="'保险止期'">{{vo.endDate|date}}</td>
+<!--                        <td data-title="'线上金额'">{{vo.onlineMoney}}</td>-->
+<!--                        <td data-title="'线下金额'">{{vo.outlineMoney}}</td>-->
+<!--                        <td data-title="'保险公司'">{{vo.insuranceMan}}</td>-->
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+        <uib-tab heading="保费差异数据" ng-if="VO.fictitiousBusinessType==2">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>上传文件与数据库中存在保费差异数据(对账单审核通过后会自动生成批单)</caption>
+<!--                <button type="button" style="float: right" ng-click="onCreateChange()" class="btn btn-azure">一键生成批单-->
+                </button>
+                <table ng-table="disDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'保单号'">{{vo.insuranceNum}}</td>
+                        <td data-title="'批单号'">{{vo.insuranceChangeNum}}</td>
+                        <td data-title="'单据类型'">{{vo.dataType|SELECT_WEB_DATA_TYPE}}</td>
+                        <td data-title="'产品名称'">{{vo.productType}}</td>
+                        <td data-title="'保费'">{{vo.insuranceFee|number}}</td>
+                        <td data-title="'系统中保费'">{{vo.oldInsuranceFee|number}}</td>
+                        <td data-title="'保费差异'">{{vo.insuranceFee - vo.oldInsuranceFee|number}}</td>
+                        <td data-title="'应收佣金'">{{vo.lawfulCommission|number}}</td>
+                        <td data-title="'保险起期'">{{vo.startDate|date}}</td>
+                        <td data-title="'保险止期'">{{vo.endDate|date}}</td>
+<!--                        <td data-title="'保险公司'">{{vo.insuranceMan}}</td>-->
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+        <uib-tab heading="生成批单数据" ng-if="VO.fictitiousBusinessType==2 && false">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>生成批单的数据</caption>
+                <table ng-table="changeDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'保单号'">{{vo.insuranceNum}}</td>
+                        <td data-title="'单据类型'">{{vo.dataType|SELECT_WEB_DATA_TYPE}}</td>
+                        <td data-title="'产品名称'">{{vo.productType}}</td>
+                        <td data-title="'保费'">{{vo.insuranceFee|number}}</td>
+<!--                        <td data-title="'保险公司'">{{vo.insuranceMan}}</td>-->
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+        <uib-tab heading="未匹配数据">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>上传文件与数据库中未匹配数据</caption>
+                <table ng-table="badDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'保单号'">{{vo.insuranceNum}}</td>
+                        <td data-title="'批单号'">{{vo.insuranceChangeNum}}</td>
+                        <td data-title="'单据类型'">{{vo.dataType|SELECT_WEB_DATA_TYPE}}</td>
+                        <td data-title="'产品名称'">{{vo.productType}}</td>
+                        <td data-title="'保费'">{{vo.insuranceFee|number}}</td>
+                        <td data-title="'保险起期'">{{vo.startDate|date}}</td>
+                        <td data-title="'保险止期'">{{vo.endDate|date}}</td>
+<!--                        <td data-title="'保险公司'">{{vo.insuranceMan}}</td>-->
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

@@ -1,0 +1,5 @@
+<div ng-controller="merchantNumberCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/merchantNumber/merchantNumberGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/merchantNumber/merchantNumberCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/merchantNumber/merchantNumberForm.html')" ng-show="isForm"></div>
+</div>

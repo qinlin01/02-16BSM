@@ -1,0 +1,67 @@
+<div class="tab-pane fade in active">
+    <div class="table-responsive">
+        <p style="font-size: 25px;color: #8e8e93">业务单位年度考核报表</p>
+        <form class="form-horizontal" style="width: 50%;float: left">
+            <div class="form-group" style="width: 80%;float: left">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">年度</label>
+                    <div class="col-md-8">
+                        <select class="form-control" ng-model="QUERY['selectYear']"
+                                ng-options="item.id as item.name for item in gridYear">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="pull-right">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a ng-click="getBussinessAssessmentReport()" role="button">
+                            <span role="button">查询</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="exportData('bussinessAssessmentReportGridOptions')" role="button">
+                            <span role="button">导出数据</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>业务单位名称</th>
+<!--                <th>部门名称</th>-->
+                <th>应收保费总金额（元）</th>
+                <th>应收保费完成率</th>
+                <th>应开票总金额（元）</th>
+                <th>应开票金额完成率</th>
+                <th>已开票总金额（元）</th>
+                <th>已开票金额完成率</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in bussinessAssessmentReportGridOptions.data">
+                <td ng-show="item.deptName == null">{{item.orgName}}</td>
+                <td ng-show="item.deptName != null">{{item.deptName}}</td>
+                <td>{{item.premiums}}</td>
+                <td>{{item.premiumsCompletion}}%</td>
+                <td>{{item.planMoney}}</td>
+                <td>{{item.planMoneyCompletion}}%</td>
+                <td>{{item.factMoney}}</td>
+                <td>{{item.factMoneyCompletion}}%</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="margin-top: 50px" ng-show="false">
+    <tabset justified="false">
+        <tab index="1" heading="业务单位年度考核报表">
+            <div ui-grid="bussinessAssessmentReportGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                 ui-grid-resize-columns ui-grid-exporter class="grid" style="height:200px"></div>
+        </tab>
+    </tabset>
+</div>

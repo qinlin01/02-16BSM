@@ -1,0 +1,203 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">签报编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 10px;" ng-disabled="true" type="text"
+                           ng-model="VO.reportCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">批复单编号：</label>
+                <div class="col-md-7" style="padding-right : 21px">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.approvalNumber">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">立项编号：</label>
+                <div class="col-md-7" style="padding-right : 21px">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkProject.c_procode">
+                </div>
+            </div>
+        </div>
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">签报类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.enumReportType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.REPORTTYPE">
+                                <option value="">--请选择签报类型--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">主送单位：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled || isDisOrg" ui-popup-ref
+                                   url="'deptTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkDeliverUnit'" ng-verify required
+                                   ng-model="VO.pkDeliverUnit.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">立项名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="VO.enumReportType !=6 || isDisabled"
+                                   ui-popup-ref="projectRef"
+                                   url="'projectRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkProject'"
+                                   ng-model="VO.pkProject.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled || VO.enumReportType ==6" ui-popup-ref
+                                   url="'customerRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkInsureman'"
+                                   ng-verify popup-model-value="param"
+                                   ng-model="VO.pkInsureman.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkInsureman.code">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">缓急程度：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.instancyType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.INSTANCYTYPE">
+                                <option value="">--请选择缓急程度--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label lr-verify">事项名称：</label>
+                        <div class="col-md-254">
+                            <input class="form-control" ng-verify="{ max:64}" ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.itemName">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">主题：</label>
+                        <div class="col-md-254">
+                            <input class="form-control" ng-verify="{ required: false,max:100}" ng-disabled="isDisabled"
+                                   type="text" ng-model="VO.reportTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 "><!--control-label-->
+                        <label class="col-md-255 control-label  lr-verify">签报内容：</label>
+                        <div class="col-md-254">
+                            <!-- <div simditor ng-disabled="isDisabled"  toolbar="[]" type="text"
+                                  ng-model="VO.reportContent"></div>-->
+                            <textarea class="form-control" style="resize:none" ng-verify ng-disabled="isDisabled" type="text" rows="4"
+                                      ng-model="VO.reportContent" id="praiseName"></textarea>
+                            <br>
+                            <font color=#666666>限 2000 个字符 已输入 <font><span id="info_limit">{{VO.reportContent.length}}</span></font> 个字</font>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">最终批复意见：</label>
+                        <div class="col-md-254">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.finallyOpinion">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">发起人执行结果：</label>
+                        <div class="col-md-254">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.execResult">
+
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-click="onUploads();" ng-if="isEdit">上传</button>
+            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();">下载</button>
+
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</form>

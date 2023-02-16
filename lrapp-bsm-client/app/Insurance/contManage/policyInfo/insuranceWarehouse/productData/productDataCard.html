@@ -1,0 +1,105 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+<!--            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isCard&&(VO.billstatus==31||VO.billstatus==36)">-->
+<!--                <i class="ti-save"></i>-->
+<!--                <span>提交</span>-->
+<!--            </button>-->
+<!--            <button class="btn btn-azure" ng-click="onAudit()" ng-if="isCard&&(VO.billstatus==33||VO.billstatus==32)">-->
+<!--                <i class="ti-check"></i>-->
+<!--                <span>审核</span>-->
+<!--            </button>-->
+<!--            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isCard&&(VO.billstatus==33||VO.billstatus==32)">-->
+<!--                <i class="ti-check"></i>-->
+<!--                <span>撤回</span>-->
+<!--            </button>-->
+<!--            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isCard">-->
+<!--                <i class="ti-share-alt"></i>-->
+<!--                <span>查看流程图</span>-->
+<!--            </button>-->
+            <button class="btn btn-azure" ng-click="onChangeStatus(2,VO)" ng-if="isCard&&(VO.billstatus==1)">
+                <i class="ti-save"></i>
+                <span>启用</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onChangeStatus(3,VO)" ng-if="isCard&&(VO.billstatus==2)">
+                <i class="ti-save"></i>
+                <span>停用</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.insuranceMan.name}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                   <span class="{{VO.billstatus == 1?'span-background-tg':VO.billstatus == 2?'span-background-shz':VO.billstatus == 3}}">{{VO.billstatus | SELECT_PRODUCTDATABILLSTATUSTYPE}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险公司险种：</span><span class="fontStyle">{{VO.insuranceManInsurance}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险公司产品：</span><span class="fontStyle">{{VO.insuranceManProduct}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业管险种：</span><span class="fontStyle">{{VO.insuranceInfo.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险金额/赔偿限额：</span><span class="fontStyle">{{VO.insuranceMoney | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保费：</span><span class="fontStyle">{{VO.insuranceCharge | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>生效日期：</span><span class="fontStyle">{{VO.startDate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>到期日期：</span><span class="fontStyle">{{VO.endDate | date_cell_date}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">附件名称</th>
+                        <th class="center">上载时间</th>
+                        <th class="center">下载</th>
+                        <th class="center">在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

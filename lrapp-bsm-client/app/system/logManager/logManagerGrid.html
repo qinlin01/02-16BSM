@@ -1,0 +1,175 @@
+<div class="lr-grid-html" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-grid-html-query">
+        <accordion panel-class="lr-grid-accordion">
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="form-group pull-right">
+                        <button class="btn lr-main-btn" ng-click="onQuery();" ng-verify="{control:'appForm',disabled:false,tipStyle:1}">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                        <!--<button class="btn lr-main-btn" ng-click="onBackup();">-->
+                        <!--<i class="fa fa-undo"></i>-->
+                        <!--<span>备份</span>-->
+                        <!--</button>-->
+                        <!--<button class="btn lr-main-btn" ng-click="onRevert();">-->
+                        <!--<i class="fa fa-undo"></i>-->
+                        <!--<span>还原</span>-->
+                        <!--</button>-->
+                    </div>
+                </accordion-heading>
+            </accordion-group>
+        </accordion>
+    </div>
+    </accordion-heading>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">功能节点名称</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" ng-model="QUERY['nodeName']"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">操作类型</label>
+                <div class="col-md-8">
+                    <select class="form-control" ng-model="QUERY['operate']"
+                            ng-options="item.id as item.name for item in SELECT.OPERATE">
+                        <option value="">--请选择业务类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">客户端IP</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" ng-model="QUERY['ip']"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">操作人</label>
+                <div class="col-md-8">
+                    <input class="form-control"  type="text" ng-model="QUERY['create_by']">
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">操作日期</label>
+                <div class="col-md-8">
+                    <div class="input-group " moment-picker="QUERY['operateDate']" locale="zh-cn" today="true"  start-view="day" format="YYYY-MM-DD">
+                        <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                        <input class="form-control" ng-verify="{required:true}"  ng-model="QUERY['operateDate']"
+                               ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+<!--                    <input class="form-control" type="text" wdate-picker ng-model="QUERY['operateDate']"/>-->
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">事件类型</label>
+                <div class="col-md-8">
+                    <select class="form-control" ng-model="QUERY['auditClassify']"
+                            ng-options="item.name as item.name for item in SELECT.EVENT_TYPE">
+                        <option value="">--请选择事件类型--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">事件结果</label>
+                <div class="col-md-8">
+                    <select class="form-control" ng-model="QUERY['exeResult']"
+                            ng-options="item.name as item.name for item in SELECT.EXERESULT_TYPE">
+                        <option value="">--请选择事件结果类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">排序依据</label>
+                <div class="col-md-8">
+                    <select class="form-control" ng-model="QUERY['sort_rule']"
+                            ng-options="item.name as item.name for item in SELECT.SORT_RULE_TYPE">
+                        <option value="">--请选排序规则--</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-html-grid">
+    <div class="lr-grid-container">
+        <accordion panel-class="lr-grid-accordion">
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns
+                         ui-grid-pagination
+                         ui-grid-selection ui-grid-pinning ui-grid-exporter class="grid" style="min-height:100%; text-align: center;"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="lr-grid-html-query" style="visibility: hidden">
+        <accordion panel-class="lr-grid-accordion">
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+    </div>
+</div>
+<div style="grid-auto-rows: auto" class="form-group pull-right">
+    <button class="btn lr-main-btn" ng-click="onBackup();">
+        <i class="fa fa-undo"></i>
+        <span>备份</span>
+    </button>
+    <button class="btn lr-main-btn" ng-click="onRevert();">
+        <i class="fa fa-undo"></i>
+        <span>还原</span>
+    </button>
+</div>
+<div style="grid-auto-rows: auto" class="form-group pull-right">
+    <div class="col-md-4">
+        <label class="col-md-4 control-label">还原开始日期</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" wdate-picker ng-model="VO.revertBeginDate"/>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label class="col-md-4 control-label">还原截止日期</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" wdate-picker ng-model="VO.revertEndDate"/>
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label class="col-md-4 control-label">当前日志容量</label>
+        <div class="col-md-8">
+            <!--<input class="form-control" ng-disabled="true" type="text" ng-model="VO.currentSize"/>-->
+            <span><h4>{{VO.currentSize}}</h4></span>
+        </div>
+    </div>
+</div>

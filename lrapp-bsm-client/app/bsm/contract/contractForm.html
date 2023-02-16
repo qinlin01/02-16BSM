@@ -1,0 +1,118 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-contant text-right " add-form-btn>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="col-md-2 control-label lr-verify">项目信息：</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <ui-select ng-model="VO.pkProject" theme="bootstrap">
+                                <ui-select-match placeholder="只能选择到通过项目批复的项目，且该项目要在经法系统中完成合同流程。">
+                                    {{VO.pkProject.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in projectRefData | filter: $select.search">
+                                    <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                    <button ng-click="VO.pkProject = undefined" class="btn btn-default">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button> </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否框架合同：</label>
+                    <div class="col-md-7">
+
+                        <select class="form-control" ng-verify="{required:true}" ng-model="VO.ifFramework" disabled
+                                ng-options="item.id as item.name for item in SELECT.CONTRACT_TYPE">
+                            <option value="">--是否框架合同--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                合同信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">合同编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true}" ui-popup-ref url="'bsm/project/rpaContractDetailRef'" ng-click="" popup-model="VO" popup-model-value="param" popup-model-field="'pkRpaContract'" ng-verify="{required:true}" required ng-model="VO.pkRpaContract.code" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">合同名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.contractName">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">合同金额：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.contractAmount">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">采购方式：</label>
+                    <div class="col-md-7">
+
+                        <select class="form-control" ng-verify="{required:true}" ng-model="VO.purchaseType"
+                                ng-options="item.id as item.name for item in SELECT.PURCHASE">
+                            <option value="">--请选择采购方式--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">合作单位：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true, max:20}" type="text" ng-model="VO.partner">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">统一社会信用代码：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true, max:18}" type="text" ng-model="VO.partnerCode">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="lr-contant" ng-if="VO.ifFramework == 0">
+        <fieldset>
+            <legend>
+                合同条款及付款信息
+            </legend>
+            <div class="row ">
+                <div ui-grid="paymentsGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px;"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn-primary btn-xs btn-o" style="width:750px" type="button" ng-click="onAddLine('paymentsGridOptions')"><i class="fa fa-plus"></i>增行</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                合同扫描件
+            </legend>
+            <input-file-uploader instructions="'合同扫描件'" func-code="funcCode" model-data="VO.dealAttachmentB"></input-file-uploader>
+        </fieldset>
+    </div>
+</form>

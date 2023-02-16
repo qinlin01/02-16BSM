@@ -1,0 +1,300 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">立项编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 8px;" ng-disabled="true" type="text"
+                           ng-model="VO.cprocode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">客户名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" ui-popup-ref
+                           url="'personalCustomerRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'cinsureman'"
+                           ng-model="VO.cinsureman.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">是否为再保险业务：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="true" ng-verify ng-model="VO.ifReInsurance"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.YESNONUM">
+                        <option value="">--请选择是否为再保险业务--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">是否互联网业务：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="VO.ifFictitious"
+                                    required ng-disabled="isDisabled"
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                            </select>
+                        </div>
+                    </div>
+                    <!--疗休养 投标履约 长安一家-->
+                    <div class="col-md-4" ng-if="VO.ifFictitious == 'Y'">
+                        <label class="col-md-5 lr-verify control-label">客户类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="VO.internetCustomerType" ng-disabled="isDisabled"
+                                    required ng-verify
+                                    ng-options="item.id as item.name for item in SELECT.INTERNETCUSTOMERTYPE_G">
+                                <option value="">--请选客户类型--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--                    <div class="col-md-4" ng-if="VO.ifFictitious == 'Y'">-->
+                    <!--                        <label class="col-md-5 control-label">互联网产品类型：</label>-->
+                    <!--                        <div class="col-md-7">-->
+                    <!--                            <select class="form-control" ng-model="VO.fictitiousBusinessType"-->
+                    <!--                                    required-->
+                    <!--                                    ng-options="item.id as item.name for item in SELECT.PRODUCTTYPE_T">-->
+                    <!--                                <option value="">&#45;&#45;请选择互联网项目名称&#45;&#45;</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">业务类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.projectType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.MARKETTYPE">
+                                <option value="">--请选择业务类型--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">立项名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled&&isContinue" type="text" ng-verify="{max:50}" placeholder="长度限制为40个字" maxlength="40"
+                                   ng-model="VO.cproname">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">项目周期(月)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled&&isContinue" type="number" ng-verify="{max:2}"
+                                   ng-model="VO.cperiod_new">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">预计业务收入(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled&&isContinue" type="text" ng-verify="{max:20}"
+                                   ng-model="VO.festimateincome" format-number>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">立项性质：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="true" ng-model="VO.isContinue"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.PROJECTPROPERTIESTYPE">
+                                <option value="">--请选择立项性质--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--                        <label class="col-md-5 control-label lr-verify">业务来源：</label>-->
+                        <label class="col-md-5 control-label lr-verify">客户产权关系：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ui-popup-ref ng-disabled="isDisabled || ifSubsidiary"
+                                   url="'projectKindTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkC0Tradetype'" popup-model-value="param"
+                                   ng-verify="{required:false}"
+                                   is-tree="true" ng-disabled="false"
+                                   ng-model="VO.pkC0Tradetype.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">业务分类：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="colEdit  || ifSubsidiary" ui-popup-ref ng-disabled="isDisabled || ifSubsidiary"
+                                   url="'busiType/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'busi_type'" popup-model-value="VO.pkC0Tradetype"
+                                   ng-verify
+                                   is-tree="true"
+                                   ng-model="VO.busi_type.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务分类（详细）：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" ng-model="VO.busiTypeDetailed"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">是否为职域业务：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.ifJobDomain"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNONUMNEW">
+                                <option value="">--请选择是否为职域业务--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-4">-->
+                    <!--<label class="col-md-5 control-label">2018计划值：</label>-->
+                    <!--<div class="col-md-7">-->
+                    <!--<select class="form-control" ng-disabled="isDisabled"  ng-model="VO.temporaryPlan"-->
+                    <!--ng-options="item.id as item.name for item in SELECT.TEMPORARY_PLAN">-->
+                    <!--<option value="">&#45;&#45;请选择2018计划值&#45;&#45;</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label lr-verify">项目简介：</label>
+                        <div class="col-md-254">
+                              <textarea class="form-control" style="resize:none" ng-keyup="changeText()" ng-disabled="isDisabled&&isContinue" type="text" maxlength="300" rows="5"
+                                        ng-model="VO.assess"></textarea>
+                            <span style=" position: relative;top: -20px;float: right;color: #555556">{{VO.assessNum}}/300</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                     <label class="col-md-5 control-label lr-verify">项目简介：</label>
+                     <div class="col-md-7">
+                         <textarea class="form-control" style="resize:none"  ng-disabled="isDisabled" type="text" ng-verify ng-model="VO.assess"></textarea>
+                     </div>
+                 </div>-->
+                <!--   <div class="col-md-4">
+                       <label class="col-md-5 control-label">最终批复意见：</label>
+                       <div class="col-md-7">
+                           <textarea class="form-control" style="resize:none"  ng-disabled="true" type="text" ng-model="VO.finallyOpinion"></textarea>
+                       </div>
+                   </div>-->
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">最终批复意见：</label>
+                        <div class="col-md-254">
+                            <div simditor ng-disabled="true" type="text" ng-model="VO.finallyOpinion"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--     <div class="col-md-4">
+                         <label class="col-md-5 control-label lr-verify">业务来源：</label>
+                         <div class="col-md-7">
+                             <input class="form-control" ng-disabled="true" ui-popup-ref
+                                    url="'projectKindTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                    popup-model-field="'pkC0Tradetype'" popup-model-value="param"
+                                    ng-verify
+                                    is-tree="true"
+                                    ng-model="VO.pkC0Tradetype.name" type="text" placeholder="">
+                         </div>
+                     </div>-->
+    </div>
+
+    <!--   </accordion-group>
+   </accordion>-->
+    </div>
+    <!--<accordion class="" close-others="oneAtATime">
+    <accordion-group is-open="false" class="lr-page-bg-gray">
+        <accordion-heading class="lr-page-bg-white">
+            <div class="btn lr-page-bg-indigo">
+                <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+            </div>
+            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+
+                <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">单据状态：</label>
+                            <div class="col-md-7">
+                                {{VO.billstatus | SELECT_BILLSTATUS}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">经办人：</label>
+                            <div class="col-md-7">
+                                {{VO.pkOperator.name}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">业务单位：</label>
+                            <div class="col-md-7">
+                                {{VO.pkOrg.name}}
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">制单日期：</label>
+                            <div class="col-md-7">
+                                {{VO.operateDate | date_cell_date}}
+                            </div>
+                        </div>
+                </div>
+    </accordion-group>
+    </accordion>-->
+</form>

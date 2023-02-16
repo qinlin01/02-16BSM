@@ -1,0 +1,110 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onTemporary(VO)"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}"
+                    ng-if="!isbusinessStatus">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+
+            <button type="button" class="btn btn-azure" ng-click="onSave(VO)"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}"
+                    ng-if="!isGrid&&!isCard&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label ">服务名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.serviceName">
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">服务日期：</label>
+                <div class="col-md-7">
+                    <input class="form-control" wdate-picker ng-verify type="text" ng-model="VO.serviceDate">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">服务年度：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text"  ng-model="VO.year">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">服务类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.serviceType"
+                            required
+                            ng-verify
+                            ng-options="item.id as item.name for item in SELECT.SERVICETYPE">
+                        <option value="">--请选择服务方式--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="col-md-255 control-label lr-verify" for="exampleFormControlTextarea1">服务内容：</label>
+                <div class="col-md-254">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" type="text"  value="" placeholder="服务内容最多可输入2000字" maxlength="2000" ng-verify ng-disabled="isDisable" style="resize:none"
+                                      ng-model="VO.consultationReply">
+                            </textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <accordion close-others="oneAtATime" class="">
+
+            <div>
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                            ng-click="relationPage('projectInfoGridOptions');">增加
+                    </button>
+                    <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                            ng-click="onDeleteLine('projectInfoGridOptions');">删除
+                    </button>
+                </div>
+                <tabset justified="false" aria-expanded="true">
+                    <tab index="3" heading="项目信息" select="selectTab('projectInfoGridOptions')">
+                        <div ui-grid="projectInfoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                             style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+
+
+            <div style="margin-top: 100px">
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                            ng-click="onUploads();">上传
+                    </button>
+                    <button class="btn btn-sm btn-info" type="button" ng-if="isEdit&&isShow"
+                            ng-click="onDeleteLine('dealAttachmentBGridOptions');">删除
+                    </button>
+                </div>
+                <tabset justified="false">
+                    <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                             style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </accordion>
+    </div>
+</form>

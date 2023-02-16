@@ -1,0 +1,83 @@
+<div class="main-form-style">
+    <div class="form-horizontal" >
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button class="btn lr-main-btn" ng-click="onQueryChildren();">
+                                <i class="fa fa-search"></i>
+                                <span>查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onResetChildren();">
+                                <i class="fa fa-undo"></i>
+                                <span>重置</span>
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">合同编号</label>
+                            <div class="col-md-8">
+                                <input class="form-control"  type="text" ng-model="QUERYCHILDREN['contractNumber']"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">合同年度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERYCHILDREN['operate_year']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                    <option value="">--请选择合同年度--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">合同类型</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERYCHILDREN['typeOfContract']"
+                                        ng-options="item.id as item.name for item in SELECT.RELATIONCONTRACTTYPE">
+                                    <option value="">--请选择合同类型--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+
+
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <button class="btn lr-main-btn" ng-click="onUploadsChildren();">
+                <i class="fa fa-edit"></i>
+                <span>上传</span>
+            </button>
+        </div>
+    </div>
+</div>
+    <p style="float: right;margin-top: 5px">如未查询到数据请点击上传按钮</p>
+    <tabset justified="false">
+        <tab heading="合同信息子表" select="selectTab('appendicesPagesGridOptions')">
+            <div id="appendicesIdGrid" ui-grid="appendicesPagesGridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns
+                 ui-grid-selection ui-grid-pinning class="grid" style="height: 300px"></div>
+        </tab>
+    </tabset>
+    <div class="pull-right">
+
+        <button ng-click="onConfirms()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+        <button ng-click="onCancels()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>
+

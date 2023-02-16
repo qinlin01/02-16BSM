@@ -1,0 +1,50 @@
+<div class="main-form-style" ng-controller="policyGridOptionsCtrl">
+    <div class="form-horizontal">
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button class="btn lr-main-btn" ng-click="onQueryChildren();">
+                                <i class="fa fa-search"></i>
+                                <span>查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onResetChildren();">
+                                <i class="fa fa-undo"></i>
+                                <span>重置</span>
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <form class="form-horizontal">
+                    <div class="form-group" ng-if="!childQuery">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">暂保单编号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN['insuranceinfono^like']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">暂保单名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN['insuranceno^like']"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <div ui-grid="reportChildrenGridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="height:200px"></div>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()" style="margin-right: 10px;" class="btn btn-sm btn-info">确定</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;" class="btn btn-sm btn-info">返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

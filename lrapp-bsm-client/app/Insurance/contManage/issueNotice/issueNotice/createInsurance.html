@@ -1,0 +1,39 @@
+<div class="main-form-style" ng-controller="createInsuranceCtrl">
+    <form class="form-horizontal" name="createInsuranceForm" verify-scope="tipStyle: 1">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="center" width="60">序号</th>
+                <th>出单通知书编号</th>
+                <th>出单通知书名称</th>
+                <th>险种</th>
+                <th>保单号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(index,item) in insurancelist">
+                <td class="center">{{index+1}}</td>
+                <td>{{item.IssueNoticeNo}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.insureTypeID|SELECT_DWZCINSURANCETYPE}}</td>
+                <td>
+                    <input class="form-control" ng-blur="onCheckInsuranceno(item)" type="text" ng-model="item.insuranceno" ng-verify="{max:128}">
+                </td>
+                <td class="center">
+                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                        <a ng-click="createInsuranceOne(index,item)" style="color: #0095C8" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="生成保单"><i class="ti ti-save"></i></a>
+                        <a ng-click="removeInsurance(index)" style="color: #0095C8" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="取消"><i class="fa fa-times fa fa-white"></i></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="pull-right">
+            <button ng-click="onConfirm()" style="margin-right: 10px;" class="btn btn-sm btn-info">确定生成</button>
+            <button ng-click="onCancel()" style="margin-right: 10px;" class="btn btn-sm btn-info">取消</button>
+        </div>
+    </form>
+    <div style="clear: both"></div>
+</div>
+

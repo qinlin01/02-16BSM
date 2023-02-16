@@ -1,0 +1,379 @@
+<form class="form-horizontal" name="tripartiteAgreement" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&VO.billstatus!=1">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">温馨提示</span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group" style="height: 100px;width: 100%;">
+                <div class="col-md-12">
+                    <p class="font-red-size">
+                        1.统保业务必须上传三方协议</br>
+                    </p>
+                </div>
+            </div>
+        </accordion-group>
+
+    </accordion>
+
+    <div class="panel panel-transparent min-height-200">
+        <div class="panel-body">
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务单位：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.ourOrg.name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务部门：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.ourDept.name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务经办人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.ourUser.name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <div class="panel-title">
+                    客户信息
+                </div>
+            </div>
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.tripartiteCustomerType" required>
+                                <option ng-value="1">国网客户</option>
+                                <option ng-value="2">市场客户</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify
+                                   ui-popup-ref
+                                   url="'customerRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'tripartiteCustomer'" popup-model-value="{customerType: 1,c1Type: c1Type}"
+                                   ng-verify open-customer-more="true"
+                                   ng-model="VO.tripartiteCustomer.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户信息编码：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.tripartiteCustomer.code">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">是否包含下级单位：</label>
+                        <div class="clip-radio radio-primary col-md-7">
+                            <div class="col-md-2">
+                                <input type="radio" ng-disabled="isDisabled" id="dr0" ng-model="VO.tripartiteIfContainChildren"
+                                       value="0">
+                                <label for="dr0">
+                                    是
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="radio" ng-disabled="isDisabled" id="dr1" ng-model="VO.tripartiteIfContainChildren"
+                                       value="1">
+                                <label for="dr1">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <div class="panel-title">
+                    合作单位信息
+                    <div style="float: right">
+                        <button class="btn btn-sm btn-info" ng-click="onAddCooperationCustomer();">添加合作单位信息</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="item in VO.cooperationCustomerArray">
+                <div class="panel-heading" ng-if="item.canDel">
+                    <div class="panel-title">
+                        <div style="float: right">
+                            <button class="btn btn-sm btn-info" ng-click="cooperationCustomer($index);">X</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label lr-verify">合作单位类型：</label>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-disabled="isDisabled" ng-model="item.customerType" required>
+                                    <option ng-value="3">保险公司</option>
+                                    <option ng-value="4">中介公司</option>
+                                    <option ng-value="5">其他合作公司</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label lr-verify">合作单位名称：</label>
+                            <div class="col-md-7">
+                                <input class="form-control" ng-disabled="isDisabled" ng-verify
+                                       ui-popup-ref
+                                       url="'customerRef/queryForGrid'" ng-click="" popup-model="item"
+                                       popup-model-field="'customer'" popup-model-value="{customerType: item.customerType}"
+                                       ng-verify open-customer-more="true"
+                                       ng-model="item.customer.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">合作单位信息编码：</label>
+                            <div class="col-md-7">
+                                <input class="form-control" ng-disabled="true" type="text"
+                                       ng-model="item.customer.code">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">是否包含下级单位：</label>
+                            <div class="clip-radio radio-primary col-md-7">
+                                <div class="col-md-2">
+                                    <input type="radio" ng-disabled="isDisabled" id="dr2" ng-model="item.ifContainChildren"
+                                           value="0">
+                                    <label for="dr2">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="radio" ng-disabled="isDisabled" id="dr3" ng-model="item.ifContainChildren"
+                                           value="1">
+                                    <label for="dr3">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    协议内容
+                </div>
+            </div>
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify
+                                   ui-popup-ref
+                                   url="'economicContract/queryForClearing'" ng-click="" popup-model="VO"
+                                   popup-model-field="'contract'" popup-model-value="param"
+                                   ng-verify open-customer-more="true"
+                                   ng-model="VO.contract.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.contract.code">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议签署单位：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ui-popup-ref
+                                   url="'orgRef/queryForGridAll'" ng-click="" popup-model="VO"
+                                   popup-model-field="'agreementOrg'"
+                                   ng-model="VO.agreementOrg.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">签署协议日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                                   ng-model="VO.signDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议生效日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                                   ng-model="VO.effctDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议起始日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                                   ng-model="VO.agreementStart">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">协议结束日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                                   ng-model="VO.agreementEnd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">有效期(月)：</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="VO.term" ng-disabled="isDisabled" ng-verify touchspin data-verticalbuttons="false"
+                                   data-min="0" data-max="100" data-decimals="0" data-step="1"
+                                   class="form-control" style="display: block;">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">是否长期：</label>
+                        <div class="clip-radio radio-primary col-md-7">
+                            <div class="col-md-2">
+                                <input type="radio" ng-disabled="isDisabled" id="yes1" ng-model="VO.ifLongTime"
+                                       value="0">
+                                <label for="yes1">
+                                    是
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="radio" ng-disabled="isDisabled" id="no1" ng-model="VO.ifLongTime"
+                                       value="1">
+                                <label for="no1">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">主要内容：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" rows="4" ng-disabled="isDisabled"
+                                      ng-verify="{required:false,max:2048}" required type="text"
+                                      ng-model="VO.remark"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" ng-if="VO.pkOrg.pk == '1002'">
+                <div class="panel-title">
+                    属地服务单位
+                </div>
+            </div>
+            <div class="well" ng-if="VO.pkOrg.pk == '1002'">
+                <!--                <div class="checkbox clip-check check-primary checkbox-inline">-->
+                <!--                    <input type="checkbox" ng-disabled="isDisabled" id="checkbox01" ng-model="VO.effectiveRangeAll">-->
+                <!--                    <label for="checkbox01">-->
+                <!--                        全部-->
+                <!--                    </label>-->
+                <!--                </div>-->
+                <div class="checkbox clip-check check-primary checkbox-inline" ng-repeat="org in orgRows">
+                    <input type="checkbox" ng-disabled="isDisabled" id="{{org.pk}}" ng-model="VO.effectiveRange[org.pk]" ng-value="org" ng-change="checkboxChoosed(org)">
+                    <label for="{{org.pk}}" ng-show="org.name!='新疆分公司'&&org.name!='广东分公司'&&org.name!='北京安恒信保险公估有限公司'&&org.name!='北京英大'&&org.name!='内蒙古分公司'">
+                        {{org.name}}
+                    </label>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <div class="panel-title">
+                    附件
+                    <div style="float: right">
+                        <button class="btn btn-sm btn-info" ng-show="isEdit"
+                                ng-click="onDeleteLine();">减行
+                        </button>
+                        <button class="btn btn-sm btn-info" ng-show="isEdit"
+                                ng-click="onUploads();">上传
+                        </button>
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();">下载</button>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav
+                     ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                     style="height: 200px"></div>
+            </div>
+        </div>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

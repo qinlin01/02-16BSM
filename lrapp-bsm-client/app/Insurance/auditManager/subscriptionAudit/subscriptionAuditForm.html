@@ -1,0 +1,155 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar" >
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存匹配</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36) && VO.id !=null">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)&& VO.id !=null">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)&& VO.id !=null">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit&& VO.id">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)&& VO.id !=null">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+<!--            <button class="btn btn-azure ng-scope" ng-click="onAdd()" ng-disabled="null" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46||VO.billstatus==32)"> <i class="fa fa-plus"></i>增加</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+<!--            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">-->
+<!--                <i class="fa fa-save"></i>-->
+<!--                <span>暂存</span>-->
+<!--            </button>-->
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">认领单编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control"  ng-disabled="true" type="text"
+                           ng-model="VO.subscriptionno">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label ">合同单据号：</label>
+                <div class="col-md-7">
+                    <input class="form-control"  ng-disabled="isDisabled" type="text"
+                           ng-model="VO.contractDocumentno">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">购买方名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control"  ng-disabled="true" type="text"
+                           ng-model="VO.purchaser.name">
+                </div>
+            </div>
+
+        </div>
+    </div><br>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info" ng-disabled="isDisabled"  ng-click="onDeleteLine('clearingGridOptions');">减行</button>
+        </div>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info" ng-disabled="isDisabled" ng-click="onAddLine('clearingGridOptions');">增行</button>
+        </div>
+        <tabset justified="false" >
+        <tab index="1" heading="到账信息" select="selectTab('clearingGridOptions')">
+            <div ui-grid="clearingGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                 ui-grid-resize-columns class="grid" style="height: 200px"></div>
+        </tab>
+        </tabset>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info"  ng-disabled="isDisabled" ng-click="onDeleteLine('clearingDetailGridOptions');">减行</button>
+        </div>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info"  ng-disabled="isDisabled" ng-click="onAddLine('clearingDetailGridOptions');">增行</button>
+        </div>
+        <tabset justified="false" >
+            <tab index="3" heading="结算信息" select="selectTab('clearingDetailGridOptions')">
+                <div ui-grid="clearingDetailGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info"  ng-disabled="isDisabled" ng-click="onDeleteLine('invoicenoGridOptions');">减行</button>
+        </div>
+        <div class="pull-right lr-mr10 lr-mt10" >
+            <button class="btn btn-sm btn-info"  ng-disabled="isDisabled" ng-click="onAddLine('invoicenoGridOptions');">增行</button>
+        </div>
+        <tabset justified="false" >
+            <tab index="4" heading="发票信息" select="selectTab('invoicenoGridOptions')">
+                <div ui-grid="invoicenoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+        <tabset justified="false" >
+            <tab index="4" heading="科目信息" select="selectTab('subjectGridOptions')">
+                <div ui-grid="invoicenoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus | SELECT_BILLSTATUS}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate | date_cell_date}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

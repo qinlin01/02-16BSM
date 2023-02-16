@@ -1,0 +1,196 @@
+.<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="alert alert-success" style="background-color: #edfaff;color: #484b4d">
+        <p style="font-weight: bold">
+            <i class="fa fa-info-circle fa-2x" style="color: orange">  温馨提示</i>
+            <br><br>
+            1.数据修改申请，必须上传佐证材料
+        </p>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申报信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.code">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执行状态：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="true" ng-model="VO.executeState" required
+                                ng-options="item.id as item.name for item in SELECT.TASKSTATE">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执行日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.executeDate">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                修改内容
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申请人：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkOperator.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">发起单位名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkOrg.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申请人所在部门：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkDept.name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">修改原因：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" ng-verify style="resize:none" ng-disabled="!isForm" type="text" ng-model="VO.reason" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">修改内容：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" ng-verify style="resize:none" ng-disabled="!isForm" type="text" ng-model="VO.content" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>数据信息</legend>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">数据节点名称：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="!isForm||menuType=='self'" ng-model="VO.tableName" required
+                                ng-options="item.id as item.name for item in tableNameArray">
+                            <option value="">--请选择数据节点名称--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-show="ifChoseTable">
+                    <label class="col-md-5 control-label">信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!isForm||menuType=='self'" type="text" ng-model="VO.dataCode">
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right lr-mr10 lr-mt10" ng-show="ifChoseTable&&menuType=='add'">
+                <button class="btn btn-sm btn-info" type="button" ng-click="searchData()">查询</button>
+            </div>
+            <tabset justified="false" ng-show="ifChoseTable&&menuType=='add'">
+                <tab index="1" heading="数据信息">
+                    <div ui-grid="dataListGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>已选信息</legend>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">数据信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">信息编号</th>
+                        <th class="center">单据状态</th>
+                        <th class="center">经办人</th>
+                        <th class="center">制单日期</th>
+                        <th class="center">业务单位</th>
+                        <th class="center">部门</th>
+                        <th class="center">审核人</th>
+                        <th class="center">审核日期</th>
+                        <th class="center">最终审核人</th>
+                        <th class="center">最终审核日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.oldData[fieldSearch]}}</td>
+                        <td>{{VO.oldData.billstatus | SELECT_BILLSTATUS}}</td>
+                        <td>{{VO.oldData.pkOperator.name}}</td>
+                        <td>{{VO.oldData[ocTime] | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkOrg.name}}</td>
+                        <td>{{VO.oldData.pkDept.name}}</td>
+                        <td>{{VO.oldData.pkChecker.name}}</td>
+                        <td>{{VO.oldData.checkDate | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkAuditor.name}}</td>
+                        <td>{{VO.oldData.auditDate | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    </div>
+</form>

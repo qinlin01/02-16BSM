@@ -1,0 +1,558 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>审核</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==36||VO.billstatus==37)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onTemporary(VO)" type="button" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">温馨提示</span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group" style="height: 100px;width: 100%;">
+                <div class="col-md-12">
+                    <p class="font-red-size">
+                        1.立项为互联网业务时，每次结算不能结算不同立项下的保单.</br>
+                        2.经法合同信息为必输项，请录入结算单时，确认经法合同中合同状态.</br>
+                    </p>
+                </div>
+            </div>
+        </accordion-group>
+
+    </accordion>
+    <div class="lr-contant">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">业务结算编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.vbillno">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收保费总额：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumReceivemount"
+                           format-number>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">解付保费总额：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumPaymount" format-number>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收佣金总额：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumReceivefeemount"
+                           format-number>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收咨询费总额：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumConsult" format-number>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收公估费总额：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumEvaluationfee"
+                           format-number>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">SAP 凭证状态：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="true" ng-model="VO.sapCustomernCode"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.SAPTYPE">
+                        <option value="">--请选择SAP 凭证状态--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">是否旅游业务预存：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.ifEpay"
+                            ng-options="item.id as item.name for item in SELECT.YESNO">
+                        <option value="">--请选择是否旅游业务预存--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">收付款类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.inoutType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.ITEMTYPE">
+                        <option value="">--请选择收付款类型--</option>
+                    </select>
+                </div>
+            </div>
+            <!--            <div class="col-md-4">-->
+            <!--                <label class="col-md-5 control-label">经法合同信息：</label>-->
+            <!--                <div class="col-md-7">-->
+            <!--                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="economicContractRef"-->
+            <!--                           url="'economicContract/queryForClearing'" ng-click="" popup-model="VO"-->
+            <!--                           popup-model-field="'economicContract'" popup-model-value="param"-->
+            <!--                           ng-model="VO.economicContract.CONTRACTNAME" type="text" placeholder="">-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--            <div class="col-md-4">-->
+            <!--                <label class="col-md-5 control-label">经法合同编号：</label>-->
+            <!--                <div class="col-md-7">-->
+            <!--                    <input class="form-control" ng-disabled="true"-->
+            <!--                           ng-model="VO.economicContract.CONTRACTNUMBER" type="text" placeholder="">-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+        <div class="form-group">
+            <!--            <div class="col-md-4">-->
+            <!--                <label class="col-md-5 control-label">产品名称：</label>-->
+            <!--                <div class="col-md-7">-->
+            <!--                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.productType"-->
+            <!--                            ng-options="item.id as item.name for item in SELECT.PRODUCTTYPE">-->
+            <!--                        <option value="">&#45;&#45;选择产品&#45;&#45;</option>-->
+            <!--                    </select>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--            <div class="col-md-4">-->
+            <!--                <label class="col-md-5 control-label">是否旅游业务预存：</label>-->
+            <!--                <div class="col-md-7">-->
+            <!--                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.ifEpay"-->
+            <!--                            ng-options="item.id as item.name for item in SELECT.YESNO">-->
+            <!--                        <option value="">&#45;&#45;请选择是否旅游业务预存&#45;&#45;</option>-->
+            <!--                    </select>-->
+            <!--                </div>-->
+            <!--            </div>-->
+                        <div class="col-md-4" ng-show="VO.inoutType == 1">
+                            <label class="col-md-5 control-label">是否预收：</label>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-disabled="isDisabled" ng-model="VO.ifAdvance"
+                                        ng-options="item.id as item.name for item in SELECT.YESNO">
+                                </select>
+                            </div>
+                        </div>
+        </div>
+    </div>
+    <!--开票信息 ng-if="ITEMTYPE.id==3"-->
+    <div class="lr-contant" ng-if="showInformation == true">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">开票信息</span>
+                    </div>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">付款单位名称：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" ui-popup-ref=""
+                                   url="'customerClearingRefController/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'factActualcollection'"
+                                   ng-model="VO.factActualcollection.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">银行卡号：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accNum">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">开户银行：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accBlank">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">纳税人识别号:</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c1Institution">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">公司地址:</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_0_address">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系电话：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_1_phone">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <!--往来信息 解付保费、应收保费 ng-if="ITEMTYPE.id==2,1"-->
+    <div class="lr-contant" ng-if="contactInformation == true">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">往来信息</span>
+                    </div>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">实际往来对象：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" ui-popup-ref=""
+                                   url="'customerClearingRefController/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'factActualcollection'"
+                                   ng-model="VO.factActualcollection.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">银行卡号：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accNum">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">开户银行：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accBlank">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">银行联行号:</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" placeholder="百度搜索”银行联行号“查询" ng-model="VO.factActualcollection.jointBankNum">
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-show="(VO.inoutType == 1 && VO.sumReceivemount < 0) || VO.inoutType == 2">
+                        <label class="col-md-5 control-label">财务往来客商：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="caibSapCostCenterRef"
+                                   url="'caibSapCostCenterRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'sapCustomer'"
+                                   ng-model="VO.sapCustomer.NAME" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">纳税人识别号:</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c1Institution">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">公司地址:</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_0_address">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">联系电话：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_1_phone">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <!--往来信息 应收保费 ng-if="ITEMTYPE.id==1"-->
+    <div class="lr-contant" ng-if="contactproject==true">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">往来信息</span>
+                    </div>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">实际往来对象：</label>
+                        <div class="col-md-7">
+                            <input ng-verify class="form-control" ng-disabled="isDisabled" ui-popup-ref=""
+                                   url="'customerClearingRefController/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'factActualcollection'"
+                                   ng-model="VO.factActualcollection.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">银行卡号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accNum">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">开户银行：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.accBlank">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">纳税人识别号:</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c1Institution">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">公司地址:</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_0_address">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">联系电话：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.factActualcollection.c_1_phone">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <accordion class="" close-others="oneAtATime" ng-if="showSubscription==true && VO.ifAdvance == 'N'">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">到账信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div>
+                    <div class="lr-contant">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">流水日期：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" wdate-pickers
+                                           ng-model="VO.actualAccountDate">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">交易金额：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text"
+                                           ng-model="VO.querylenderAmount">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">对方账户：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text"
+                                           ng-model="VO.queryName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="①到账信息" select="selectTab('subscriptionGridOptions')">
+                            <div ui-grid="subscriptionGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid" style="height: 300px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        银行到账金额：{{VO.amount_money}} ，本次结算金额：{{VO.matching_money}}
+                    </div>
+                    <!--            <p style="display: inline-block;height:200px; line-height:200px; overflow:hidden;font-size: 20px;"><strong>→</strong></p>-->
+                    <tabset justified="false">
+                        <tab index="1" heading="②已选到账信息" select="selectTab('clearingGridOptions')">
+                            <div ui-grid="clearingGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid" style="height: 300px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </accordion-group>
+        </accordion>
+        <accordion class="" close-others="oneAtATime" ng-if="showSubscription==true && VO.ifAdvance == 'Y'">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">预收保费信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div>
+                    <div class="lr-contant">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">预收保费信息编号：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text"
+                                           ng-model="advancePremiumsParam['advance_no']">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">交易金额：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text"
+                                           ng-model="advancePremiumsParam['account_statement0_0Ref_[0].lender_amount']">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">对方账户：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text"
+                                           ng-model="advancePremiumsParam['account_statement0_0Ref_[0].reciprocal_account']">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="①预收到账信息" select="selectTab('advancePremiumsInfoGridOptions')">
+                            <div ui-grid="advancePremiumsInfoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid" style="height: 300px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div>
+                    <tabset justified="false">
+                        <tab index="1" heading="②已选预收到账信息" select="selectTab('advancePremiumsGridOptions')">
+                            <div ui-grid="advancePremiumsGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid" style="height: 300px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="pull-right lr-mr10 lr-mt10">
+                    银行到账金额：{{VO.amount_money}} ，本次结算金额：{{VO.matching_money}}
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <input type="file" id="inputFile"  accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none" onchange="angular.element(this).scope().onImportUploads(false)"/>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-if="isEdit" ng-click="onAddBulk();">批量结算</button>
+            <button class="btn btn-sm btn-info" type="button" ng-if="isEdit" ng-click="onAddLine(null,'clearingBGridOptions');">增行</button>
+            <button class="btn btn-sm btn-info" type="button" ng-if="isEdit" ng-click="onDeleteLine();">减行</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="结算子表" select="selectTab('clearingBGridOptions')">
+                <div ui-grid="clearingBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid"></div>
+            </tab>
+        </tabset>
+    </div>
+
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-click="onUploads();" ng-if="isEdit|| upOrDown">上传</button>
+            <button class="btn btn-sm btn-info" type="button" ng-if="isEdit" ng-click="onDeleteLine('dealAttachmentBGridOptions');">减行</button>
+            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-if="isEdit||upOrDown">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="2" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+
+    </div>
+    <div ng-if="VO.productType==0" style="padding: 10px;width: 45%">
+        <div ui-grid="feeGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+             ui-grid-resize-columns class="grid" style="height: 130px"></div>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus | SELECT_BILLSTATUS}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate | date_cell_date}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

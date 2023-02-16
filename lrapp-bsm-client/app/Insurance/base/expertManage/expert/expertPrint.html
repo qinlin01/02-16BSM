@@ -1,0 +1,535 @@
+<link rel="stylesheet" href="/insurance/css/public.css">
+
+
+<div class="print-font">
+    <accordion>
+        <accordion-group is-open="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <span style="font-size: 18px; font-weight: bolder">打印预览</span>
+                </div>
+            </accordion-heading>
+            <div id="printMonReport">
+                <div id="head" class="print-font" style=" text-align: center !important;">
+                    <h3 class="print-center" style=" text-align: center !important;">技术人才信息表</h3>
+                </div>
+
+
+                <div class="table-1">
+                    <div class="table-tr-1" style="height:60px;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px;">
+                                                    姓名
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; ">
+                                                    单位
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px;">
+                                                    最高学历
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.name}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.work_dep}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.educationed}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    性别
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    职务
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    毕业院校
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.gendered}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.job}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.gra_school}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    年龄
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    职级
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    所学专业
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.age}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.rank}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.subject}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 22%; border-left: none">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1">
+                                                <div class="sub-table-td-1" style="width: 100%; ;border: none;">
+                                                    照片
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-tr-1" style="height:60px;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px;border-top: none;">
+                                                    从事相关工作年限
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none; border-top: none;">
+                                                    {{result.yearsofworking}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none; border-top: none;">
+                                                    办公电话
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none; border-top: none;">
+                                                    {{result.phone}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none; border-top: none;">
+                                                    手机
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 37%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none; border-top: none;">
+                                                    {{result.telepho}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-tr-1" style="height:60px; border-top: none;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 26%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style=" height: 40px; border-top: none;">
+                                                    保险经纪从业人员执业证书编号
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 74%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td"-1 style="  height: 40px; border-left: none; border-top: none;">
+                                                    {{result.caibno}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-tr-1" style="height:60px;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 8%; border-top: none;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1">
+                                                <div class="sub-table-td-1" style="width: 100%; ;border: none;">
+                                                    职称信息
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 29%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-top: none; border-left: none;">
+                                                    时间
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.et_date1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.et_date2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 41%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    名称
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.et_name1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.et_name2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 22%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    授予单位
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.department1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.department2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-tr-1" style="height:60px;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 8%; border-top: none;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1">
+                                                <div class="sub-table-td-1" style="width: 100%; ;border: none;">
+                                                    资格证书信息
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 29%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-top: none; border-left: none;">
+                                                    时间
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.caibnotime1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.caibnotime2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 41%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    名称
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.caibnoname1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.caibnoname2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 22%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    授予单位
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.grantunit1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.grantunit2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-tr-1" style="height:60px;">
+                        <div class="table-td-1">
+                            <div class="sub-table-1">
+                                <div class="sub-table-tr-1">
+                                    <div class="sub-table-td-1" style="width: 8%; border-top: none;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1">
+                                                <div class="sub-table-td-1" style="width: 100%; ;border: none;">
+                                                    项目经验
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 15%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-top: none; border-left: none;">
+                                                    开始时间
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.start_date1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.start_date2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 14%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-top: none; border-left: none;">
+                                                    结束时间
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.end_date1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style=" height: 40px; border-left: none;">
+                                                    {{result.end_date2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 20%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    项目名称
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.projectname1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.projectname2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 21%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    项目内容
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.projecttext1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.projecttext2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    行业类别
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.projecttype1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.projecttype2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-table-td-1" style="width: 11%; border: none;     height: 40px;">
+                                        <div class="sub-table-1">
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none;  border-top: none;">
+                                                    项目中任职
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1"  style="  height: 40px; border-left: none">
+                                                    {{result.projectjob1}}
+                                                </div>
+                                            </div>
+                                            <div class="sub-table-tr-1" >
+                                                <div class="sub-table-td-1" style="  height: 40px; border-left: none">
+                                                    {{result.projectjob2}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="foot" style="text-align: center;">
+                <button ng-click="print()" class="btn btn-sm lr-sub-btn">
+                    <span style="font-size: 15px;">打印</span>
+                </button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+
+</div>

@@ -1,0 +1,25 @@
+<!--<link rel="stylesheet" href="/insurance/css/public.css">-->
+<div class="print-font" ng-controller="printCtrl">
+    <accordion>
+        <accordion-group is-open="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <span style="font-size: 18px; font-weight: bolder">打印预览</span>
+                </div>
+            </accordion-heading>
+            <!--startprint-->
+            <div id="printHtml" style=" margin: auto; width: 500px" >
+                <!--<div id="printHtml" style="overflow-x: auto; overflow-y: auto;">-->
+                <!--</div>-->
+            </div>
+            <!--endprint-->
+            <div id="foot" style="text-align: center; margin-top: 25px" >
+                <button ng-click="onPrint()"  class="btn btn-sm lr-sub-btn" >
+                    <span style="font-size: 15px;">打印</span>
+                </button>
+                <iframe id="printf" src="" width="0" height="0" frameborder="0"></iframe>
+            </div>
+        </accordion-group>
+    </accordion>
+
+</div>

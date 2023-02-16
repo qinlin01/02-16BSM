@@ -1,0 +1,210 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.ifGetFeeBill==31)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32||VO.ifGetFeeBill==32||VO.ifGetFeeBill==33)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.endorsementsCode}}</h4>
+            <div class="col-md-12">
+                <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':'' }} badge" style="float: right">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单对账单信息编号：</span><span class="fontStyle">{{VO.endorsementsCode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单类型：</span><span
+                        class="fontStyle">{{VO.endorsementsType | SELECT_CHANGEBILLCHECKTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单对账单信息编号：</span><span class="fontStyle">{{VO.pkFictitiousInsurance.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单对账单名称：</span><span class="fontStyle">{{VO.pkFictitiousInsurance.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>互联网产品类型：</span><span
+                        class="fontStyle">{{VO.fictitiousBusinessType | SELECT_PRODUCTTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>对账单建立部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>对账单建立公司：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批改原因：</span><span class="fontStyle">{{VO.endorsementsReason}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>备注：</span><span class="fontStyle">{{VO.remark}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">批单金额信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>变更保额(元)：</span>
+                    <span class="fontStyle">{{VO.insurancetotalmoney | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>变更保费(元)：</span>
+                    <span class="fontStyle">{{VO.receivemount | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单佣金(元)：</span>
+                    <span class="fontStyle">{{VO.receivefeemount | AMOUNT_FILTER}}</span>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="VO.fictitiousBusinessType = 'tra'">
+                <div class="col-md-4">
+                    <span>线上金额(元)：</span><span class="fontStyle">{{VO.onlinePartyAmount | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>线下金额(元)：</span><span class="fontStyle">{{VO.offlinePaymentAmount | AMOUNT_FILTER}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">收付款信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="center">期数</th>
+                            <th>渠道</th>
+                            <th>交易方式</th>
+                            <th>收付款类型</th>
+                            <th>收付款对象名称</th>
+                            <th>收付款比例</th>
+                            <th>计划日期</th>
+                            <th>计划金额</th>
+                            <th>已结算金额</th>
+                            <th>未结算金额</th>
+                            <th>结算日期</th>
+                            <th>业务结算单号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.webPaymentList">
+                            <td class="center">{{item.stages}}</td>
+                            <td>{{item.tradingChannel | SELECT_PAYMODE}}</td>
+                            <td>{{item.rechargeType | SELECT_RECHARGETYPE}}</td>
+                            <td>{{item.typeMoneyNo|SELECT_MONEYTYPE}}</td>
+                            <td>{{item.pkCompany.name}}</td>
+                            <td>{{item.scaleMoney|number:2}}</td>
+                            <td>{{item.planDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.planMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.vsettlebillno}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--关联单据页面动态展示-->
+            <div class="col-md-12" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="col-md-12" style="margin-top: 15px; margin-bottom: 15px">
+                    <div class="table-responsive">
+                        <p style="font-size: 16px;color: #8e8e93">关联保单</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>保单信息编号</th>
+                                <th>保单号</th>
+                                <th>订单号</th>
+                                <th>产品名称</th>
+                                <th>保险金额/赔偿限额</th>
+                                <th>保费</th>
+                                <th>应收佣金</th>
+                                <th>保险起期</th>
+                                <th>保险止期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.internetBillList">
+                                <th>{{$index+1}}</th>
+                                <td>{{item.insuranceinfono}}</td>
+                                <td>{{item.insuranceno}}</td>
+                                <td>{{item.form_id}}</td>
+                                <td>{{item.product_name}}</td>
+                                <td>{{item.insurancetotalmoney|number}}</td>
+                                <td>{{item.insurancetotalcharge|number}}</td>
+                                <td>{{item.commisiontotalnum|number}}</td>
+                                <td>{{item.start_date|date}}</td>
+                                <td>{{item.end_date|date}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">附件<span ng-if="VO.dealattachmentb.length==0">（空）</span>
+                        <button type="button" ng-if="VO.dealattachmentb.length!=0" class="btn btn-wide btn-dark-blue" ng-click="onDownLoads()">
+                            批量下载<i class="fa fa-cloud-download"></i>
+                        </button>
+                    </p>
+                    <table class="table table-bordered table-hover" ng-if="VO.dealattachmentb.length!=0">
+                        <thead>
+                        <tr>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>在线预览</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealattachmentb">
+                            <td>{{item.attachment_name}}</td>
+                            <td>{{item.upload_date | date}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

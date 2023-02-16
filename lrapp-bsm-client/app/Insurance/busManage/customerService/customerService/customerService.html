@@ -1,0 +1,5 @@
+<div ng-controller="customerServiceCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/customerService/customerServiceGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/customerService/customerServiceCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/customerService/customerServiceForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

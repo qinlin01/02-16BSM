@@ -1,0 +1,88 @@
+<div class="row"  ng-controller="dealAppAttachmentCtrl">
+    <form  name="dealAttachmentsForm" verify-scope="tipStyle: 1">
+        <div ng-controller="upLoadCtrls" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter" class="ng-scope">
+            <div class="row">
+                <div class="col-md-12" >
+                    <h4  style="vertical-align: inherit;margin-left: 20px">附件信息</h4>
+                    <div class="panel panel-transparent" >
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%" style="vertical-align: inherit;">类型</th>
+                                        <th ng-show="uploader.isHTML5" class="" style="vertical-align: inherit;">名称</th>
+                                        <th ng-show="uploader.isHTML5" class="" style="vertical-align: inherit;">进展</th>
+                                        <th style="vertical-align: inherit;">动作</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                <!--附件页面-->
+                                <div  style="height: 375px;overflow-y: auto;overflow-x: hidden">
+                                    <div ng-repeat="items in aVO.nameArray" style="margin-bottom: 60px">
+                                        <div style="color: black">
+                                            <span data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" style="font-size: 15px;display: inline-block">{{items.name}}</span>
+                                            <span data-toggle="collapse" href="#collapseExample" aria-expanded="false" style="font-size: 15px;display: inline-block;color: red" ng-show="items.title">{{items.title}}</span>
+                                            <div class="col-md-2" style="float: right">
+                                                <table >
+                                                    <tr>
+                                                        <td data-ng-show="!isCanUpLoad">
+                                                            <button class="form-control" style="width: 99px; height:33px; -moz-border-radius:42px;
+                                                    -webkit-border-radius:42px;
+                                                    border-radius:42px;" ng-click="uploadById('{{items.id}}')">
+                                                                <img src="../app/assets/images/upload.png" style="width: 17px; height: 17px;"> <span style="">上传文件</span>
+                                                            </button>
+                                                        </td>
+                                                        <td data-ng-show="isCanUpLoad">
+                                                            <input class="form-control" placeholder="不可上传附件" style="width: 152px;" type="text">
+                                                        </td>
+                                                        <td >
+                                                            <input type="file" options="{'file_type':{{items.id}}}" nv-file-select="1" id="upload_file{{items.id}}" ng-disabled="isCanUpLoad" multiple uploader="uploader" style="display: none; filter:alpha(opacity: 0); opacity:0; position:absolute; left:0; top:0; width:17px; height:100%; display:block; cursor:pointer;" value="">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="input1" style="width:85%;display: flex;flex-direction: column;justify-content: space-between;background-color: #f8f9fa;">
+                                            <div class="form-group1" ng-repeat="item in uploader.queue">
+                                                <div ng-if="item.file_type==items.id">
+                                                    <div class="col-md-2" style="margin-left: 270px">
+                                                        <label class="control-label" ng-bind="item.file.name"></label>
+                                                    </div>
+                                                    <div class="col-md-2" style="margin-left: -40px">
+                                                        <label class="control-label" ng-bind="item.formData[0].fileType"></label>
+                                                    </div>
+                                                    <div class="col-md-2" style="padding-right: 0px; ">
+                                                        <div class="col-md-7">
+                                                            <div class="progress" style="background-color: #fcfffa;  height: 13px; margin-top: 10px;">
+                                                                <div class="progress-bar bg-info" role="progressbar" style="border-radius: 2px;display: block; width: 0%; box-shadow:0px 0px 10px 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A, 0 0 1px #68B37A;background-color: #FFFFFF;" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button class="btn btn-sm lr-sub-btn" ng-click="item.remove()" style="margin-left: 160px;">删除</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;margin-right: 65px">
+                                    <div class="pull-right" >
+                                        <button ng-click="onSubSave()" ng-disabled="getIfUploads()"  style="margin-right: 10px;" class="btn btn-outline-info" >
+                                            <span >确定</span>
+                                        </button>
+                                        <button ng-click="onSubCancel()" style="margin-right: 10px;"class="btn btn-outline-info" >
+                                            <span>取消</span>
+                                        </button>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

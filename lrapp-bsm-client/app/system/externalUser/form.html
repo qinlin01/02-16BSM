@@ -1,0 +1,36 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="btn-group" add-form-btn>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">用户编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.userCode">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">外部系统编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.sysCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">外部系统用户编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.externalUser">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">访问地址：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.urlType">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

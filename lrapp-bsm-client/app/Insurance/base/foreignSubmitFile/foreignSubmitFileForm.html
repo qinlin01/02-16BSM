@@ -1,0 +1,122 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">报送文件信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" wdate-picker type="text" ng-model="VO.submitCode">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据建立公司：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" wdate-picker type="text" ng-model="VO.pkOrg.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据建立部门：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" wdate-picker type="text" ng-model="VO.pkDept.name">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>帮助信息</legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <p class="font-red-size">
+                        对外报送文件主要是指向中国银保监会及其派出机构监管机构、保险协会以及其他外部监管机构报送的报告、报表等文件。</br>
+                    </p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>报送信息</legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">文件/报表名称：</label>
+                    <div class="col-md-254">
+                        <input class="form-control" ng-verify ng-disabled="false" ng-model="VO.fileName" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">报送对象：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="false" type="text" ng-model="VO.submitName">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">要求上报时间：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="false" type="text" ng-model="VO.submitTime" wdate-picker onChange="" onclick="WdatePicker({minDate: '%y-%M-#{%d}'})">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">报送文件摘要：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" ng-verify style="resize:none" ng-disabled="false" type="text" maxlength="400" rows="5" ng-model="VO.submitAbstract"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    </div>
+</form>

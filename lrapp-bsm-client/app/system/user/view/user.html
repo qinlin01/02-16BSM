@@ -1,0 +1,5 @@
+<div ng-controller="userCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('system/user/view/userGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/user/view/userCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/user/view/userForm.html')" ng-show="isForm"></div>
+</div>

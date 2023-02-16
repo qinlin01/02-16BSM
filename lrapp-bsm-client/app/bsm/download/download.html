@@ -1,0 +1,37 @@
+<div ng-controller="downloadCtrl">
+    <form class="form-horizontal bg-white" >
+        <div class="main-div">
+            <div class="title">
+                <div class="row ">
+                    <div class="col-md-9"><h4>常用文件模板</h4>
+                    </div>
+                    <div class="col-md-3 text-right" add-grid-btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h6><span class="text-bold text-primary">模板</span></h6>
+            <table class="table table-condensed ">
+                <thead>
+                <tr>
+                    <th >文件名称</th>
+                    <th>文件大小</th>
+                    <th>说明</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in files" class="font-size-13">
+                    <td><a href="#" ng-click="onPreviewFile(item.id,item.fileName)" class="text-primary" tooltip="点击浏览文件"> {{ item.fileName }}</a></td>
+                    <td>{{ item.fileSize/1024/1024|number:2 }}MB</td>
+                    <td>{{ item.memo }}</td>
+                    <td nowrap>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="onDownLoadFile(item.id,item.fileName)">
+                            <span class="fa fa-download"></span> 下载
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

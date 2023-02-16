@@ -1,0 +1,83 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-contant text-right" add-form-btn></div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ui-popup-ref url="'bsm/project/acceptanceRef'" ng-click="" popup-model="VO"
+                               popup-model-field="'pkProject'" ng-verify="{required:true}" required ng-model="VO.pkProject.name" type="text"
+                               placeholder="只能选择完成还剩最后一次支付的合同信息。">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">结项日期：</label>
+                    <div class="col-md-7">
+                        <div class="input-group " moment-picker="VO.accDate" locale="zh-cn" today="true"  start-view="day" format="YYYY-MM-DD">
+                            <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                            <input class="form-control" ng-verify="{required:true}"  ng-model="VO.accDate"
+                                   ng-model-options="{ updateOn: 'blur' }">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>
+                        《经营服务项目验收报告》
+                    </legend>
+                    <input-file-uploader instructions="'经营服务项目验收报告'" func-code="funcCode" model-data="VO.dealAttachment.report"></input-file-uploader>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>
+                        《经营服务项目费用决算表》
+                    </legend>
+                    <input-file-uploader instructions="'经营服务项目费用决算表'" func-code="funcCode" model-data="VO.dealAttachment.final"></input-file-uploader>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>
+                        《经营服务项目验收评审意见表》
+                    </legend>
+                    <input-file-uploader instructions="'经营服务项目验收评审意见表'" func-code="funcCode" model-data="VO.dealAttachment.reviewSheet"></input-file-uploader>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>
+                        《经营服务项目验收评审意见书》
+                    </legend>
+                    <input-file-uploader instructions="'经营服务项目验收评审意见书'" func-code="funcCode" model-data="VO.dealAttachment.reviewReport"></input-file-uploader>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>
+                        《项目成果》
+                    </legend>
+                    <input-file-uploader instructions="'项目成果'" func-code="funcCode" model-data="VO.dealAttachment.achievement"></input-file-uploader>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</form>

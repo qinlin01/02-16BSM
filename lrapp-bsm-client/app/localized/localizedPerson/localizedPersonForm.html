@@ -1,0 +1,129 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">联系人类型：</label>
+                        <div class="col-md-8">
+                            <select id="select" class="form-control" ng-model="VO.personType"
+                                    ng-options="item.id as item.name for item in SELECT.LOCALIZEDPERSONTYPE">
+                            </select>
+                        </div>
+                    </div>
+                    <!--                    <input type="button" url="localizedPath + 'projectInformation/referTo'" ng-click="" popup-model="VO" ng-show="nameTypeXm"-->
+                    <!--                           popup-model-field="'projectInformation'" placeholder="" class="btn btn-sm btn-info ng-scope" ng-verify ui-popup-ref="issueRef"  value="💬‍">-->
+                </div>
+                <div class="form-group" ng-show="nameTypeKh">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">公司名称：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="VO.customerName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">公司所在地：</label>
+                        <div class="col-md-8">
+                            <input class="form-control " ui-popup-ref
+                                   url="localizedPath+'LocalCityDic/queryForGridTree'" ng-click="" popup-model="VO"
+                                   popup-model-field="'customerAddress'"
+                                   is-tree="true"
+                                   ng-model="VO.customerAddress.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="nameTypeBx">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">保险人名称：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="VO.insurerName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">保险公司所在地</label>
+                        <div class="col-md-8">
+                            <input class="form-control " ui-popup-ref
+                                   url="localizedPath+'LocalCityDic/queryForGridTree'" ng-click="" popup-model="VO"
+                                   popup-model-field="'insurerAddress'"
+                                   is-tree="true"
+                                   ng-model="VO.insurerAddress.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="nameTypeXm">
+                    <div class="col-md-4">
+                        <div class="col-md-4"><label
+                                class="col-md-12 control-label lr-verify">项目名称：</label></div>
+                        <div class="col-md-8">
+                            <input type="text" url="localizedPath + 'projectInformation/referTo'" ng-click=""
+                                   popup-model="VO"
+                                   popup-model-field="'projectInformation'" placeholder="" class="form-control"
+                                   ui-popup-ref="issueRef" ng-model="VO.projectName">
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify" ng-show="nameTypeXm">项目所在地：</label>
+                        <div class="col-md-8">
+                            <input class="form-control " ui-popup-ref
+                                   url="localizedPath+'LocalCityDic/queryForGridTree'" ng-click="" popup-model="VO"
+                                   popup-model-field="'projectAddress'"
+                                   is-tree="true"
+                                   ng-model="VO.projectAddress.name" type="text" placeholder="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">联系人姓名：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-verify ng-model="VO.personName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">联系人电话：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text"
+                                   ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}"
+                                   ng-model="VO.personTel">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</form>

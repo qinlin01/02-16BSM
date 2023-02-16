@@ -1,0 +1,19 @@
+<div class="lr-grid-container" ng-controller="propertyProjectHisCtrl">
+    <div style="margin-top: 25px">
+        <accordion>
+            <accordion-group is-open="true"  grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar" >
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">续立项历史</span>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="propertyProjectHis" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

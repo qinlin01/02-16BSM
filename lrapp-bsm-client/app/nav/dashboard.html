@@ -1,0 +1,66 @@
+<div ng-controller="dashboardCtrl">
+    <section id="page-title" class="padding-top-15 padding-bottom-15">
+        <div class="row">
+            <div class="col-sm-7">
+                <h1 class="mainTitle">欢迎使用经营服务项目管理系统</h1>
+                <span class="mainDescription">完成项目的全流程线上化管理。 </span>
+            </div>
+            <div class="col-sm-5" add-grid-btn>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row space20">
+                    <div class="col-sm-3">
+                        <button class="btn btn-icon margin-bottom-5 margin-bottom-5 btn-block" ng-click="clickMenu('301','app.bsm.detail','明细账')">
+                            <i class=" ti-agenda block text-primary text-extra-large margin-bottom-10"></i>
+                            台账查询
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-icon margin-bottom-5 btn-block" ng-click="clickMenu('402','app.bsm.help','帮助中心')">
+                            <i class=" ti-bar-chart block text-primary text-extra-large margin-bottom-10"></i>
+                            帮助中心 <span class="badge badge-danger"> 23 </span>
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-icon margin-bottom-5 btn-block" ng-click="clickMenu('401','app.bsm.download','下载中心')">
+                            <i class="ti-direction-alt block text-primary text-extra-large margin-bottom-10"></i>
+                            下载中心
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel-body">
+                <h5><i class="fa fa-tasks text-extra-large"></i> 待办任务</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>节点名称</th>
+                            <th>待办任务</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in listTask">
+                            <td><span class="label label-sm label-success">{{row.funName}}</span></td>
+                            <td><a ng-click="onView(row.funcCode,row.billId)"> {{row.msg}}</a></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-xs" ng-click="onView(row.funcCode,row.billId)">
+                                    <span class="glyphicon glyphicon-check "></span> 审批
+                                </button>
+                                </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

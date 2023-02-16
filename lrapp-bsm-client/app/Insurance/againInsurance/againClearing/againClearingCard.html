@@ -1,0 +1,310 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32||VO.billstatus==36)">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.vbillno}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <fieldset>
+                <legend>
+                    基本信息
+                </legend>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>业务结算编号：</span><span class="fontStyle">{{VO.vbillno}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>收付款类型：</span><span class="fontStyle">{{VO.inoutType | SELECT_MONEYTYPE}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="VO.inoutType=='3'">
+                    <div class="col-md-4">
+                        <span>是否预收：</span><span class="fontStyle">{{VO.collectAdvance == 'Y' ? "是" : "否"}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>是否代收代付：</span><span class="fontStyle">{{VO.replace == 'Y' ? "是" : "否"}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>SAP 凭证状态：</span><span class="fontStyle">{{VO.sapCustomernCode | SELECT_SAPTYPE}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>是否到账：</span><span class="fontStyle">{{VO.toAccount | SELECT_YESNO }}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>认款编号：</span><span class="fontStyle">{{VO.subscriptionno}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    原币种信息
+                </legend>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>录单币种：</span><span class="fontStyle">{{VO.currency | SELECT_CURRENCY}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==1">
+                        <span>应收保费总额：</span><span class="fontStyle">{{VO.sumReceivemountOld | AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==2">
+                        <span>解付保费总额：</span><span class="fontStyle">{{VO.sumPaymountOld | AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==3">
+                        <span>应收佣金总额：</span><span class="fontStyle">{{VO.sumReceivefeemountOld | AMOUNT_FILTER}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="(VO.currency!='CNY'&&VO.currency!='USD')&&((VO.inoutType==3&&VO.replace == 'Y')||VO.inoutType!=3)">
+                <legend>
+                    美元信息
+                </legend>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>{{VO.currency | SELECT_CURRENCY}}兑换美元(USD)汇率：</span><span class="fontStyle">{{VO.aganinRateUSD}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==1">
+                        <span>应收保费总额：</span><span class="fontStyle">{{VO.sumReceivemountUSD|AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==2">
+                        <span>解付保费总额：</span><span class="fontStyle">{{VO.sumPaymountUSD|AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==3">
+                        <span>应收佣金总额：</span><span class="fontStyle">{{VO.sumReceivefeemountUSD|AMOUNT_FILTER}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="(VO.currency!='CNY')">
+                <legend>
+                    人民币信息
+                </legend>
+                <div class="col-md-12">
+                    <div class="col-md-4" ng-if="(!VO.replace || VO.replace == 'N') && VO.inoutType=='3'">
+                        <span>{{VO.currency | SELECT_CURRENCY}}兑换人民币(CNY)汇率：</span><span class="fontStyle">{{VO.againRateCNY}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="!((!VO.replace || VO.replace == 'N') && VO.inoutType=='3')">
+                        <span>美元(USD)兑换人民币(CNY)汇率：</span><span class="fontStyle">{{VO.againRateCNY}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==1">
+                        <span>应收保费总额：</span><span class="fontStyle">{{VO.sumReceivemount|AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==2">
+                        <span>解付保费总额：</span><span class="fontStyle">{{VO.sumPaymount|AMOUNT_FILTER}}</span>
+                    </div>
+                    <div class="col-md-4" ng-if="VO.inoutType==3">
+                        <span>应收佣金总额：</span><span class="fontStyle">{{VO.sumReceivefeemount|AMOUNT_FILTER}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="col-md-12 title" ng-if="VO.inoutType==3" style="margin-top: 30px;margin-bottom: 30px;border: 1px solid white">
+                <fieldset>
+                    <legend>
+                        开票信息
+                    </legend>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <span>付款单位名称：</span><span class="fontStyle">{{VO.factActualcollection.name}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>银行卡号：</span><span class="fontStyle">{{VO.accNum}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>开户银行：</span><span class="fontStyle">{{VO.accBlank}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <span>纳税人识别号：</span><span class="fontStyle">{{VO.c1Institution}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>公司地址：</span><span class="fontStyle">{{VO.c_0_address}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>联系电话：</span><span class="fontStyle">{{VO.c_1_phone}}</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 title" ng-if="VO.inoutType==2" style="margin-top: 30px;margin-bottom: 30px;border: 1px solid white">
+                <fieldset>
+                    <legend>
+                        往来信息
+                    </legend>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>实际往来对象：</span><span class="fontStyle">{{VO.factActualcollection.name}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>银行卡号：</span><span class="fontStyle">{{VO.accNum}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>开户银行：</span><span class="fontStyle">{{VO.accBlank}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>纳税人识别号：</span><span class="fontStyle">{{VO.c1Institution}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>公司地址：</span><span class="fontStyle">{{VO.c_0_address}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>联系电话：</span><span class="fontStyle">{{VO.c_1_phone}}</span>
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+            <fieldset>
+                <legend>
+                    结算子表
+                </legend>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info">
+                            <th class="center">保单号</th>
+                            <th class="center">计划往来对象</th>
+                            <th class="center">项目名称</th>
+                            <th class="center">收付款类型</th>
+                            <th class="center">期数</th>
+                            <th class="center">收付款对象类型</th>
+                            <th class="center">计划时间</th>
+                            <th class="center">本次计划金额(原币种)</th>
+                            <th class="center">本次计划金额(元)</th>
+                            <th class="center">结算日期</th>
+                            <th class="center">本次结算金额(原币种)</th>
+                            <th class="center">本次结算金额(元)</th>
+                            <th class="center">未结算金额(原币种)</th>
+                            <th class="center">未结算金额(元)</th>
+                            <th class="center">是否开发票</th>
+                            <th class="center">经法合同名称</th>
+                            <th class="center">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.clearingB">
+                            <td>{{item.pkInsurancebill.insuranceno}}</td>
+                            <td>{{item.actualcollection}}</td>
+                            <td>{{item.pkInsurancebill.pkProject.name}}</td>
+                            <td>{{item.typeMoney}}</td>
+                            <td>{{item.receiveperiod}}</td>
+                            <td>{{item.typeCompany}}</td>
+                            <td>{{item.planDate | date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.planMoneyOld | AMOUNT_FILTER}}</td>
+                            <td>{{item.planMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.factDate | date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.factMoneyOld | AMOUNT_FILTER}}</td>
+                            <td>{{item.factMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoneyOld | AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoney | AMOUNT_FILTER}}</td>
+                            <td>{{item.billing == 'Y' ? "是" : "否"}}</td>
+                            <td>{{item['economicContract'].name}}</td>
+                            <td>{{item.typePayment}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    附件
+                </legend>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info">
+                            <th class="center">附件名称</th>
+                            <th class="center">上载人</th>
+                            <th class="center">上载时间</th>
+                            <th class="center">下载</th>
+                            <th class="center">在线预览</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td>{{item.attachment_name}}</td>
+                            <td>{{item.upload_operator.name}}</td>
+                            <td>{{item.cUpdate}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载"
+                                       style="color: #af2b27"><i
+                                            class="fa fa-download"></i></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top"
+                                       tooltip="在线预览"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    审批信息
+                </legend>
+                <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+
+                    <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                        <p><span><b>{{item.operate_name}}: </b></span><span
+                                ng-bind-html="item.pk_process.name"></span></p>
+                        <p>{{item.opinion}}</p>
+                        <p style="text-align: right">{{item.process_time}}</p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>

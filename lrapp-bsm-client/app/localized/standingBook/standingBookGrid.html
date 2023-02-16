@@ -1,0 +1,153 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="btn-group" style="position: relative;float: right;">
+                    <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                        <i class="fa fa-ellipsis-h"></i>
+                        <span>高级查询</span>
+                    </button>
+                    <button class="btn lr-main-btn" ng-click="onQuery();">
+                        <i class="fa fa-search"></i>
+                        <span>查询</span>
+                    </button>
+                    <button class="btn lr-main-btn" ng-click="onReset();">
+                        <i class="fa fa-undo"></i>
+                        <span>重置</span>
+                    </button>
+                </div>
+            </accordion-heading>
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">全文检索</label>
+                        <div class="col-md-252">
+                            <input type="text" class="form-control" placeholder="当前默认查询本年度数据，可通过'服务年度'选择其他年份进行查询；请输入以空格隔开的关键字" ng-model="QUERY['wideArea']"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">服务年度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['serviceYear']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">起始月份</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['startMonth']"
+                                        ng-options="item.id as item.name for item in SELECT.ALLMONTH">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">截至月份</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['endMonth']"
+                                        ng-options="item.id as item.name for item in SELECT.ALLMONTH">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">客户名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['customer_name']"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">项目名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text"  ng-model="QUERY['project_name']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">投保险种</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['insurancetype']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">保单号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['insurance_no']" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">属地机构</label>
+                            <div class="col-md-8">
+                                <input class="form-control" ui-popup-ref="issueRef"
+                                       url="'orgRef/queryForGridAll'" popup-model="QUERY"
+                                       popup-model-field="'territorial_organization'"
+                                       ng-model="QUERY.territorial_organization.name" type="text" placeholder="">
+<!--                                <input class="form-control" type="text" ng-model="QUERY['territorial_organization']" />-->
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">是否跨年查询</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['ifAcrossYears']"
+                                        ng-options="item.id as item.name for item in SELECT.YESNO">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <according-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right ng-scope" add-grid-btn="">
+                            <button class="btn btn-azure ng-scope" ng-click="onPrint()"
+                                    ng-disabled="checkStatus(gridApi,'','[]',false)" disabled="disabled"><i
+                                    class="fa fa-file-image-o"></i>打印
+                            </button>
+                            <button class="btn btn-azure ng-scope" ng-click="onPrintPages()"
+                                    ng-disabled="checkStatus(gridApi,false)" disabled="disabled"><i
+                                    class="fa fa-edit"></i>服务汇总
+                            </button>
+                        </div>
+                    </div>
+                </according-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',450,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+
+
+</div>

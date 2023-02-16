@@ -1,0 +1,65 @@
+<form class="form-horizontal" >
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">客户回访记录</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" ng-model="HISVO.C_0_NAME">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">回访年度：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="true" ng-model="HISVO.VISITED_YEAR | STRING_TO_INT"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                <option value="">--请选择--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">回访周期：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="true" ng-model="HISVO.CHIEF_PERIOD | STRING_TO_INT"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.VISITPERIOD">
+                                <option value="">--请选择--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">剩余访问次数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" ng-model="HISVO.CHIEF_VISIT_SURPLUS">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">上年收入：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" ng-model="HISVO.INCOME">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">回访数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" ng-model="HISVO.CHIEF_VISIT_NUM">
+                        </div>
+                    </div>
+                </div>
+
+            </accordion-group>
+        </accordion>
+    </div>
+</form>

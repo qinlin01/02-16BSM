@@ -1,0 +1,222 @@
+<div ng-if="isCard">
+  <div class="lr-toolbar">
+    <div class="btn-group">
+      <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+        <i class="fa fa-chevron-left"></i>
+        <span>返回</span>
+      </button>
+    </div>
+  </div>
+  <div class="main-div">
+    <div class="col-md-12 title">
+      <h2>{{VO.project_name}}
+        <span class="label label-success">{{VO.project_state | SELECT_PROJECTINFORMATIONSTATETYPE}}</span>
+      </h2>
+    </div>
+    <div class="col-md-12 title">
+      <p style="font-size:20px">项目信息</p>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>应结服务费（元）：</span><span class="fontStyle">{{VO.service_fee_receivable}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>已结服务费（元）：</span><span class="fontStyle">{{VO.service_charge_received}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>未结服务费（元）：</span><span class="fontStyle">{{VO.unpaid_service_charge}}</span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>地域：</span><span class="fontStyle">{{VO.project_address}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>项目联系人：</span><span class="fontStyle">{{VO.project_contact}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>项目联系人方式：</span><span class="fontStyle">{{VO.project_contactway}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 title">
+      <p style="font-size:20px">客户信息</p>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>客户名称：</span><span class="fontStyle">{{VO.customer_name}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>中建联系人：</span><span class="fontStyle">{{VO.contact}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>中建联系人方式：</span><span class="fontStyle">{{VO.contactway}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 title">
+      <p style="font-size:20px">保险信息</p>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>保单号：</span><span class="fontStyle">{{VO.insurance_no}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>签单保费（元）：</span><span class="fontStyle">{{VO.service_premium}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>佣金合计（元）：</span><span class="fontStyle">{{VO.service_income}}</span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>投保险种：</span><span class="fontStyle">{{VO.insurancetype.name}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>保险起始日期：</span><span class="fontStyle">{{VO.begin_time | date_cell_date}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>保险到期日期：</span><span class="fontStyle">{{VO.end_time | date_cell_date}}</span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <span>保险人名称：</span><span class="fontStyle">{{VO.insurance_people}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>保险公司联系人：</span><span class="fontStyle">{{VO.insurance_contact}}</span>
+        </div>
+        <div class="col-md-4">
+          <span>保险公司联系人方式：</span><span class="fontStyle">{{VO.insurance_contactway}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 title" ng-if="caseList.length > 0 && VO.insurance_type != '财产险' && VO.insurance_type != '人身险'">
+      <div class="table-responsive">
+        <p style="font-size:20px">案件信息</p>
+        <table class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>出险时间</th>
+            <th>报案号</th>
+            <th>赔案名称</th>
+            <th>出险原因</th>
+            <th>现场勘查（次）</th>
+            <th>出险通知书（次）</th>
+            <th>支付赔款（次）</th>
+            <th>谈判（次）</th>
+            <th>其它（次）</th>
+            <th>撤案日期</th>
+            <th>结案日期</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="item in caseList">
+            <td>{{item.lossoccurred_time | date_cell_date}}</td>
+            <td>{{item.case_no}}</td>
+            <td>{{item.case_name}}</td>
+            <td>{{item.lossoccurred_reason_shorthand | SELECT_LOSSOCCURREDREASONSHORTHAND}}</td>
+            <td>{{item.xckcNum}}</td>
+            <td>{{item.cxtzsNum}}</td>
+            <td>{{item.zfpkNum}}</td>
+            <td>{{item.tpNum}}</td>
+            <td>{{item.qtNum}}</td>
+            <td>{{item.undo_time}}</td>
+            <td>{{item.indemnity_time}}</td>
+            <td><a href="#" ng-click="onViewCase(item.id)"><span style="color:blue">查看详情</span></a> </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 title" ng-if="caseList.length > 0 && VO.insurance_type == '财产险'">
+      <div class="table-responsive">
+        <p style="font-size:20px">案件信息</p>
+        <table class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>出险时间</th>
+            <th>报案号</th>
+            <th>赔案名称</th>
+            <th>出险原因</th>
+            <th>材料递交（次）</th>
+            <th>初步核定结果（次）</th>
+            <th>参与索赔谈判（次）</th>
+            <th>赔款到账（次）</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="item in caseList">
+            <td>{{item.lossoccurred_time | date_cell_date}}</td>
+            <td>{{item.case_no}}</td>
+            <td>{{item.case_name}}</td>
+            <td>{{item.lossoccurred_reason_shorthand | SELECT_LOSSOCCURREDREASONSHORTHAND}}</td>
+            <td>{{item.cldjNum}}</td>
+            <td>{{item.cbhdjgNum}}</td>
+            <td>{{item.cysptpNum}}</td>
+            <td>{{item.pkdzNum}}</td>
+            <td><a href="#" ng-click="onViewCase(item.id)"><span style="color:blue">查看详情</span></a> </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 title" ng-if="caseList.length > 0 && VO.insurance_type == '人身险'">
+      <div class="table-responsive">
+        <p style="font-size:20px">案件信息</p>
+        <table class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>出险时间</th>
+            <th>报案号</th>
+            <th>赔案名称</th>
+            <th>出险原因</th>
+            <th>材料递交（次）</th>
+            <th>赔款到账（次）</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="item in caseList">
+            <td>{{item.lossoccurred_time | date_cell_date}}</td>
+            <td>{{item.case_no}}</td>
+            <td>{{item.case_name}}</td>
+            <td>{{item.lossoccurred_reason_shorthand | SELECT_LOSSOCCURREDREASONSHORTHAND}}</td>
+            <td>{{item.cldjNum}}</td>
+            <td>{{item.pkdzNum}}</td>
+            <td><a href="#" ng-click="onViewCase(item.id)"><span style="color:blue">查看详情</span></a> </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+        <div class="table-responsive">
+          <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+          <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>附件名称</th>
+              <th>上载时间</th>
+              <th>下载</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in VO.dealAttachmentB">
+              <td>{{item.attachment_name}}</td>
+              <td>{{item.cUpdate}}</td>
+              <td>
+                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                  <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                     class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                          class="fa fa-download"></i></a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

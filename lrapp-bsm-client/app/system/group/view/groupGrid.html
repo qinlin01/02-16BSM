@@ -1,0 +1,76 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-sm" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn btn-return btn-sm" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">角色名称</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['group_name']"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">角色编码</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['group_code']"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn-group text-right" add-grid-btn>
+
+                            <button class="btn btn-primary btn-sm" ng-click="onAdd()">
+                                <i class="fa fa-plus"></i>
+                                增加
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-edit"></i>
+                                修改
+                            </button>
+
+                            <button class="btn btn-danger btn-sm" ng-click="onDelete()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-times"></i>
+                                删除
+                            </button>
+                            <button class="btn btn-success btn-sm" ng-click="onAuthorization()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-gavel"></i>
+                                分配权限
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="gridHtmlHeight()">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

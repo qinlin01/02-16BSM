@@ -1,0 +1,7 @@
+<div ng-controller="propertyInsuranceCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/propertyInsurance/propertyInsuranceGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/propertyInsurance/propertyInsuranceCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/propertyInsurance/propertyInsuranceForm.html')" ng-show="!isGrid&&!isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/propertyInsurance/propertyInsuranceSForm.html')" ng-show="SuperForm"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/propertyInsurance/feeEditForm.html')" ng-show="isFeeEdit"></div>
+</div>

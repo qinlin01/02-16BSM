@@ -1,0 +1,24 @@
+<div ng-controller="closeClearingCtrl">
+    <form class="form-horizontal" verify-scope="tipStyle: 1" name="closeClearing">
+        <div class="form-group">
+            <div class="col-md-12 col-md-offset-1">
+                <label class=" control-label" style="text-align: left">关闭原因：</label>
+            </div>
+            <div class="col-md-12 col-md-offset-1">
+                <div class="col-md-11">
+                         <textarea style="height: 130px;" class="form-control" ng-verify
+                                   ng-model="vdef1"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--!signForm.$valid-->
+    <div style="margin-left: 420px;">
+        <button class="btn lr-main-btn " ng-click="onSureClose(pk_payment)">
+            <i class="fa fa-edit"></i>确定
+        </button>
+        <button class="btn lr-main-btn " ng-click="onCancelClose()">
+            <i class="fa fa-edit"></i>取消
+        </button>
+    </div>
+</div>

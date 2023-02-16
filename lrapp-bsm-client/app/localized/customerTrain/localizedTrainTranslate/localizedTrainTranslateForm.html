@@ -1,0 +1,177 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+<!--            <button class="btn btn-azure" type="button" ng-click="onTemporary()"-->
+<!--                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">-->
+<!--                <i class="fa fa-save"></i>-->
+<!--                <span>暂存</span>-->
+<!--            </button>-->
+            <button class="btn btn-azure" type="button" ng-click="onTemporary()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+
+
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+<!--            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">-->
+<!--                <i class="fa fa-save"></i>-->
+<!--                <span>暂存</span>-->
+<!--            </button>-->
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">培训名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="localizedCustomerTrainRef"
+                           url="localizedPath+'LocalizedCustomerTrain/referTo'" ng-click="" popup-model="VO"
+                           popup-model-field="'localizedCustomerTrain'"  popup-model-value="param"
+                           ng-model="VO.localizedCustomerTrain.trainTheme" type="text" placeholder="">
+                </div>
+            </div>
+<!--            <div class="col-md-4">-->
+<!--                <label class="col-md-5 control-label">培训编号：</label>-->
+<!--                <div class="col-md-7">-->
+<!--                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.localizedCustomerTrain.trainCode">-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+        </div>
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训起始日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" wdate-picker
+                                   ng-model="VO.localizedCustomerTrain.startdate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训结束日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text" wdate-picker
+                                   ng-model="VO.localizedCustomerTrain.enddate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训地点：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" ui-popup-ref
+                                   url="'areaclTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'trainSite'"
+                                   is-tree="true"
+                                   ng-model="VO.localizedCustomerTrain.trainSite.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">详细培训地点：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true"  popup-model="VO"
+                                   ng-model="VO.localizedCustomerTrain.trainSiteDetail" type="text" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训方式：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-verify ng-disabled="true"
+                                    ng-model="VO.localizedCustomerTrain.enumTrainType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.ENUMTRAINTYPE">
+                                <option value="">--请选择培训方式--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true"  popup-model="VO"
+                                   ng-model="VO.localizedCustomerTrain.lineMan" type="text" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系电话：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true"  popup-model="VO"
+                                   ng-model="VO.localizedCustomerTrain.linePhone" type="text" >
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label lr-verify">参加人员：</label>
+                        <div class="col-md-254">
+                            <div simditor toolbar="[]"  type="text" ng-model="VO.localizedCustomerTrain.assess"  ng-disabled="true"  ></div>
+
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+            <div>
+                <tabset justified="false">
+                    <tab index="1" heading="项目信息" select="selectTab('trainObjectGridOptions')">
+                        <div ui-grid="trainObjectGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize
+                             ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+                <tabset justified="false">
+                    <tab index="3" heading="培训课程安排" select="selectTab('trainPlanGridOptions')">
+                        <div ui-grid="trainPlanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize
+                             ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info"
+                            ng-click="onUploads();" ng-show="upOrDown">上传
+                    </button>
+                    <button class="btn btn-sm btn-info" ng-show="isEdit&&secChild" ng-click="onDeleteLine('dealAttachmentBGridOptions');">减行
+                    </button>
+<!--                    <button class="btn btn-sm btn-info"-->
+<!--                            ng-click="onDownLoads();" ng-show="upOrDown">下载-->
+<!--                    </button>-->
+                </div>
+                <tabset justified="false">
+                    <tab index="4" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </accordion>
+    </div>
+</form>

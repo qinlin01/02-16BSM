@@ -1,0 +1,71 @@
+<div class="form-horizontal" >
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">对账类型</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['reconciliationType']"
+                                    ng-options="item.id as item.name for item in SELECT.RECONCILIATIONTYPE">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">会计年度</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['year']"
+                                    ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">会计期间</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['month']"
+                                    ng-options="item.id as item.name for item in SELECT.MARMONTH">
+                            </select>
+                        </div>
+                    </div>
+                 </div>
+                <div ng-if="queryTotal">
+                 <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">具体科目</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['HKONT']"
+                                    ng-options="item.id as item.name for item in SELECT.HKONT">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div id="queryReconciliation" style="overflow-x: auto; overflow-y: auto;">
+</div>

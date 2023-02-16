@@ -1,0 +1,140 @@
+<div class="lr-grid-html">
+    <div class="lr-grid-html-query" panel-class="lr-grid-accordion">
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true"  panel-class="lr-grid-accordion-grid">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="form-group pull-right">
+                        <div class="btn-group">
+                            <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                                <i class="fa fa-ellipsis-h"></i>
+                                <span>高级查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onQuery();">
+                                <i class="fa fa-search"></i>
+                                <span>查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onReset();">
+                                <i class="fa fa-undo"></i>
+                                <span>重置</span>
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <form class="form-horizontal" ng-keyup="myKeyup($event)">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">年</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['year']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">起始月</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['start_month']"
+                                        ng-options="item.id as item.name for item in SELECT.MONTH">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">截止月</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['end_month']"
+                                        ng-options="item.id as item.name for item in SELECT.MONTH">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="queryTotal">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">投保人</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" ui-popup-ref
+                                           url="'customerInsuRef/queryForGrid'" ng-click="" popup-model="QUERY"
+                                           popup-model-field="'estimatepk'"
+                                           ng-model="QUERY.estimatepk.name" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">保险人</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" ui-popup-ref
+                                           url="'customerInsuRefCOR/queryForGrid'" ng-click="" popup-model="QUERY"
+                                           popup-model-field="'insurancemanpk'"
+                                           ng-model="QUERY.insurancemanpk.name" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">保单性质</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-model="QUERY['insurancebillkind']"
+                                            ng-options="item.id as item.name for item in SELECT.INSURANCEBILLKIND1">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">险种</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" ui-popup-ref
+                                           url="'insuranceRef/queryForGrid'" ng-click="" popup-model="QUERY"
+                                           popup-model-field="'insurancepk'"
+                                           is-tree="true"
+                                           ng-model="QUERY.insurancepk.name" type="text" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">业务单位</label>
+                                <div class="col-md-8">
+                                    <!-- <input class="form-control"  type="text" ng-model="QUERY['pk_corp']"/>-->
+                                    <input class="form-control" ui-popup-ref
+                                           url="'orgRef/queryForGrid'" popup-model="QUERY"
+                                           popup-model-field="'pk_corp'"
+                                           ng-model="QUERY.pk_corp.name" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label">业务部门</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" ng-model="QUERY['dept_Name^like']"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <div class="lr-grid-html-grid" >
+        <accordion panel-class="lr-grid-accordion">
+            <accordion-group is-open="true" grid-button="true"class="lr-page-bg-gray" panel-class="lr-grid-accordion-grid">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">明细查询</span>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns
+                         ui-grid-pagination
+                         ui-grid-selection ui-grid-pinning ui-grid-exporter class="grid" style="min-height: 100%"
+                         ng-style="getGridHtmlStyle('.lr-grid-html','.lr-grid-html-query',90)" ></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

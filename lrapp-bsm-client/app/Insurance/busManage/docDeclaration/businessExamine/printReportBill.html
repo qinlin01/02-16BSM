@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="/insurance/css/public.css">
+<div class="print-font">
+    <accordion>
+        <accordion-group is-open="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <span style="font-size: 18px; font-weight: bolder">打印预览</span>
+                </div>
+            </accordion-heading>
+            <div id="printMonReport">
+                <div id="head" class="print-font" style="font-weight: bolder;">
+                    <h3 class="print-center" style="font-weight: bolder;">业务签报单</h3>
+                </div>
+                <div style="text-align: right; padding-right: 107px; color: black; font-weight: bolder; font-size: 14px;">
+                    <span>编号：{{rows[0].docCode}}</span>
+                </div>
+                <div class="print-table" style="text-align: center;">
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-table-th" style="width: 20%; font-weight: bolder;">发送单位</div>
+                                    <div class="print-table-th" style="width: 30%;">{{rows[0].pkDeliverUnit.name}}</div>
+                                    <div class="print-table-th" style="width: 20%; font-weight: bolder;">发出时间</div>
+                                    <div class="print-table-th" style="width: 30%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;">经办人</div>
+                                    <div class="print-sub-table-td" style="width: 30%;">{{rows[0].pkOperator.name}}
+                                    </div>
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;">签发人</div>
+                                    <div class="print-sub-table-td" style="width: 30%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;">主送部门</div>
+                                    <div class="print-sub-table-td" style="width: 80%;">{{rows[0].pkDept.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;">主题</div>
+                                    <div class="print-sub-table-td" style="width: 80%;">{{rows[0].docTitle}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 100%; font-weight: bolder;">内容</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-content" style="width: 100%;"
+                                         ng-bind-html="rows[0].docOutline | TEXTAREA"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="foot" style="text-align: center;">
+                <button ng-click="print()" class="btn btn-sm lr-sub-btn">
+                    <span style="font-size: 15px;">打印</span>
+                </button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+</div>

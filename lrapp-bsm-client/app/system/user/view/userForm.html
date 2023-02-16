@@ -1,0 +1,154 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="btn-group" add-form-btn>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">用户类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="VO.userType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.USER_TYPE">
+                        <option value="">--请选择用户类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">用户角色：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="VO.userRole"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.USER_ROLE">
+                        <option value="">--请选择用户角色--</option>
+                    </select>
+                </div>
+            </div>
+            <!--
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">客户号：</label>
+                <div class="col-md-7">
+                    <input class="form-control"  type="text" ng-model="VO.serial_number">
+                </div>
+            </div>
+            -->
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">用户编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.userCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">用户名：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true,max:20}" type="text" ng-model="VO.userName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">身份证号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{required:true, max:18}" type="text" ng-model="VO.memo">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">所在公司：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ui-popup-ref url="'sys/org/queryForRef'" popup-model="VO"  ng-verify="{required:true}"
+                           popup-model-field="'pkOrgRef'" ng-model="VO.pkOrgRef.name" type="text" placeholder="">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">所在部门：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ui-popup-ref ng-verify="{required:true}"
+                           url="'sys/deptdoc/pageRef'" ng-click="" popup-model="VO"
+                           popup-model-field="'pkDeptRef'" popup-model-value="{pkOrg: VO.pkOrgRef.pk}"
+                           ng-model="VO.pkDeptRef.name" type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-4">
+            <label class="col-md-5 control-label lr-verify">生效日期：</label>
+            <div class="col-md-7">
+                <div class="input-group " moment-picker="VO.beginDate" locale="zh-cn" today="true" start-view="day" format="YYYY-MM-DD">
+                    <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                    <input class="form-control" ng-model="VO.beginDate" ng-verify="{required:true}"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label lr-verify">失效日期：</label>
+            <div class="col-md-7">
+                <div class="input-group " moment-picker="VO.endDate" locale="zh-cn" today="true" start-view="day" format="YYYY-MM-DD">
+                    <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                    <input class="form-control" ng-model="VO.endDate" ng-verify="{required:true}"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">客户端IP地址：</label>
+            <div class="col-md-7">
+                <input class="form-control" type="text" ng-model="VO.ip">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label lr-verify">允许访问时间开始时间(格式：8:00:00)：</label>
+            <div class="col-md-7">
+                <input class="form-control" ng-verify="{max:18}" type="text" ng-model="VO.beginTime">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label lr-verify">允许访问时间截至时间(格式：20:00:00)：</label>
+            <div class="col-md-7">
+                <input class="form-control" ng-verify="{max:18}" type="text" ng-model="VO.endTime">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">登录标志：</label>
+            <div class="col-md-7">
+                <select class="form-control" ng-disabled="true" ng-model="VO.loginTag"
+                        required
+                        ng-options="item.id as item.name for item in SELECT.YESNO">
+                    <option value="">--请选择登录标志--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">是否锁定：</label>
+            <div class="col-md-7">
+                <select class="form-control" ng-disabled="true" ng-model="VO.lockedTag"
+                        required
+                        ng-options="item.id as item.name for item in SELECT.YESNO">
+                    <option value="">--请选择是否锁定--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">用户状态：</label>
+            <div class="col-md-7">
+                <select class="form-control" ng-disabled="true" ng-model="VO.userStatus"
+                        required
+                        ng-options="item.id as item.name for item in SELECT.USER_STATUS">
+                    <option value="">--请选择用户状态--</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</form>

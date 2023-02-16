@@ -1,0 +1,145 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.ifGetFeeBill==31)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32||VO.ifGetFeeBill==32||VO.ifGetFeeBill==33)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.rechargeNo}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>币种：</span><span class="fontStyle">{{VO.currency | SELECT_CURRENCY}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务单位：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>建立部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>制单人：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.createTime | date_cell_date}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">充值流水</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">充值流水号</th>
+                        <th class="center">汇款/转账账号</th>
+                        <th class="center">旅行社名称</th>
+                        <th class="center">支付账户名称</th>
+                        <th class="center">开户行</th>
+                        <th class="center">充值金额</th>
+                        <th class="center">充值时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.rechargeRecord[0].bankSerialNumber}}</td>
+                        <td>{{VO.rechargeRecord[0].remittancesAccount}}</td>
+                        <td>{{VO.rechargeRecord[0].travelAgencyName}}</td>
+                        <td>{{VO.rechargeRecord[0].paymentAccount}}</td>
+                        <td>{{VO.rechargeRecord[0].openingBank}}</td>
+                        <td>{{VO.rechargeRecord[0].rechargeMoney}}</td>
+                        <td>{{VO.rechargeRecord[0].rechargeTime | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">银行流水</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">银行流水号</th>
+                        <th class="center">对方账户名称</th>
+                        <th class="center">对方账号</th>
+                        <th class="center">交易账户名称</th>
+                        <th class="center">交易账号</th>
+                        <th class="center">贷方金额</th>
+                        <th class="center">可用金额</th>
+                        <th class="center">到账日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.accountStatement[0].serialnumber}}</td>
+                        <td>{{VO.accountStatement[0].reciprocal_name.name}}</td>
+                        <td>{{VO.accountStatement[0].reciprocal_account}}</td>
+                        <td>{{VO.accountStatement[0].transaction_name.unitname}}</td>
+                        <td>{{VO.accountStatement[0].transaction_account}}</td>
+                        <td>{{VO.accountStatement[0].lender_amount}}</td>
+                        <td>{{VO.accountStatement[0].amount}}</td>
+                        <td>{{VO.accountStatement[0].transaction_date | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>附件名称</th>
+                        <th>上载时间</th>
+                        <th>下载</th>
+                        <th>在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.upload_date}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

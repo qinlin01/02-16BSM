@@ -1,0 +1,88 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm"
+      xmlns="http://www.w3.org/1999/html">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave()">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button type="button" class="btn btn-azure"  type="button" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <div class="form-group">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color"></i>
+                        <span class="lr-page-color">规则配置</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">模板名称：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text"  ng-model="VO.templateName">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify" >项目类型：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-verify ng-model="VO.projectType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.PROJECTTYPES">
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">生效日期：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-verify wdate-picker ng-model="VO.startDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">截止日期：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-verify wdate-picker ng-model="VO.endDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">服务内容：</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"  >
+                        <div class="well" style="width: 200%; padding: 50px 50px 50px 50px" >
+                            <div class="checkbox clip-check check-primary checkbox-inline" ng-repeat="org in orgRows">
+                                <input type="checkbox" id="{{org.pk}}" ng-model="servicesTypeBox[org.pk]" ng-value="org" ng-change="checkboxChoosed()">
+                                <label for="{{org.pk}}">
+                                    {{org.name}}
+                                </label>
+                            </div>
+                            <div class="checkbox clip-check check-primary checkbox-inline" ng-repeat="service in orgRows[2].serviceRows" ng-show="isService">
+                                <input type="checkbox" id="{{service.pk}}" ng-model="servicesTypeBox[service.pk]" ng-value="service" ng-change="checkboxChoosed()">
+                                <label for="{{service.pk}}">
+                                    {{service.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</form>

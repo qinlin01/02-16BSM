@@ -1,0 +1,112 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn lr-main-btn" ng-click="onBack()" ng-show="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+        <h4>{{VO.reportTitle}}</h4>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>状态：</span><span class="span-background-tg">审核通过</span>/<span class="span-background-shz">审核中</span>/<span class="span-background-zc">暂存</span>
+            </div>
+            <div class="col-md-4">
+                <span>缓急程度：</span>
+                <img alt="特急" height="16" src="img/blocker.png"><span class="span-img">特急</span>/<img alt="较急" height="16" src="img/critical.png"><span class="span-img">较急</span>
+                /<img alt="急" height="16" src="img/major.png"><span class="span-img">急</span>/<img alt="一般" height="16" src="img/minor.png"><span class="span-img">一般</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>签报类型：</span><span class="fontStyle">{{VO.enumReportType | SELECT_REPORTTYPE}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>签报编码：</span><span class="fontStyle">{{VO.reportCode}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>批复单编号：</span><span class="fontStyle">{{VO.approvalNumber}}</span>
+            </div>
+        </div>
+            </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>立项名称：</span><span class="fontStyle">{{VO.pkProject.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户编号：</span><span class="fontStyle">{{VO.pkInsureman.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户名称：</span><span class="fontStyle">{{VO.pkInsureman.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>制单发起人：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>主送单位：</span><span class="fontStyle">{{VO.pkDeliverUnit.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>事项名称：</span><br><span class="fontStyle">{{VO.itemName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>签报内容：</span><br><span class="fontStyle">{{VO.reportContent}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>最终批复意见：</span><br><span class="fontStyle">{{VO.finallyOpinion}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>发起人执行结果：</span><br><span class="fontStyle">{{VO.execResult}}</span>
+                </div>
+            </div>
+            </div>
+        <div class="col-md-12 title">
+            <h5>附件信息</h5>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span><a href="#">技术文档.doc</a></span>
+                </div>
+                <div class="col-md-12">
+                    <span><a href="#">2017XXX公司保险单.PDF</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <h5>操作信息</h5>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <span>操作名称</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作人</span>
+                </div>
+                <div class="col-md-2">
+                    <span>执行结果</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作时间</span>
+                </div>
+                <div class="col-md-4">
+                    <span>备注</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

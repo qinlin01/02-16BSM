@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/insurance/css/public.css">
+<div class="print-font">
+    <accordion>
+        <accordion-group is-open="status.open">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <span style="font-size: 18px; font-weight: bolder">填写执行结果</span>
+                </div>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-2 control-label">发起人执行结果：</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" ng-model="VO.exec">
+
+                    </div>
+                </div>
+            </div>
+            <div id="foot" style="text-align: center;" >
+                <button ng-click="saveExecResult()"  class="btn btn-sm lr-sub-btn" >
+                    <span style="font-size: 15px;">确定</span>
+                </button>
+                <button ng-click="saveCancel()"  class="btn btn-sm lr-sub-btn" >
+                    <span style="font-size: 15px;">取消</span>
+                </button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+</div>

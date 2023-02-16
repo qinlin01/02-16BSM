@@ -1,0 +1,41 @@
+    <div class="main-div">
+            <div class="panel-group accordion" id="accordion">
+                    <div class="table-responsive">
+                        <p style="font-size: 18px;color: #748390;margin-left: 0px;font-weight: 600">修改数据列表</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th width="10%">列名</th>
+                                <th width="20%">原数据</th>
+                                <th width="20%">新数据</th>
+                                <th width="25%">mysql脚本</th>
+                                <th width="5%" ng-if="showUpdateResult">mysql影响行数</th>
+                                <th width="25%">oracle脚本</th>
+                                <th width="5%"ng-if="showUpdateResult">oracle影响行数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in changDataList">
+                                <td width="10%">{{item.field}}</td>
+                                <td width="20%">{{item.oldValue}}</td>
+                                <td width="20%">{{item.newValue}}</td>
+                                <td width="25%">{{item.mysqlSql}}</td>
+                                <td width="5%" ng-if="showUpdateResult">{{item.mysqlUpdate}}</td>
+                                <td width="25%">{{item.oracleSql}}</td>
+                                <td width="5%"ng-if="showUpdateResult">{{item.oracleUpdate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+    </div>
+    <div class="main-div" style="text-align: right" >
+        <button type="button" class="btn btn-azure" type="button" ng-click="onExecuteSql()" ng-if="!showUpdateResult">
+            <i class="fa fa-save"></i>
+            <span>确认修改</span>
+        </button>
+        <button type="button" class="btn btn-azure"  type="button" ng-click="onCloseDetailDialog()">
+            <i class="fa fa-undo"></i>
+            <span>取消</span>
+        </button>
+    </div>

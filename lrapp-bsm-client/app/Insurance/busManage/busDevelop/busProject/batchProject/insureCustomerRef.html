@@ -1,0 +1,93 @@
+<div class="main-form-style">
+    <div class="form-horizontal" >
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                        <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">查询条件</span>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button class="btn lr-main-btn" ng-click="onQueryChildren();">
+                                <i class="fa fa-search"></i>
+                                <span>查询</span>
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onResetChildren();">
+                                <i class="fa fa-undo"></i>
+                                <span>重置</span>
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">客户编号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.c_0_code"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">客户名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERYCHILDREN.name"/>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-4">-->
+                            <!--<label class="col-md-4 control-label">组织机构代码</label>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<input class="form-control" type="text" ng-model="QUERYCHILDREN['c1Institution']"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">上级单位</label>
+                            <div class="col-md-8">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref="customerRef"
+                                       url="'customerInsuRef/queryForGrid'" ng-click="" popup-model="QUERYCHILDREN"
+                                       popup-model-field="'insurancedmanpk'"
+                                       ng-model="QUERYCHILDREN.insurancedmanpk.name" type="text" placeholder="">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        <!--<div class="col-md-4">-->
+                            <!--<label class="col-md-4 control-label">客户类型</label>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<select class="form-control"  ng-model="QUERYCHILDREN.c_0_type"-->
+                                        <!--required-->
+                                        <!--ng-options="item.id as item.name for item in SELECT.CUSTOMERGROUPETYPE">-->
+                                    <!--<option value="">&#45;&#45;请选择客户类型&#45;&#45;</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务单位</label>
+                            <div class="col-md-8">
+                                <select class="form-control"  ng-model="QUERYCHILDREN.pk_org"
+                                        required
+                                        ng-options="item.id as item.name for item in SELECT.AREATYPE">
+                                    <option value="1">--请选择业务单位--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <div ui-grid="customerGridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="height:500px"></div>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSaveSelection()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+<!--        <button ng-click="onCtrl3Cancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>-->
+    </div>
+    <div style="clear: both"></div>
+</div>
+

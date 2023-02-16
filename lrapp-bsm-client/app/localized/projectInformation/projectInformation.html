@@ -1,0 +1,6 @@
+<div ng-controller="projectInformationCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localized/projectInformationGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localized/projectInformationForm.html')" ng-show="isForm"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localized/projectInformationSuperForm.html')" ng-show="isSuperForm"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localized/projectInformationCard.html')" ng-show="isCard"></div>
+</div>

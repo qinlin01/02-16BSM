@@ -1,0 +1,145 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单类型：</span><span class="fontStyle">{{VO.vdef1no | SELECT_CHANGEBILLCHECKTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单编号：</span><span class="fontStyle">{{VO.insurancecheckno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单信息编号：</span><span class="fontStyle">{{VO.vbillno}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批改原因：</span><span class="fontStyle">{{VO.correctingReasons  | SELECT_CORRECTINGREASONSTYPE_1}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.insuranceno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单信息编号：</span><span class="fontStyle">{{VO.insuranceinfono}}</span>
+                </div>
+            </div>
+<!--            <div class="col-md-12">-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>订单流水号：</span><span class="fontStyle">{{VO.serialNo}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>交易类型：</span><span class="fontStyle">{{VO.busiType|SELECT_ORDER_BUSI_TYPE}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>订单金额：</span><span class="fontStyle">{{VO.amount}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>消费金额：</span><span class="fontStyle">{{VO.payment}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>佣金变更：</span><span class="fontStyle">{{VO.feechange}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险金额变更：</span><span class="fontStyle">{{VO.insurancemoneychange}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保费变更：</span><span class="fontStyle">{{VO.insurancechargechange}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>佣金变更：</span><span class="fontStyle">{{VO.feechange}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>具体原因：</span><p word-break="keep-all" class="fontStyle"
+                                         ng-bind-html="VO.content | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>备注：</span><p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="VO.cmemo | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">收付款信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="center">期数</th>
+                            <th>渠道</th>
+                            <th>交易方式</th>
+                            <th>收付款类型</th>
+                            <th>收付款对象名称</th>
+                            <th>收付款比例</th>
+                            <th>计划日期</th>
+                            <th>计划金额</th>
+                            <th>已结算金额</th>
+                            <th>未结算金额</th>
+                            <th>结算日期</th>
+                            <th>业务结算单号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.payments">
+                            <td class="center">{{item.stages}}</td>
+                            <td>{{item.tradingChannel | SELECT_PAYMODE}}</td>
+                            <td>{{item.rechargeType | SELECT_RECHARGETYPE}}</td>
+                            <td>{{item.typeMoneyNo|SELECT_TYPEMONEY}}</td>
+                            <td>{{item.pkCompany.name}}</td>
+                            <td>{{item.scaleMoney|number:2}}</td>
+                            <td>{{item.planDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.planMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.noPaymentMoney|AMOUNT_FILTER}}</td>
+                            <td>{{item.factDate|date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.vsettlebillno}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">附件</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>在线预览</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td>{{item.file_name}}</td>
+                            <td>{{item.ts}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

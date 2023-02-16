@@ -1,0 +1,32 @@
+<div class="main-form-style" ng-controller="enInsuranceBillCtrl">
+    <uib-tabset class="tabbable">
+        <uib-tab heading="完全匹配数据">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>上传文件与数据库中完全匹配数据</caption>
+                <table ng-table="goodDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'批单号'">{{vo.insurancecheckno}}</td>
+                        <td data-title="'保单号'">{{vo.insuranceno}}</td>
+                        <td data-title="'变更保险金额/赔付限额（元）'">{{vo.insurancemoneychange|number}}</td>
+                        <td data-title="'保费变更金额（元）'">{{vo.insurancechargechange|number}}</td>
+                        <td data-title="'佣金变更金额（元）'">{{vo.feechange|number}}</td>
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+        <uib-tab heading="未匹配数据">
+            <div style="padding-bottom: 50px;width: 100%;">
+                <caption>上传文件与数据库中未匹配数据</caption>
+                <table ng-table="badDataParams" class="table table-striped">
+                    <tr ng-repeat="vo in $data">
+                        <td data-title="'批单号'">{{vo.insurancecheckno}}</td>
+                        <td data-title="'保单号'">{{vo.insuranceno}}</td>
+                        <td data-title="'变更保险金额/赔付限额（元）'">{{vo.insurancemoneychange|number}}</td>
+                        <td data-title="'保费变更金额（元）'">{{vo.insurancechargechange|number}}</td>
+                        <td data-title="'佣金变更金额（元）'">{{vo.feechange|number}}</td>
+                    </tr>
+                </table>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

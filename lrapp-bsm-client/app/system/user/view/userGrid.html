@@ -1,0 +1,147 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户单位</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['org_name']" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户名称</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['user_name']" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户编码</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="QUERY['user_code']" maxlength="20"/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户类型</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['user_type']"
+                                    ng-options="item.id as item.name for item in SELECT.USER_TYPE">
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户角色</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['user_role']"
+                                    ng-options="item.id as item.name for item in SELECT.USER_ROLE">
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">用户状态</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['user_status']"
+                                    ng-options="item.id as item.name for item in SELECT.USER_STATUS">
+                                <option value="">-请选择-</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                            <button class="btn btn-primary btn-sm" ng-click="onAdd()">
+                                <i class="fa fa-plus"></i>
+                                增加
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-pencil"></i>
+                                修改
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onDelete()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-plus"></i>
+                                销户
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onPasswordReset()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-refresh"></i>
+                                密码重置
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onLock()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-lock"></i>
+                                锁定
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onUnlock()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-unlock-alt"></i>
+                                解锁
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onCard()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-binoculars"></i>
+                                卡片
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onCheck()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-check"></i>
+                                复核
+                            </button>
+                            <button class="btn btn-primary btn-sm" ng-click="onAuthority()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-wrench"></i>
+                                分配角色
+                            </button>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="panel panel-white">
+                            <div class="panel-body">
+                                <div class="box-tree">
+                                    <abn-tree tree-data="orgTreeData" on-select="selectItem(branch)" expand-level="2" icon-leaf="ti-file" icon-expand="ti-plus" icon-collapse="ti-minus"></abn-tree>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-6">
+                        <div class="clearfix lr-page-margin" ng-style="gridHtmlHeight()">
+                            <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

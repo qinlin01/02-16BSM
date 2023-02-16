@@ -1,0 +1,370 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar" >
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <!--<accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="true" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">基本信息</span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>-->
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.style"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.STYLE">
+                        <option value="">--请选择类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">是否为兼职讲师：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.adjunctinstructor"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.YESNONUM">
+                        <option value="">--请选择是否为兼职讲师--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">姓名：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ max:128}" type="text" ng-model="VO.name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">职务：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:128}"  ng-disabled="isDisabled" type="text" ng-model="VO.job">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">职级：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.rank">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">保险经纪从业人员执业证书编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.caibno">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">年龄：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:20}" ng-disabled="isDisabled" type="text" ng-model="VO.age">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">从事相关工作年限：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.yearsofworking">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">证件类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.certtype"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.CERTCODETYPE">
+                        <option value="">--请选择证件类型--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">证件号码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ max:128}" type="text" ng-model="VO.certcode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">性别：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.gender"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.SEXTYPE">
+                        <option value="">--请选择性别--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">出生年月：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" wdate-picker ng-verify type="text"
+                           ng-model="VO.birthday">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">籍贯：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.nativeplace">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">民族：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:20}" ng-disabled="isDisabled" type="text" ng-model="VO.nation">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">学历：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.education"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.EDUCATIONTYPE">
+                        <option value="">--请选择学历--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">毕业日期：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                           ng-model="VO.graDate">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">毕业学校：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ max:128}" type="text" ng-model="VO.graSchool">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">所学专业：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ max:128}" type="text" ng-model="VO.subject">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">参加工作日期：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify wdate-picker type="text"
+                           ng-model="VO.workDate">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">工作单位：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ max:128}" type="text" ng-model="VO.workDep">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label  lr-verify">办公电话：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/}" type="text" ng-model="VO.phone">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">手机：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}" ng-disabled="isDisabled" type="text" ng-model="VO.telepho">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">电子邮箱：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{pattern:/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,required: false}" ng-disabled="isDisabled" type="text" ng-model="VO.mail">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">通讯地址：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: false,max:300}"  ng-disabled="isDisabled" type="text" ng-model="VO.address">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">邮编：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.post">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">建立人：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                           url="'userRef/queryForGrid'" ng-click="" popup-model="VO"
+                           popup-model-field="'foundperson'"
+                           ng-model="VO.foundperson.name" type="text" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">附件数量：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.fileNum">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">照片类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.filetype"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.PHOTOTYPE">
+                        <option value="">--请选择照片类型--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-12">
+                <label class="col-md-255 control-label">备注：</label>
+                <div class="col-md-254">
+                    <textarea class="form-control" style="resize:none" rows="4" ng-verify="{ required: false,max:2000}"  ng-disabled="isDisabled" type="text"
+                              ng-model="VO.note"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <!--    </accordion-group>
+        </accordion>-->
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" ng-show="isEdit&&!upOrDown" ng-click="onAddLine();">增行</button>
+
+
+            <button class="btn btn-sm btn-info"
+                    ng-click="onUploads();" ng-show="upOrDown">上传
+            </button>
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info"
+                    ng-click="onDownLoads();" ng-show="upOrDown">下载
+            </button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="专家职称信息" select="selectTab('expertTeclGridOptions')">
+                <div ui-grid="expertTeclGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="2" heading="专家发表学术刊物信息" select="selectTab('expertReportGridOptions')">
+                <div ui-grid="expertReportGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="3" heading="专家调用记录及评价" select="selectTab('expertProjectGridOptions')">
+                <div ui-grid="expertProjectGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="4" heading="专家聘用信息" select="selectTab('expertEmployedGridOptions')">
+                <div ui-grid="expertEmployedGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="5" heading="专家项目经验" select="selectTab('expertProjectExperienceGridOptions')">
+                <div ui-grid="expertProjectExperienceGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="6" heading="专家资格证书" select="selectTab('expertCaibnoGridOptions')">
+                <div ui-grid="expertCaibnoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="7" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.operateDate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>

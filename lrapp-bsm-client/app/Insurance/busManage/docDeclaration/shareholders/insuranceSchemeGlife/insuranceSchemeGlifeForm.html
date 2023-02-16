@@ -1,0 +1,1222 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSubmit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+<!--            <button type="button" class="btn btn-azure" type="button" ng-click="onAudit()"-->
+<!--                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+<!--                <i class="ti-check"></i>-->
+<!--                <span>审核</span>-->
+<!--            </button>-->
+            <button type="button" class="btn btn-azure" type="button" ng-click="onRecall()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onEdit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onBack()" type="button" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保险方案编号：</label>
+                        <div class="col-md-7">
+                            <input class="form-control"   ng-disabled="true" type="text"
+                                   ng-model="VO.insuranceschemeNo">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">经纪公司名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify="{ max:128}" ng-disabled="true" type="text"
+                                   ng-model="VO.brokerageAgencyName">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">建立部门：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="true" type="text"
+                                   ng-model="VO.dept">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">立项名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref="projectRef"
+                                   url="'insuranceSchemeGlife/queryForInsuranceScheme'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkProject'" popup-model-value="{'c_2_type':1}"
+                                   ng-model="VO.pkProject.name" type="text" placeholder="请选择股东业务下业务分类为网省业务" >
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">保险方案名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify="{ required: false,max:100}"
+                                   ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.name">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">投保人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref
+                                   url="'customerInsuRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'estimatepk'"
+                                   ng-model="VO.estimatepk.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">投保人地址：</label>
+                        <div class="col-md-7">
+                            <input class="form-control"
+                                   ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.estimatepk.c1Province_name">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保险建议书：</label>
+                        <div class="col-md-7">
+                            <input class="form-control"  ng-disabled="isDisabled" ui-popup-ref="businessExamine"
+                                   url="'businessExamine/queryForGrid?enum_doc_type=3'" ng-click="" popup-model="VO"
+                                   popup-model-field="'businessExamine'" popup-model-value="param"
+                                   ng-model="VO.businessExamine.docTitle" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">是否总部直管工程：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.ifuhv"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNONUM">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </accordion-group>
+
+            <button class="btn lr-insureType-btn" ng-disabled="isDisabled" ng-click="onAddinsureType()">
+                <i class="fa fa-plus-square"></i>
+                添加险种
+            </button>
+            <accordion-group is-open="true" class="lr-page-bg-gray" ng-repeat="item in VO.insureType">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa  fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">险种信息{{item.INSURE_TYPE_ID==null?'':'-'+(item.INSURE_TYPE_ID|SELECT_DWZCINSURANCETYPE)}}</span>
+                        <span class="lr-page-color" style="margin-left: 20px">保险金额(元)：{{item.ALL_FEE | AMOUNT_FILTER}}</span>
+                    </div>
+
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color" name="test"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <label class="col-md-4 control-label lr-verify">险种名称：</label>
+                        <div class="col-md-8" style="padding-left: 0">
+                            <select class="form-control" ng-verify ng-model="item.INSURE_TYPE_ID" ng-disabled="isDisabled"
+                                    required ng-change="item.ALL_FEE"
+                                    ng-options="item.id as item.name for item in SELECT.GLIFEDWZCINSURANCETYPE">
+                                <option value="" >--请选择险种名称--</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7" style="text-align: right">
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="deletelistOptions($index)" type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="item.INSURE_TYPE_ID!='chongdzzhbx'&&item.INSURE_TYPE_ID!='jianzazgcyqx'&&item.INSURE_TYPE_ID!='anzgcyqx'&&item.INSURE_TYPE_ID!='jianagcx'&&item.INSURE_TYPE_ID!=null">
+                    <div class="col-md-5">
+                        <label class="col-md-4 control-label lr-verify">保险起始日期：</label>
+                        <div class="col-md-8" style="padding-left: 0">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                   ng-model="item.INSURE_START_DATE" ng-change="watchDate($index)">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="col-md-4 control-label lr-verify">保险到期日期：</label>
+                        <div class="col-md-8" style="padding-left: 0">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                   ng-model="item.INSURE_END_DATE" >
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="item.INSURE_TYPE_ID=='guzzrx'">
+                    <div class="col-md-5">
+                        <label class="col-md-4 control-label lr-verify">投保人数：</label>
+                        <div class="col-md-8" style="padding-left: 0">
+                            <input class="form-control" type="text"  ng-disabled="isDisabled"
+                                   ng-model="item.INSURE_PEOPLE_NUM"  ng-verify onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='kehxyx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='yingyzdx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='guzzrx'||item.INSURE_TYPE_ID=='jiqshx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='tuantywx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='feijdcdszzrx'||item.INSURE_TYPE_ID=='jisyqxjzrx'||item.INSURE_TYPE_ID=='huoyx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='wanglaqbx'">
+
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='yingyzdx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">平均售电利润计量单位：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.average_ele_profit" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">元/千瓦时</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">预计保险期间售电量：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.forecast_sale_ele" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">千瓦时</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='yingyzdx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">预计售电毛利润：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.forecast_sale_profit" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">元</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">累计赔偿限额：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.add_quota" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">元</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='yingyzdx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">最大赔偿期：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.max_pay_time" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">天</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">相对免赔期：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.relative_contract" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">天</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='kehxyx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">预计当年销售收入：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.forecast_sale_income" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">元</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">累计信用限额：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.add_quota" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">元</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='kehxyx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">赔偿比例：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.pay_for_scale" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">约定等待期：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.guarantee_wait" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">天</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">预计保费：</label>
+                            <div class="col-md-8 input-group">
+                                <div class="input-group-addon">￥</div>
+                                <input type="text" ng-disabled="isDisabled" ng-verify format-number ng-model="item.FORECAST_FEE_MIN" class="form-control" placeholder="起" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                <div class="input-group-addon">~ </div>
+                                <input type="text"  ng-disabled="isDisabled" ng-verify format-number  ng-model="item.FORECAST_FEE_MAX" class="form-control" placeholder="止" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" >
+                            </div>
+                        </div>
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label">保险费率：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <input type="text" ng-disabled="isDisabled"  format-number ng-model="item.INSURANCE_RATE_MIN" class="form-control" placeholder="起" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                                <div class="input-group-addon">‰ ~ </div>-->
+<!--                                <input type="text" ng-disabled="isDisabled"  format-number ng-model="item.INSURANCE_RATE_MAX" class="form-control" placeholder="止" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                                <div class="input-group-addon">‰</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">佣金率：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify format-number ng-model="item.COMMISION_FEE_RATE" class="form-control" placeholder="" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" ng-if="item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'">
+                            <label class="col-md-4 control-label lr-verify">船名：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.shipName" class="form-control" placeholder="" onafterpaste="if(isNaN(value))execCommand('undo')">
+                            </div>
+                        </div>
+                        <div class="col-md-5" ng-if="item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='anqsczrx'">
+                            <label class="col-md-4 control-label lr-verify">承保基础：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.accept_base" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="item.INSURE_TYPE_ID=='chuanbx'">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">保险金额：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.insuranceMoney" class="form-control"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="item.INSURE_TYPE_ID=='susbqzrbx'">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label class="col-md-4 control-label lr-verify">诉讼金额：</label>
+                                <div class="col-md-8 input-group">
+                                    <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.litigationMoney" class="form-control" placeholder="" onafterpaste="if(isNaN(value))execCommand('undo')">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="col-md-4 control-label lr-verify">申请保全金额：</label>
+                                <div class="col-md-8 input-group">
+                                    <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.protectMoney" class="form-control" placeholder="" onafterpaste="if(isNaN(value))execCommand('undo')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label class="col-md-4 control-label lr-verify">案件被告：</label>
+                                <div class="col-md-8 input-group">
+                                    <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.defendant" class="form-control" placeholder="" onafterpaste="if(isNaN(value))execCommand('undo')">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="col-md-4 control-label lr-verify">案件管辖法院：</label>
+                                <div class="col-md-8 input-group">
+                                    <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.court" class="form-control" placeholder="" onafterpaste="if(isNaN(value))execCommand('undo')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-255 control-label lr-verify">免赔额：</label>
+                            <div class="col-md-254" style="padding-left: 0">
+                                <div simditor toolbar="[]" type="text"   ng-disabled="isDisabled" ng-model="item.FREE_FEE"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-255 control-label lr-verify">付款及赔偿方式约定：</label>
+                            <div class="col-md-254" style="padding-left: 0">
+                                <div simditor toolbar="[]" type="text" ng-disabled="isDisabled" ng-model="item.PAY_WAY_CONTRACT"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="item.INSURE_TYPE_ID=='huoyx'">
+                    <accordion-group is-open="true" class="lr-page-bg-gray">
+                        <accordion-heading class="lr-page-bg-white">
+                            <div class="btn lr-page-bg-indigo">
+                                <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                                <span class="lr-page-color lr-verify">货运信息</span>
+                            </div>
+                            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-255 control-label lr-verify">被保险货物种类：</label>
+                                <div class="col-md-254">
+                                    <input class="form-control" ng-verify ng-disabled="isDisabled" type="text"
+                                           ng-model="item.freightType">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-255 control-label lr-verify">运输线路：</label>
+                                <div class="col-md-254">
+                                    <input class="form-control" ng-verify ng-disabled="isDisabled" type="text"
+                                           ng-model="item.transportRoute">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-255 control-label lr-verify">运输工具：</label>
+                                <div class="col-md-254">
+                                    <input class="form-control" ng-verify ng-disabled="isDisabled" type="text"
+                                           ng-model="item.transportTools">
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                    <accordion-group is-open="true" class="lr-page-bg-gray">
+                        <accordion-heading class="lr-page-bg-white">
+                            <div class="btn lr-page-bg-indigo">
+                                <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                                <span class="lr-page-color lr-verify">保险金额</span>
+                            </div>
+                            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('freightInsureMoneyGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('freightInsureMoneyGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                        <div ui-grid="listOptions[$index].freightInsureMoneyGridOptions" ui-grid-edit ui-grid-cellnav
+                             ui-grid-selection
+                             ui-grid-resize-columns class="grid"></div>
+                    </accordion-group>
+                </div>
+                <div ng-if="item.INSURE_TYPE_ID=='jisyqxjzrx'">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-255 control-label lr-verify">航空器用途：</label>
+                            <div class="col-md-254" style="padding-left: 0">
+                                <div simditor toolbar="[]" type="text" ng-disabled="isDisabled" ng-model="item.aircraftUse"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-255 control-label lr-verify">飞行区域：</label>
+                            <div class="col-md-254" style="padding-left: 0">
+                                <div simditor toolbar="[]" type="text" ng-disabled="isDisabled" ng-model="item.flightArea"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <accordion-group is-open="true" class="lr-page-bg-gray">
+                        <accordion-heading class="lr-page-bg-white">
+                            <div class="btn lr-page-bg-indigo">
+                                <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                                <span class="lr-page-color lr-verify">保险标的</span>
+                            </div>
+                            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('insureMoneyGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('insureMoneyGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                        <div ui-grid="listOptions[$index].insureMoneyGridOptions" ui-grid-edit ui-grid-cellnav
+                             ui-grid-selection
+                             ui-grid-resize-columns class="grid"></div>
+                    </accordion-group>
+                </div>
+                <div ng-if="item.INSURE_TYPE_ID=='guzzrx'">
+                    <div class="form-group">
+                        <div class="col-md-4" style="padding-right:78px;text-align: right">
+                            <label class="radio-inline">
+                                <input type="radio" checked="checked" ng-disabled="isDisabled" ng-model="item.EMPLOYER_SORT_SIGN" name="inlineRadioOptions" id="inlineRadio1"
+                                       value="1" >工资总额方式
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-disabled="isDisabled" ng-model="item.EMPLOYER_SORT_SIGN" name="inlineRadioOptions" id="inlineRadio2"
+                                       value="2">员工类别方式
+                            </label>
+                        </div>
+                        <div class="col-md-8" style="text-align: right;padding-right: 30px" ng-if="item.EMPLOYER_SORT_SIGN==2">
+                            <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('insuranceCategoryApproachGridOptions',$index)"
+                                    type="button">
+                                <i class="fa fa-plus"></i>
+                                <span>增加</span>
+                            </button>
+                            <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('insuranceCategoryApproachGridOptions',$index)"
+                                    type="button">
+                                <i class="fa fa-trash-o"></i>
+                                <span>删除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="item.EMPLOYER_SORT_SIGN==1">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label lr-verify">估计保险期内工资总额：</label>
+                            <div class="col-md-7 input-group">
+                                <div class="input-group-addon">￥</div>
+                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.PAY_SUM" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-3  ">死亡工资：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="number" ng-disabled="isDisabled"  ng-model="item.DIE_PAY" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">个月的平均工资/人</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-3 ">伤残工资：</label>
+                            <div class="col-md-8 input-group">
+                                <input type="number" ng-disabled="isDisabled"  ng-model="item.DEFORMITY_PAY" class="form-control" placeholder="" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">
+                                <div class="input-group-addon">个月的平均工资/人</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-grid="listOptions[$index].insuranceCategoryApproachGridOptions" style="width: 90%;margin-left:100px" ng-if="item.EMPLOYER_SORT_SIGN==2"
+                         ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </div>
+                <div ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'">
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label ">保险工程名称：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-disabled="isDisabled" type="text"
+                                       ng-model="item.INSURE_PROJECT_NAME">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">其他关系方：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" type="text"
+                                       ng-model="item.OTHER_RELATION">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">建筑安装期：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                       ng-model="item.INSURE_START_DATE" >
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">至：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                       ng-model="item.INSURE_END_DATE" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">保证期：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                       ng-model="item.GUARANTEE_START_DATE" >
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label lr-verify">至：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                                       ng-model="item.GUARANTEE_END_DATE" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label class="col-md-4 control-label  ">保险工程地点：</label>
+                            <div class="col-md-8" style="padding-left: 0">
+                                <div simditor toolbar="[]" ng-disabled="isDisabled" type="text" ng-model="item.INSURE_PROJECT_ADDR"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                <div ng-if="item.INSURE_TYPE_ID=='tuantywx'">-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">方案名称：</label>-->
+<!--                            <div class="col-md-8" style="padding-left: 0">-->
+<!--                                <select class="form-control" ng-verify ng-model="item.schemeName" ng-disabled="isDisabled"-->
+<!--                                        required-->
+<!--                                        ng-options="item.id as item.name for item in SELECT.SCHEMENAME">-->
+<!--                                    <option value="" >&#45;&#45;请选择方案名称&#45;&#45;</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">投保人员：</label>-->
+<!--                            <div class="col-md-8" style="padding-left: 0">-->
+<!--                                <select class="form-control" ng-verify ng-model="item.insured" ng-disabled="isDisabled"-->
+<!--                                        required-->
+<!--                                        ng-options="item.id as item.name for item in SELECT.INSURED">-->
+<!--                                    <option value="" >&#45;&#45;请选择投保人员&#45;&#45;</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">投保险种：</label>-->
+<!--                            <div class="col-md-8" style="padding-left: 0">-->
+<!--                                <input type="checkbox" ng-model="item.insuredType">全选<br><br>-->
+<!--                                <input type="checkbox" name="insuredType" value="英大人寿电力行业团体意外伤害保险">英大人寿电力行业团体意外伤害保险<br>-->
+<!--                                <input type="checkbox" name="insuredType" value="英大人寿附加意外伤害团体医疗保险">英大人寿附加意外伤害团体医疗保险<br>-->
+<!--                                <input type="checkbox" name="insuredType" value="英大顺和交通工具团体意外伤害保险B款">英大顺和交通工具团体意外伤害保险B款<br>-->
+<!--                                <input type="checkbox" name="insuredType" value="其它">其它<br>-->
+<!--                                <select class="form-control" ng-verify ng-model="item.insuredType" ng-disabled="isDisabled"-->
+<!--                                        required-->
+<!--                                        ng-options="item.id as item.name for item in SELECT.INSUREDTYPE">-->
+<!--                                    <option value="" >&#45;&#45;请选择投保险种&#45;&#45;</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">保险责任：</label>-->
+<!--                            <div class="col-md-8" style="padding-left: 0">-->
+<!--                                <select class="form-control" ng-verify ng-model="item.InsuranceLiability" ng-disabled="isDisabled"-->
+<!--                                        required-->
+<!--                                        ng-options="item.id as item.name for item in SELECT.INSURANCELIABILITY">-->
+<!--                                    <option value="" >&#45;&#45;请选择保险责任&#45;&#45;</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">总保险金额(万元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.insuranceMoneyAll" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">费率：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.rate" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">总保费(元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.premiumAll" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">人数：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.peopleAll" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label">保险金额/人(万元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-model="item.insuranceMoneyEveryone" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                                </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label lr-verify">免赔额(元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-verify ng-model="item.deductible" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label">赔付比例：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled"  ng-model="item.compensationRatio" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label">保险费/人(元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-model="item.insurancePremiumEveryone" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <div class="col-md-5">-->
+<!--                            <label class="col-md-4 control-label">年人均保险费(元)：</label>-->
+<!--                            <div class="col-md-8 input-group">-->
+<!--                                <div class="input-group-addon">￥</div>-->
+<!--                                <input type="text" ng-disabled="isDisabled" ng-model="item.insurancePremiumYearEveryone" class="form-control"   onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="if(isNaN(value))execCommand('undo')">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID=='tuantywx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">保险责任</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('insuranceGLifeOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('insuranceGLifeOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].insuranceGLifeOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+
+
+
+
+
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID!=null">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">被保险人</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('insurebeHoldeGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('insurebeHoldeGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].insurebeHoldeGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID=='canycszrbx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">承保场所范围</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('placeScopeGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('placeScopeGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].placeScopeGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID=='wanglaqbx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">保障项目</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('supportProjectGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('supportProjectGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].supportProjectGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID=='feijdcdszzrx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">保险金额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('insureAmountGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('insureAmountGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].insureAmountGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"  ng-if="item.INSURE_TYPE_ID=='chuanbx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">附加险</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onAddLine('additionalInsureGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-plus"></i>
+                        <span>增加</span>
+                    </button>
+                    <button type="button" class="btn btn-azure" ng-disabled="isDisabled" ng-click="onDeleteLine('additionalInsureGridOptions',$index)"
+                            type="button">
+                        <i class="fa fa-trash-o"></i>
+                        <span>删除</span>
+                    </button>
+                    <div ui-grid="listOptions[$index].additionalInsureGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"
+                                 ng-if="item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='jiqshx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">保险标的及保险金额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+
+                    <div style="width: 100%;float: left">
+                        <button type="button" ng-disabled="isDisabled" style="float: left" class="btn btn-azure" ng-click="onAddLine('insuranceItemsOptions',$index)">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" ng-disabled="isDisabled" style="float: left;margin-left: 5px;" class="btn btn-azure"
+                                ng-click="onDeleteLine('insuranceItemsOptions',$index)">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                        <!--                        <div style="width:25%;float: left">-->
+                        <!--                            <label class="col-md-4 control-label">资产数据日期：</label>-->
+                        <!--                            <div class="col-md-8" style="padding-left: 0">-->
+                        <!--                                <input class="form-control"  ng-disabled="isDisabled" type="text" wdate-pickers-->
+                        <!--                                       ng-model="item.downLoadDate" style="width: 200px;display: inline">-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" style="margin-left: 2%" ng-click="onImportUploads(true,$index)">-->
+                        <!--                            <i class="fa fa-cloud-upload"></i>-->
+                        <!--                            <span>上传资产数据</span>-->
+                        <!--                        </button>-->
+                        <!--                        <input type="file" id="inputFile"  accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none" onchange="angular.element(this).scope().onImportUploads(false)"/>-->
+                        <!--                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="getAssetsData('','',$index)">-->
+                        <!--                            <i class="fa fa-cloud-download"></i>-->
+                        <!--                            <span>下载资产数据模板</span>-->
+                        <!--                        </button>-->
+
+                        <!--                    <button type="button" class="btn btn-azure" ng-click="showtree()" type="button">-->
+                        <!--                        <i class="fa fa-pie-chart"></i>-->
+                        <!--                        <span>投保清单</span>-->
+                        <!--                    </button>-->
+
+
+                    </div>
+
+                    <div ui-grid="listOptions[$index].insuranceItemsOptions" name="insuranceItemsOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="width: 100%;height:200px;float: left"></div>
+
+                    <div ui-grid="listOptions[$index].insuranceBigAssetsOptions" name="insuranceBigAssetsOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="width: 100%;height:600px;float: left"></div>
+<!--                    <div style="float: left;margin-left: 2%" ng-if="ifGdzc">-->
+<!--                        <div save-content="classic-html">-->
+<!--                            <table class="table table-bordered"  style="margin-bottom: 10px">-->
+<!--                                <th width="340">资产名称</th>-->
+<!--                                <th width="150">资产原值(元)</th>-->
+<!--                                <th width="100">加成比例(%)</th>-->
+<!--                                <th width="150">投保资产(元)</th>-->
+<!--                            </table>-->
+
+<!--                            <treecontrol class="tree-classic"-->
+<!--                                         tree-model="treedata" options="opts"-->
+<!--                                         on-selection="showSelected(node)">-->
+<!--                                {{node.assetsName}}{{node.assetscode}}-->
+<!--                                <table style="float: right;text-align: right">-->
+<!--                                    <td width="150" name="test">{{node.assetsOldValue}}</td>-->
+<!--                                    <td width="100">{{node.addsCale}}</td>-->
+<!--                                    <td width="150">{{node.insureValue}}</td>-->
+<!--                                </table>-->
+<!--                            </treecontrol>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div  ng-if="!ifGdzc" ui-grid="listOptions[$index].insuranceItemsNoGdzcOptions" name="insuranceItemsNoGdzcOptions" ui-grid-edit ui-grid-cellnav
+                          ui-grid-selection
+                          ui-grid-auto-resize ui-grid-resize-columns class="grid" style="width: 60%;float: left;margin-left: 2%"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray" ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">保险项目及保险金额/赔偿限额/物质损失--保险项目及金额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div style="width: 100%;">
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceItemsAndAmountsGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure"
+                                ng-click="onDeleteLine('insuranceItemsAndAmountsGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                    <div ui-grid="listOptions[$index].insuranceItemsAndAmountsGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray" ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">保险项目及保险金额/赔偿限额/物质损失--特种危险赔偿限额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div style="width: 100%;">
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceSpecialDangerGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure"
+                                ng-click="onDeleteLine('insuranceSpecialDangerGridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                    <div ui-grid="listOptions[$index].insuranceSpecialDangerGridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray" ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">第三者责任--赔偿限额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div style="width: 100%;">
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceThirdResponsibilityridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure"
+                                ng-click="onDeleteLine('insuranceThirdResponsibilityridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                    <div ui-grid="listOptions[$index].insuranceThirdResponsibilityridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+
+                <accordion-group is-open="true" class="lr-page-bg-gray" ng-if="item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='susbqzrbx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">赔偿限额</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div style="width: 100%;">
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceThirdResponsibilityridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-plus"></i>
+                            <span>增加</span>
+                        </button>
+                        <button type="button" ng-disabled="isDisabled" class="btn btn-azure"
+                                ng-click="onDeleteLine('insuranceThirdResponsibilityridOptions',$index)"
+                                type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                    <div ui-grid="listOptions[$index].insuranceThirdResponsibilityridOptions" ui-grid-edit ui-grid-cellnav
+                         ui-grid-selection
+                         ui-grid-resize-columns class="grid"></div>
+                </accordion-group>
+
+                <!--<accordion-group is-open="true" class="lr-page-bg-gray">-->
+                    <!--<accordion-heading class="lr-page-bg-white">-->
+                        <!--<div class="btn lr-page-bg-indigo">-->
+                            <!--<i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>-->
+                            <!--<span class="lr-page-color lr-verify">赔偿限额</span>-->
+                        <!--</div>-->
+                        <!--<i class="fa pull-right fa-chevron-circle-down lr-arrow-color"-->
+                           <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
+                    <!--</accordion-heading>-->
+                    <!--<div style="width: 100%;">-->
+
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceCategoryApproachGridOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--<span>增加</span>-->
+                        <!--</button>-->
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure"-->
+                                <!--ng-click="onDeleteLine('insuranceCategoryApproachGridOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-trash-o"></i>-->
+                            <!--<span>删除</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div ui-grid="listOptions[$index].insuranceCategoryApproachGridOptions" ui-grid-edit ui-grid-cellnav-->
+                         <!--ui-grid-selection-->
+                         <!--ui-grid-resize-columns class="grid"></div>-->
+                <!--</accordion-group>-->
+                <accordion-group is-open="true" class="lr-page-bg-gray"
+                                 ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='kehxyx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='yingyzdx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='guzzrx'||item.INSURE_TYPE_ID=='jiqshx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='jisyqxjzrx'||item.INSURE_TYPE_ID=='feijdcdszzrx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='huoyx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='tuantywx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">适用条款及内容</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <!--<div style="width: 100%;">-->
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceApplyArticleOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--<span>增加</span>-->
+                        <!--</button>-->
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure"-->
+                                <!--ng-click="onDeleteLine('insuranceApplyArticleOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-trash-o"></i>-->
+                            <!--<span>删除</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div ui-grid="listOptions[$index].insuranceApplyArticleOptions" ng-verify ui-grid-edit ui-grid-cellnav-->
+                         <!--ui-grid-selection-->
+                         <!--ui-grid-resize-columns class="grid" ></div>-->
+
+                    <div class="form-group">
+                        <div class="col-md-254" style="padding-left: 0 ;padding-right:0;width: 100%;overflow-y:auto; overflow-x:auto;  height:400px;">
+                            <div simditor toolbar="[]"  type="text"  ng-disabled="isDisabled" ng-model="item.applyArticle" style="width: 100% "></div>
+                        </div>
+                    </div>
+
+                </accordion-group>
+
+
+                <accordion-group is-open="true" class="lr-page-bg-gray"
+
+                                 ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='kehxyx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='yingyzdx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='guzzrx'||item.INSURE_TYPE_ID=='jiqshx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='jisyqxjzrx'||item.INSURE_TYPE_ID=='feijdcdszzrx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='huoyx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='tuantywx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">司法管辖</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <!--<div style="width: 100%;">-->
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insurancejusticeManageOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--<span>增加</span>-->
+                        <!--</button>-->
+                        <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure"-->
+                                <!--ng-click="onDeleteLine('insurancejusticeManageOptions',$index)"-->
+                                <!--type="button">-->
+                            <!--<i class="fa fa-trash-o"></i>-->
+                            <!--<span>删除</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div ui-grid="listOptions[$index].insurancejusticeManageOptions" ui-grid-edit ui-grid-cellnav-->
+                         <!--ui-grid-selection-->
+                         <!--ui-grid-resize-columns class="grid"></div>-->
+                    <div class="form-group">
+                        <div class="col-md-254" style="padding-left: 0 ;padding-right:0;width: 100%;overflow-y:auto; overflow-x:auto;  height:400px;">
+                            <div simditor toolbar="[]"  type="text"  ng-disabled="isDisabled" ng-model="item.justiceManage" style="width: 100% "></div>
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"
+
+                                 ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='kehxyx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='yingyzdx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='guzzrx'||item.INSURE_TYPE_ID=='jiqshx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='feijdcdszzrx'||item.INSURE_TYPE_ID=='jisyqxjzrx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='huoyx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='tuantywx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">扩展条款及内容</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="form-group">
+                        <div class="col-md-254" style="padding-left: 0 ;padding-right:0;width: 100%;overflow-y:auto; overflow-x:auto;  height:400px;">
+                            <div simditor toolbar="[]"  type="text"  ng-disabled="isDisabled" ng-model="item.insurebeExt" style="width: 100% "></div>
+                            <!--<div simditor toolbar="[]"  type="text"  ng-disabled="isDisabled" ng-model="item.insurebeExt" style="white-space:pre-wrap;width: 100% "></div>-->
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="true" class="lr-page-bg-gray"
+
+                                 ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='kehxyx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='yingyzdx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='caicyqx'||item.INSURE_TYPE_ID=='guzzrx'||item.INSURE_TYPE_ID=='jiqshx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'||item.INSURE_TYPE_ID=='jisyqxjzrx'||item.INSURE_TYPE_ID=='feijdcdszzrx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='huoyx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='tuantywx'">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-right lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color lr-verify">特别约定内容</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <!--<div style="width: 100%;">-->
+                    <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure" ng-click="onAddLine('insuranceSpecialPromiseOptions',$index)"-->
+                    <!--type="button">-->
+                    <!--<i class="fa fa-plus"></i>-->
+                    <!--<span>增加</span>-->
+                    <!--</button>-->
+                    <!--<button type="button" ng-disabled="isDisabled" class="btn btn-azure"-->
+                    <!--ng-click="onDeleteLine('insuranceSpecialPromiseOptions',$index)"-->
+                    <!--type="button">-->
+                    <!--<i class="fa fa-trash-o"></i>-->
+                    <!--<span>删除</span>-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--<div ui-grid="listOptions[$index].insuranceSpecialPromiseOptions" ui-grid-edit ui-grid-cellnav-->
+                    <!--ui-grid-selection-->
+                    <!--ui-grid-resize-columns class="grid"></div>-->
+                    <div class="form-group">
+                        <div class="col-md-254" style="padding-left: 0 ;padding-right:0;width: 100%;overflow-y:auto; overflow-x:auto;  height:400px;">
+                            <div simditor toolbar="[]"  type="text"  ng-disabled="isDisabled" ng-model="item.specialPromise" style="width: 100% "></div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion-group>
+        </accordion>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info"  type="button" ng-click="onUploads();" ng-if="upOrDown">上传</button>
+            <button class="btn btn-sm btn-info"  type="button" ng-if="upOrDown" ng-click="onDeleteLine('dealAttachmentBGridOptions');">减行</button>
+            <button class="btn btn-sm btn-info"  type="button" ng-click="onDownLoads();" ng-if="upOrDown">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</form>

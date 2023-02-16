@@ -1,0 +1,289 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmitSelf()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4" ng-if="VO.bulkCode != null && VO.bulkCode != ''">
+                    <label class="col-md-5 control-label">批量业务信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" type="text" ng-model="VO.bulkCode">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保单性质：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="!isForm" ng-model="VO.insurancebillkind"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.INSURANCEBILLKIND">
+                            <option value="">--请选择保单性质--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">业务/项目名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" ui-popup-ref="projectRef"
+                               url="'projectRef/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'pkProject'" popup-model-value=""
+                               ng-model="VO.pkProject.name" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">立项号 ：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" type="text" ng-model="VO.pkProject.code">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">客户产权关系：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" ui-popup-ref
+                               url="'projectKindTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'pkProjectKind'" popup-model-value="param"
+                               ng-verify
+                               is-tree="true"
+                               ng-model="VO.pkProjectKind.name" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">业务分类：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" ui-popup-ref
+                               url="'busiType/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'busiType'" popup-model-value="VO.pkProjectKind"
+                               ng-verify
+                               is-tree="true"
+                               ng-model="VO.busiType.name" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务签报批复编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!VO.pkProject.name||!isForm" ui-popup-ref="reportRef"
+                               url="reportUrl(VO.pkProject.pk)" ng-click="" popup-model="VO"
+                               popup-model-field="'pkReport'"
+                               ng-model="VO.pkReport.approval_number" type="text" placeholder="投标、履约保险延时签报有效期30天，其余险种延时签报有效期15天">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">是否约定代领：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="isDisabled" ng-model="VO.ifSubstitute"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">--请选择是否约定代领--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <input type="file" id="inputFile"  accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none" onchange="angular.element(this).scope().onImportUploads(false)"/>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>保单明细</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onImport()">保单批量导入</button>
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onUploadss()">保单附件批量导入</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="保单明细信息">
+                    <div ui-grid="insurancebillGridOption"  ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+
+        <div class="lr-contant">
+            <fieldset>
+                <legend>
+                    投保人信息
+                </legend>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">投保人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" ui-popup-ref
+                                   url="'customerInsuRef/queryForGrid'" ng-click="" popup-model="billVO"
+                                   popup-model-field="'estimatepk'" popup-model-value="param"
+                                   ng-model="billVO.estimatepk.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">证件类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="!isForm" ng-model="billVO.certType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.CERTCODETYPE">
+                                <option value="">-请选择证件类型-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">证件号码：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" type="text"
+                                   ng-model="billVO.documentCode" maxlength="20">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">性别：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="billVO.estimateGender"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.SEXTYPE">
+                                <option value="">-请选择性别-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">联系方式：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" type="text" ng-model="billVO.vdef11">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">常驻城市：</label>
+                        <div class="col-md-7">
+                            <input class="form-control " ng-disabled="!isForm" ui-popup-ref
+                                   url="'areaclTreeRef/queryForGrid'" ng-click="" popup-model="billVO"
+                                   popup-model-field="'estimateCity'"
+                                   is-tree="true"
+                                   ng-model="billVO.estimateCity.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">详细地址：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" type="text" ng-model="billVO.estimateaddr">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div ng-if="childIsEdit">
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" ng-show="childIsEdit&&!upOrDown" ng-click="onAddLine();">增行</button>
+<!--                <button class="btn btn-sm btn-info" ng-click="onUploads();" ng-show="upOrDown">上传</button>-->
+<!--                <button class="btn btn-sm btn-info" ng-show="childIsEdit" ng-click="onDeleteLine();">减行</button>-->
+<!--                <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>-->
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="保险险种信息" select="selectTab('insuranceinfoGridOptions')">
+                    <div ui-grid="insuranceinfoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+                <tab index="2" heading="被保人信息" select="selectTab('insurancedmanGridOptions')">
+                    <div ui-grid="insurancedmanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+                <tab index="3" heading="受益人信息" select="selectTab('beneficiaryGridOptions')">
+                    <div ui-grid="beneficiaryGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+                <tab index="4" heading="保险人信息" select="selectTab('insurancemanGridOptions')">
+                    <div ui-grid="insurancemanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+                <tab index="5" heading="收付款信息" select="selectTab('paymentGridOptions')">
+                    <div ui-grid="paymentGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+                <tab index="6" heading="附件" select="selectTab('dealAttachmentBChildGridOptions')">
+                    <div ui-grid="dealAttachmentBChildGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+<!--    <div class="lr-contant">-->
+<!--        <fieldset>-->
+<!--            <legend>附件</legend>-->
+<!--            <div class="pull-right lr-mr10 lr-mt10">-->
+<!--                <button class="btn btn-sm btn-info"  type="button" ng-click="onUploads()">上传</button>-->
+<!--                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>-->
+<!--                <button class="btn btn-sm btn-info"  type="button" ng-click="onDownLoads()">下载</button>-->
+<!--            </div>-->
+<!--            <tabset justified="false">-->
+<!--                <tab index="4" heading="附件">-->
+<!--                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection-->
+<!--                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>-->
+<!--                </tab>-->
+<!--            </tabset>-->
+<!--        </fieldset>-->
+<!--    </div>-->
+    <accordion close-others="oneAtATime" class="">
+        <div class="form-group"style="margin-top: 50px">
+            <accordion-group class="lr-page-bg-gray" is-open="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">附件信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" type="button"
+                            ng-click="onUploads();">上传
+                    </button>
+                    <button class="btn btn-sm btn-info" type="button"
+                            ng-click="onDeleteLine();">删除
+                    </button>
+                </div>
+                <tabset justified="false">
+                    <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                             style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </accordion-group>
+        </div>
+    </accordion>
+
+
+    </div>
+</form>

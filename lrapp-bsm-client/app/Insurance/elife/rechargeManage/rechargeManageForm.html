@@ -1,0 +1,213 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">认款信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.rechargeNo">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据建立公司：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkOrg.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据建立部门：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkDept.name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">币种：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="!isForm" ng-model="VO.currency"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.CURRENCY">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>充值信息</legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">充值流水号：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text"
+                               ng-model="rechargeRecordQuery.rechargeNo">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">充值金额：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text"
+                               ng-model="rechargeRecordQuery.rechargeMoney">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">充值日期：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text" wdate-pickers
+                               ng-model="rechargeRecordQuery.rechargeTime" style="width: 200px;display: inline">
+                    </div>
+                </div>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="充值流水">
+                    <div ui-grid="rechargeRecordGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>银行流水信息</legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">流水日期：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text" wdate-pickers
+                               ng-model="accountStatementQuery.actualAccountDate" style="width: 200px;display: inline">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">交易金额：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text"
+                               ng-model="accountStatementQuery.querylenderAmount">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-4 control-label">对方账户：</label>
+                    <div class="col-md-4">
+                        <input class="form-control" ng-disabled="!isForm" type="text"
+                               ng-model="accountStatementQuery.queryName">
+                    </div>
+                </div>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="银行流水到账信息">
+                    <div ui-grid="accountStatementGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>已选信息</legend>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">充值流水</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">充值流水号</th>
+                        <th class="center">汇款/转账账号</th>
+                        <th class="center">旅行社名称</th>
+                        <th class="center">支付账户名称</th>
+                        <th class="center">开户行</th>
+                        <th class="center">充值金额</th>
+                        <th class="center">充值时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.rechargeRecord[0].bankSerialNumber}}</td>
+                        <td>{{VO.rechargeRecord[0].remittancesAccount}}</td>
+                        <td>{{VO.rechargeRecord[0].travelAgencyName}}</td>
+                        <td>{{VO.rechargeRecord[0].paymentAccount}}</td>
+                        <td>{{VO.rechargeRecord[0].openingBank}}</td>
+                        <td>{{VO.rechargeRecord[0].rechargeMoney}}</td>
+                        <td>{{VO.rechargeRecord[0].rechargeTime | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">银行流水</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">银行流水号</th>
+                        <th class="center">对方账户名称</th>
+                        <th class="center">对方账号</th>
+                        <th class="center">交易账户名称</th>
+                        <th class="center">交易账号</th>
+                        <th class="center">贷方金额</th>
+                        <th class="center">可用金额</th>
+                        <th class="center">到账日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.accountStatement[0].serialnumber}}</td>
+                        <td>{{VO.accountStatement[0].reciprocal_name.name}}</td>
+                        <td>{{VO.accountStatement[0].reciprocal_account}}</td>
+                        <td>{{VO.accountStatement[0].transaction_name.unitname}}</td>
+                        <td>{{VO.accountStatement[0].transaction_account}}</td>
+                        <td>{{VO.accountStatement[0].lender_amount}}</td>
+                        <td>{{VO.accountStatement[0].amount}}</td>
+                        <td>{{VO.accountStatement[0].transaction_date | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    </div>
+</form>

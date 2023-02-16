@@ -1,0 +1,41 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="row main-div">
+        <div class="row text-right" add-card-btn>
+        </div>
+    </div>
+    <div class="row main-div">
+        <div class="form-group">
+            <div class="col-md-4">
+                <span>用户编码：</span><span class="fontStyle">{{VO.userCode}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>用户名：</span><span class="fontStyle">{{VO.userName}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>用户角色：</span><span class="fontStyle">{{VO.userRole | SELECT_USER_ROLE}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <span>是否锁定：</span><span class="fontStyle">{{VO.lockedTag | SELECT_YESNO}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>生效日期：</span><span class="fontStyle">{{VO.beginDate | date_cell_date}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>失效日期：</span><span class="fontStyle">{{VO.endDate| date_cell_date}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <span>登录标志：</span><span class="fontStyle">{{VO.loginTag | SELECT_YESNO}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>联系电话：</span><span class="fontStyle">{{VO.telNo}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>备注：</span><span class="fontStyle">{{VO.memo}}</span>
+            </div>
+        </div>
+    </div>
+</form>

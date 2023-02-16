@@ -1,0 +1,123 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>团体保单号{{VO.billNumber}}</h4>
+        </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>订单号：</span><span class="fontStyle">{{VO.INSURANCE_ID}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>产品名称：</span><span class="fontStyle">{{VO.PRODUCT_NAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>支付方式：</span><span class="fontStyle">{{VO.PAY_TYPE| SELECT_PAYTYPES}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>投保人姓名：</span><span class="fontStyle">{{VO.ESTIMATENAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保人联系方式：</span><span class="fontStyle">{{VO.USER_MOBILE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>参保人数：</span><span class="fontStyle">{{VO.INSURED_NUMBER}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险金额/赔偿限额(每人)：</span><span class="fontStyle">{{VO.INSURANCETOTALMONEY/VO.INSURED_NUMBER | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险金额/赔偿金额(合计)：</span><span class="fontStyle">{{VO.INSURANCETOTALMONEY | AMOUNT_FILTER}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保费(每人)：</span><span class="fontStyle">{{VO.INSURANCETOTALCHARGE/VO.INSURED_NUMBER | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保费(合计)：</span><span class="fontStyle">{{VO.INSURANCETOTALCHARGE | AMOUNT_FILTER}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>费率(‰)：</span><span class="fontStyle">{{VO.RATE_NUMBER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单起始日期：</span><span class="fontStyle">{{VO.STARTDATE | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单到期日期：</span><span class="fontStyle">{{VO.ENDDATE | date_cell_date}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>保单性质：</span><span class="fontStyle">{{VO.INSURANCEBILLKIND}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12 card-grid">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">保险险种信息</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>险种名称</th>
+                                <th>具体险种</th>
+                                <th>保险金额/赔偿限额(每人)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.insuranceinfo">
+                                <td>{{item.INFOR_NAME}}</td>
+                                <td>{{item.INFOR_NAME2}}</td>
+                                <td>{{item.INSURANCETOTALMONEY | AMOUNT_FILTER}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">被保人信息</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>被保险人</th>
+<!--                                <th>证件类型</th>-->
+                                <th>身份证号</th>
+                                <th>生日</th>
+                                <th>性别</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.insuranceman">
+                                <td>{{item.INSURED_NAME}}</td>
+<!--                                <td>{{item.USER_CODE_TYPE}}</td>-->
+                                <td>{{item.USER_CARD_NO}}</td>
+                                <td>{{item.USER_BIRTHDAY | date_cell_date}}</td>
+                                <td>{{item.INSURED_SEX | SELECT_GENDER}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

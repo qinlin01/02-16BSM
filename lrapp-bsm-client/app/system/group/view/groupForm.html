@@ -1,0 +1,20 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-contant text-right" add-form-btn>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">角色编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: true,max:20}" type="text" ng-model="VO.groupCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">角色名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: true,max:32}" type="text" ng-model="VO.groupName">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

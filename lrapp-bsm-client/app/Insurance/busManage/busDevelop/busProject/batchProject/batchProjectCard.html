@@ -1,0 +1,331 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.c1Type | SELECT_PROJECTTYPE}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息<span class="span-background-bh" ng-if="VO.billstatus != 34">{{VO.quyuStr }}</span></p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批量立项编号：</span><span class="fontStyle">{{VO.vbillno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>立项类型：</span><span class="fontStyle">{{VO.c1Type | SELECT_PROJECTTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务类型：</span><span class="fontStyle">{{VO.projecttype | SELECT_MARKETTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>立项对象类型：</span><span class="fontStyle">{{VO.customerType | SELECT_PROJECTCUSTOMERTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>签单方式：</span><span class="fontStyle">{{VO.blanketType | SELECT_BLANKETTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>立项性质：</span><span class="fontStyle">{{VO.isContinue | SELECT_PROJECTPROPERTIESTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>业务分类：</span><span class="fontStyle">{{VO.busiTypeDetailed}}/{{VO.busi_type.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户产权关系：</span><span class="fontStyle">{{VO.pkC0Tradetype.name}}</span>
+                </div>
+                <!--<div class="col-md-4">-->
+                <!--<span>2018计划值：</span><span class="fontStyle">{{VO.temporaryPlan | SELECT_TEMPORARY_PLAN}}</span>-->
+                <!--</div>-->
+                <div class="col-md-4" ng-if="VO.ifJobDomain != null">
+                    <span>是否职域业务：</span><span class="fontStyle">{{VO.ifJobDomain | SELECT_YESNONUM}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-4">
+                    <span>协作类型：</span><span class="fontStyle">{{VO.cooperationType | SELECT_COOPERATIONTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>项目终结原因：</span><span class="fontStyle">{{VO.ceaseReason | SELECT_CEASEREASONTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否为再保险业务：</span><span class="fontStyle">{{VO.ifReInsurance | SELECT_YESNONUM}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <div class="col-md-12">
+                    <span>最终批复意见：</span>
+                    <p word-break="keep-all" class="fontStyle" ng-bind-html="VO.finallyOpinion | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>备注：</span>
+                    <p word-break="keep-all" class="fontStyle" ng-bind-html="VO.cMemo | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>操作日期：</span><span class="fontStyle">{{VO.operateDate | date_cell_date }}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>操作时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <tabset justified="false">
+                    <tab index="1" heading="业务立项信息" select="selectTab('projectGridOptions')">
+                        <div ui-grid="projectGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-exporter
+                             ui-grid-resize-columns class="grid" style="height:200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+            <!--            <div class="col-md-12">-->
+            <!--                <div class="table-responsive">-->
+            <!--                    <p style="font-size: 16px;color: #8e8e93">项目详情</p>-->
+            <!--                    <table class="table table-bordered table-hover">-->
+            <!--                        <thead>-->
+            <!--                        <tr>-->
+            <!--                            <th class="center">立项编号</th>-->
+            <!--                            <th>客户名称</th>-->
+            <!--                            <th>客户编号</th>-->
+            <!--                            <th>行业类别</th>-->
+            <!--                            <th>单位性质</th>-->
+            <!--                            <th>立项名称</th>-->
+            <!--                            <th>客户所在区域</th>-->
+            <!--                            <th>项目所在区域</th>-->
+            <!--                            <th>项目地址</th>-->
+            <!--                            <th>项目周期</th>-->
+            <!--                            <th>是否投标</th>-->
+            <!--                            <th>资产规模</th>-->
+            <!--                            <th>控股方</th>-->
+            <!--                            <th>预计业务收入</th>-->
+            <!--                            <th>预计业务开发成功时间</th>-->
+            <!--                            <th>业务风险综合评价</th>-->
+            <!--                            <th>提供服务的内容</th>-->
+            <!--                            <th>客户意向及需求</th>-->
+            <!--                            <th>项目简介</th>-->
+            <!--                            <th>客户简介</th>-->
+            <!--                            <th>员工数量范围</th>-->
+            <!--                            <th>社会保险情况</th>-->
+            <!--                            <th>商业保险投保</th>-->
+            <!--                            <th>合作中介情况</th>-->
+            <!--                            <th>投标业务需总部配合准备资料</th>-->
+            <!--                        </tr>-->
+            <!--                        </thead>-->
+            <!--                        <tbody>-->
+            <!--                        <tr ng-repeat="item in VO.project">-->
+            <!--                            <td class="center">{{item.cprocode}}</td>-->
+            <!--                            <td class="center">{{item.cinsureman.name}}</td>-->
+            <!--                            <td class="center">{{item.cinsureman.code}}</td>-->
+            <!--                            <td class="center">{{item.cinsureman.trade_type.name}}</td>-->
+            <!--                            <td class="center">{{item.cinsureman.enum_entkind.name}}</td>-->
+            <!--                            <td class="center">{{item.cproname}}</td>-->
+            <!--                            <td class="center">{{item.cinsureman.province.name}}</td>-->
+            <!--                            <td class="center">{{item.c1Province.name}}</td>-->
+            <!--                            <td class="center">{{item.cproaddress}}</td>-->
+            <!--                            <td class="center">{{item.cperiod_new}}</td>-->
+            <!--                            <td class="center">{{item.ifBid|SELECT_YESNO}}</td>-->
+            <!--                            <td class="center">{{item.f1Assets}}</td>-->
+            <!--                            <td class="center">{{item.propertyHoldshare}}</td>-->
+            <!--                            <td class="center">{{item.festimateincome}}</td>-->
+            <!--                            <td class="center">{{item.planSucceedDate |date:"yyyy-MM-dd"}}</td>-->
+            <!--                            <td class="center">{{item.riskAssess}}</td>-->
+            <!--                            <td class="center">{{item.serveContentType}}</td>-->
+            <!--                            <td class="center">{{item.customerDemand}}</td>-->
+            <!--                            <td class="center">{{item.assess}}</td>-->
+            <!--                            <td class="center">{{item.customerMemo}}</td>-->
+            <!--                            <td class="center">{{item.lifeStaffcountScope | SELECT_PERSONCOUNTTYPE}}</td>-->
+            <!--                            <td class="center">{{item.societyInsure | SELECT_CASETYPE}}</td>-->
+            <!--                            <td class="center">{{item.enumLifeBusinessInsure | SELECT_CASETYPE}}</td>-->
+            <!--                            <td class="center">{{item.enumCoomedium | SELECT_CASETYPE}}</td>-->
+            <!--                            <td class="center">{{item.tenderInformation}}</td>-->
+            <!--                        </tr>-->
+            <!--                        </tbody>-->
+            <!--                    </table>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">立项险种</p>
+                    <table class="table table-bordered table-hover" width="30%">
+                        <thead>
+                        <tr>
+                            <th class="center">推荐险种</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.costscale">
+                            <td class="center">{{item.pkCommendinsure.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">合作中介信息</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="center">合作中介名称</th>
+                            <th class="center">委托中介类型</th>
+                            <th class="center">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.coomedium">
+                            <td class="center">{{item.mediumName}}</td>
+                            <td class="center">{{item.enumBailmedium | SELECT_AGENCYCOMPTYPE}}</td>
+                            <td class="center">{{item.memo}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-resize-columns ui-grid-move-columns class="grid"
+                                 style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-md-12 font-style-audit-title title">
+            <p  style="font-size:20px">审批信息</p>
+            <div class="col-md-12">
+                <div class="col-md-1">
+                    <span>流程号</span>
+                </div>
+                <div class="col-md-1">
+                    <span>操作人</span>
+                </div>
+                <div class="col-md-1">
+                    <span>提交人</span>
+                </div>
+                <div class="col-md-1">
+                    <span>提交时间</span>
+                </div>
+                <div class="col-md-1">
+                    <span>处理人</span>
+                </div>
+                <div class="col-md-2">
+                    <span>审批结果</span>
+                </div>
+                <div class="col-md-2">
+                    <span>审批意见</span>
+                </div>
+                <div class="col-md-1">
+                    <span>处理时间</span>
+                </div>
+                <div class="col-md-1">
+                    <span>处理状态</span>
+                </div>
+                <div class="col-md-1">
+                    <span>持续时间</span>
+                </div>
+            </div>
+            <div class="col-md-12 font-style-audit" ng-repeat="item in VO.taskHis">
+                <div class="col-md-1">
+                    <span ng-bind-html="item.task_id"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.operate_name"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.pk_submitter.name"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.submit_time"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.pk_process.name"></span>
+                </div>
+                <div class="col-md-2">
+                    <span ng-bind-html="item.result"></span>
+                </div>
+                <div class="col-md-2">
+                    <span ng-bind-html="item.opinion"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.process_time"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.process_status | SELECT_WORKFLOW_PROCESS_STATUS"></span>
+                </div>
+                <div class="col-md-1">
+                    <span ng-bind-html="item.durationLabel"></span>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+</form>

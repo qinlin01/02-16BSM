@@ -1,0 +1,86 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="main-div">
+        <div class="text-right" add-card-btn>
+        </div>
+    </div>
+    <div class="row main-div">
+        <div class="col-md-12">
+            <fieldset>
+                <legend>
+                    基本信息
+                </legend>
+                <div class="col-md-3">
+                    <span>批复编号：</span>
+                    {{VO.approvalCode}}
+                </div>
+                <div class="col-md-4">
+                    <span>批复日期：</span>
+                    {{VO.approvalDate | date_cell_date}}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row main-div">
+        <fieldset>
+            <legend>
+                项目信息
+            </legend>
+            <table class="table table-condensed">
+                <thead>
+                <th> 项目名称</th>
+                <th> 项目类型</th>
+                <th> 项目费用（万元）</th>
+                <th>项目周期</th>
+                <th>项目负责人</th>
+                <th>批复金额（万元）</th>
+                <th>申报类型</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in VO.applys">
+                    <td class="preview">{{item.projectApplyRefVO.projectName}}</td>
+                    <td>{{item.projectApplyRefVO.projectClass | SELECT_PROJECT_CLASS}}</td>
+                    <td>{{item.replyCost | AMOUNT_FILTER}}</td>
+                    <td>{{item.projectApplyRefVO.period}}</td>
+                    <td class="author">{{item.projectApplyRefVO.projectManger}}</td>
+                    <td>{{item.replyCost |AMOUNT_FILTER }}</td>
+                    <td>{{item.applyType | SELECT_APPLY_TYPE}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <div class="row main-div">
+        <fieldset>
+            <legend>
+                立项批复附件
+            </legend>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>文件类型</th>
+                    <th width="50%">文件名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in VO.dealAttachmentB.reply">
+                    <td>{{item.fileInstructions}}</td>
+                    <td><a href="#" ng-click="onPreviewFile(item.id,item.fileName)" class="text-primary" tooltip="点击浏览文件"> {{ item.fileName }}</a></td>
+                    <td nowrap>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="onDownLoadFile(item.id,item.fileName)">
+                            <span class="fa fa-download"></span> 下载
+                        </button>
+                    </td>
+                </tr>
+                <tr ng-repeat="item in VO.dealAttachmentB.decision">
+                    <td>{{item.fileInstructions}}</td>
+                    <td><a href="#" ng-click="onPreviewFile(item.id,item.fileName)" class="text-primary" tooltip="点击浏览文件"> {{ item.fileName }}</a></td>
+                    <td nowrap>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="onDownLoadFile(item.id,item.fileName)">
+                            <span class="fa fa-download"></span> 下载
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</form>

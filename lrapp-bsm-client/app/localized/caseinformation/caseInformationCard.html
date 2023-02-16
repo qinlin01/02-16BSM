@@ -1,0 +1,146 @@
+<div ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.case_name}}</h4>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">项目信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户名称：</span><span class="fontStyle">{{VO.project_information.customer_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保险种：</span><span class="fontStyle">{{VO.project_information.insurancetype.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.project_information.insurance_no}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">案件信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>报案号：</span><span class="fontStyle">{{VO.case_no}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>出险时间：</span><span class="fontStyle">{{VO.lossoccurred_time | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>索赔金额：</span><span class="fontStyle">{{VO.claim_amount}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>联系人：</span><span class="fontStyle">{{VO.contact}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>联系电话：</span><span class="fontStyle">{{VO.contact_tel}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>录入机构：</span><span class="fontStyle">{{VO.entry_organization.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>出险原因：</span><span
+                        class="fontStyle">{{VO.lossoccurred_reason_shorthand | SELECT_LOSSOCCURREDREASONSHORTHAND}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>具体原因：</span>
+                    <p word-break="keep-all" class="fontStyle" ng-bind-html="VO.lossoccurred_reason"></p>
+                    <!--                    <span class="fontStyle">{{VO.lossoccurred_reason}}</span>-->
+                </div>
+                <div class="col-md-12">
+                    <span>单据状态：</span><span
+                        class="fontStyle">{{VO.billstatus | SELECT_LOCALIZEDBILLSTATUS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="VO.payout_percentage!=0&&VO.payout_percentage!=null">
+                <div class="col-md-4">
+                    <span>支付比例(%)：</span><span class="fontStyle">{{VO.payout_percentage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title" ng-if="assistclaimworkrecordList.length > 0">
+            <div class="table-responsive">
+                <p style="font-size:20px">工作记录</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>工作事项</th>
+                        <th>工作内容</th>
+                        <th>结案日期</th>
+                        <th>赔款金额</th>
+                        <th>撤案日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in assistclaimworkrecordList">
+                        <td>{{item.work_date | date_cell_date}}</td>
+                        <td>{{item.work_matters | SELECT_WORKRECORDKIND}}</td>
+                        <td>{{item.work_content}}</td>
+                        <td>{{item.indemnity_time | date_cell_date}}</td>
+                        <td>{{item.indemnity_amount | AMOUNT_FILTER}}</td>
+                        <td>{{item.undo_time | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12 title" ng-if="VO.work_matters == 6 || VO.work_matters == 7">
+            <p style="font-size:20px">案件状态: {{VO.work_matters | SELECT_WORKRECORDKIND}}</p>
+            <div class="col-md-12">
+                <div class="col-md-4" ng-if="VO.undo_time!=''">
+                    <span>撤案日期：</span><span class="fontStyle">{{VO.undo_time | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.indemnity_time!=''">
+                    <span>赔款日期：</span><span class="fontStyle">{{VO.indemnity_time | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4" ng-if="VO.indemnity_amount!=''">
+                    <span>赔款金额：</span><span class="fontStyle">{{VO.indemnity_amount}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                <div class="table-responsive">
+                    <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>附件类型</th>
+                            <th>附件名称</th>
+                            <th>上载时间</th>
+                            <th>下载</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td>{{item.file_type | SELECT_CASERECORDTYPE}}</td>
+                            <td>{{item.attachment_name}}</td>
+                            <td>{{item.cUpdate}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                            class="fa fa-download"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="main-form-style" ng-controller="addCustomerCtrl">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion>
+            <form class="form-horizontal" name="addCustomerForm" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户名称：</label>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input class="form-control" type="text" ng-verify="{max:200}" ng-model="VO.c0Name">
+                                <span class="input-group-btn">
+                                <button class="btn btn-dark-blue" ng-click="searchCustomer()" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">上级管理单位：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ui-popup-ref
+                                   popup-model-value="upCusQuery"
+                                   url="'customerAgentRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'upCustomer'" open-customer-more="true"
+                                   ng-model="VO.upCustomer.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">客户级别：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="true" ng-model="VO.c1Level"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.CUSTOMERLEVELTYPE">
+                                <option value="">--请选择客户级别--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">统一社会信用代码：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-verify="{ pattern:/^[0-9A-Z]{18,18}$/,max:18}" ng-model="VO.c1Institution">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">行业类别：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ui-popup-ref
+                                   url="'industryTypeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'tradetype'"
+                                   is-tree="true"
+                                   ng-verify
+                                   ng-model="VO.tradetype.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">单位性质：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ui-popup-ref
+                                   url="'companyTypeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'enumEntkind'"
+                                   ng-verify
+                                   is-tree="true"
+                                   ng-model="VO.enumEntkind.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">所在区域：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ui-popup-ref
+                                   url="'areaclTreeRef/queryForGrid'" ng-verify ng-click="" popup-model="VO"
+                                   popup-model-field="'c1Province'"
+                                   is-tree="true"
+                                   ng-model="VO.c1Province.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">公司电话：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" id="message" type="text"
+                                   ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}"
+                                   type="text"
+                                   ng-model="VO.c1Phone">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">传真：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" ng-model="VO.c1Fax">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">地址：</label>
+                        <div class="col-md-254">
+                            <input class="form-control" ng-disabled="true" ng-verify="{ required: false,max:300}"
+                                   type="text" ng-model="VO.c0Address">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">经营范围：</label>
+                        <div class="col-md-254">
+                         <textarea class="form-control" style="resize:none" ng-disabled="true" type="text" rows="3"
+                                   ng-model="VO.scope"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSave()" style="margin-right: 10px;" ng-disabled="VO.c1Institution?false:true"
+                class="btn btn-sm btn-info">保存/确定
+        </button>
+        <button ng-click="onCancel()" style="margin-right: 10px;" class="btn btn-sm btn-info">取消</button>
+    </div>
+    <div style="clear: both"></div>
+</div>

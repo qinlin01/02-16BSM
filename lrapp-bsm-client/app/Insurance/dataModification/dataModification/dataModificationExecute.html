@@ -1,0 +1,172 @@
+.<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onPrepareExecute()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isExecute">
+                <i class="fa fa-save"></i>
+                <span>预执行</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isExecute">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isExecute">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申报信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.code">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执行状态：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="true" ng-model="VO.executeState" required
+                                ng-options="item.id as item.name for item in SELECT.TASKSTATE">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执行日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.executeDate">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                修改内容
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申请人：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkOperator.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">发起单位名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkOrg.name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">申请人所在部门：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.pkDept.name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label">修改原因：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" style="resize:none" ng-disabled="true" type="text" ng-model="VO.reason" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label">修改内容：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" style="resize:none" ng-disabled="true" type="text" ng-model="VO.content" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>已选信息</legend>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">数据信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">信息编号</th>
+                        <th class="center">单据状态</th>
+                        <th class="center">经办人</th>
+                        <th class="center">制单日期</th>
+                        <th class="center">业务单位</th>
+                        <th class="center">部门</th>
+                        <th class="center">审核人</th>
+                        <th class="center">审核日期</th>
+                        <th class="center">最终审核人</th>
+                        <th class="center">最终审核日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.oldData[fieldSearch]}}</td>
+                        <td>{{VO.oldData.billstatus | SELECT_BILLSTATUS}}</td>
+                        <td>{{VO.oldData.pkOperator.name}}</td>
+                        <td>{{VO.oldData[ocTime] | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkOrg.name}}</td>
+                        <td>{{VO.oldData.pkDept.name}}</td>
+                        <td>{{VO.oldData.pkChecker.name}}</td>
+                        <td>{{VO.oldData.checkDate | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkAuditor.name}}</td>
+                        <td>{{VO.oldData.auditDate | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                执行区域
+            </legend>
+            <!--      普通字段      -->
+            <div class="form-group">
+                <div ng-repeat="item in executeData.textFieldList">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">{{item.fieldNameCn}}：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isExecute" type="text" ng-model="executeData.data[item.fieldName]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--     子表信息       -->
+            <div ng-repeat="item in executeData.listFieldList">
+                <div class="lr-contant">
+                    <fieldset>
+                        <legend>
+                            {{item.fieldNameCn}}
+                        </legend>
+                        <div ng-repeat="childDataItem in executeData.data[item.fieldName]">
+                            <p style="font-size: 16px;color: #8e8e93">{{item.fieldNameCn}}第{{$index + 1}}条</p>
+                            <div class="form-group">
+                                <div ng-repeat="childItem in item.childList">
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">{{childItem.fieldNameCn}}：</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" ng-disabled="!isExecute" type="text"
+                                                   ng-model="childDataItem[childItem.fieldName]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>

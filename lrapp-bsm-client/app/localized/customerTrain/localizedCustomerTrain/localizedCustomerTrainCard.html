@@ -1,0 +1,293 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.trainTheme}}</h4>
+<!--            <div class="col-md-12">-->
+<!--                <div class="col-md-4">-->
+<!--                    <span class="{{VOs.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div class="col-md-12 title" ng-show="VO.customerTrain.trainCode!=null">
+            <p style="font-size:20px">客户培训计划申报信息</p>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>申报编号：</span><span class="fontStyle">{{VO.customerTrain.trainCode}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>客户名称：</span><span class="fontStyle">{{VO.customerTrain.pkCustomer.name}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>培训目的：</span><span class="fontStyle">{{VO.customerTrain.trainGoal}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>培训年度：</span><span class="fontStyle">{{VO.customerTrain.trainYear | SELECT_BUSIYEAR}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>业务类型：</span><span class="fontStyle">{{VO.customerTrain.projectType | SELECT_CUSTOMERTRAINTYPE}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>培训主题：</span><span class="fontStyle">{{VO.customerTrain.trainTheme}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>培训地点：</span><span class="fontStyle">{{VO.customerTrain.trainSite.name}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>报送单位：</span><span class="fontStyle">{{VO.customerTrain.pkDeliverUnit.name}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>培训天数：</span><span class="fontStyle">{{VO.customerTrain.trainDayNum}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>培训形式：</span><span class="fontStyle">{{VO.customerTrain.enumTrainType | SELECT_TRAINTYPE}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>培训参加人数：</span><span class="fontStyle">{{VO.customerTrain.trainPersNum}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>是否需要技术支持：</span><span class="fontStyle">{{VO.customerTrain.ifTechnicalSupport | SELECT_YESNO}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>讲师要求：</span><span class="fontStyle">{{VO.customerTrain.technicalSupportRequest}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>单据类型：</span><span class="fontStyle">{{VO.customerTrain.changeType | SELECT_CUSTOMERTRAINCHANGETYPE}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span>变更原因：</span><span class="fontStyle">{{VO.customerTrain.endReasonText}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>执行状态：</span><span class="fontStyle">{{VO.customerTrain.executeType | SELECT_TRAINEXECUTETYPE}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>讲义文件：</span><span class="fontStyle">{{VO.customerTrain.handoutsAccessory.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 card-grid">
+                    <div>
+                        <div class="pull-right lr-mr10 lr-mt10">
+                            <button class="btn btn-sm btn-info" ng-click="onDownLoadBs();" ng-show="upOrDownB">批量下载</button>
+                        </div>
+                        <tabset justified="false">
+                            <tab index="1" heading="培训计划时间" select="selectTab('trainPlanBGridOptions')">
+                                <div ui-grid="trainPlanBGridOptions" ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                            </tab>
+                            <!--   <tab index="2" heading="培训费用" select="selectTab('trainCostGridOptions')">
+                                   <div ui-grid="trainCostGridOptions" ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                               </tab>-->
+                            <tab index="3" heading="培训对象" select="selectTab('trainObjectBGridOptions')">
+                                <div ui-grid="trainObjectBGridOptions" ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                            </tab>
+                            <tab index="40" heading="附件信息" select="selectTab('dealAttachmentCGridOptions')">
+                                <div ui-grid="dealAttachmentCGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>申报编号：</span><span class="fontStyle">{{VO.trainCode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训主题：</span><span class="fontStyle">{{VO.trainTheme}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训起始日期：</span><span class="fontStyle">{{VO.startdate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训结束日期：</span><span class="fontStyle">{{VO.enddate | date_cell_date}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>培训地点：</span><span class="fontStyle">{{VO.trainSite.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>详细培训地点：</span><span class="fontStyle">{{VO.trainSiteDetail}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>培训形式：</span><span class="fontStyle">{{VO.enumTrainType | SELECT_ENUMTRAINTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>联系人：</span><span class="fontStyle">{{VO.lineMan}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>联系电话：</span><span class="fontStyle">{{VO.linePhone}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>参加人员：</span><p class="fontStyle">
+                    <p word-break="keep-all" class="fontStyle" ng-bind-html="VO.assess | ntobr|trustHtml"></p>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>发起单位：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>发起人：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>发起日期：</span><span class="fontStyle">{{VO.operateDate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>发起时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>单据状态：</span><span
+                        class="fontStyle">{{VO.billstatus | SELECT_LOCALIZEDBILLSTATUS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="col-md-12"  ng-if="VO.trainObject.length!=0">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">项目信息</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>项目名称</th>
+                                    <th>客户名称</th>
+                                    <th>险种</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in VO.trainObject">
+                                    <td>{{item.project_name}}</td>
+                                    <td>{{item.customer_name}}</td>
+                                    <td>{{item.insurancetype.name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12"  ng-if="VO.trainPlan.length!=0">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">培训课程安排</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>培训课题</th>
+                                    <th>课时</th>
+                                    <th>培训讲师</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in VO.trainPlan">
+                                    <td>{{item.trainContent}}</td>
+                                    <td>{{item.trainCount}}</td>
+                                    <td>{{item.pkExpert.name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+<!--                                    <th>附件类型</th>-->
+                                    <th>附件名称</th>
+<!--                                    <th>上载时间</th>-->
+                                    <th>下载</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in VO.dealAttachmentB">
+<!--                                    <td>{{item.file_type|SELECT_CASERECORDTYPE}}</td>-->
+                                    <td>{{item.attachment_name}}</td>
+<!--                                    <td>{{item.cUpdate}}</td>-->
+                                    <td>
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                               class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                    class="fa fa-download"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</form>

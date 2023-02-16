@@ -1,0 +1,276 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+        <div class="form-group">
+            <div class="col-md-4" ng-if="VO.vbillno != null && VO.vbillno != ''">
+                <label class="col-md-5 control-label">结算编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.vbillno">
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">应收保费总金额：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumReceivemount">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">解付保费总金额：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumPaymount">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">应收佣金总金额：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.sumReceivefeemount">
+                    </div>
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">结算类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.clearType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.MONEYTYPE">
+                        <option value="">--请选择结算类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">互联网产品类别：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.fictitiousBusinessType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.PRODUCTTYPE">
+                        <option value="">--请选择产品类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4" ng-if="VO.fictitiousBusinessType != null && (VO.fictitiousBusinessType == 'tra') && VO.clearType != null && VO.clearType == 1">
+                <label class="col-md-5 control-label lr-verify">结算方式：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-model="VO.rechargeType"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.RECHARGETYPE">
+                        <option value="">--请选择结算方式--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">结算日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="isDisabled" type="text" wdate-picker
+                               ng-model="VO.factDate">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="VO.clearType != null && VO.clearType != ''">
+        <fieldset>
+            <legend>结算信息</legend>
+            <div class="form-group" ng-if="VO.clearType == 2 || VO.clearType == 3">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">实际往来对象：</label>
+                    <div class="col-md-7">
+                        <input ng-verify class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref=""
+                               url="'customerClearingRefController/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'pkFactActualcollection'"  popup-model-value="param"
+                               ng-model="VO.pkFactActualcollection.name" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">银行卡号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.bankNumber">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">开户银行：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.bankName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="(VO.clearType == 1 && VO.sumReceivemount < 0) || VO.clearType == 2">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">银行联行号:</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isDisabled" type="text" placeholder="百度搜索”银行联行号“查询" ng-model="VO.jointBankNum">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">财务往来客商：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="caibSapCostCenterRef"
+                               url="'caibSapCostCenterRef/queryForGrid'" ng-click="" popup-model="VO"
+                               popup-model-field="'sapCustomer'"
+                               ng-model="VO.sapCustomer.NAME" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="VO.clearType == 2 || VO.clearType == 3">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">纳税人识别号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.taxpayersNumber">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">公司地址：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.companyAddress">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">联系电话：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.companyTel">
+                    </div>
+                </div>
+            </div>
+            <div class="lr-contant" ng-if="VO.rechargeType == 1 && VO.clearType == 1">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">流水日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text" wdate-pickers
+                                   ng-model="VO.actualAccountDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">交易金额：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.querylenderAmount">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">对方账户：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="isDisabled" type="text"
+                                   ng-model="VO.queryName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <tabset justified="false" ng-if="VO.rechargeType == 1 && VO.clearType == 1">
+                <tab index="1" heading="银行流水信息">
+                    <div ui-grid="actualaccountAllGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+            <div class="pull-right lr-mr10 lr-mt10" ng-if="VO.rechargeType == 1 && VO.clearType == 1">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLineActualAccount();">减行</button>
+            </div>
+            <tabset justified="false" ng-if="VO.rechargeType == 1  && VO.clearType == 1">
+                <tab index="1" heading="已选择银行流水信息">
+                    <div ui-grid="actualaccountSelectGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+            <div class="form-group" ng-if="VO.rechargeType == 1  && VO.clearType == 1">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-12 control-label" ng-if="VO.clearType == 1  && VO.clearType == 1">已选择银行流水本次匹配总金额（元）：{{VO.sumActualAccountAmount}}</label>
+                </div>
+            </div>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onAddLine();">增行</button>
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLineInsuranceBill();">减行</button>
+            </div>
+            <tabset justified="false">
+            <tab index="1" heading="对账单信息">
+                <div ui-grid="insuranceBillGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid"></div>
+            </tab>
+            </tabset>
+            <div class="form-group">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-12 control-label" ng-if="VO.clearType == 1">本次结算总金额（元）：{{VO.sumReceivemount}}</label>
+                    <label class="col-md-12 control-label" ng-if="VO.clearType == 2">本次结算总金额（元）：{{VO.sumPaymount}}</label>
+                    <label class="col-md-12 control-label" ng-if="VO.clearType == 3">本次结算总金额（元）：{{VO.sumReceivefeemount}}</label>
+                </div>
+            </div>
+            <div class="pull-right lr-mr10 lr-mt10" ng-if="VO.clearType == 3 && VO.fictitiousBusinessType == 'caej_market'">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLinePayment();">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="结算详情">
+                    <div ui-grid="paymentGridOption"  ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="isSelect">
+        <tabset justified="false">
+            <tab index="1" heading="交易明细"  ng-if="VO.rechargeType == 2">
+                <div ui-grid="orderGridOption"  ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid"></div>
+            </tab>
+        </tabset>
+        <tabset justified="false">
+            <tab index="1" heading="保单明细">
+                <div ui-grid="netInsuranceBillGridOption"  ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid"></div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="pull-right lr-mr10 lr-mt10">
+        <button class="btn btn-sm btn-info"  type="button" ng-click="onUploads()">上传</button>
+        <button class="btn btn-sm btn-info"  type="button" ng-click="onDownLoads()">下载</button>
+    </div>
+    <tabset justified="false">
+        <tab index="4" heading="附件">
+            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+        </tab>
+    </tabset>
+    </div>
+</form>

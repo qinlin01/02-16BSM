@@ -1,0 +1,173 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">业务分类：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="!isForm" ng-model="VO.marketType"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.MARKETTYPE">
+                            <option value="">--请选择业务分类--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否互联网业务：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.ifFictitious" ng-disabled="!isForm"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">--请选择是否互联网业务--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.ifFictitious == 'Y'">
+                    <label class="col-md-5 control-label lr-verify">互联网产品类别：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-disabled="!isForm" ng-model="VO.fictitiousBusinessType"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.PRODUCTTYPE">
+                            <option value="">--请选择产品名称--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                产品信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">保险公司名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ui-popup-ref url="'agreement/queryForGridRef'" popup-model-value="{customerType :'(3,4)'}" popup-model="VO" popup-model-field="'insuranceMan'" ng-model="VO.insuranceMan.name" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">保险公司险种名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.insuranceManInsurance">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">保险公司产品名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.insuranceManProduct">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">生效起始日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" wdate-picker ng-model="VO.startDate">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">生效截至日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" wdate-picker ng-model="VO.endDate">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保险期限：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!isForm" type="text" ng-model="VO.timeLimit">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">保险金额/赔偿限额：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.insuranceMoney" format-number>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">费率（%）：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!isForm" type="text" ng-model="VO.insuranceRate" format-number>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保费：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!isForm" type="text" ng-model="VO.insuranceCharge" format-number>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否代收代付：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.ifReplace" ng-disabled="!isForm"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">--请选择是否代收代付--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">佣金率（%）：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.feemountRate" format-number>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">险种名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" popup-model-value="param" ng-verify ui-popup-ref url="'insuranceRef/queryForGrid'" is-tree="true" popup-model="VO" popup-model-field="'insuranceInfo'" ng-model="VO.insuranceInfo.name" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label label class="col-md-255 control-label">备注：</label>
+                    <div class="col-md-254">
+                        <textarea class="form-control" style="resize:none" ng-disabled="!isForm" type="text" maxlength="2000" rows="5" ng-model="VO.clause"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+</form>

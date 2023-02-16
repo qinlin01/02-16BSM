@@ -1,0 +1,7 @@
+<div ng-controller="personalInsuranceArchivesCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalInsuranceArchives/personalInsuranceArchivesGrid.html')" ng-show="isGrid"></div>
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalInsuranceArchives/personalInsuranceArchivesForm.html')" ng-show="!isGrid&&!isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalInsuranceArchives/personalInsuranceArchivesCard.html')" ng-show="isCard&&!isOld"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalInsuranceArchives/personalInsuranceArchivesCardOld.html')" ng-show="isCard&&isOld"></div>
+
+</div>

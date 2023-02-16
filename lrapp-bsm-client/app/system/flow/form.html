@@ -1,0 +1,34 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-contant text-right" add-form-btn>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify text-bold">角色编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: true,max:20}" type="text" ng-model="VO.flowCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify text-bold">角色名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: true,max:32}" type="text" ng-model="VO.flowName">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify text-bold">系统标识：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-verify="{ required: true,max:32}" type="text" ng-model="VO.systemType">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="col-md-255 control-label lr-verify text-bold">审批流文件：</label>
+                <div class="col-md-254">
+                    <textarea class="form-control limited autosize area-animated msd-elastic: \n; min-height-350" ng-verify="{required:true}" ng-model="VO.xml"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

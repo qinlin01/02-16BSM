@@ -1,0 +1,501 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn lr-main-btn" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button type="button" class="btn btn-light" ng-click="onDownLoads()">
+                批量下载<i class="fa fa-cloud-download"></i>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onBack()" ng-show="isBack">
+                <span>返回</span>
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="alert alert-success" style="background-color: #edfaff;color: #6c7072">
+        <p style="font-weight: bold">
+            <i class="fa fa-info-circle fa-2x" style="color: #0a9dc7">  帮助信息</i>
+            <br><br>
+            1.新增客户必须留存【客户告知书】；续保业务必须留存【保险到期提示函】
+            <br><br>
+            2.股东业务必须留存：【保险方案确认函】、【出单通知书/暂保申请/保单批改申请书】、【投保单/保险单/暂保单/批单】
+            <br><br>
+            3.财产险必须上传【保险方案】（或通过招标方式在招标文件中确定的保险方案）；人身险必须上传保险建议书/保险方案
+            <br><br>
+            4.年收入10万元（含）以上的客户必须上传【客户服务计划表】
+        </p>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <span class="lr-page-color" style="font-size:14px">档案基本信息</span>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>立项名称：</span><span class="fontStyle">{{VO.pkProject.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>立项编号：</span><span class="fontStyle">{{VO.pkProject.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户产权关系：</span><span class="fontStyle">{{VO.pkProject.tradetype_name}}</span>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>个险业务档案编号：</span><span class="fontStyle">{{VO.fbillno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>档案状态：</span>
+                    <span class="fontStyle">{{VO.fbillstatus | SELECT_BUSSINESFILESSTATUS}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>档案所属期 ：</span><span class="fontStyle">{{VO.period}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户名称：</span><span class="fontStyle">{{VO.pkProject.cinsureman_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务状态：</span><span class="fontStyle">{{VO.bussinessStatus | SELECT_BUSSINESSSTATUS}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>立项经办人：</span>
+                    <span class="fontStyle">{{VO.pkProject.pkOperator_name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>档案经办人：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+                <div class="col-md-4">
+                   <span>险种分类 ：</span><span class="fontStyle">{{VO.pkProject.project_type| SELECT_MARKETTYPE}}</span>
+               </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom: 30px;">
+                    <span>备注：</span><p word-break="keep-all" class="fontStyle" style="margin-left: 36px;color:#5B5B60"
+                                       ng-bind-html="VO.c1Execitem"></p>
+                </div>
+            </div>
+            <table class="table table-striped table-hover" id="sample-table-2">
+                <thead>
+                <tr>
+                    <th>档案状态一览(份)</th>
+                    <th></th>
+                    <th class="hidden-xs"></th>
+                    <th class="hidden-xs"></th>
+                    <th class="hidden-xs"></th>
+                    <th class="hidden-xs"></th>
+                    <th class="hidden-xs"></th>
+                    <th class="hidden-xs"></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="基础档案"><i class="fa fa-pencil"></i></a>
+                        基础档案</td>
+                    <td class="lr-verify">客户告知书（新增客户必须上传）：{{VO.fileStatusList.customerNotification}}</td>
+<!--                    <td class="lr-verify">保险到期提示函：{{VO.fileStatusList.insuranceExpire}}</td>-->
+<!--                    <td class="lr-verify">保险方案确认函：{{VO.fileStatusList.insurScheme}}</td>-->
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="结算档案"><i class="fa fa-pencil"></i></a>
+                        结算档案</td>
+                    <td class="lr-verify">保险公司结算单：{{VO.fileStatusList.companyStatement}}</td>
+                    <td class="lr-verify">业务收入确认书：{{VO.fileStatusList.businessIncome}}</td>
+                    <td class="lr-verify">发票开具申请单：{{VO.fileStatusList.billApplication}}</td>
+                    <td class="lr-verify">发票扫描件：{{VO.fileStatusList.packingList}}</td>
+                    <td class="hidden-xs">保费缴纳通知书：{{VO.fileStatusList.premiumNotice}}</td>
+                    <td class="lr-verify">资金到账通知书：{{VO.fileStatusList.receiptNoitce}}</td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="合同档案"><i class="fa fa-pencil"></i></a>
+                        合同附件</td>
+                    <td class="lr-verify">保险公司合作协议：{{VO.fileStatusList.insuranceCooperation}}</td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="合同档案"><i class="fa fa-pencil"></i></a>
+                        单据档案</td>
+                    <td class="lr-verify">保单：{{VO.fileStatusList.insurancePolicy}}</td>
+                    <td class="lr-verify">批单：{{VO.fileStatusList.endorsement}}</td>
+                    <td class="lr-verify">保险单: {{VO.fileStatusList.insuranceBill}}</td>
+                    <td class="lr-verify">暂保单：{{VO.fileStatusList.coverNote}}</td>
+                    <td class="lr-verify">保险方案/保险建议书：{{VO.fileStatusList.insuranceSchemes}}</td>
+                    <td class="lr-verify">出单通知书：{{VO.fileStatusList.issueNotices}}</td>
+                    <td class="lr-verify">暂保申请: {{VO.fileStatusList.coverNoteApply}}</td>
+                    <td class="lr-verify">保单批改申请书: {{VO.fileStatusList.insuranceChangeApply}}</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="其他档案"><i class="fa fa-pencil"></i></a>
+                        其他档案</td>
+                    <td class="lr-verify">领取报酬情况表：{{VO.fileStatusList.drawReward}}</td>
+                    <td class="hidden-xs">其他档案：{{VO.fileStatusList.otherAttachments}}</td>
+                    <td class="lr-verify">装盒照片：{{VO.fileStatusList.boxPictures}}</td>
+                    <td class="lr-verify">客户授权委托书：{{VO.fileStatusList.powerOfAttorney}}</td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="客户服务档案"><i class="fa fa-pencil"></i></a>
+                        客户服务档案</td>
+                    <td class="hidden-xs">客户服务计划表（年收入10万元（含）以上的客户必须上传）:{{VO.customerServiceList.schedule}}</td>
+                    <td class="hidden-xs">客户服务工作报告: {{VO.customerServiceList.workReport}}</td>
+                    <td class="hidden-xs">客户培训资料：{{VO.customerServiceList.trainingMaterials}}</td>
+                    <td class="hidden-xs">协助索赔资料：{{VO.customerServiceList.assistClaim}}</td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                    <td class="hidden-xs"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <div class="col-md-12" ng-if="VO.baseFiles.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">基础档案</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>档案类型</th>
+                                <th>档案名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.baseFiles">
+                                <td>{{item.file_type | SELECT_FILETYPE1}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top"
+                                           tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top"
+                                           tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-if="VO.billApply.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">单据档案</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>档案类型</th>
+                                <th>档案名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.billApply">
+                                <td>{{item.file_type | SELECT_FILETYPE1FORPA}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top"
+                                           tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top"
+                                           tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-if="VO.junctionFiles.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">结算档案</p>
+                        <table class="table table-bordered table-hover" >
+                            <thead>
+                            <tr>
+                                <th>档案类型</th>
+                                <th>档案名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.junctionFiles">
+                                <td>{{item.file_type|SELECT_PINSURANCEFILETYPE1}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="VO.mainContract.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">合同附件</p>
+                        <table class="table table-bordered table-hover" >
+                            <thead>
+                            <tr>
+                                <th>合同类型</th>
+                                <th>合同编号</th>
+                                <th>合同名称</th>
+                                <th>合同对方信息</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.mainContract">
+                                <td>{{item.file_type|SELECT_PINSURANCEFILETYPE2}}</td>
+                                <td>{{item.CONTRACTNUMBER}}</td>
+                                <td>{{item.CONTRACTNAME}}</td>
+                                <td>{{item.CONTRACTCOUNTERPARTINFORMATION}}</td>
+                                <td>
+                                    <a ng-click="showContract(item.CONTRACTNUMBER)">点击查看合同信息</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="VO.uploadContractFile.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">其他合同附件信息</p>
+                        <table class="table table-bordered table-hover" >
+                            <thead>
+                            <tr>
+                                <th>合同类型</th>
+                                <th>合同编号</th>
+                                <th>合同名称</th>
+                                <th>合同对方信息</th>
+                                <th>附件名称</th>
+                                <th>附件来源</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.uploadContractFile">
+                                <td>{{item.file_type|SELECT_PINSURANCEFILETYPE2}}</td>
+                                <td>{{item.CONTRACTNUMBER}}</td>
+                                <td>{{item.CONTRACTNAME}}</td>
+                                <td>{{item.CONTRACTCOUNTERPARTINFORMATION}}</td>
+                                <td>{{item.TEXT_NAME}}</td>
+                                <td>{{item.source}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td ng-if="item.source=='查询'">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.CONTRACTNAME)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览">
+                                            <i class="fa fa-share"></i></a>
+                                    </div>
+                                </td>
+                                <td ng-if="item.source=='上传'">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.TEXT_NAME)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="VO.projectInsurance.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">保单附件</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>保单信息编号</th>
+                                <th>保单号</th>
+                                <th>保单附件</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.projectInsurance">
+                                <td>{{item.insuranceinfono}}</td>
+                                <td>{{item.insuranceno}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-if="VO.changeBillCheck.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">批单附件</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>批单信息编号</th>
+                                <th>批单号</th>
+                                <th>批单附件</th>
+                                <th>关联的保单号</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.changeBillCheck">
+                                <td>{{item.vbillno}}</td>
+                                <td>{{item.insurancecheckno}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.insuranceno}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">其他附件</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>附件类型</th>
+                                <th>附件名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                                <th>在线预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.dealAttachmentB">
+                                <td>{{item.file_type|SELECT_PINSURANCEFILETYPE3}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div></div>
+
+    </div>
+    </div>
+
+
+</form>
+

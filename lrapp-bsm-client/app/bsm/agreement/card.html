@@ -1,0 +1,109 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="main-div">
+        <div class="row title">
+            <div class="col-md-8 ">
+                <h4>{{VO.agreementName}}</h4>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <span class="label {{VO.billstatus == 34?'label-success':VO.billstatus == 33?'label-warning':VO.billstatus == 37?'label-warning;':VO.billstatus == 36?'label-warning;':'label-default' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-right " add-card-btn="">
+            </div>
+        </div>
+
+        <div class="main-div">
+            <fieldset>
+                <legend>
+                    基本信息
+                </legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="text-bold">项目名称：</span><span class="fontStyle">{{VO.pkProject.name}}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="text-bold">合同编号：</span><span class="fontStyle">{{VO.pkContract.code}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-bold">合同名称：</span><span class="fontStyle">{{VO.pkContract.name}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="text-bold">协议编号：</span><span class="fontStyle">{{VO.pkRpaContract.code}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-bold">协议名称：</span><span class="fontStyle">{{VO.agreementName}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="text-bold">协议金额：</span><span class="fontStyle">{{VO.agreementAmount |AMOUNT_FILTER}}元</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text-bold">变更内容描述 </span>
+                        <p class="margin-bottom-30">
+                            {{VO.agreementContext}}
+                        </p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="main-div">
+            <fieldset>
+                <legend>
+                    收付款信息
+                </legend>
+                <div class="row" ng-if="VO.payments.length >0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th width="10%">期次</th>
+                            <th>支付比例</th>
+                            <th>支付金额(元)</th>
+                            <th>付款说明</th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="item in VO.payments">
+                            <td>{{ item.stages}}</td>
+                            <td>{{ item.planRatio | RATIO_FILTER}}</td>
+                            <td>{{ item.planAmount |AMOUNT_FILTER }}</td>
+                            <td>{{ item.payConditions}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+        <div class="main-div">
+            <fieldset>
+                <legend>
+                    附件
+                </legend>
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th width="50%">文件名称</th>
+                            <th>文件大小</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td><a href="#" ng-click="onPreviewFile(item.id,item.fileName)" class="text-primary" tooltip="点击浏览文件"> {{ item.fileName }}</a></td>
+                            <td>{{ item.fileSize/1024/1024|number:2 }}MB</td>
+                            <td nowrap>
+                                <button type="button" class="btn btn-primary btn-xs" ng-click="onDownLoadFile(item.id,item.fileName)">
+                                    <span class="fa fa-download"></span> 下载
+                                </button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+</form>

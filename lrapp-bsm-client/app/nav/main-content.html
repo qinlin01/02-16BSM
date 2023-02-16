@@ -1,0 +1,19 @@
+<!-- start: MAIN CONTENT -->
+<!--<div>-->
+<!--    <div ncy-breadcrumb  style="margin:0;display: inline-block;width: 100%"></div>-->
+<!--    <div class="lr-title-menu"></div>-->
+<!--    <div ui-view class="wrap-content container fade-in-up" id="container"></div>-->
+<!--</div>-->
+<div class="tabbable">
+    <ul class="nav nav-tabs ">
+        <li ng-repeat="item in currentTabs" ng-class="{'active':item.active}">
+            <a ng-click="clickMenu(item.id,item.url,item.name, item.billId);">{{item.name}}
+                <i ng-click="closeMenuTabs(item)" alt="关闭" class="fa fa-times close-gray"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<!--//ui-view的值为路由状态管理器中的views-->
+<!--根据控制ng-show来判断当前模块是否显示-->
+<div class=" main-panel"  id="{{item.id}}" ui-view>
+</div>

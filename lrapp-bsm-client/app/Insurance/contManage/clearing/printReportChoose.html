@@ -1,0 +1,72 @@
+<form class="form-horizontal" name="contSignForm" verify-scope="tipStyle: 1">
+    <div ng-controller="printReportChooseCtrl">
+        <form class="form-horizontal" name="printReportForm">
+            <accordion class="" close-others="oneAtATime">
+                <div ng-init="status={open:true}"></div>
+
+                <accordion-group is-open="true" class="lr-page-bg-gray">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-th lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color" ng-bind="getDisName('请选择信息','')"></span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="form-group" ng-show="isPdateShow">
+                        <div class="col-md-12">
+                            <label class="col-md-5 control-label" ng-bind="getDisName(getTitle1(),'：')"></label>
+                            <div class="col-md-7">
+                                <input ui-input type="text" class="form-control" show-button-bar="true" clear-text="清空"  current-text="今天" close-text="关闭" datepicker-popup
+                                       ng-click="opened=true" ng-verify
+                                       ng-model="pVO.pay_date" is-open="opened" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="isCdateShow">
+                        <div class="col-md-12">
+                            <label class="col-md-5 control-label" ng-bind="getDisName(getTitle2(),'：')"></label>
+                            <div class="col-md-7">
+                                <input ui-input type="text" class="form-control" show-button-bar="true" clear-text="清空"  current-text="今天" close-text="关闭" datepicker-popup
+                                       ng-click="opened1=true" ng-verify
+                                       ng-model="pVO.charge_date" is-open="opened1" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="isBillShow">
+                        <div class="col-md-12">
+                            <label class="col-md-5 control-label" ng-bind="getDisName('分公司保费专业账号','：')"></label>
+                            <div class="col-md-7">
+                                <input class="form-control" ng-disabled="false" type="text" ng-model="pVO.billno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="isBankShow">
+                        <div class="col-md-12">
+                            <label class="col-md-5 control-label" ng-bind="getDisName('开户银行','：')"></label>
+                            <div class="col-md-7">
+                                <input class="form-control" ng-disabled="false" type="text" ng-model="pVO.account_no">
+                            </div>
+                        </div>
+                    </div>
+
+                </accordion-group>
+            </accordion>
+        </form>
+        <div style="margin-left: 420px;">
+            <button class="btn btn-azure " ng-disabled="false" ng-click="onSaves()">
+                <i class="fa fa-edit"></i>
+                <span ng-bind="getDisName('确定','')"></span>
+            </button>
+            <button class="btn btn-azure " ng-click="onResets()">
+                <i class="fa fa-undo"></i>
+                <span ng-bind="getDisName('重置','')"></span>
+            </button>
+            <button class="btn btn-azure " ng-click="onCancels()">
+                <i class="fa fa-edit"></i>
+                <span ng-bind="getDisName('返回','')"></span>
+            </button>
+        </div>
+    </div>
+
+</form>

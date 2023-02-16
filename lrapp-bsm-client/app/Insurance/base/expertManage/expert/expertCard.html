@@ -1,0 +1,244 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+                <!--<i class="ti-check"></i>-->
+                <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">-->
+                <!--<i class="fa fa-edit"></i>-->
+                <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.caibno}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>类型：</span><span class="fontStyle">{{VO.style | SELECT_STYLE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否为兼职讲师：</span><span class="fontStyle">{{VO.adjunctinstructor | SELECT_YESNONUM}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>姓名：</span><span class="fontStyle">{{VO.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>职务：</span><span class="fontStyle">{{VO.job}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>职级：</span><span class="fontStyle">{{VO.rank}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险经纪从业人员执业证书编号：</span><span class="fontStyle">{{VO.caibno}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>年龄：</span><span class="fontStyle">{{VO.age}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>从事相关工作年限：</span><span class="fontStyle">{{VO.yearsofworking}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>证件类型：</span><span class="fontStyle">{{VO.certtype | SELECT_CERTCODETYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>证件号码：</span><span class="fontStyle">{{VO.certcode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>性别：</span><span class="fontStyle">{{VO.gender | SELECT_SEXTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>出生年月：</span><span class="fontStyle">{{VO.birthday}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>籍贯：</span><span class="fontStyle">{{VO.nativeplace}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>民族：</span><span class="fontStyle">{{VO.nation}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>学历：</span><span class="fontStyle">{{VO.education | SELECT_EDUCATIONTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>毕业日期：</span><span class="fontStyle">{{VO.graDate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>毕业学校：</span><span class="fontStyle">{{VO.graSchool}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>所学专业：</span><span class="fontStyle">{{VO.subject}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>参加工作日期：</span><span class="fontStyle">{{VO.workDate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>工作单位：</span><span class="fontStyle">{{VO.workDep}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>办公电话：</span><span class="fontStyle">{{VO.phone}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>手机：</span><span class="fontStyle">{{VO.telepho}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>电子邮箱：</span><span class="fontStyle">{{VO.mail}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>通讯地址：</span><span class="fontStyle">{{VO.address}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>邮编：</span><span class="fontStyle">{{VO.post}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>建立人：</span><span class="fontStyle">{{VO.foundperson.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>附件数量：</span><span class="fontStyle">{{VO.fileNum}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>照片类型：</span><span class="fontStyle">{{VO.filetype | SELECT_PHOTOTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>照片上传：</span><span class="fontStyle">{{VO.addFile.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>备注：</span><span class="fontStyle">{{VO.note}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>最终批复时间：</span><span class="fontStyle">{{VO.finallyGatherDate}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="专家职称信息" select="selectTab('expertTeclGridOptions')">
+                            <div ui-grid="expertTeclGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="2" heading="专家发表学术刊物信息" select="selectTab('expertReportGridOptions')">
+                            <div ui-grid="expertReportGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="3" heading="专家调用记录及评价" select="selectTab('expertProjectGridOptions')">
+                            <div ui-grid="expertProjectGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="4" heading="专家聘用信息" select="selectTab('expertEmployedGridOptions')">
+                            <div ui-grid="expertEmployedGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="5" heading="专家项目经验" select="selectTab('expertProjectExperienceGridOptions')">
+                            <div ui-grid="expertProjectExperienceGridOptions"  ui-grid-cellnav
+                                 ui-grid-selection class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="6" heading="专家资格证书" select="selectTab('expertCaibnoGridOptions')">
+                            <div ui-grid="expertCaibnoGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions"  ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <table style="width: 100%; text-align: center;">
+                <tr >
+                    <td>操作人</td>
+                    <td>提交人</td>
+                    <td>提交时间</td>
+                    <td>处理人</td>
+                    <td>处理时间</td>
+                    <td>审批结果</td>
+                    <td>审批意见</td>
+                    <td>处理状态</td>
+                    <td>持续时间</td>
+                </tr>
+                <tr ng-repeat="item in VO.taskHis" style="color: black;">
+
+                    <td ng-bind-html="item.operate_name" style="padding-top: 5px;"></td>
+                    <td ng-bind-html="item.pk_submitter.name"></td>
+                    <td ng-bind-html="item.submit_time"></td>
+
+                    <td ng-bind-html="item.pk_process.name"></td>
+                    <td ng-bind-html="item.process_time"></td>
+
+                    <td ng-bind-html="item.result"></td>
+                    <td ng-bind-html="item.opinion"></td>
+                    <td ng-bind-html="item.process_status | SELECT_WORKFLOW_PROCESS_STATUS"></td>
+                    <td ng-bind-html="item.durationLabel"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

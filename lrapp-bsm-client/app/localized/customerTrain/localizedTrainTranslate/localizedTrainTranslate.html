@@ -1,0 +1,5 @@
+<div ng-controller="localizedTrainTranslateCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localizedTrainTranslate/localizedTrainTranslateGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localizedTrainTranslate/localizedTrainTranslateCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/localizedTrainTranslate/localizedTrainTranslateForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

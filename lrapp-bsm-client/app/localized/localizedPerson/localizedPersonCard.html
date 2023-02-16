@@ -1,0 +1,65 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <span>{{VO.personTypeName}}：</span>
+
+                    <span class="fontStyle" ng-show="nameTypeXm">{{VO.projectName}}</span>
+                    <span class="fontStyle" ng-show="nameTypeKh">{{VO.customerName}}</span>
+                    <span class="fontStyle" ng-show="nameTypeBx">{{VO.insurerName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>联系人类型：</span><span class="fontStyle">{{VO.personTypeName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>所在地：</span>
+                    <span class="fontStyle" ng-if="VO.address.parent.parentName == '天津市'">天津市</span>
+                    <span class="fontStyle" ng-if="VO.address.parent.parentName == '上海市'">上海市</span>
+                    <span class="fontStyle" ng-if="VO.address.parent.parentName == '北京市'">北京市</span>
+                    <span class="fontStyle" ng-if="VO.address.parent.parentName == '重庆市'">重庆市</span>
+                    <span class="fontStyle" ng-if="VO.address.parent.parentName != '天津市'
+                    &&VO.address.parent.parentName != '重庆市'
+                    &&VO.address.parent.parentName != '上海市'
+                    &&VO.address.parent.parentName != '北京市'"> {{VO.address.name}}</span>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>联系人姓名：</span><span
+                        class="fontStyle">{{VO.personName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>联系人电话：</span><span
+                        class="fontStyle">{{VO.personTel}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<div class="main-form-style" ng-controller="printPagesPopCtrl" style="margin: 0 auto;background-color: #d7e4ea;height: 300px" >
+    <div class="lr-contant">
+        <header class="header">
+            <h3 style="text-align: center">台账信息选项</h3>
+            <!--<div class="col-md-4" style="width: 50% !important;margin-top: 20px">
+                <label class="col-md-4 control-label lr-verify">起始：</label>
+                <div class="col-md-7" style="margin-top: -5px;">
+                    <input class="form-control" wdate-picker type="text" ng-verify ng-model="VO.startTimes">
+                </div>
+            </div>
+            <div class="col-md-4" style="width: 50% !important;margin-top: 20px">
+                <label class="col-md-4 control-label lr-verify">截至：</label>
+                <div class="col-md-7" style="margin-top: -5px;">
+                    <input class="form-control" wdate-picker type="text" ng-verify ng-model="VO.endTimes">
+                </div>
+            </div>-->
+        </header>
+        <div class="container">
+            <input type="checkbox" id="checkAll" ng-click="onCheckBox()">全选
+            <div ng-repeat="item in aVO.PRINTlIST">
+                <input ng-style="printPopStyle" type="checkbox" name="tagName" ng-checked="isSelected(item.id)" value={{item.id}}> {{item.name}}
+            </div>
+        </div>
+
+        <div class="pull-right">
+            <button ng-click="onConfirm()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >打印</button>
+            <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >返回</button>
+
+        </div>
+    </div>
+</div>
+

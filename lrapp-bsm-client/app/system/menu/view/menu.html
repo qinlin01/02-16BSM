@@ -1,0 +1,5 @@
+<div ng-controller="menuCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('system/menu/view/menuGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/menu/view/menuCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('system/menu/view/menuForm.html')" ng-show="isForm"></div>
+</div>

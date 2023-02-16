@@ -1,0 +1,32 @@
+<form class="form-horizontal" verify-scope="tipStyle: 1">
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">银行联行号:</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" placeholder="百度搜索”银行联行号“查询" ng-model="VO.jointBankNum">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">银行卡号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" ng-model="VO.bankNumber">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">开户银行：</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" ng-model="VO.bankName">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="main-form-style">
+    <div class="pull-right">
+        <button ng-click="onSaveSendReceiveInfoAgain()" style="margin-right: 10px;" class="btn btn-sm btn-info">确定</button>
+        <button ng-click="onCancelSendReceiveInfoAgain()" style="margin-right: 10px;" class="btn btn-sm btn-info">返回</button>
+    </div>
+    <div style="clear: both"></div>
+</div>
+

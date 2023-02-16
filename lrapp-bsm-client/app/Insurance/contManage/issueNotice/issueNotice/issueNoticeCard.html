@@ -1,0 +1,743 @@
+<div ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onCheckInsuranceno()"
+                    ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>验证保单号</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSubmit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onAudit()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onRecall()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <!--<button type="button" class="btn btn-azure" type="button" ng-click="onEdit()"-->
+            <!--ng-disabled="checkStatus(gridApi,'billstatus',[28,31,36,37,46],false)">-->
+            <!--&lt;!&ndash;<button class="btn btn-azure ng-scope" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'billstatus',[31,36,37,46],false)" disabled="disabled"> <i class="fa fa-edit"></i>修改</button>&ndash;&gt;-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button type="button" class="btn btn-azure" ng-click="onBack()" type="button" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onTemporary(VO)" type="button"
+                    ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="page-header">
+            <h2>{{VO.name}}<small>
+                <span ng-if="VO.billstatus == 34" class="label label-success">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                <span ng-if="VO.billstatus == 33||VO.billstatus == 37||VO.billstatus == 31" class="label label-info">{{VO.billstatus | SELECT_BILLSTATUS}}</span></small>
+            </h2>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>出单通知书编号：</span><span class="fontStyle">{{VO.IssueNoticeNo}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>出单通知书名称：</span><span class="fontStyle">{{VO.name}}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>保险方案编号：</span><span class="fontStyle">{{VO.insuranceSchemeCode}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>保险方案名称：</span><span class="fontStyle">{{VO.insuranceSchemeName}}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>经纪公司名称：</span><span class="fontStyle">{{VO.brokerageAgencyName}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>建立部门：</span><span class="fontStyle">{{VO.dept}}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>立项名称：</span><span class="fontStyle">{{VO.pkProject.name}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>投保人：</span><span class="fontStyle">{{VO.HOLDER_NAME}}</span>
+            </div>
+            <!-- @zhangwj 【YDBXJJ-1764】  出单通知书中卡片页面，缺少承保方式字段 -->
+            <div class="col-md-4">
+                <span>承保方式：</span><span class="fontStyle">{{VO.insureType[0].ACCEPT_SORT | SELECT_CBFS}}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span>投保人地址：</span>
+                <p word-break="keep-all" class="fontStyle"
+                   ng-bind-html="VO.estimatepk.c1Province_name"></p>
+            </div>
+            <div class="col-md-4">
+                <span>是否总部直管工程：</span><span class="fontStyle">{{(null==VO.ifuhv?0:VO.ifuhv) | SELECT_YESNONUM}}</span>
+            </div>
+            <div class="col-md-4">
+                <span>审批信息：</span>
+                <table class="table">
+                    <tr ng-repeat="item in VO.taskHis">
+                        <td><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span>
+                        </td>
+                        <td>{{item.opinion}}</td>
+                        <td>{{item.process_time}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <span>附件信息：</span>
+                <table class="table">
+                    <tr ng-repeat="item in VO.dealAttachmentB">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <button type="button" ng-click="onDownLoadsCard(item.pk_project_id)" class="btn btn-link">下载</button>
+                        </td>
+                        <td>
+                            <button type="button" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)" class="btn btn-link">在线预览</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <tabset justified="true" class="col-md-12">
+            <tab index="{{$index+1}}" heading="{{item.INSURE_TYPE_ID|SELECT_DWZCINSURANCETYPE}}"
+                 ng-repeat="item in VO.insureType" style="margin-left: -6px;margin-top: 3px;">
+                <div style="background-color:white;overflow: hidden;margin-top: -8px">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <span>险种名称：</span><span
+                                class="fontStyle">{{item.INSURE_TYPE_ID|SELECT_DWZCINSURANCETYPE}}</span>
+                        </div>
+                        <div ng-if="item.INSURE_TYPE_ID!='chongdzzhbx'&&item.INSURE_TYPE_ID!='jianzazgcyqx'&&item.INSURE_TYPE_ID!='anzgcyqx'&&item.INSURE_TYPE_ID!='jianagcx'&&item.INSURE_TYPE_ID!='constructionPay'">
+                        <div class="col-md-4">
+                            <span>保险起始日期：</span><span class="fontStyle">{{item.INSURE_START_DATE|date}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>保险到期日期：</span><span class="fontStyle">{{item.INSURE_END_DATE|date}}</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div >
+                        <div class="col-md-12">
+                            <div ng-if="item.INSURE_TYPE_ID=='yingyzdx'">
+                                <div class="col-md-4">
+                                    <span>平均售电利润计量单位(元/千瓦时)：</span> <span class="fontStyle">{{item.average_ele_profit}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>预计保险期间售电量(千瓦时)：</span> <span class="fontStyle">{{item.forecast_sale_ele}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>预计售电毛利润(元)：</span> <span class="fontStyle">{{item.forecast_sale_profit}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>累计赔偿限额(元)：</span> <span class="fontStyle">{{item.add_quota}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>最大赔偿期(天)：</span> <span class="fontStyle">{{item.max_pay_time}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>相对免赔期(天)：</span> <span class="fontStyle">{{item.relative_contract}}</span>
+                                </div>
+                            </div>
+
+                            <div ng-if="item.INSURE_TYPE_ID=='jianzgchtzfbzbx'">
+                                <div class="col-md-4">
+                                    <span>工程名称：</span> <span class="fontStyle">{{item.projectName}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>工程地址：</span> <span class="fontStyle">{{item.projectAddress}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>计划工程期限：</span> <span class="fontStyle">{{item.projectDate}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>工程预计合同造价：</span> <span class="fontStyle">{{item.projectMoney}}</span>
+                                </div>
+                            </div>
+
+                            <div ng-if="item.INSURE_TYPE_ID=='kehxyx'">
+                                <div class="col-md-4">
+                                    <span>预计当年销售收入(元)：</span> <span class="fontStyle">{{item.forecast_sale_income}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>累计信用限额(元)：</span> <span class="fontStyle">{{item.add_quota}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>赔偿比例(%)：</span> <span class="fontStyle">{{item.pay_for_scale}}</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <span>约定等待期(天)：</span> <span class="fontStyle">{{item.guarantee_wait}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4" >
+                                <span>保险费率(‰)：</span> <span class="fontStyle">{{item.INSURANCE_RATE_MIN}}</span>
+                                <!--<span class="fontStyle">至{{item.INSURANCE_RATE_MAX}}</span>-->
+                            </div>
+                            <div class="col-md-4" >
+                                <span ng-if="item.INSURE_TYPE_ID!='chuanbx'">保费(元)：</span>
+                                <span ng-if="item.INSURE_TYPE_ID=='chuanbx'">合计保费(元)：</span>
+                                <span class="fontStyle">{{item.FORECAST_FEE_MIN|AMOUNT_FILTER}}</span>
+                                <!--<span class="fontStyle">至{{item.FORECAST_FEE_MAX}}</span>-->
+                            </div>
+                            <div class="col-md-4" >
+                                <span>佣金率(%)：</span> <span class="fontStyle">{{item.COMMISION_FEE_RATE}}</span>
+                            </div>
+                            <div class="col-md-4" ng-if="item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='gongydszzrx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='gongysyqyjyzrbx'">
+                                <span>承保基础：</span> <span class="fontStyle">{{item.accept_base}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='constructionPay'">
+                            <div class="col-md-12">
+                                <span>等待期：</span>
+                                <span class="fontStyle">{{item.waitPeriod}}</span>
+                            </div>
+                        </div>
+                        <div ng-if="item.INSURE_TYPE_ID=='susbqzrbx'">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>诉讼金额：</span> <span class="fontStyle">{{item.litigationMoney |AMOUNT_FILTER}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>申请保全金额：</span> <span class="fontStyle">{{item.protectMoney |AMOUNT_FILTER}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>案件被告：</span> <span class="fontStyle">{{item.defendant}}</span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>案件管辖法院：</span> <span class="fontStyle">{{item.court}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='chuanbx'">
+                            <div class="col-md-4">
+                                <span>船名：</span> <span class="fontStyle">{{item.shipName}}</span>
+                            </div>
+                            <div class="col-md-4" ng-if="item.INSURE_TYPE_ID=='chuanbx'">
+                                <span>保险金额：</span> <span class="fontStyle">{{item.insuranceMoney|AMOUNT_FILTER}}</span>
+                            </div>
+                            <div class="col-md-4" ng-if="item.INSURE_TYPE_ID=='chuanbx'">
+                                <span>主险保费：</span> <span class="fontStyle">{{item.MAIN_FORECAST_FEE_MIN|AMOUNT_FILTER}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>免赔额：</span>
+                                <p word-break="keep-all" class="fontStyle"
+                                   ng-bind-html="item.FREE_FEE | ntobr|trustHtml"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID!='tuantywx'">
+                            <div class="col-md-12">
+                                <span>付款及赔偿方式约定：</span>
+                                <p word-break="keep-all" class="fontStyle"
+                                   ng-bind-html="item.PAY_WAY_CONTRACT | ntobr|trustHtml"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='constructionPay'">
+                            <div class="col-md-4">
+                                <span>保险期限：</span><span class="fontStyle">{{item.insurance_preiod_start|date_cell_date}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span>至：</span><span class="fontStyle">{{item.insurance_preiod_end|date_cell_date}}</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </div>
+                    <div ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <span>保险工程名称：</span><span class="fontStyle">{{item.INSURE_PROJECT_NAME}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span>其他关系：</span><span class="fontStyle">{{item.OTHER_RELATION}}</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <span>建筑安装期：</span><span class="fontStyle">{{item.INSURE_START_DATE|date}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span>至：</span><span class="fontStyle">{{item.INSURE_END_DATE|date}}</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <span>保证期：</span><span class="fontStyle">{{item.GUARANTEE_START_DATE|date}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span>至：</span><span class="fontStyle">{{item.GUARANTEE_END_DATE|date}}</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>保险工程地点：</span>
+                                <p word-break="keep-all" class="fontStyle"
+                                   ng-bind-html="item.INSURE_PROJECT_ADDR | ntobr|trustHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="item.INSURE_TYPE_ID=='guzzrx'">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <span>投保人数：</span><span class="fontStyle">{{item.INSURE_PEOPLE_NUM}}</span></div>
+                            <div class="col-md-4">
+                                <span>方式：</span><span ng-if="item.EMPLOYER_SORT_SIGN==1" class="fontStyle">工资总额方式</span><span
+                                    ng-if="item.EMPLOYER_SORT_SIGN==2" class="fontStyle">员工类别方式</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div ng-if="item.EMPLOYER_SORT_SIGN==1">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>估计保险期内工资总额(元)：</span><span class="fontStyle">{{item.PAY_SUM}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>死亡工资：</span> <span class="fontStyle">{{item.DIE_PAY}}个月的平均工资/人</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>伤残工资：</span> <span
+                                        class="fontStyle">{{item.DEFORMITY_PAY}}个月的平均工资/人</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="item.EMPLOYER_SORT_SIGN==2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                    <th>工种</th>
+                                    <th>保险项目</th>
+                                    <th>每人赔偿限额</th>
+                                    <th>人数</th>
+                                    <th>累计赔偿限额</th>
+                                    </thead>
+                                    <tr ng-repeat="categoryItem in item.insuranceCategoryApproachGridData">
+                                        <td>{{categoryItem.commitType}}</td>
+                                        <td>{{categoryItem.commitTargetType}}</td>
+                                        <td>{{categoryItem.commitTargetType1}}</td>
+                                        <td>{{categoryItem.commitTargetType2}}</td>
+                                        <td>{{categoryItem.commitTargetType3}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='tuantywx'">
+                        <div class="col-md-12">
+                            <span>保险责任：</span>
+                            <table class="table">
+                                <tr ng-repeat="insuranceGLifeData in item.insuranceGLifeData">
+                                    <td>{{insuranceGLifeData.insured | SELECT_INSURED}}</td>
+                                    <td>{{insuranceGLifeData.insuredType | SELECT_INSUREDTYPE}}</td>
+                                    <td>{{insuranceGLifeData.InsuranceLiability}}</td>
+                                    <td>{{insuranceGLifeData.peopleAll}}</td>
+                                    <td>{{insuranceGLifeData.insuranceMoneyEveryone}}</td>
+                                    <td>{{insuranceGLifeData.insuranceMoneyAll}}</td>
+                                    <td>{{insuranceGLifeData.rate}}</td>
+                                    <td>{{insuranceGLifeData.insurancePremiumEveryone}}</td>
+                                    <td>{{insuranceGLifeData.premiumAll}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <span>被保险人：</span>
+                            <table class="table">
+                                <!--  @zhangwj 【YDBXJJ-1750】保险方案与出单通知书的卡片页面，被保险人增加表头  -->
+                                <thead>
+                                <th>被保人名称</th>
+                                <th>地址</th>
+                                <th ng-show="item.INSURE_TYPE_ID!='diaozzrbx'">保险金额</th>
+                                </thead>
+                                <tr ng-repeat="holderItem in item.insurebeHolde">
+                                    <td>{{holderItem.BEHOLDER_NAME}}</td>
+                                    <td>{{holderItem.BEHOLDER_ADDR}}</td>
+                                    <td ng-show="item.INSURE_TYPE_ID!='diaozzrbx'">{{holderItem.BEHOLDER_INSURANCEMONEY}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12" ng-show="item.INSURE_TYPE_ID=='constructionPay'">
+                            <span>被保险人：</span>
+                            <p word-break="keep-all" class="fontStyle"
+                               ng-bind-html="item.assuredText | ntobr|trustHtml"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='canycszrbx'">
+                        <div class="col-md-12">
+                            <span>承保场所范围：</span>
+                            <table class="table">
+                                <thead>
+                                <th>单位简称</th>
+                                <th>地址</th>
+                                </thead>
+                                <tr ng-repeat="itemItem in item.placeScopeGridData">
+                                    <td>{{itemItem.companyName}}</td>
+                                    <td>{{itemItem.addr}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='feijdcdszzrx'">
+                        <div class="col-md-12">
+                            <span>保险金额：</span>
+                            <table class="table">
+                                <thead>
+                                <th>保险标的</th>
+                                <th>数量（辆）</th>
+                                <th>单价（元）</th>
+                                <th>盗抢险保险金额（元/辆）</th>
+                                <th>第三者责任险赔偿限额（元/辆）</th>
+                                </thead>
+                                <tr ng-repeat="itemItem in item.insureAmountGridData">
+                                    <td>{{itemItem.responsibility}}</td>
+                                    <td>{{itemItem.number}}</td>
+                                    <td>{{itemItem.unitPrice}}</td>
+                                    <td>{{itemItem.unitMoney}}</td>
+                                    <td>{{itemItem.insuranceMoney}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='chuanbx'">
+                        <div class="col-md-12">
+                            <span>附加险：</span>
+                            <table class="table">
+                                <thead>
+                                <th>险别</th>
+                                <th>保险金额/赔偿限额（元）</th>
+                                <th>费率%</th>
+                                <th>保险费</th>
+                                </thead>
+                                <tr ng-repeat="itemItem in item.additionalInsureGridData">
+                                    <td>{{itemItem.insuranceName}}</td>
+                                    <td>{{itemItem.insuranceMoney |AMOUNT_FILTER}}</td>
+                                    <td>{{itemItem.chargerate|number:6}}</td>
+                                    <td>{{itemItem.insurancecharge |AMOUNT_FILTER}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='huanjwrzrx'||item.INSURE_TYPE_ID=='gongdzrx'||item.INSURE_TYPE_ID=='gongzzrx'||item.INSURE_TYPE_ID=='gongydszzrx'||item.INSURE_TYPE_ID=='anqsczrx'||item.INSURE_TYPE_ID=='susbqzrbx'||item.INSURE_TYPE_ID=='wanglaqbx'||item.INSURE_TYPE_ID=='canycszrbx'||item.INSURE_TYPE_ID=='chuanbwrzrbx'||item.INSURE_TYPE_ID=='gongysyqyjyzrbx'">
+                        <div class="col-md-12">
+                            <span>赔偿限额：</span>
+                            <table class="table">
+                                <thead>
+                                <th>名称</th>
+                                <th>赔偿限额(元)</th>
+                                </thead>
+                                <tr ng-repeat="itemItem in item.insuranceThirdResponsibilityridData">
+                                    <td>{{itemItem.commitType}}</td>
+                                    <td>{{itemItem.commitTargetType}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-12" ng-if="item.INSURE_TYPE_ID!='kehxyx'&&item.INSURE_TYPE_ID!='anqsczrx'&&item.INSURE_TYPE_ID!='yingyzdx'&&item.INSURE_TYPE_ID!='caicyqx'&&item.INSURE_TYPE_ID!='gongdzrx'">-->
+                        <!--<table class="table">-->
+                            <!--<thead>-->
+                            <!--<th>工种</th>-->
+                            <!--<th>保险项目</th>-->
+                            <!--<th>每人赔偿限额</th>-->
+                            <!--<th>人数</th>-->
+                            <!--<th>累计赔偿限额</th>-->
+                            <!--</thead>-->
+                            <!--<tr ng-repeat="categoryItem in item.insuranceCategoryApproachGridData">-->
+                                <!--<td>{{categoryItem.commitType}}</td>-->
+                                <!--<td>{{categoryItem.commitTargetType}}</td>-->
+                                <!--<td>{{categoryItem.commitTargetType1}}</td>-->
+                                <!--<td>{{categoryItem.commitTargetType2}}</td>-->
+                                <!--<td>{{categoryItem.commitTargetType3}}</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <span>承保公司：</span>
+                            <table class="table">
+                                <tr ng-repeat="holderItem in item.insureCompany">
+                                    <td>{{holderItem.insureCompanyName}}</td>
+                                    <td>{{holderItem.underwritingRatio}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID!='chongdzzhbx'&&item.INSURE_TYPE_ID!='guzzrx'&& item.INSURE_TYPE_ID!='gongdzrx' && item.INSURE_TYPE_ID!='diaozzrbx'&&item.INSURE_TYPE_ID!='jianzazgcyqx'&&item.INSURE_TYPE_ID!='anzgcyqx'&&item.INSURE_TYPE_ID!='jianagcx'&&item.INSURE_TYPE_ID!='constructionPay'&&item.INSURE_TYPE_ID!='canycszrbx'&&item.INSURE_TYPE_ID!='chuanbwrzrbx'&&item.INSURE_TYPE_ID!='chuanbx'&&item.INSURE_TYPE_ID!='feijdcdszzrx'&&item.INSURE_TYPE_ID!='jisyqxjzrx'&&item.INSURE_TYPE_ID!='huoyx'&&item.INSURE_TYPE_ID!='susbqzrbx'&&item.INSURE_TYPE_ID!='wanglaqbx'">
+                            <div class="col-md-12">
+                                <span>保险标的：</span>
+                               <!-- 资产{{item.id}}-->
+<!--                                资产明细{{item.detaiil}}-->
+                                <table class="table">
+                                    <thead>
+                                    <th>保险项目</th>
+                                    <th>投保资金(元)</th>
+                                    <th>加成比例(%)</th>
+                                    <th>保险金额(元)</th>
+                                    </thead>
+                                    <tr ng-repeat="itemItem in item.insurebeItems">
+                                        <td>{{itemItem.assetscode|SELECT_BDTYPE}}<button ng-if="'gdzc'==itemItem.assetscode" type="button" ng-click="getProjectdetail(item.id)" class="btn btn-default">查看明细</button></td>
+                                        <td>{{itemItem.assetsOldValue}}</td>
+                                        <td>{{itemItem.addsCale}}</td>
+                                        <td>{{itemItem.insureValue}}</td>
+                                    </tr>
+                                </table>
+
+                                <div save-content="classic-html" style="width: 1200px">
+
+                                    <table class="table table-bordered" ng-if="treedata!=null&&treedata!=''" style="margin-bottom: 10px">
+                                        <th width="350">资产名称</th>
+                                        <th width="150">资产原值(元)</th>
+                                        <th width="150">加成比例(%)</th>
+                                        <th width="150">投保资产(元)</th>
+                                    </table>
+                                    <treecontrol class="tree-classic"
+                                                 tree-model="treedata" options="opts"
+                                                 on-selection="showSelected(node)">
+                                        {{node.assetsName}}{{node.assetscode}}
+                                        <table style="float: right;text-align: right">
+                                            <td width="200" name="test">{{node.assetsOldValue}}</td>
+                                            <td width="230">{{node.addsCale}}</td>
+                                            <td width="230">{{node.insureValue}}</td>
+                                        </table>
+                                    </treecontrol>
+
+<!--                                    <table class="table table-bordered" ng-if="item.detaiil.newDerid!=null&&item.detaiil.newDerid!=''" style="margin-bottom: 10px">-->
+<!--                                        <th width="350">资产名称</th>-->
+<!--                                        <th width="150">资产原值(元)</th>-->
+<!--                                        <th width="150">加成比例(%)</th>-->
+<!--                                        <th width="150">投保资产(元)</th>-->
+<!--                                    </table>-->
+<!--                                    <treecontrol class="tree-classic"-->
+<!--                                                 tree-model="item.detaiil.newDerid" options="opts"-->
+<!--                                                 on-selection="showSelected(node)">-->
+<!--                                        {{node.assetsName}}{{node.assetscode}}-->
+<!--                                        <table style="float: right;text-align: right">-->
+<!--                                            <td width="200" name="test">{{node.assetsOldValue}}</td>-->
+<!--                                            <td width="230">{{node.addsCale}}</td>-->
+<!--                                            <td width="230">{{node.insureValue}}</td>-->
+<!--                                        </table>-->
+<!--                                    </treecontrol>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="item.INSURE_TYPE_ID=='wanglaqbx'">
+                            <div class="col-md-12">
+                                <span>保障项目：</span>
+                                <table class="table">
+                                    <thead>
+                                    <th>项目名称</th>
+                                    <th>保险金额（元）</th>
+                                    </thead>
+                                    <tr ng-repeat="itemItem in item.supportProjectGridData">
+                                        <td>{{itemItem.projectName}}</td>
+                                        <td>{{itemItem.money|AMOUNT_FILTER}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-if="item.INSURE_TYPE_ID=='jisyqxjzrx'">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>航空器用途：</span>
+                                    <div>
+                                        <p word-break="keep-all" class="fontStyle"
+                                           ng-bind-html="item.aircraftUse | ntobr|trustHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>飞行区域：</span>
+                                    <div>
+                                        <p word-break="keep-all" class="fontStyle"
+                                           ng-bind-html="item.flightArea | ntobr|trustHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>保险标的：</span>
+                                    <table class="table">
+                                        <thead>
+                                        <th>序号</th>
+                                        <th>保险责任</th>
+                                        <th>保险金额（元)</th>
+                                        </thead>
+                                        <tr ng-repeat="(x,itemItem) in item.insureMoneyGridData">
+                                            <td>{{x+1}}</td>
+                                            <td>{{itemItem.responsibility}}</td>
+                                            <td>{{itemItem.insuranceMoney|AMOUNT_FILTER}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="item.INSURE_TYPE_ID=='huoyx'">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>被保险货物种类：</span><span class="fontStyle">{{item.freightType}}</span></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>运输线路：</span><span class="fontStyle">{{item.transportRoute}}</span></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>运输工具：</span><span class="fontStyle">{{item.transportTools}}</span></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <span>保险金额：</span>
+                                    <table class="table">
+                                        <thead>
+                                        <th>序号</th>
+                                        <th>货物名称</th>
+                                        <th>保险金额（元)</th>
+                                        </thead>
+                                        <tr ng-repeat="(x,itemItem) in item.freightInsureMoneyGridData">
+                                            <td>{{x+1}}</td>
+                                            <td>{{itemItem.freightName}}</td>
+                                            <td>{{itemItem.insuranceMoney|AMOUNT_FILTER}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>适用条款及内容：</span>
+                                <div ng-repeat="insureItem in item.APPLY_ARTICLE">
+                                    <p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="insureItem.APPLY_ARTICLE | ntobr|trustHtml"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>司法管辖：</span>
+                                <div ng-repeat="insureItem in item.JUSTICE_MANAGE">
+                                    <h5>{{insureItem.ARTICLE_NAME}}</h5>
+                                    <p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="insureItem.JUSTICE_MANAGE | ntobr|trustHtml"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>扩展条款及内容：</span>
+                                <!--<div ng-repeat="insureItem in item.insurebeExt">-->
+                                <!--<h5>{{insureItem.ARTICLE_NAME}}</h5>-->
+                                <!--<p word-break="keep-all" class="fontStyle"-->
+                                <!--ng-bind-html="insureItem.ARTICLE_CON | ntobr|trustHtml"></p>-->
+                                <!--</div>-->
+                                <div >
+                                    <p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="item.insurebeExt | ntobr|trustHtml"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>特别约定内容：</span>
+                                <div ng-repeat="insureItem in item.SPECIAL_PROMISE">
+                                    <p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="insureItem.SPECIAL_PROMISE | ntobr|trustHtml"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="item.INSURE_TYPE_ID=='chongdzzhbx'||item.INSURE_TYPE_ID=='jianzazgcyqx'||item.INSURE_TYPE_ID=='anzgcyqx'||item.INSURE_TYPE_ID=='jianagcx'||item.INSURE_TYPE_ID=='constructionPay'">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>保险项目及保险金额/赔偿限额/物质损失--保险项目及金额：</span>
+                                <table class="table">
+                                    <thead>
+                                    <th>保险项目</th>
+                                    <th>保险金额(元)</th>
+                                    <th>备注</th>
+                                    </thead>
+                                    <tr ng-repeat="itemItem in item.insuranceItems">
+                                        <td>{{itemItem.commitType}}</td>
+                                        <td>{{itemItem.commitTargetType}}</td>
+                                        <td>{{itemItem.commitTargetType1}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>保险项目及保险金额/赔偿限额/物质损失--特种危险赔偿限额：</span>
+                                <table class="table">
+                                    <thead>
+                                    <th>危险种类</th>
+                                    <th>赔偿限额(元)</th>
+                                    </thead>
+                                    <tr ng-repeat="itemItem in item.insuranceSpecialDangerGridData">
+                                        <td>{{itemItem.commitType}}</td>
+                                        <td>{{itemItem.commitTargetType}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <span>第三者责任--赔偿限额：</span>
+                                <table class="table">
+                                    <thead>
+                                    <th>名称</th>
+                                    <th>赔偿限额(元)</th>
+                                    </thead>
+                                    <tr ng-repeat="itemItem in item.insuranceThirdResponsibilityridData">
+                                        <td>{{itemItem.commitType}}</td>
+                                        <td>{{itemItem.commitTargetType}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

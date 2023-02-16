@@ -1,0 +1,160 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--<span>修改</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.vbillno}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批单信息编号：</span><span class="fontStyle">{{VO.vbillno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单编号：</span><span class="fontStyle">{{VO.insurancecheckno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>批单类型：</span><span class="fontStyle">{{VO.vdef1no | SELECT_CHANGEBILLCHECKTYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.srcBillno.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>修改类型：</span><span class="fontStyle">{{VO.changebillType  | SELECT_CHANGEBILLTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险金额变更：</span><span class="fontStyle">{{VO.insurancemoneychange}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保费变更：</span><span class="fontStyle">{{VO.insurancechargechange}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>佣金变更：</span><span class="fontStyle">{{VO.feechange}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应收保费变更：</span><span class="fontStyle">{{VO.vdef2}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+<!--                <div class="col-md-4">-->
+<!--                    <span>保险起始日期变更：</span><span class="fontStyle">{{VO.startdate}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>保险到期日期变更：</span><span class="fontStyle">{{VO.enddate}}</span>-->
+<!--                </div>-->
+                <div class="col-md-4" ng-if="VO.correctingReasons == 3">
+                    <span>到期日变更：</span><span class="fontStyle">{{VO.dueDate}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保单号变更：</span><span class="fontStyle">{{VO.vdef5}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>应解付保费变更：</span><span class="fontStyle">{{VO.vdef3}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>批改原因：</span><p word-break="keep-all" class="fontStyle"
+                                         ng-bind-html="VO.correctingReasons | SELECT_CORRECTINGREASONSTYPE"></p>
+                </div>
+                <div class="col-md-12">
+                    <span>具体原因：</span><p word-break="keep-all" class="fontStyle"
+                                         ng-bind-html="VO.content | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>备注：</span><p word-break="keep-all" class="fontStyle"
+                                       ng-bind-html="VO.cmemo | ntobr|trustHtml"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="收付款信息" select="selectTab('paymentGridOptions')">
+                            <div ui-grid="paymentGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+                        </tab>
+                        <tab index="3" heading="保险人变更" select="selectTab('insurancemanGridOptions')">
+                            <div ui-grid="insurancemanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="2" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>
+    </div>
+</form>

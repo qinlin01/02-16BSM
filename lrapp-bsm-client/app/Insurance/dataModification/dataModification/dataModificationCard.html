@@ -1,0 +1,148 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group" add-card-btn>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmitSelf()" ng-if="isCard&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="isCard&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isCard">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.code}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">基本信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>申报信息编号：</span><span class="fontStyle">{{VO.code}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执行状态：</span><span class="fontStyle">{{VO.executeState | SELECT_TASKSTATE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>执行日期：</span><span class="fontStyle">{{VO.executeDate | date_cell_date}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">修改内容</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>申请人：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>发起单位名称：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>申请人所在部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>修改原因：</span><span class="fontStyle">{{VO.reason}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>修改内容：</span><span class="fontStyle">{{VO.content}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">数据信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>数据节点名称：</span><span class="fontStyle">{{VO.tableNameCn}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>信息编号：</span><span class="fontStyle">{{VO.dataCode}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>申请人所在部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">数据信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">信息编号</th>
+                        <th class="center">单据状态</th>
+                        <th class="center">经办人</th>
+                        <th class="center">制单日期</th>
+                        <th class="center">业务单位</th>
+                        <th class="center">部门</th>
+                        <th class="center">审核人</th>
+                        <th class="center">审核日期</th>
+                        <th class="center">最终审核人</th>
+                        <th class="center">最终审核日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="height: 30px">
+                        <td>{{VO.oldData[fieldSearch]}}</td>
+                        <td>{{VO.oldData.billstatus | SELECT_BILLSTATUS}}</td>
+                        <td>{{VO.oldData.pkOperator.name}}</td>
+                        <td>{{VO.oldData[ocTime] | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkOrg.name}}</td>
+                        <td>{{VO.oldData.pkDept.name}}</td>
+                        <td>{{VO.oldData.pkChecker.name}}</td>
+                        <td>{{VO.oldData.checkDate | date_cell_date}}</td>
+                        <td>{{VO.oldData.pkAuditor.name}}</td>
+                        <td>{{VO.oldData.auditDate | date_cell_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info center">
+                        <th>附件名称</th>
+                        <th>上载时间</th>
+                        <th>下载</th>
+                        <th>在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

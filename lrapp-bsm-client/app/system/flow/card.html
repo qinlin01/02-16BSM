@@ -1,0 +1,28 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="row title">
+        <div class="col-md-12 text-right " add-card-btn="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <span class="text-bold">流程编码：</span><span class="fontStyle">{{VO.flowCode}}</span>
+            </div>
+            <div class="col-md-4">
+                <span class="text-bold">流程名称：</span><span class="fontStyle">{{VO.flowName}}</span>
+            </div>
+            <div class="col-md-4">
+                <span class="text-bold">系统标志：</span><span class="fontStyle">{{VO.systemType}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <span class="text-bold">流程文件 </span>
+            <p class="margin-bottom-30">
+                {{VO.xml}}
+            </p>
+        </div>
+    </div>
+</form>

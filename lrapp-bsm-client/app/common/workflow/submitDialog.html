@@ -1,0 +1,88 @@
+<div class=" bg-white">
+    <form name="submitForm" class="form-horizontal" verify-scope="tipStyle: 1" AUTOCOMPLETE="ON">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="user-left  min-height-350">
+                    <div collapse="activities" ng-init="activities=false" class="panel-wrapper">
+                        <div class="panel-body">
+                            <ul class="timeline-xs">
+                                <h5>审批记录</h5>
+                                <li class="timeline-item success" ng-repeat="item in tasks">
+                                    <div class="margin-left-15">
+                                        <div class="text-muted text-small">
+                                            {{item.process_name}} {{item.process_time ==null? '': ' '+ item.process_time}}
+                                        </div>
+                                        <p>
+                                            {{item.opinion }}
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="radio clip-radio radio-success radio-inline" ng-repeat="item in PASSES">
+                            <input checked="checked" id="radio{{item.primaryKey}}" ng-model="submitVO.pass" type="radio" value="{{item.primaryKey}}">
+                            <label for="radio{{item.primaryKey}}">
+                                {{item.transitionName}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="submitView">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <select multiple class="form-control min-height-155" ng-model="submitVO.leftSelects">
+                                <option ng-repeat="item in LEFT_DATA" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" style="padding: 0px;text-align: center;margin-left: -6px;">
+                            <button class="btn btn-azure" type="button" ng-click="onToRight()" ng-disabled="!submitVO.leftSelects||submitVO.leftSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                            </BR>
+                            <button class="btn btn-azure" type="button" ng-click="onToRightAll()" ng-disabled="!LEFT_DATA||LEFT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                <i class="fa fa-angle-double-right"></i>
+                            </button>
+                            </BR>
+                            <button class="btn btn-azure" type="button" ng-click="onToLeft()" ng-disabled="!submitVO.rightSelects||submitVO.rightSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            </BR>
+                            <button class="btn btn-azure" type="button" ng-click="onToLeftAll()" ng-disabled="!RIGHT_DATA||RIGHT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                            </BR>
+                        </div>
+                        <div class="col-md-5">
+                            <select multiple class="form-control min-height-155" ng-model="submitVO.rightSelects">
+                                <option ng-repeat="item in RIGHT_DATA" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>审批意见：</h5>
+                        <!--                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="submitVO.msg" placeholder="最多输入500个汉字。"></textarea>-->
+                        <insert-select model-data="submitVO.msg"
+                                       option-list="approvalMessages"
+                                       placeholder="'最多输入500个汉字。'">
+                        </insert-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="pull-right lr-page-margin">
+                <button ng-click="onSubmitConfirm() && confirm(submitVO)" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> 确定</button>
+                <button ng-click="closeThisDialog(0)" class="btn btn-sm btn-default"><i class="fa fa-times"></i>取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+

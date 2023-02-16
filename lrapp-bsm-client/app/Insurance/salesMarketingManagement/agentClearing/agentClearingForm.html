@@ -1,0 +1,152 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4" ng-if="VO.clearingCode != null && VO.clearingCode != ''">
+                    <label class="col-md-5 control-label">结算信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" type="text" ng-model="VO.clearingCode">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">结算单名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.clearingName">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">代理人：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ui-popup-ref url="'commonRef/queryAgentRef'" ng-click="" is-tree="" popup-model="VO" popup-model-field="'pkAgent'" ng-model="VO.pkAgent.name" type="text" placeholder="">
+                    </div>
+                </div>
+<!--                <div class="col-md-4">-->
+<!--                    <label class="col-md-5 control-label">是否标记为已结算：</label>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <select class="form-control" ng-disabled="!isForm" ng-model="VO.ifPay"-->
+<!--                                required-->
+<!--                                ng-options="item.id as item.name for item in SELECT.YESNONUMNEW">-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">代扣款项合计：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="!isForm" type="text" ng-model="VO.withholding">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">佣金金额（含税）：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.receiveFee">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">本次结算手续费合计：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.planServiceCharge">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">手续费实付合计：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.factServiceCharge">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">保费(含税)：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.insuranceAmount">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">应结手续费(含税)：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.planAmount">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="false">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">未结手续费(含税)：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="true" type="text" ng-model="VO.noPayAmount">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>手续费信息</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onAddLine('agentClearingBGridOption',null)">增行</button>
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLine('agentClearingBGridOption')">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="手续费结算清单">
+                    <div ui-grid="agentClearingBGridOption"  ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info"  type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    </div>
+</form>

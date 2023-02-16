@@ -1,0 +1,27 @@
+<style type="text/css">
+    .insert-select {
+        position: relative;
+    }
+
+    .input-box {
+        position: absolute;
+        height: calc(100% - 4px);
+        width: calc(100% - 25px);
+        top: 2px;
+        left: 2px;
+        padding-left: 10px;
+        outline: none !important;
+        border-radius: 4px !important;
+        border: none !important;
+    }
+
+</style>
+
+<!--可输入下拉框-->
+<div class="insert-select">
+    <select ng-attr-placeholder="{{placeholder}}" class="form-control"  chosen ng-model="modelData" ng-options="item for item in optionList">
+        <option value=""></option>
+    </select>
+<!--    <input type="text" class="input-box"  ng-attr-placeholder="{{placeholder}}" ng-model="modelData">-->
+    <textarea class="form-control limited autosize area-animated msd-elastic: \n;" ng-attr-placeholder="{{placeholder}}"  ng-model="modelData"></textarea>
+</div>

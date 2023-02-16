@@ -1,0 +1,6 @@
+<div ng-controller="eLifeInsuranceCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/eLifeInsurance/eLifeInsuranceGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/eLifeInsurance/eLifeInsuranceCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/eLifeInsurance/eLifeInsuranceForm.html')" ng-show="!isGrid&&!isCard"></div>
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/benefitInsuredOrder/benefitInsuredOrderCard.html')" ng-show="isHmbCard"></div>
+</div>

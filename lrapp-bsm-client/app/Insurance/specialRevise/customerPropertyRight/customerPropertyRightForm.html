@@ -1,0 +1,86 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">所属子公司：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="!isForm" ng-verify ng-model="VO.pkCorp"
+                                    required
+                                    ng-options="item.name as item.name for item in SELECT.PKCORPZIGS">
+                                <option value="">--请选择--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">客户名称：</label>
+<!--                        <div class="col-md-7">-->
+<!--                            <input class="form-control" ng-disabled="isDisabled" type="text" ng-verify="{max:512}" ng-model="VO.customerName">-->
+<!--                        </div>-->
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" ng-verify
+                                   ui-popup-ref
+                                   url="'customerRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'customer'" popup-model-value="{customerType: 1,c1Type: c1Type}"
+                                   ng-verify open-customer-more="true"
+                                   ng-model="VO.customer.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify" >客户产权关系：</label>
+<!--                        <div class="col-md-7">-->
+<!--                            <input class="form-control" ng-verify="{ required: false,max:300}" ng-disabled="isDisabled" type="text" ng-model="VO.customerPr">-->
+<!--                        </div>-->
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="!isForm" ui-popup-ref ng-verify="{ required: false,max:20}"
+                                   url="'projectKindTreeRef/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkC0Tradetype'" popup-model-value="param"
+                                   ng-verify
+                                   is-tree="true"
+                                   ng-model="VO.pkC0Tradetype.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">业务分类：</label>
+                        <div class="col-md-7">
+<!--                            <input class="form-control" ng-verify="{ required: false,max:300}" ng-disabled="isDisabled" type="text" ng-model="VO.busiTypeName">-->
+                            <input class="form-control" ui-popup-ref ng-disabled="!isForm"
+                                   url="'busiType/queryForGrid'" ng-click="" popup-model="VO"
+                                   popup-model-field="'busi_type'" popup-model-value="VO.pkC0Tradetype"
+                                   ng-verify
+                                   is-tree="true"
+                                   ng-model="VO.busi_type.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</form>

@@ -1,0 +1,161 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar" >
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36) && VO.id !=null">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)&& VO.id !=null">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)&& VO.id !=null">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit&& VO.id">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit(VO.id)" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)&& VO.id !=null">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure ng-scope" ng-click="onAdd()" ng-disabled="null" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46||VO.billstatus==32)"> <i class="fa fa-plus"></i>增加</button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">批单类型：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="true" ng-verify ng-model="VO.vdef1no"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.CHANGEBILLCHECKTYPE">
+                        <option value="">--请选择批单类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">批单编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="false" type="text" ng-model="VO.insurancecheckno" ng-verify>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">批单信息编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.vbillno">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">批改原因：</label>
+                <div class="col-md-7">
+                    <select class="form-control" ng-disabled="isDisabled" ng-verify ng-model="VO.correctingReasons"
+                            required
+                            ng-options="item.id as item.name for item in SELECT.CORRECTINGREASONSTYPE_1">
+                        <option value="">--请选择批改原因类型--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保单号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref="internetPolicyRef"
+                           url="'endorsements/queryForWeb'" ng-click="" popup-model="VO"
+                           popup-model-field="'webInsurance'" popup-model-value=""
+                           ng-verify
+                           ng-model="VO.webInsurance.insuranceinfono" type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保险金额变更：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.webInsurance.insurancetotalmoney" ng-verify format-number>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">保费变更：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" format-number
+                           ng-model="VO.webInsurance.receivemount" ng-verify="{max:20}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label lr-verify">佣金变更：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" format-number ng-model="VO.webInsurance.receivefeemount" ng-verify="{max:20}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12" style="margin-top: 4px">
+                <div>
+                    <div>
+                        <label class="col-md-255 control-label">具体原因：</label>
+                    </div>
+                    <div class="col-md-254" style="margin-top: 1px">
+                    <textarea class="form-control" maxlength="250" style="resize:none" rows="4" ng-disabled="isDisabled" type="text"
+                              ng-model="VO.content"></textarea>
+                    </div>
+                    <br>
+                    <font color=#666666 style="display: inline-block;position: absolute;top: 56px;right: 56px;">限 250 个字符  已输入 <font ><span id="info_limit">{{VO.content.length}}</span></font> 个字</font>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label class="col-md-255 control-label">备注：</label>
+                <div class="col-md-254" style="margin-top: 4px">
+                    <textarea class="form-control" maxlength="250" style="resize:none" rows="4" ng-disabled="isDisabled" type="text"
+                              ng-model="VO.cmemo"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right lr-mr10 lr-mt10">
+        <button class="btn btn-sm btn-info"  ng-click="onDeleteLinepaymentGridOptions();">减行</button>
+    </div>
+    <tabset justified="false">
+        <tab index="1" heading="收付款信息" select="selectTab('paymentGridOptions')">
+            <div ui-grid="paymentGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                 ui-grid-resize-columns class="grid" style="height: 200px"></div>
+        </tab>
+    </tabset>
+    <div style="margin-top: 5px">
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info"  type="button" ng-click="onUploads();" ng-if="upOrDown">上传</button>
+            <button class="btn btn-sm btn-info"  type="button" ng-if="upOrDown" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info"  type="button" ng-click="onDownLoads();" ng-if="upOrDown">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+
+    </div>
+
+</form>

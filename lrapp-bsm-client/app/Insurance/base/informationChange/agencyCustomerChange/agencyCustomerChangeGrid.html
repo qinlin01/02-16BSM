@@ -1,0 +1,226 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">全文检索</label>
+                        <div class="col-md-252">
+                            <input class="form-control" type="text" placeholder="当前默认查询本年度数据，可通过'制单年度'选择其他年份进行查询；请输入以空格隔开的关键字" ng-model="QUERY['wideArea']"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单年度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['operate_year']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单月度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['operate_month']"
+                                        ng-options="item.id as item.name for item in SELECT.MONTH">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">变更流水号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['serial^like']"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">中介公司编码</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['c_0_code^like']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">中介公司名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['c_0_name^like']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">业务单位</label>
+                            <div class="col-md-8">
+                                <!-- <select class="form-control" ng-model="QUERY['pk_org']"
+                                         ng-options="item.id as item.name for item in SELECT.MARMONTH">
+                                     <option value="">-请选择-</option>
+                                 </select>-->
+                                <input class="form-control" ui-popup-ref
+                                       url="'orgRef/queryForGrid'" popup-model="QUERY"
+                                       popup-model-field="'pk_org'"
+                                       ng-model="QUERY.pk_org.name" type="text" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">审批日期区间</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker
+                                       ng-model="QUERY['check_date^gte']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">截至</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" wdate-picker
+                                       ng-model="QUERY['check_date^lte']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">审批人姓名</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['pkChecker.name']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">单据状态</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['billstatus']"
+                                        ng-options="item.id as item.name for item in SELECT.CUSTOMERBILLSTATUS">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">经办人</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['operator_name^like']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">变更类型</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['cus_change_type']"
+                                        ng-options="item.id as item.name for item in SELECT.GWCHANGETYPE">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                           <!-- <button class="btn lr-main-btn" ng-click="onAdd()">
+                                <i class="fa fa-plus"></i>
+                                增加
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onEdit()"
+                                    ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                <i class="fa fa-plus"></i>
+                                修改
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onDelete()"
+                                    ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                <i class="fa fa-plus"></i>
+                                删除
+                            </button>
+                            &lt;!&ndash; <button class="btn lr-main-btn" ng-click="onUpload()">
+                                 <i class="fa fa-plus"></i>
+                             附件管理
+                             </button>&ndash;&gt;
+                            <button class="btn lr-main-btn" ng-click="onSubmit()"
+                                    ng-disabled="checkStatus(gridApi,'billstatus','37',false)">
+                                <i class="fa fa-plus"></i>
+                                提交
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onAudit()"
+                                    ng-disabled="checkStatus(gridApi,'billstatus','33',false)">
+                                <i class="fa fa-plus"></i>
+                                审核
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onLinkAuditFlow()">
+                                <i class="fa fa-plus"></i>
+                                查看审批流程图
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onCard()">
+                                <i class="fa fa-plus"></i>
+                                卡片
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="viewClause(gridApi)"
+                                    ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-joomla"></i>
+                                查看附件
+                            </button>-->
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui-grid-resize-columns
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <tabset justified="false" ng-if="chilbTable">
+            <tab index="1" heading="客户信息变更对比" select="selectTab('customerChangeCompareGridOptions')">
+                <div ui-grid="customerChangeCompareGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">
+                <div ui-grid="accountGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">
+                <div ui-grid="linkmanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="3" heading="部门信息" select="selectTab('customerDeptGridOptions')">
+                <div ui-grid="customerDeptGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions"  ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>

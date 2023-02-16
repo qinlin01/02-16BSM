@@ -1,0 +1,35 @@
+<div ng-controller="onlineUserCtrl">
+    <div class="form-horizontal">
+        <div class="form-group pull-right">
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm" ng-click="onQuery();">
+                    <i class="fa fa-repeat"></i>
+                    <span>查询</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lr-grid-container">
+        <div style="margin-top: 25px">
+            <accordion>
+                <accordion-group is-open="true" grid-button="true">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="lr-grid-toolbar">
+                            <div class="btn-group" add-grid-btn>
+                                <button class="btn btn-danger btn-sm" ng-click="onRemoveUser()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                    <i class="fa fa-sign-out"></i>
+                                    强制退出用户
+                                </button>
+                            </div>
+                        </div>
+                    </accordion-heading>
+                    <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle()">
+                        <div ui-grid="gridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter
+                             ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

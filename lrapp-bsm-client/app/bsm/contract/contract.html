@@ -1,0 +1,5 @@
+<div ng-controller="contractCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('bsm/contract/contractGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('bsm/contract/contractCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('bsm/contract/contractForm.html')" ng-show="isForm"></div>
+</div>

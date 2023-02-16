@@ -1,0 +1,139 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onEdit()" ng-if="!isEdit&&VO.id!=null&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" type="button" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训名称：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" ng-model="VO.trainingName" ng-verify maxlength="100">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训方式：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-verify
+                                    ng-model="VO.trainingType"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.ENUMTRAINTYPE">
+                                <option value="">--请选择培训方式--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">开始日期：</label>
+                        <div class="col-md-7" style="padding-right : 21px">
+                            <input class="form-control" id="startDate" wdate-picker type="text" ng-verify ng-model="VO.startDate" onChange="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">结束日期：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" id="endDate" wdate-picker type="text" ng-verify ng-model="VO.endDate" onChange="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'})">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训地点：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ui-popup-ref url="'areaclTreeRef/queryForGrid'" ng-click="" is-tree="true" popup-model="VO" popup-model-field="'pkAreacl'" ng-model="VO.pkAreacl.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">培训详细地址：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" ng-verify ng-model="VO.address" maxlength="128">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系人：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" ng-verify ng-model="VO.linkman" maxlength="32">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">联系电话：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" type="text" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}" ng-model="VO.contactPhone" maxlength="20">
+                        </div>
+                    </div>
+                </div>
+
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onAddLine('agentsGridOptions');">增行</button>
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine('agentsGridOptions');">减行</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="参与培训的成员" select="selectTab('agentsGridOptions')">
+                <div ui-grid="agentsGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+
+            </tab>
+        </tabset>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onAddLine('trainingRecordsGridOptions');">增行</button>
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine('trainingRecordsGridOptions');">减行</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="培训课程信息" select="selectTab('trainingRecordsGridOptions')">
+                <div ui-grid="trainingRecordsGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+
+            </tab>
+        </tabset>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-click="onUploads();" ng-if="isEdit">上传</button>
+            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit&&!isUploadAnytime" ng-click="onDeleteLine('dealAttachmentBGridOptions');">减行</button>
+            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();">下载</button>
+
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</form>

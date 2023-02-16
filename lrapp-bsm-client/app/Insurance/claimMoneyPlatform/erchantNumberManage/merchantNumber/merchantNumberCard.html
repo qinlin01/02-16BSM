@@ -1,0 +1,85 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.merchantNo}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                  <span class="{{VO.usingType == 1?'span-background-tg':VO.usingType == 2?'span-background-shz':'' }}">{{VO.usingType | SELECT_USINGTYPE}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>商户号信息编号：</span><span class="fontStyle">{{VO.merchantNo}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>第三方支付机构类型：</span><span class="fontStyle">{{VO.thirdOrgType | SELECT_THIRDORGTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>账号：</span><span class="fontStyle">{{VO.accountNumber}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>账号名称：</span><span class="fontStyle">{{VO.accountName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>银行账号：</span><span class="fontStyle">{{VO.bankAccount}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>开户时间：</span><span class="fontStyle">{{VO.openDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>销户时间：</span><span class="fontStyle">{{VO.closeDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">附件名称</th>
+                        <th class="center">上载时间</th>
+                        <th class="center">下载</th>
+                        <th class="center">在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealattachmentb">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

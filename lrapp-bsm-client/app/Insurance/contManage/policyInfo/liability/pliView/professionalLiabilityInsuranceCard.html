@@ -1,0 +1,141 @@
+<div ng-if="isCard">
+    <div class="lr-toolbar">
+        <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+            <i class="ti-save"></i>
+            <span>提交</span>
+        </button>
+        <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+            <i class="ti-check"></i>
+            <span>审核</span>
+        </button>
+        <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+            <i class="ti-share-alt"></i>
+            <span>查看流程图</span>
+        </button>
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <fieldset>
+            <h4>{{VO.insuranceno}}</h4>
+        </fieldset>
+        <fieldset>
+            <legend>
+                保单信息
+            </legend>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.insuranceno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险开始时间：</span><span class="fontStyle">{{VO.start_date | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险结束时间：</span><span class="fontStyle">{{VO.end_date | date_cell_date}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保险人：</span><span class="fontStyle">{{VO.insurer.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保人：</span><span class="fontStyle">{{VO.applicant.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险费：</span><span class="fontStyle">{{VO.premium}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>险种：</span><span class="fontStyle">{{VO.insurance}}</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset  ng-if="VO.compensationInfo.length!=0">
+            <legend>
+                赔偿限额
+            </legend>
+            <div class="col-md-12" >
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info">
+                            <th>累计赔偿限额</th>
+                            <th>每次事故赔偿限额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.compensationInfo">
+                            <td>{{item.allCompensation}}</td>
+                            <td>{{item.onceCompensation}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset   ng-if="VO.insured.length!=0">
+            <legend>
+                被保险人
+            </legend>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="info">
+                            <th>被保人</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.insured">
+                            <td>{{item.insurancedmanpk.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset ng-if="VO.dealAttachmentB.length!=0">
+            <legend>
+                附件
+            </legend>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">附件名称</th>
+                        <th class="center">上载时间</th>
+                        <th class="center">下载</th>
+                        <th class="center">在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealAttachmentB">
+                        <td>{{item.attachment_name}}</td>
+                        <td>{{item.cUpdate}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+
+</div>

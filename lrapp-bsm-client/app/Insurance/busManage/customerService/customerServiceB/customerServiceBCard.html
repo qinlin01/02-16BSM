@@ -1,0 +1,91 @@
+<form class="form-horizontal">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn lr-main-btn" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onCancel()" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onEdit()" ng-show="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onBack()" ng-show="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.pkCustomer}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p  style="font-size:20px">详细信息</p>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>流水号：</span><span class="fontStyle">{{VO.serialNo}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>客户编号：</span><span class="fontStyle">{{VO.pkCustomer.code}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>联系部门：</span><span class="fontStyle">{{VO.deptName}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>联系人：</span><span class="fontStyle">{{VO.contact}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>提交日期：</span><span class="fontStyle">{{VO.commitDate}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>提交地点：</span><span class="fontStyle">{{VO.commitAddres}}</span>
+                                </div>
+                    </div>
+                    <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <span>印刷数量：</span><span class="fontStyle">{{VO.printNum}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                                </div>
+                    </div>
+            <div class="col-md-12 card-grid">
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <h5>审批信息</h5>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <span>操作名称</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作人</span>
+                </div>
+                <div class="col-md-2">
+                    <span>执行结果</span>
+                </div>
+                <div class="col-md-2">
+                    <span>操作时间</span>
+                </div>
+                <div class="col-md-4">
+                    <span>备注</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

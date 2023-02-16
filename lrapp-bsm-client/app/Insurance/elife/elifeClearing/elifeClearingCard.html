@@ -1,0 +1,233 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <!--<button class="btn btn-azure" ng-click="onRecall()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--<i class="ti-check"></i>-->
+            <!--<span>撤回</span>-->
+            <!--</button>-->
+            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <!--            <button class="btn btn-azure" ng-click="onSendReceiveInfoAgain(VO)" ng-show="VO.payInformation.paystate == 11 || VO.payInformation.paystate == 12">-->
+            <!--                <i class="fa fa-undo"></i>-->
+            <!--                <span>向财务管控发起请求</span>-->
+            <!--            </button>-->
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.vbillno}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>结算编号：</span><span class="fontStyle">{{VO.vbillno}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>结算类型：</span><span class="fontStyle">{{VO.clearType | SELECT_MONEYTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应收保费：</span><span class="fontStyle">{{VO.sumReceivemount | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>解付保费：</span><span class="fontStyle">{{VO.sumPaymount | AMOUNT_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应收佣金：</span><span class="fontStyle">{{VO.sumReceivefeemount | AMOUNT_FILTER}}</span>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="VO.clearType != 1">
+                <div class="col-md-4">
+                    <span>实际往来对象：</span><span class="fontStyle">{{VO.pkFactActualcollection.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>银行卡号：</span><span class="fontStyle">{{VO.bankNumber}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>开户银行：</span><span class="fontStyle">{{VO.bankName}}</span>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="VO.clearType != 1">
+                <div class="col-md-4">
+                    <span>纳税人识别号：</span><span class="fontStyle">{{VO.taxpayersNumber}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>公司地址：</span><span class="fontStyle">{{VO.companyAddress}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>联系电话：</span><span class="fontStyle">{{VO.companyTel}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>发送财务管控是否成功：</span><span class="fontStyle">{{VO.sendReturnInfo.RSPCODE | SELECT_YESNONUM}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>发送财务管控返回消息：</span><span class="fontStyle">{{VO.sendReturnInfo.RSPMSG}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>支付状态：</span><span class="fontStyle">{{VO.payInformation.paystate | SELECT_PAYSTATETYPE}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12 card-grid" ng-if="false">
+                <div>
+                    <tabset justified="false" ng-if="VO.rechargeType == 1">
+                        <tab index="1" heading="银行流水信息" select="selectTab('actualaccountSelectGridOption')">
+                            <div ui-grid="actualaccountSelectGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid"></div>
+                        </tab>
+                    </tabset>
+                    <tabset justified="false">
+                        <tab index="1" heading="对账单信息" select="selectTab('insuranceBillGridOption')">
+                            <div ui-grid="insuranceBillGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid"></div>
+                        </tab>
+                    </tabset>
+                    <tabset justified="false">
+                        <tab index="1" heading="结算详情" select="selectTab('paymentGridOption')">
+                            <div ui-grid="paymentGridOption" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns class="grid"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive" ng-if="VO.rechargeType == 1">
+                <p style="font-size: 16px;color: #8e8e93">银行流水信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>银行流水信息编号</th>
+                        <th>对方账户</th>
+                        <th>对方账户名称</th>
+                        <th>收款账户</th>
+                        <th>收款账户名称</th>
+                        <th>贷方金额</th>
+                        <th>转入时间</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.clearingActualaccountList">
+                        <td>{{item.serialnumber}}</td>
+                        <td>{{item.reciprocalAccount}}</td>
+                        <td>{{item.reciprocalName}}</td>
+                        <td>{{item.transactionAccount}}</td>
+                        <td>{{item.transactionName}}</td>
+                        <td>{{item.lenderAmount | AMOUNT_FILTER}}</td>
+                        <td>{{item.transactionDate}}</td>
+                        <td>{{item.digest}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">对账单信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>对账单信息编号</th>
+                        <th>对账单名称</th>
+                        <th>结算总额（元）</th>
+                        <th>包含保单数</th>
+                        <th>支付方式</th>
+                        <th>上传日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.clearingInsuranceList">
+                        <td>{{item.insuranceinfono}}</td>
+                        <td>{{item.insuranceno}}</td>
+                        <td>{{item.amount | AMOUNT_FILTER}}</td>
+                        <td>{{item.insuranceNum}}</td>
+                        <td>{{item.rechargeType | SELECT_RECHARGETYPE}}</td>
+                        <td>{{item.uploadDate}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">结算详情</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>计划往来对象</th>
+                        <th>实际往来对象</th>
+                        <th>本次结算金额（元）</th>
+                        <th>结算日期</th>
+                        <th>消费流水记录数（条）</th>
+                        <th>包含保/批单数（份）</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.clearingPaymentList">
+                        <td>{{item.pkCompany.name}}</td>
+                        <td>{{item.pkFactCompany.name}}</td>
+                        <td>{{item.amount | AMOUNT_FILTER}}</td>
+                        <td>{{item.factDate}}</td>
+                        <td>{{item.sumRechargeRecord}}</td>
+                        <td>{{item.sumInsurance}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive" ng-if="VO.clearType == 2">
+                <p style="font-size: 16px;color: #8e8e93">结算明细</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>结算类型</th>
+                        <th>客户名称</th>
+                        <th>实际往来对象名称</th>
+                        <th>结算金额</th>
+                        <th>结算方式</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.paymoutList">
+                        <td>{{VO.clearType | SELECT_MONEYTYPE}}</td>
+                        <td>{{item.customer}}</td>
+                        <td>{{VO.pkFactActualcollection.name}}</td>
+                        <td>{{item.money}}</td>
+                        <td>{{item.rechargeType | SELECT_RECHARGETYPE}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

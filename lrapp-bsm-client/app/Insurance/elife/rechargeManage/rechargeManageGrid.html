@@ -1,0 +1,124 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">认款信息编号</label>
+                        <div class="col-md-252">
+                            <input class="form-control" type="text" placeholder=""
+                                   ng-model="QUERY['recharge_no']"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">充值流水号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['recharge_record0_0Ref_[0].rechargeNo']"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">充值金额</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['recharge_record0_0Ref_[0].rechargeMoney']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">SAP凭证状态</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['sap_customern_code']"
+                                        ng-options="item.id as item.name for item in SELECT.SAPTYPE">
+                                    <option value="">--请选择SAP凭证状态--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">交易账号名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['account_statement0_0Ref_[0].transaction_name.unitname']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">对方账户名称</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['account_statement0_0Ref_[0].reciprocal_name.name']"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单年度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['substr(create_time,1,4)0_0eq']"
+                                        ng-options="item.id as item.name for item in SELECT.BUSIYEAR">
+                                    <option value="">--请选择制单年度--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">制单月度</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="QUERY['substr(create_time,6,2)0_0eq']"
+                                        ng-options="item.id as item.name for item in SELECT.MONTH">
+                                    <option value="">--请选择制单月度--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                            <!--              不存库的按钮写在这里              -->
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

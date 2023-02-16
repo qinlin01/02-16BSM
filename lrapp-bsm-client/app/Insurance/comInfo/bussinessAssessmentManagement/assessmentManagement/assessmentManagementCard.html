@@ -1,0 +1,73 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isCard">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.assessmentCode}}</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="span-background-tg">{{VO.year}}年度</span>
+                </div>
+            </div>
+        </div>
+<!--        <div class="col-md-12 title">-->
+<!--            <p style="font-size:20px">标准值</p>-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>应收保费金额（万元）：</span><span class="fontStyle">{{VO.levelPremiums}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>应开票金额（万元）：</span><span class="fontStyle">{{VO.levelPlanMoney}}</span>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <span>实际开票金额（万元）：</span><span class="fontStyle">{{VO.levelFactMoney}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="col-md-12 title">
+            <p style="font-size:20px">合计</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>应收保费金额合计（万元）：</span><span class="fontStyle">{{VO.countPremiums}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>应开票金额合计（万元）：</span><span class="fontStyle">{{VO.countPlanMoney}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>实际开票金额合计（万元）：</span><span class="fontStyle">{{VO.countFactMoney}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">考核指标配置</p>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="info">
+                        <th class="center">业务单位名称</th>
+<!--                        <th class="center">部门名称</th>-->
+                        <th class="center">应收保费金额（万元）</th>
+                        <th class="center">应开票金额（万元）</th>
+                        <th class="center">实际开票金额（万元）</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.assessmentManagementBList">
+                        <td ng-show="item.deptName == null">{{item.orgName}}</td>
+                        <td ng-show="item.deptName != null">{{item.deptName}}</td>
+                        <td>{{item.premiums}}</td>
+                        <td>{{item.planMoney}}</td>
+                        <td>{{item.factMoney}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,430 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <!--            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="isForm&&(VO.billstatus==31||VO.billstatus==36)">-->
+            <!--                <i class="ti-save"></i>-->
+            <!--                <span>提交</span>-->
+            <!--            </button>-->
+            <!--            <button class="btn btn-azure" ng-click="onRecall()" ng-if="isForm&&(VO.billstatus==33||VO.billstatus==32)">-->
+            <!--                <i class="ti-check"></i>-->
+            <!--                <span>撤回</span>-->
+            <!--            </button>-->
+            <!--            <button class="btn btn-azure" ng-click="onLinkAuditFlow()" ng-if="isForm&&VO.billstatus!=null&&VO.billstatus!=37&&VO.billstatus!=''">-->
+            <!--                <i class="ti-share-alt"></i>-->
+            <!--                <span>查看流程图</span>-->
+            <!--            </button>-->
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4" ng-if="VO.agentCode != null && VO.agentCode != ''">
+                    <label class="col-md-5 control-label">执业人员信息编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="false" type="text" ng-model="VO.agentCode">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 lr-verify control-label">是否公司内部员工：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.ifInternal"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.ifInternal == 'Y'">
+                    <label class="col-md-5 lr-verify control-label">执业人员类型：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-verify ng-disabled="true" ng-model="VO.agentType"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.AGENTTYPE_Y">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.ifInternal == 'N'">
+                    <label class="col-md-5 lr-verify control-label">执业人员类型：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-verify ng-model="VO.agentType"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.AGENTTYPE_N">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">数据校验结果：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.dataCheck" maxlength="100">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">姓名：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.agentName" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label ">性别：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.gender"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.SEXTYPE">
+                            <option value="">-请选择性别-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 lr-verify control-label">职工状态：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-verify ng-model="VO.agentState"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.STAFFTYPE">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 lr-verify control-label">证件类型：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.certType"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.CERTCODETYPE">
+                            <option value="">-请选择证件类型-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 lr-verify control-label">证件号码：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.documentCode" maxlength="20">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                <!-- 2022-07-07 mx 手机号为必输项 -->
+                    <!-- 2022-09-16 手机号不为必输项 -->
+                    <label class="col-md-5  control-label">手机号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control"   type="text"  ng-model="VO.telephoneNo" maxlength="11">
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执业区域：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.responsibleArea" maxlength="100">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 lr-verify control-label">执业证名称：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.licensedName"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.ZYZTYPE">
+                            <option value="">-请选择执业证名称-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">执业证编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.licensedNo" maxlength="26">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">执业登记日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" wdate-picker ng-model="VO.licensedDate" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">执业登记状态：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.practiceRegistrationStatus"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.PRACTICE_REGISTRATION_STATUS">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">执业登记注销日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.licensedEndDate" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否独立个人保险代理人工商登记：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.personalAgentBusinessRegistration"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否独立个人保险代理人：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.personalAgent"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否允许互联网营销宣传：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.internetMarketingPublicity"
+                                required ng-verify
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">所属机构：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.Affiliation" maxlength="15">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务范围：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.businessScope">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">工号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" ng-model="VO.workNo" maxlength="15">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">入职日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify type="text" wdate-picker ng-model="VO.inTheDate" maxlength="10">
+                    </div>
+                </div>
+                <!--        在职非必填        -->
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">离职日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.outTheDate" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">用工合同类型：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.staffContractType" ng-disabled="staffContractTypeEdit"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.STAFFCONTRACTTYPE">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否隶属保险营销团队：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="VO.ifMarketingTeam"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                            </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否属于农村保险营销员：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-model="VO.ifRuralMarketingStaff"
+                                    required
+                                    ng-options="item.id as item.name for item in SELECT.YESNO">
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-4" ng-if="VO.ifInternal=='N' && VO.agentType != 3">
+                    <label class="col-md-5 control-label">是否兼职：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.ifPartTime"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.agentType == 2">
+                    <label class="col-md-5 control-label ">工作单位：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.workUnits" maxlength="30">
+                    </div>
+                </div>
+                <!--                <div class="col-md-4">-->
+                <!--                    <label class="col-md-5 control-label">推荐码：</label>-->
+                <!--                    <div class="col-md-7">-->
+                <!--                        <input class="form-control"  type="text" ng-model="VO.referralCode">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+            <div class="form-group" ng-if="VO.agentType == 2">
+
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">开户行：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.bankName" maxlength="50">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">银行卡号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" ng-model="VO.bankNumber" maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="VO.agentType == 2">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">协议生效日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.agreementStartDate" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">协议到期日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.agreementEndDate" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">是否注销：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-verify ng-model="VO.ifCancellation"
+                                required
+                                ng-options="item.id as item.name for item in SELECT.YESNO">
+                            <option value="">-请选择-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="VO.agentType == 2">
+        <fieldset>
+            <legend>经法合同信息</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('contractGridOptions')">增行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('contractGridOptions')">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="合同信息">
+                    <div ui-grid="contractGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+        <fieldset>
+            <legend>劳动合同</legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">合同生效日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.contStartDate">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">合同到期日期：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" wdate-picker ng-model="VO.contEndDate">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>奖惩记录</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('rewardPunishmentGridOptions')">增行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('rewardPunishmentGridOptions')">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="奖惩记录">
+                    <div ui-grid="rewardPunishmentGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+        <fieldset>
+            <legend>薪酬</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('compensationGridOptions')">增行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('compensationGridOptions')">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="薪酬">
+                    <div ui-grid="compensationGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+</form>

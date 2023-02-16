@@ -1,0 +1,207 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.CONTRACTNAME}}</h4>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否外部合同：</span><span class="fontStyle">{{VO.YNEXTERNALCONTRACT}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>ECP编号：</span><span class="fontStyle">{{VO.ECP}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>招标批次：</span><span class="fontStyle">{{VO.BIDDINGBATCH}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>合同编号：</span><span class="fontStyle">{{VO.CONTRACTNUMBER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>合同编号时间 ：</span><span class="fontStyle">{{VO.CNTIME|date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>订单编号 ：</span><span class="fontStyle">{{VO.ORDERID|JF_WORDS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>合同类型：</span><span class="fontStyle">{{VO.TYPEOFCONTRACT|JF_WORDS}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>合同名称：</span><span class="fontStyle">{{VO.CONTRACTNAME}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>合同份数：</span><span class="fontStyle">{{VO.CONTRACTCOPIES}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否采购合同：</span><span
+                        class="fontStyle">{{VO.YNPURAHASINGCONTRACT}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>采购方式：</span><span class="fontStyle">{{VO.PROCUREMENTMETHOD}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>金融合同类型：</span><span class="fontStyle">{{VO.BANKCNTTYPETR}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>合同金额：</span><span class="fontStyle">{{VO.AMOUNT}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>税率：</span><span class="fontStyle">{{VO.TAXRATE|RATIO_FILTER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>税额：</span><span class="fontStyle">{{VO.THEAMOUNTOFTAXTOBEPAID}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>资金流向：</span><span class="fontStyle">{{VO.MONEYFLOW}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>预算情况：</span><span class="fontStyle">{{VO.YNBUDGET}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>授权情况：</span><span class="fontStyle">{{VO.AUTHORIZE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>授权人：</span><span class="fontStyle">{{VO.DONOR}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>授权书编号：</span><span class="fontStyle">{{VO.AUTHORIZATIONNO}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>被授权人：</span><span class="fontStyle">{{VO.AUTHORIZEDPERSON}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>失效日期：</span><span class="fontStyle">{{VO.DATAOFINVALIDATION}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>需求单位 ：</span><span class="fontStyle">{{VO.DEMANDUNIT}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>承办单位：</span><span class="fontStyle">{{VO.ORGANIZER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>承办部门：</span><span class="fontStyle">{{VO.UNDERTAKINGDEPARTMENT}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>承办人：</span><span class="fontStyle">{{VO.UNDERTAKER}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>联系电话：</span><span class="fontStyle">{{VO.TEL}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>审批流程：</span><span class="fontStyle">{{VO.APPROVALPROCESS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>合同备注：</span><span class="fontStyle">{{VO.CONTRACTNOTES}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 table-responsive" style="margin-left: 15px">
+                <table class="table table-hover">
+                    <caption style="font-size: 16px">支付比例</caption>
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>款项性质</th>
+                        <th>支付比例（%）</th>
+                        <th>支付金额（元）</th>
+                        <th>计划支付日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(x, y) in VO.payment">
+                        <td>{{x+1}}</td>
+                        <td>{{y.type}}</td>
+                        <td>{{y.ratio|AMOUNT_FILTER}}</td>
+                        <td>{{y.payment|number:6}}</td>
+                        <td>{{y.paymentDate}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 table-responsive" style="margin-left: 15px">
+                <table class="table table-hover">
+                    <caption style="font-size: 16px">合同对方信息</caption>
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>合同对方</th>
+                        <th>是否收款方</th>
+                        <th>银行账号</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(x, y) in VO.counterpart">
+                        <td>{{x+1}}</td>
+                        <td>{{y.contractCounterpartInformation}}</td>
+                        <td>{{y.YNReceivingSide}}</td>
+                        <td>{{y.bankAccount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <p style="font-size: 16px;color: #8e8e93">附件<span ng-if="VO.dealAttachmentB.length==0">（空）</span>
+                        <button type="button" class="btn btn-wide btn-dark-blue" ng-click="onUpload()">
+                            上传附件<i class="fa fa-cloud-up"></i>
+                        </button>
+<!--                        <button type="button" ng-if="VO.dealAttachmentB.length!=0" class="btn btn-wide btn-dark-blue" ng-click="onDownLoads()">-->
+<!--                            批量下载<i class="fa fa-cloud-download"></i>-->
+<!--                        </button>-->
+                    </p>
+                    <table class="table table-bordered table-hover" ng-if="VO.dealAttachmentB.length!=0">
+                        <thead>
+                        <tr>
+                            <th>附件名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td>{{item.TEXT_NAME}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a style="color: #0095c8" href="#" ng-click="onDownLoadsCard(item.TEXT_URL)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载"><i
+                                            class="fa fa-download"></i></a>
+                                    <a style="color: #0095c8" ng-if="item.FLAG=='yeguan'" href="#" ng-click="onDeleteFile(item.TEXT_URL,item.ID)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="删除"><i
+                                            class="ti ti-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

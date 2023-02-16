@@ -1,0 +1,186 @@
+<!-- start: SEARCH FORM -->
+<nav ng-init="">
+    <!-- 搜索框注释掉 chenxc 2016/12/30 start -->
+    <div id="navtree_admin" add-grid-btn>
+    </div>
+    <ul class="main-navigation-menu">
+        <li ui-sref-active="active">
+            <a>
+                <div class="item-content" ng-click="clickMenu('','app.dashboard','首页')">
+                    <div class="item-media">
+                        <i class="ti-home"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 首页 </span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li ng-class="{'active open':$state.includes('app.corp')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-user"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 机构管理 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.corp.dept','部门信息')">
+                            <span class="title"> 部门信息 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li ng-class="{'active open':$state.includes('app.userManage')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-user"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 用户管理 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.userManage.user','用户管理')">
+                            <span class="title"> 用户管理 </span>
+                        </div>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.userManage.externalUser','外部用户管理')">
+                            <span class="title"> 外部用户管理 </span>
+                        </div>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.userManage.onlineUser','在线用户统计')">
+                            <span class="title"> 在线用户统计 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li ng-class="{'active open':$state.includes('app.rightManage')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-map"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 权限管理 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.rightManage.group','角色管理')">
+                            <span class="title"> 角色管理 </span>
+                        </div>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.rightManage.menu','节点管理')">
+                            <span class="title"> 节点管理 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li ng-class="{'active open':$state.includes('app.config')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-files"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 系统策略 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a>
+                        <div class="item-inner" style="height:30px" ng-click="clickMenu('','app.config.setting','策略配置')">
+                            <span class="title"> 策略配置 </span>
+                        </div>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.config.versionNumber">
+
+                        <div class="item-inner" style="height:30px">
+                            <span class="title"> 发版记录 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li ng-class="{'active open':$state.includes('app.systemManage.logManager')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-settings"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 系统审计日志 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.logManager.log">
+
+                        <div class="item-inner" style="height:30px">
+                            <span class="title"> 系统操作日志 </span>
+                        </div>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.logManager.logCount">
+
+                        <div class="item-inner" style="height:30px">
+                            <span class="title"> 日志统计 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li ng-class="{'active open':$state.includes('app.flowManger')}" style="margin: 2px 0px;">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-settings"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> 流程设置 </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.flowManger.flow">
+                        <div class="item-inner" style="height:45px">
+                            <span class="title"> 审批流配置 </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

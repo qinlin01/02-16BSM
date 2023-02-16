@@ -1,0 +1,5 @@
+<div ng-controller="trainPlanSummarizeCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanSummarize/trainPlanSummarizeGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanSummarize/trainPlanSummarizeCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanSummarize/trainPlanSummarizeForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

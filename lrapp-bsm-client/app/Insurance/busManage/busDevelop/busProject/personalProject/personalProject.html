@@ -1,0 +1,5 @@
+<div ng-controller="personalProjectCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalProject/personalProjectGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalProject/personalProjectCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/personalProject/personalProjectForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

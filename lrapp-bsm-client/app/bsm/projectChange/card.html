@@ -1,0 +1,29 @@
+<form class="form-horizontal bg-white" ng-if="isCard">
+    <div class="row text-right" add-card-btn>
+    </div>
+    <div class="main-div title">
+        <div class="title">
+            <div class="row">
+                <div class="col-md-4">
+                    <span>原项目名称：</span>{{VO.pkProjectApply.name}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="label {{VO.billstatus == 34?'label-success':VO.billstatus == 33?'label-warning':VO.billstatus == 37?'label-warning;':VO.billstatus == 36?'label-warning;':'label-default' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                    <span class="label label-success">{{VO.changeType | SELECT_CHANGE_TYPE}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span>项目调整事项及原因：</span>{{VO.changeContent}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="VO.changeType ==0">
+        <project-info data="VO.data" />
+    </div>
+</form>

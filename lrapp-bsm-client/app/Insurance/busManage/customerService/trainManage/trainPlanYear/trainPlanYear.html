@@ -1,0 +1,5 @@
+<div ng-controller="trainPlanYearCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanYear/trainPlanYearGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanYear/trainPlanYearCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/trainPlanYear/trainPlanYearForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

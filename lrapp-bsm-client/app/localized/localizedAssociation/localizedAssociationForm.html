@@ -1,0 +1,133 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave(VO)"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">项目信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label lr-verify">项目名称：</label>
+                        <div class="col-md-4">
+                            <input class="form-control" ng-verify ui-popup-ref="issueRef"
+                                   url="localizedPath + 'projectInformation/referTo'" ng-click="" popup-model="VO"
+                                   popup-model-field="'project_information'"
+                                   ng-model="VO.project_information.project_name" type="text" placeholder=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">客户名称：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" ng-verify type="text"
+                                   ng-model="VO.project_information.customer_name"  ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label lr-verify">投保险种：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" ng-verify type="text"
+                                   ng-model="VO.project_information.insurancetype.name"  ng-disabled="true">
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+
+        </accordion>
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label  lr-verify">主题：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="VO.associationName"ng-verify>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label  lr-verify">内容：</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control  "
+                                      ng-keyup="changeText()" maxlength="2000"
+                                      style="resize: none; width: 300%; height:400px;" ng-verify  type="text" rows="4"
+                                      ng-model="VO.associationText">
+                            </textarea>
+                            <span class="numLimit" style=" position: relative; color: #555556">{{VO.num}}/2000</span>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+        <accordion close-others="oneAtATime" class="">
+            <div class="form-group"style="margin-top: 50px">
+                <accordion-group class="lr-page-bg-gray" is-open="true">
+                    <accordion-heading class="lr-page-bg-white">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">附件信息</span>
+                        </div>
+                        <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                           ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" type="button"
+                                ng-click="onUploads();">上传
+                        </button>
+                        <button class="btn btn-sm btn-info" type="button"
+                                ng-click="onDeleteLine();">删除
+                        </button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="3" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid"
+                                 style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </accordion-group>
+            </div>
+        </accordion>
+
+
+    </div>
+</form>

@@ -1,0 +1,161 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onAudit()" ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-show="isBack">
+                <span>返回</span>
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>关于{{VO.nodeTreeName}}节点的{{VO.reviseType| SELECT_REVISETYPE}}申请</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>修改类型：</span><span class="fontStyle">{{VO.reviseType| SELECT_REVISETYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>节点名称：</span><span class="fontStyle">{{VO.nodeTreeName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>发起机构名称：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>部门名称：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>申请人 ：</span><span class="fontStyle">{{VO.pkOperator.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom: 30px;">
+                    <span>修改原因：</span><p word-break="keep-all" class="fontStyle" style="margin-left: 36px;color:#5B5B60"
+                                         ng-bind-html="VO.reasons"></p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom: 30px;">
+                    <span>修改内容：</span><p word-break="keep-all" class="fontStyle" style="margin-left: 36px;color:#5b5b60"
+                                         ng-bind-html="VO.changed"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <div class="panel-group accordion" id="accordion">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">修改数据列表</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>状态</th>
+                                    <th>录入人</th>
+                                    <th>录入日期</th>
+                                    <th>审核人</th>
+                                    <th>审核日期</th>
+                                    <th>功能</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in VO.reviseData">
+                                    <td>{{item.addNumber}}</td>
+                                    <td>{{item.billstatus|SELECT_BILLSTATUS}}</td>
+                                    <td>{{item.pkOperator_name}}</td>
+                                    <td>{{item.operateDate|date:"yyyy-MM-dd"}}</td>
+                                    <td>{{item.pkChecker_name}}</td>
+                                    <td>{{item.checkDate|date:"yyyy-MM-dd"}}</td>
+                                    <td>
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs" ng-if="userVO.code == 'yunwei'">
+                                            <button class="btn btn-azure" ng-click="onSpecialRevise('{{item.id}}')"  ng-if="VO.reviseType==1">
+                                                <i class="fa fa-save"></i>
+                                                <span>特殊修改</span>
+                                            </button>
+                                            <button id="{{itme.id}}" class="btn btn-azure" ng-click="onDiscardData()" ng-if="VO.reviseType==2&&VO.billstatus!=34">
+                                                <i class="fa fa-save"></i>
+                                                <span>数据作废</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">其他附件</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>附件名称</th>
+                                    <th>上载时间</th>
+                                    <th>下载</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in VO.dealAttachmentB">
+                                    <td>{{item.attachment_name}}</td>
+                                    <td>{{item.cUpdate}}</td>
+                                    <td>
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                               class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                    class="fa fa-download"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">修改列表</p>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>操作</th>
+                                    <th>表名</th>
+                                    <th>列名</th>
+                                    <th>原数据</th>
+                                    <th>新数据</th>
+                                    <th>新增/删除</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in changeData">
+                                    <td>{{item.actionCN}}</td>
+                                    <td>{{item.tableNameCN}}</td>
+                                    <td>{{item.columnCN}}</td>
+                                    <td>{{item.oldValue}}</td>
+                                    <td>{{item.newValue}}</td>
+                                    <td>{{item.nameCN}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div></div>
+            </div>
+        </div>
+    </div>
+</form>

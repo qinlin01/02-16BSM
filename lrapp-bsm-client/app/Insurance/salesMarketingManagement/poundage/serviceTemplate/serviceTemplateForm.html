@@ -1,0 +1,88 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="isForm">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="isForm">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isForm">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4" ng-if="VO.templateCode != null && VO.templateCode != ''">
+                    <label class="col-md-5 control-label lr-verify">手续费模板编号：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-disabled="isForm" type="text" ng-model="VO.templateCode">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">模板名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify ng-disabled="!isForm" type="text" ng-model="VO.templateName">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4"  >
+                    <label class="col-md-5 control-label lr-verify" style="margin-top: 20px ">适用单位：</label><br>
+                    <div class="well" style="width: 200%; padding: 50px 50px 50px 50px" >
+                        <div class="checkbox clip-check check-primary checkbox-inline" ng-repeat="org in orgRows">
+                            <input type="checkbox" id="{{org.pk}}" ng-model="pkBusiOrgBox[org.pk]" ng-value="org" ng-change="checkboxChoosed()">
+                            <label for="{{org.pk}}" ng-show="org.name!='新疆分公司'&&org.name!='广东分公司'&&org.name!='北京安恒信保险公估有限公司'&&org.name!='北京英大'&&org.name!='内蒙古分公司'">
+                                    {{org.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>手续费信息</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <p class="font-red-size">(温馨提示：手续费比例是对应含税佣金的比例)</p>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('serviceTemplateBGridOption')">增行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('serviceTemplateBGridOption')">减行</button>
+            </div>
+            <tabset justified="false">
+                <tab index="1" heading="手续费">
+                    <div ui-grid="serviceTemplateBGridOption" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                         ui-grid-resize-columns class="grid"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>附件</legend>
+            <div class="pull-right lr-mr10 lr-mt10">
+                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附件">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+</form>

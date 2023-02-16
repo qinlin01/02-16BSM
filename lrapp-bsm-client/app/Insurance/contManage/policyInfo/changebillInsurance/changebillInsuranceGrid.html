@@ -1,0 +1,116 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                            <i class="fa fa-ellipsis-h"></i>
+                            <span>高级查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onQuery();">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">全文检索</label>
+                        <div class="col-md-252">
+                            <input class="form-control" type="text" placeholder="请输入以空格隔开的关键字"
+                                   ng-model="QUERY['wideArea']"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">保单信息编号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['insuranceinfono']"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label">保单号</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="QUERY['insuranceno']"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                        </div>
+                    </div>
+
+                </accordion-heading>
+                <button class="btn btn-azure ng-scope" ng-click="saveChangeForHistory()" ng-disabled=""> <i class="fa fa-binoculars"></i>历史批单</button>
+
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',450,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <input type="file" id="inputFile"  accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none" onchange="angular.element(this).scope().onImportUploads(false)"/>
+    <div style="margin-top: 50px">
+        <tabset justified="false" ng-if="chilbTable">
+            <tab index="1" heading="保险险种信息" select="selectTab('insuranceinfoGridOptions')">
+                <div ui-grid="insuranceinfoGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="被保人信息" select="selectTab('insurancedmanGridOptions')">
+                <div ui-grid="insurancedmanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="3" heading="保险人信息" select="selectTab('insurancemanGridOptions')">
+                <div ui-grid="insurancemanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="4" heading="合作伙伴信息" select="selectTab('partnerGridOptions')">
+                <div ui-grid="partnerGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="5" heading="收付款信息" select="selectTab('paymentGridOptions')">
+                <div ui-grid="paymentGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="6" heading="附件" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="7" heading="暂保单" select="selectTab('provisionalPolicyGridOptions')">
+                <div ui-grid="provisionalPolicyGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+</div>

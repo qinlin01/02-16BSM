@@ -1,0 +1,167 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46||VO.billstatus==36||VO.billstatus==37)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onVisitHistory2()" ng-if="isCard">
+                <i class="ti-pencil-alt2"></i>
+                <span>回访次数记录</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onConfirm2()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isEdit&&(VO.billstatus==28||VO.billstatus==46)">
+                <i class="fa fa-undo"></i>
+                <span>确认完成</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>关于{{VO.pkCustomer.name}}的回访记录（{{VO.visitDate | date_cell_date}}）</h4>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span class="{{VO.billstatus == 34?'span-background-tg':VO.billstatus == 33?'span-background-shz':VO.billstatus == 37?'span-background-zc':VO.billstatus == 36?'span-background-bh':'' }}">{{VO.billstatus | SELECT_BILLSTATUS}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户回访编号：</span><span class="fontStyle">{{VO.serialNo}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>回访方式：</span><span class="fontStyle">{{VO.visitType | SELECT_VISITTYPE}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>是否计划内：</span><span class="fontStyle">{{VO.isPlanted | SELECT_YESNO}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>回访目的 业务洽谈：</span><span class="fontStyle">{{VO.visit1Purpose | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险安排：</span><span class="fontStyle">{{VO.visit2Purpose | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>协助索赔：</span><span class="fontStyle">{{VO.visit3Purpose | SELECT_YESNO}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>日常拜访：</span><span class="fontStyle">{{VO.visit4Purpose | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>节假日拜访：</span><span class="fontStyle">{{VO.visit5Purpose | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户编号：</span><span class="fontStyle">{{VO.pkCustomer.code}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户相关单位/部门：</span><span class="fontStyle">{{VO.visitClidept}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户联系人：</span><span class="fontStyle">{{VO.visitName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>职务：</span><span class="fontStyle">{{VO.respondentTitle}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>联系方式：</span><span class="fontStyle">{{VO.coninfor}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>回访实施日期：</span><span class="fontStyle">{{VO.visitDate | date_cell_date}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>回访地点：</span><span class="fontStyle">{{VO.visitAddress.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>客户类型：</span><span class="fontStyle">{{VO.customerType.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>业务部门：</span><span class="fontStyle">{{VO.pkDept.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>回访任务：</span><span class="fontStyle">{{VO.visitAssign}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <span>回访情况记录：</span><span class="fontStyle">{{VO.visitRecard}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>回访负责人：</span><span class="fontStyle">{{VO.charge}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>回访业务员：</span><span class="fontStyle">{{VO.executor}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 title">
+                <span>客户反馈问题</span>
+                <div class="col-md-12">
+                    <span>  业务需求：</span><span class="fontStyle">{{VO.busiements}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>  服务提升：</span><span class="fontStyle">{{VO.serviceImpr}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>  意见建议：</span><span class="fontStyle">{{VO.opinionSugges}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>    其他：</span><span class="fontStyle">{{VO.other}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="1" heading="回访执行人信息" select="selectTab('visitPersonGridOptions')">
+                            <div ui-grid="visitPersonGridOptions" ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="2" heading="客户信息" select="selectTab('visitClientGridOptions')">
+                            <div ui-grid="visitClientGridOptions" ui-grid-cellnav ui-grid-selection class="grid" style="height: 200px"></div>
+                        </tab>
+                        <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

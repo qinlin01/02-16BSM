@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="/insurance/css/public.css">
+<div class="print-font">
+    <accordion>
+        <accordion-group is-open="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <span style="font-size: 18px; font-weight: bolder">打印预览</span>
+                </div>
+            </accordion-heading>
+            <div id="printMonReport">
+                <div id="head" class="print-font" style=" font-weight: bolder;">
+                    <h3 class="print-center" style=" font-weight: bolder;">立项可行性报告</h3>
+                    <span class="print-span">立项编号：{{rows[0].cprocode}}</span>
+                    <span class="print-span-left">填报单位（盖章）</span>
+                </div>
+                <div class="print-table">
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-table-th" style="width: 20%; font-weight: bolder;height: 120px;text-align: center;border-bottom: none">客户情况</div>
+                                    <div class="print-table-th" style="width: 80%;margin:0px;padding:0px;border-bottom: none">
+                                        <div class="print-table-tr-test" style="margin:0px;padding:0px;border-right: none">
+                                            <div class="print-table-td-test" style="margin:0px;padding:0px;border-right: none;height: 30px">
+                                                <div class="print-sub-table-tr-test" style="margin:0px;padding:0px;border-right: none">
+                                                    <div class="print-sub-table-td-test" style="width: 100%!important; margin:0px;padding:0px;border:none;" >客户名称：{{rows[0].cinsureman.name}}</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="print-table-tr" >
+                                            <div class="print-table-td" style="height: 90px">
+                                                <div class="print-sub-table-tr">
+                                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 90px;text-align: center">客户简介</div>
+                                                    <div class="print-content" style="width: 80%;height: 90px" ng-bind-html="rows[0].customerMemo | TEXTAREA"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-table-th" style="width: 20%; font-weight: bolder;height: 120px;text-align: center">项目情况</div>
+                                    <div class="print-table-th" style="width: 80%;margin:0px;padding:0px;">
+                                        <div class="print-table-tr-test" style="margin:0px;padding:0px;border-right: none">
+                                            <div class="print-table-td-test" style="margin:0px;padding:0px;border-right: none;height: 30px">
+                                                <div class="print-sub-table-tr-test" style="margin:0px;padding:0px;border-right: none">
+                                                    <div class="print-sub-table-td-test" style="width: 100%!important; margin:0px;padding:0px;border:none;">项目名称：{{rows[0].cproname}}</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="print-table-tr" >
+                                            <div class="print-table-td" style="height: 90px">
+                                                <div class="print-sub-table-tr">
+                                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 90px;text-align: center">项目简介</div>
+                                                    <div class="print-content" style="width: 80%;height: 90px" ng-bind-html="rows[0].assess | TEXTAREA"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 90px;text-align: center">客户意向及需求</div>
+                                    <div class="print-content" style="width: 80%;height: 90px" ng-bind-html="rows[0].customerDemand | TEXTAREA"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 90px;text-align: center">投标业务需总部配合准备资料</div>
+                                    <div class="print-content" style="width: 80%;height: 90px" ng-bind-html="rows[0].tenderInformation | TEXTAREA"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 70px;text-align: center">提供服务的内容</div>
+                                    <div class="print-content" style="width: 80%;height: 70px" ng-bind-html="rows[0].serveContentType | TEXTAREA"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="print-table-tr">
+                            <div class="print-table-td">
+                                <div class="print-sub-table">
+                                    <div class="print-sub-table-tr">
+                                        <div class="print-sub-table-td" style="width: 20%; font-weight: bolder;height: 50px;text-align: center">预计业务开发成功时间</div>
+                                        <div class="print-sub-table-td" style="width: 80%;height: 50px">{{rows[0].planSucceedDate|date:'yyyy-MM-dd'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="print-table-tr">
+                        <div class="print-table-td">
+                            <div class="print-sub-table">
+                                <div class="print-sub-table-tr">
+                                    <div class="print-sub-table-td" style="width: 20%;  font-weight: bolder;height: 50px;text-align: center">预计业务收入</div>
+                                    <div class="print-sub-table-td" style="width: 80%;height: 50px">人民币  {{rows[0].festimateincome}} 元</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="foot" style="text-align: center;" >
+                <button ng-click="print()"  class="btn btn-sm lr-sub-btn" >
+                    <span style="font-size: 15px;">打印</span>
+                </button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+
+</div>

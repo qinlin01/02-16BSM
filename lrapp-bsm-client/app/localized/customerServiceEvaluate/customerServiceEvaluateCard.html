@@ -1,0 +1,84 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <h4>{{VO.pkProject.project_name}}</h4>
+        </div>
+        <div class="col-md-12 title">
+            <span class="lr-page-color" style="font-size:14px">基本信息</span>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>项目名称：</span><span class="fontStyle">{{VO.pkProject.project_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>客户名称：</span><span class="fontStyle">{{VO.pkProject.customer_name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>投保险种：</span><span class="fontStyle">{{VO.pkProject.insurancetype.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>保单号：</span><span class="fontStyle">{{VO.pkProject.insurance_no}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>保险人：</span><span class="fontStyle">{{VO.pkProject.insurance_people}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>报告年度：</span><span class="fontStyle">{{VO.evaluateYear}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>报告日期：</span><span class="fontStyle">{{VO.evaluateTime  | date_cell_date}}</span>
+                </div>
+                <div class="col-md-12">
+                    <span>单据状态：</span><span
+                        class="fontStyle">{{VO.billstatus | SELECT_LOCALIZEDBILLSTATUS}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                    <div class="table-responsive">
+                        <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">附件</p>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>附件类型</th>
+                                <th>附件名称</th>
+                                <th>上载时间</th>
+                                <th>下载</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in VO.dealAttachmentB">
+                                <td>{{item.file_type}}</td>
+                                <td>{{item.attachment_name}}</td>
+                                <td>{{item.cUpdate}}</td>
+                                <td>
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                           class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                                class="fa fa-download"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

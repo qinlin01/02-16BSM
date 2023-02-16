@@ -1,0 +1,170 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure"  type="button" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div>
+            <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                        <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label  lr-verify">模板名称：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-verify="{ max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.name">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">模板编号：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-verify="{ required: false,max:128}"  ng-disabled="isDisabled" type="text" ng-model="VO.code">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">所在目录：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="true"
+                                           ng-model="VO.pk_documentitem.name" type="text" placeholder="">
+                                </div>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">模板关键字：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-verify="{ required: false,max:128}" ng-disabled="isDisabled" type="text" ng-model="VO.keyword">
+                                </div>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                                 <!--   <div class="col-md-4">
+                                        <label class="col-md-5 control-label">模板摘要：</label>
+                                        <div class="col-md-7">
+                                            <textarea class="form-control" style="resize:none"  ng-disabled="isDisabled" type="text" ng-model="VO.summary"></textarea>
+                                        </div>
+                                    </div>-->
+
+                            <div class="col-md-12">
+                                <label class="col-md-255 control-label">模板摘要：</label>
+                                <div class="col-md-254">
+                                    <div simditor toolbar="[]" type="text"  ng-model="VO.summary" ng-disabled="isDisabled" ></div>
+                                </div>
+                            </div>
+                        </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div>
+        <div class="pull-right lr-mr10 lr-mt10">
+
+            <button class="btn btn-sm btn-info"
+                    ng-click="onUploads();" ng-show="isEdit">上传</button>
+            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine()">减行</button>
+            <button class="btn btn-sm btn-info"
+                    ng-click="onDownLoads();" ng-show="isEdit">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+    <accordion-group is-open="false" class="lr-page-bg-gray">
+        <accordion-heading class="lr-page-bg-white">
+            <div class="btn lr-page-bg-indigo">
+                <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+            </div>
+            <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+                <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">单据状态：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.billstatus}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">经办人：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.pk_operator.name}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">业务单位：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.pkOrg.name}}
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">制单日期：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.operate_date}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">复核人：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.pkChecker}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">复核日期：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.checkDate}}
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">复核时间：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.checkTime}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">复核意见：</label>
+                            <div class="col-md-7 div-cao-zuo">
+                                {{VO.vapproveNote}}
+                            </div>
+                        </div>
+                </div>
+    </accordion-group>
+    </accordion>
+</form>

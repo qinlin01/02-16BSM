@@ -1,0 +1,123 @@
+<div class="form-horizontal">
+    <accordion>
+        <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen()">
+                    <i class="fa fa-search lr-page-color" ></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+                <div class="form-group pull-right">
+                    <button class="btn lr-main-btn" ng-click="queryTotal = !queryTotal">
+                        <i class="fa fa-ellipsis-h"></i>
+                        <span>高级查询</span>
+                    </button>
+                    <div class="btn-group">
+                        <button class="btn lr-main-btn" ng-click="onSearch()">
+                            <i class="fa fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                        <button class="btn lr-main-btn" ng-click="onReset();">
+                            <i class="fa fa-undo"></i>
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </accordion-heading>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-253 control-label">全文检索</label>
+                        <div class="col-md-252">
+                            <input class="form-control" type="text" placeholder="请输入以空格隔开的关键字" ng-model="search.wideArea"/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="queryTotal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">营销计划月度：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" style="margin-left: 8px;" type="text" data-ng-model="search.record_month">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">营销计划年度：</label>
+                        <div class="col-md-8">
+                            <input class="form-control" style="margin-left: 8px;" type="text" data-ng-model="search.record_year">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-4 control-label">单据状态</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="QUERY['billstatus']"
+                                    ng-options="item.id as item.name for item in SELECT.TRAINBILLSTATUSTYPE">
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-4">-->
+                        <!--<label class="col-md-4 control-label">单据状态：</label>-->
+                        <!--<div class="col-md-8">-->
+                            <!--<select class="form-control" ng-model="search.billstatus">-->
+                                <!--<option value="">-请选择-</option>-->
+                                <!--<option value="0">未提交</option>-->
+                                <!--<option value="1">已复核</option>-->
+                                <!--<option value="2">复核未通过</option>-->
+                                <!--<option value="40">提交待复核</option>-->
+                                <!--<option value="46">退回修改</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                            <div class="btn-group lr-grid-btn-right" add-grid-btn>
+
+                                <!--<button class="btn btn-azure" type="button" ng-click="onEdit()" ng-if="btn.btnUpdate">-->
+                                    <!--<i class="fa fa-edit"></i>-->
+                                    <!--修改-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-azure" type="button" ng-click="onDelete()">-->
+                                    <!--<i class="fa fa-remove"></i>-->
+                                    <!--删除-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-azure" type="button" ng-click="onChangeStatus(40)" ng-if="btn.btnSubmit">-->
+                                    <!--<i class="ti-save"></i>-->
+                                    <!--提交-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-azure" type="button" ng-click="onChangeStatus(1)" ng-if="btn.btnCheck">-->
+                                    <!--<i class="ti-check"></i>-->
+                                    <!--复核-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-azure" type="button" ng-click="onChangeStatus(2)" ng-if="btn.btnCheckno">-->
+                                    <!--<i class="fa fa-remove"></i>-->
+                                    <!--复核不通过-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-azure" type="button" ng-click="onChangeStatus(46)" ng-if="btn.btnBack">-->
+                                    <!--<i class="fa fa-remove"></i>-->
+                                    <!--退回修改-->
+                                <!--</button>-->
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui-grid-resize-columns
+                         ui-grid-selection ui-grid-pinning class="grid" style="min-height: 100%"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

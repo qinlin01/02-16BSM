@@ -1,0 +1,307 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit||isUpdate">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onSubmit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36)">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onAudit()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>审核</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onRecall()"
+                    ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                <i class="ti-check"></i>
+                <span>撤回</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onLinkAuditFlow()" ng-if="!isEdit">
+                <i class="ti-share-alt"></i>
+                <span>查看流程图</span>
+            </button>
+            <button type="button" class="btn btn-azure" type="button" ng-click="onEdit()"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46)">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure ng-scope" ng-click="onAdd()" ng-disabled="null"
+                    ng-if="!isEdit&&(VO.billstatus==31||VO.billstatus==36||VO.billstatus==37||VO.billstatus==46||VO.billstatus==32)">
+                <i class="fa fa-plus"></i>增加
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onBack()" type="button" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button type="button" class="btn btn-azure" ng-click="onTemporary()" type="button"
+                    ng-show="!isGrid&&isEdit&&!isUploadAnytime">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">批单对账单信息编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true" type="text" ng-model="VO.endorsementsCode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">对账单建立部门：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true"
+                           ng-model="VO.pkDept.name" type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">对账单建立公司：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="true"
+                           ng-model="VO.pkOrg.name" type="text">
+                </div>
+            </div>
+        </div>
+
+        <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">批单类型：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="isDisabled" ng-model="VO.endorsementsType" ng-verify>
+                                <option ng-value="">--请选择批单类型--</option>
+                                <option ng-value="1">保险公司批单</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">保单对账单：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-verify ng-disabled="isDisabled" ui-popup-ref="fictitiousInsuranceRef"
+                                   url="'webInsurance/fictitiousInsuranceRef '" ng-click="" popup-model="VO"
+                                   popup-model-field="'pkFictitiousInsurance'"
+                                   ng-model="VO.pkFictitiousInsurance.name" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label lr-verify">互联网产品类别：</label>
+                        <div class="col-md-7">
+                            <select class="form-control" ng-disabled="true" ng-model="VO.fictitiousBusinessType"
+                                    required ng-verify
+                                    ng-options="item.id as item.name for item in SELECT.PRODUCTTYPE">
+                                <option value="">--请选择业务类型--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保单件数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.insuranceNum">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">具体原因：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" ng-disabled="isDisabled" type="text" maxlength="1000" rows="5" ng-model="VO.endorsementsReason"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="col-md-255 control-label">备注：</label>
+                        <div class="col-md-254">
+                            <textarea class="form-control" style="resize:none" ng-disabled="isDisabled" type="text" maxlength="1000" rows="5" ng-model="VO.remark"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span class="lr-page-color">关联单据</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <nav id="cl-effect-17" class="links cl-effect-17">
+                    <span>识别到Excel中的批单：<b style="font-size: 15px;padding: 0 10px 0 10px">{{VO.allDataNum}}</b>条数据</span>
+                    <span style="margin-left: 50px">完全匹配：<b style="font-size: 15px;padding: 0 5px 0 5px">{{VO.existDataNum}}</b>条数据</span>
+                    <span style="margin-left: 50px">未查询到：<b style="font-size: 15px;padding: 0 5px 0 5px">{{VO.nonentityDataNum}}</b>条数据</span>
+                    <a ng-click="onDetail()">
+                        点击查看详细信息
+                    </a>
+                    <div class="btn-group" role="group" ng-show="!isDisabled">
+                        <span class="btn btn-azure btn-o btn-file"> 上传
+							<input type="file" nv-file-select="" uploader="uploader" filters="customFilter" multiple/>
+						</span>
+                        <button type="button" class="btn btn-azure" ng-click="onResetDetail()">重置</button>
+                    </div>
+                </nav>
+            </accordion-group>
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-cny" aria-hidden="true"></i>
+                        <span class="lr-page-color">金额信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">保险金额/赔偿限额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text"
+                                   ng-model="VO.insurancetotalmoney" format-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label" id="receiveperiod_lab">应收保费总期数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" id="receiveperiod" ng-disabled="true"
+                                   ng-verify="{ required: false,max:3}" type="text" ng-model="VO.receiveperiod">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">应收保费总额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.receivemount"
+                                   format-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label" id="payperiod_lab">应解付保费总期数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" id="payperiod" ng-verify="{ required: false,max:3}"
+                                   ng-disabled="true" type="text" ng-model="VO.payperiod">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">应解付总额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.paymount"
+                                   format-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">应收佣金总期数：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="number"
+                                   ng-model="VO.receivefeeperiod">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">应收佣金总额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.receivefeemount"
+                                   format-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="VO.fictitiousBusinessType=='tra'">
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">线上金额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" format-number
+                                   ng-model="VO.onlinePartyAmount">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-5 control-label">线下金额(元)：</label>
+                        <div class="col-md-7">
+                            <input class="form-control" ng-disabled="true" type="text" ng-model="VO.offlinePaymentAmount"
+                                   format-number>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+
+    </div>
+    <div style="margin-top: 5px">
+        <div class="pull-right lr-mr10 lr-mt10">
+            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-if="upOrDown">下载</button>
+        </div>
+        <tabset justified="false">
+            <tab index="1" heading="收付款信息">
+                <div ui-grid="paymentGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 200px"></div>
+            </tab>
+            <tab index="2" heading="附件">
+                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <accordion class="" close-others="oneAtATime">
+        <accordion-group is-open="false" class="lr-page-bg-gray">
+            <accordion-heading class="lr-page-bg-white">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color" ng-bind="getDisName('操作信息','')"></span>
+                </div>
+                <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">单据状态：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.billstatus | SELECT_BILLSTATUS}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">经办人：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOperator.name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">制单日期：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.createTime | date_cell_date}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label">业务单位：</label>
+                    <div class="col-md-7 div-cao-zuo">
+                        {{VO.pkOrg.name}}
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</form>
