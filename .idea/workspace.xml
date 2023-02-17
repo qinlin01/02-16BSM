@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48ee78c9-07e3-4385-aa80-a70e0c62c427" name="变更" comment="开始修改陆游">
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsurance.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/ems.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyse.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyseCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyseGrid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.jshintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/karma.conf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQueryCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQueryCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQueryGrid.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQueryGrid.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsuranceCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/nav_admin.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +23,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/lrapp-bsm-client/app/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lrapp-bsm-client/app/main.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lrapp-bsm-client/app/server.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -85,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1676532266589</updated>
       <workItem from="1676532268559" duration="10260000" />
-      <workItem from="1676596170611" duration="25310000" />
+      <workItem from="1676596170611" duration="27101000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaaaaaaaaaaaaaaaaaa">
       <created>1676532291099</created>
@@ -115,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676620734389</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="开始修改陆游">
+      <created>1676632250526</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676632250526</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
