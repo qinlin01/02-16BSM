@@ -1,0 +1,60 @@
+<form class="lr-no-padding-12 form-horizontal" style="height: 400px;background: #fff !important;">
+    <div class="col-md-5 form-group">
+        <label class="control-label col-md-5">
+            {{formData.projectName}}：
+            <input ui-input type="checkbox" ng-disabled="true" ng-model="formData.projectStatus">
+        </label>
+        <div class="col-md-7">
+            <input ui-input class="form-control" type="number" ng-disabled="true"
+                   ng-model="formData.projectOrder">
+        </div>
+    </div>
+    <div class="col-md-5 form-group">
+        <label class="control-label col-md-5">
+            {{formData.contractName}}：
+            <input ui-input type="checkbox" ng-disabled="true" ng-model="formData.contractStatus">
+        </label>
+        <div class="col-md-7">
+            <input ui-input class="form-control" type="number" ng-disabled="true"
+                   ng-model="formData.contractOrder">
+        </div>
+    </div>
+    <div class="col-md-5 form-group">
+        <label class="control-label col-md-5">
+            {{formData.paymentName}}：
+            <input ui-input type="checkbox" data-ng-change="changePaymentStatus();"
+                   ng-disabled="isDisabled"
+                   ng-model="formData.paymentStatus">
+        </label>
+        <div class="col-md-7">
+            <input ui-input class="form-control" type="number"
+                   ng-disabled="!formData.paymentStatus || isDisabled"
+                   ng-model="formData.paymentOrder">
+        </div>
+    </div>
+    <div class="col-md-5 form-group">
+        <label class="control-label col-md-5">
+            {{formData.gatherName}}：
+            <input ui-input type="checkbox" data-ng-change="changeGatherStatus();"
+                   ng-disabled="isDisabled"
+                   ng-model="formData.gatherStatus">
+        </label>
+        <div class="col-md-7">
+            <input ui-input class="form-control" type="number"
+                   ng-disabled="!formData.gatherStatus || isDisabled"
+                   ng-model="formData.gatherOrder">
+        </div>
+    </div>
+    <div class="col-md-5 form-group">
+        <label class="control-label col-md-5">
+            {{formData.rentName}}：
+            <input ui-input type="checkbox" data-ng-change="changeRentStatus();" ng-disabled="isDisabled"
+                   ng-model="formData.rentStatus">
+        </label>
+        <div class="col-md-7">
+            <input ui-input class="form-control" type="number"
+                   ng-disabled="!formData.rentStatus || isDisabled"
+                   ng-model="formData.rentOrder">
+        </div>
+    </div>
+</form>

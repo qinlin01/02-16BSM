@@ -1,0 +1,52 @@
+<div class="lr-container-fluid bg-white">
+    <div ng-controller="mainShowTopMessageCtrl">
+        <!--class="row"-->
+
+        <div class="lr-main-top-col" ng-class="{'lr-marquee-div': !!messages.length}">
+            <!--<div class="lr-content-col" ng-controller="mainToDoManagementCtrl">-->
+            <!--<div class="main-grid-style lr-content-height"-->
+            <!--data-ng-include="getURL('factoring/view/mainView/toDoManagement/toDoManagement.html')"></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="lr-main-col">-->
+            <!--<div class="lr-content-col" ng-controller="mainTradeRemindingCtrl">-->
+            <!--<div class="main-grid-style lr-content-height"-->
+            <!--data-ng-include="getURL('factoring/view/mainView/tradeReminding/tradeReminding.html')"></div>-->
+
+            <div>
+                <div style="animation:move 35s linear infinite; -webkit-animation:move 35s linear infinite;">
+                    <ul ng-repeat="message in messages">
+                        <div class="lr-marquee-infor lr-red-wen16">{{message.content}}</div>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row lr-main-row-padding">
+        <div class="lr-main-col" style="width: 100% !important;">
+            <div class="lr-content-col" ng-controller="mainBusStatisticsCtrl">
+                <div class="lr-content-height"
+                     data-ng-include="getURL('insurance/view/mainView/businessStatistics/businessStatistics.html')"></div>
+            </div>
+        </div>
+    </div>
+
+<!--    <div class="row lr-main-row-padding" ng-controller="mainStatisticalChartCtrl">
+        <div class="lr-main-col">
+            <div class="lr-content-col">
+                <div class="main-grid-style"
+                     ng-class="{'lr-echart-height-left': !app.layout.isUseLeftNav,'lr-echart-height-top': app.layout.isUseLeftNav}"
+                     data-ng-include="getURL('insurance/view/mainView/statisticalChart/receivableStatisBar.html')"></div>
+            </div>
+        </div>
+        <div class="lr-main-col">
+            <div class="lr-content-col">
+                <div class="main-grid-style"
+                     ng-class="{'lr-echart-height-left': !app.layout.isUseLeftNav,'lr-echart-height-top': app.layout.isUseLeftNav}"
+                     data-ng-include="getURL('insurance/view/mainView/statisticalChart/overdueStatisPie.html')"></div>
+            </div>
+        </div>
+    </div>-->
+</div>

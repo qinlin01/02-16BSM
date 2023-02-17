@@ -1,0 +1,5 @@
+<div ng-controller="consultApprovalCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/consultApproval/consultApprovalGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/consultApproval/consultApprovalCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/consultApproval/consultApprovalForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

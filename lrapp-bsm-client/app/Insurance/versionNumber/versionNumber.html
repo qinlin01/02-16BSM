@@ -1,0 +1,5 @@
+<div ng-controller="versionNumberCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/view/versionNumber/versionNumberGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/versionNumber/versionNumberCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/view/versionNumber/versionNumberForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

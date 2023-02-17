@@ -5,28 +5,29 @@
 	<div class="sidebar app-aside hidden-print" id="sidebar" toggleable parent-active-class="app-slide-off" >
 		<div style="float: left; width: 98%;">
 			<div perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" class="sidebar-container">
-				<div ng-show="!isAdmin" data-ng-include=" 'nav/nav.html' "></div>
-				<div ng-show="isAdmin" data-ng-include=" 'nav/nav_admin.html' "></div>
+				<div ng-show="!isAdmin" data-ng-include=" './nav.html' "></div>
+				<div ng-show="isAdmin" data-ng-include=" './nav_admin.html' "></div>
 			</div>
 		</div>
 		<div style="float: right; width: 2%; padding-top: 270px;">
 				<a ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed"><img src="img/Switch.png" style="float: right;width: 7px" ></a>
 		</div>
 	</div>
+
 <!-- / sidebar -->
 <div class="app-content" ng-class="{loading: loading}">
 	<!-- top navbar -->
-	<header data-ng-include=" 'nav/top-navbar.html' " class="navbar navbar-default navbar-static-top hidden-print"></header>
+	<header data-ng-include=" '../insurance/app/partials/top-navbar.html' " class="navbar navbar-default navbar-static-top hidden-print"></header>
 	<!-- / top navbar -->
 	<!-- main content -->
-	<div data-ng-include=" 'nav/main-content.html' " class="main-content" ></div>
+	<div data-ng-include=" '../insurance/app/partials/main-content.html' " class="main-content" ></div>
 	<!-- / main content -->
 </div>
 <!-- footer -->
 <!-- 界面下方footer注释掉 chenxc 2016/12/30 start -->
-<!--<footer data-ng-include=" '../footer.html' " class="hidden-print"></footer>-->
+<!--<footer data-ng-include=" '../insurance/app/partials/footer.html' " class="hidden-print"></footer>-->
 <!-- 界面下方footer注释掉 chenxc 2016/12/30 end -->
 <!-- / footer -->
-<div data-ng-include=" 'nav/off-sidebar.html' " id="off-sidebar" class="sidebar hidden-print" toggleable parent-active-class="app-offsidebar-open"></div>
-<!--<div data-ng-include=" '../settings.html' " toggleable class="settings panel panel-default hidden-xs hidden-sm hidden-print" id="settings"></div>-->
+<div data-ng-include=" '../insurance/app/partials/off-sidebar.html' " id="off-sidebar" class="sidebar hidden-print" toggleable parent-active-class="app-offsidebar-open"></div>
+<!--<div data-ng-include=" '../insurance/app/partials/settings.html' " toggleable class="settings panel panel-default hidden-xs hidden-sm hidden-print" id="settings"></div>-->
 <!--<div data-ng-include=" '../app/assets/views/partials/settings.html' " toggleable class="settings panel panel-default hidden-xs hidden-sm hidden-print" id="settings"></div>-->

@@ -1,0 +1,232 @@
+<!--<div class="main-form-style">-->
+<!--<div style="background: #fff; padding: 10px;">-->
+<!--<div class="col-md-12 lr-text-center">-->
+
+<!--<table class="table-bordered lr-main-table-left">-->
+<!--<thead>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--<th class="col-md-4 th-bottom-black th-right-black lr-text-center" >项目</th>-->
+<!--<th class="col-md-4 th-bottom-black th-right-black lr-text-center" >合同</th>-->
+<!--<th class="col-md-4 th-bottom-black th-right-black lr-text-center" >投放</th>-->
+<!--</tr>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--<td class="th-bottom-black" >1</td>-->
+<!--<td class="th-bottom-black" >2</td>-->
+<!--<td class="th-bottom-black" >3</td>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+
+<!--<tr >-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--</tr>-->
+<!--<tr >-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--<td style="white-space: nowrap;height: 36px;">1</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+
+<!--<table class="table-bordered lr-main-table">-->
+<!--<thead>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--&lt;!&ndash;<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">项目</th>&ndash;&gt;-->
+<!--<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">合同</th>-->
+<!--&lt;!&ndash;<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">投放</th>&ndash;&gt;-->
+<!--</tr>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--&lt;!&ndash;<td class="th-bottom-black" ng-repeat="pro in proHead">{{pro.displayName}}</td>&ndash;&gt;-->
+<!--<td class="th-bottom-black" ng-repeat="cont in conHead">{{cont.displayName}}</td>-->
+<!--&lt;!&ndash;<td class="th-bottom-black" ng-repeat="pro in proHead">{{pro.displayName}}</td>&ndash;&gt;-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody ng-repeat="row in data">-->
+
+<!--<tr ng-repeat="contRow in row.contData">-->
+<!--<td style="white-space: nowrap;height: 36px;"-->
+<!--ng-style="{'color':contRow.colorC}"-->
+<!--ng-repeat="cont in conHead">-->
+<!--{{contRow[cont.name]}}-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+<!--<table class="table-bordered lr-main-table-right">-->
+<!--<thead>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--&lt;!&ndash;<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">项目</th>&ndash;&gt;-->
+<!--&lt;!&ndash;<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">合同</th>&ndash;&gt;-->
+<!--<th class="col-md-4 th-bottom-black th-right-black lr-text-center" colspan="3">投放</th>-->
+<!--</tr>-->
+<!--<tr class="lr-voucher-htr">-->
+<!--&lt;!&ndash;<td class="th-bottom-black" ng-repeat="pro in proHead">{{pro.displayName}}</td>&ndash;&gt;-->
+<!--<td class="th-bottom-black" ng-repeat="process in processHead">{{process.displayName}}</td>-->
+<!--&lt;!&ndash;<td class="th-bottom-black" ng-repeat="pro in proHead">{{pro.displayName}}</td>&ndash;&gt;-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody ng-repeat="row in data">-->
+
+<!--<tr ng-repeat="processRow in row.processData">-->
+<!--<td style="white-space: nowrap;height: 36px;"-->
+<!--ng-style="{'color':processRow.colorS}"-->
+<!--ng-repeat="process in processHead">-->
+<!--{{processRow[process.name]}}-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--<div style="clear: both"></div>-->
+<!--</div>-->
+
+<!--自定义的页面宽度比例-->
+<!--line：6.66666666955%-->
+<!--块内容：20%-->
+
+<div class="main-form-style">
+    <div class="col-md-12 lr-text-center lr-form-bg-style">
+        <div class="col-md-12">
+            <div class="col-md-12 lr-div-font">
+                <div class="lr-no-padding-4 lr-margin-bottom-10 lr-margin-top-10 lr-div-height">
+                    <div class="lr-no-padding-content lr-div-height" style="background-color: #9F0318">
+                        <div class="lr-text-center lr-no-padding-12" style="margin-top: 25px;">
+                            <h3><i class="fa fa-tasks lr-page-color" aria-hidden="true"></i><span class="lr-process-title-margin lr-page-color" ng-bind="getDisName('项目','')"></span></h3>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                         class="lr-no-padding-line lr-div-height">
+                        <line x1="0" y1="{{divHeight / 2}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{uph}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{downh}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                    </svg>
+                </div>
+                <div class="lr-no-padding-4 lr-div-height lr-margin-bottom-10 lr-margin-top-10">
+                    <div class="lr-no-padding-content lr-div-height" style="background-color:#9F0318">
+                        <div class="lr-text-center lr-no-padding-12" style="margin-top: 25px;">
+                            <h3><i class="fa fa-file-text lr-page-color" aria-hidden="true"></i><span class="lr-process-title-margin lr-page-color" ng-bind="getDisName('合同','')"></span></h3>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                         class="lr-no-padding-line lr-div-height">
+                        <line x1="0" y1="{{divHeight / 2}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{uph}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{downh}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                    </svg>
+                </div>
+                <div class="lr-no-padding-4 lr-div-height lr-margin-bottom-10 lr-margin-top-10">
+                    <div class="lr-no-padding-content lr-div-height" style="background-color:#9F0318">
+                        <div class="lr-text-center lr-no-padding-12" style="margin-top: 25px;">
+                            <h3><i class="fa fa-credit-card lr-page-color" aria-hidden="true"></i><span class="lr-process-title-margin lr-page-color" ng-bind="getDisName('付款','')"></span></h3>
+                        </div>
+                    </div>
+                    <svg  xmlns="http://www.w3.org/2000/svg" version="1.1"
+                         class="lr-no-padding-line lr-div-height">
+                        <line x1="0" y1="{{divHeight / 2}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{uph}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        <line x1="{{topx}}" y1="{{downh}}" x2="{{lineWidth}}" y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                    </svg>
+                </div>
+                <div class="lr-no-padding-3 lr-div-height lr-margin-bottom-10 lr-margin-top-10">
+                    <div class="lr-no-padding-12 lr-div-height" style="background-color:#9F0318">
+                        <div class="lr-text-center lr-no-padding-12" style="margin-top: 25px;">
+                            <h3><i class="fa fa-database lr-page-color" ></i><span class="lr-process-title-margin lr-page-color" ng-bind="getDisName('收款','')"></span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" style="height: 500px;overflow-y: auto;margin-top: 20px;">
+            <div class="col-md-12 lr-margin-top-25 lr-div-font" style="border: 1px dashed gold;margin-bottom: 10px"
+                 ng-repeat="row in detailData" ng-class="{'lr-margin-bottom-10':$last}">
+                <div class="lr-no-padding-4"
+                     ng-repeat="proRow in row.projectData" ng-class="{'lr-margin-bottom-10':$last}">
+
+                    <div id="{{proRow.layerId}}" class="lr-no-padding-content lr-div-height lr-div-radius"
+                         ng-click="showDetailMsg(this);" 
+                         ng-style="{'background-color':proRow.bgColor,'margin-top':proRow.proMargin}">
+                        <div class="lr-text-left lr-no-padding-12 lr-margin-top-10 lr-text-nowrap" ng-bind="getDisName('编号','：') + proRow.project_code">
+                        </div>
+                        <div class="lr-text-left lr-no-padding-12 lr-margin-top-20 lr-text-nowrap" ng-bind="getDisName('名称','：') + proRow.project_name">
+                        </div>
+                    </div>
+                    <div data-ng-show="!proRow.ifExists" class="lr-no-padding-line lr-div-height"
+                         ng-style="{'margin-top':proRow.proMargin}">
+                        <hr ng-class="{'lr-hr-solid':proRow.ifExists,'lr-hr-dashed':!proRow.ifExists}"/>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" data-ng-show="proRow.ifExists"
+                         class="lr-no-padding-no-width" ng-style="{'height':proRow.canvasHeight + 'px','width':'25%'}">
+                        <line ng-repeat="line in proRow.canvasPoints" x1="0" y1="{{proRow.canvasHeight / 2}}"
+                              x2="{{lineWidth}}"
+                              y2="{{line}}" style="stroke:goldenrod;stroke-width:2"/>
+                    </svg>
+                </div>
+                <div class="lr-no-padding-4">
+                    <div ng-repeat="contRow in row.contractData" ng-style="{'margin-top':contRow.contMargin}"
+                         ng-class="{'lr-margin-bottom-10':$last}">
+                        <div id="{{contRow.layerId}}" class="lr-no-padding-content lr-div-height lr-div-radius"
+                             ng-click="showDetailMsg(this);" 
+                             ng-style="{'background-color':contRow.bgColor}">
+                            <div class="lr-no-padding-12 lr-text-left lr-margin-top-10 lr-text-nowrap" ng-bind="getDisName('编号','：') + contRow.cont_code">
+                            </div>
+                            <div class="lr-no-padding-12 lr-text-left lr-margin-top-20 lr-text-nowrap" ng-bind="getDisName('名称','：') + contRow.cont_name">
+                            </div>
+                        </div>
+                        <div data-ng-show="!contRow.ifExists" class="lr-no-padding-line lr-div-height">
+                            <hr ng-class="{'lr-hr-solid':contRow.ifExists,'lr-hr-dashed':!contRow.ifExists}"/>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" data-ng-show="contRow.ifExists"
+                             class="lr-no-padding-line lr-div-height">
+                            <line ng-repeat="line in contRow.canvasPoints" x1="0" y1="{{divHeight / 2}}"
+                                  x2="{{lineWidth}}"
+                                  y2="{{line}}" style="stroke:goldenrod;stroke-width:2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="lr-no-padding-3">
+                    <div class="lr-no-padding-12 lr-margin-top-10" ng-repeat="processRow in row.paymentData"
+                         ng-class="{'lr-margin-bottom-10':$last}">
+                        <div id="{{processRow.layerId}}" class="lr-no-padding-12 lr-div-height lr-div-radius"
+                             ng-click="showDetailMsg(this);" 
+                             ng-style="{'background-color':processRow.bgColor}">
+                            <div class="lr-text-left lr-no-padding-12 lr-margin-top-10 lr-text-nowrap" ng-bind="getDisName('申请编号','：') + processRow.payment_apply_no">
+                            </div>
+                            <div class="lr-text-left lr-no-padding-12 lr-margin-top-20 lr-text-nowrap" ng-bind="getDisName('客户名称','：') + processRow['pk_customer_name.name'] ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lr-no-padding-4">
+                    <div ng-repeat="gatherRow in row.gatherData" ng-style="{'margin-top':gatherRow.gatherMargin}"
+                         ng-class="{'lr-margin-bottom-10':$last}">
+                        <div data-ng-show="!gatherRow.ifExists" class="lr-no-padding-line lr-div-height">
+                            <hr ng-class="{'lr-hr-solid':gatherRow.ifExists,'lr-hr-dashed':!gatherRow.ifExists}"/>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" data-ng-show="gatherRow.ifExists"
+                             class="lr-no-padding-line lr-div-height">
+                            <line ng-repeat="line in gatherRow.canvasPoints" x1="0" y1="{{line}}" x2="{{lineWidth}}"
+                                  y2="{{divHeight / 2}}" style="stroke:goldenrod;stroke-width:2"/>
+                        </svg>
+                        <div id="{{gatherRow.layerId}}" class="lr-no-padding-content lr-div-height lr-div-radius"
+                             ng-click="showDetailMsg(this);" 
+                             ng-style="{'background-color':gatherRow.bgColor}">
+                            <div class="lr-text-left lr-no-padding-12 lr-margin-top-10 lr-text-nowrap" ng-bind="getDisName('已完成期数','：') + gatherRow.doneCount">
+                            </div>
+                            <div class="lr-text-left lr-no-padding-12 lr-text-nowrap" ng-bind="getDisName('未完成期数','：') + gatherRow.notDoneCount">
+                            </div>
+                            <div class="lr-text-left lr-no-padding-12 lr-text-nowrap" ng-bind="getDisName('应收总期数','：') + gatherRow.totalCount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+</div>

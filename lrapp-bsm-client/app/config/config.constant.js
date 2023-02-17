@@ -13,131 +13,129 @@ app.constant('JS_REQUIRES', {
   //*** Scripts
   scripts: {
     //*** Javascript Plugins
-    'modernizr': ['lib/npm-modernizr/modernizr.js'],
-    'moment': ['lib/moment/min/moment.min.js'],
-    'spin': 'lib/spin.js/spin.js',
+    'modernizr': ['../bower_components/components-modernizr/modernizr.js'],
+    'moment': ['../bower_components/moment/min/moment.min.js'],
+    'spin': '../bower_components/spin.js/spin.js',
 
     //*** jQuery Plugins
-    'perfect-scrollbar-plugin': ['lib/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js', 'lib/perfect-scrollbar/dist/css/perfect-scrollbar.min.css'],
-    'ladda': ['lib/ladda/dist/ladda.min.js', 'lib/ladda/dist/ladda-themeless.min.css'],
-    'sweet-alert': ['lib/sweetalelib/sweet-alert.min.js', 'lib/sweetalelib/sweet-alert.css'],
-    'jquery-sparkline': 'lib/jquery.sparkline.build/dist/jquery.sparkline.min.js',
-    'ckeditor-plugin': 'lib/ckeditor/ckeditor.js',
-    'jquery-nestable-plugin': ['lib/jquery-nestable/jquery.nestable.js'],
-    'touchspin-plugin': ['lib/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js', 'lib/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css'],
+    'perfect-scrollbar-plugin': ['../bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js', '../bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css'],
+    'ladda': ['../bower_components/ladda/dist/ladda.min.js', '../bower_components/ladda/dist/ladda-themeless.min.css'],
+    'sweet-alert': ['../bower_components/sweetalert/lib/sweet-alert.min.js', '../bower_components/sweetalert/lib/sweet-alert.css'],
+    'chartjs': '../bower_components/chartjs/Chart.min.js',
+    'jquery-sparkline': '../bower_components/jquery.sparkline.build/dist/jquery.sparkline.min.js',
+    'ckeditor-plugin': '../bower_components/ckeditor/ckeditor.js',
+    'jquery-nestable-plugin': ['../bower_components/jquery-nestable/jquery.nestable.js'],
+    'touchspin-plugin': ['../bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js', '../bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css'],
 
-    'navCtrl':'nav/navCtrl.js',
+    //*** Controllers
+    'dashboardCtrl': './controller/dashboardCtrl.js',
+    'iconsCtrl': '../app/assets/js/controllers/iconsCtrl.js',
+    'vAccordionCtrl': '../app/assets/js/controllers/vAccordionCtrl.js',
+    'ckeditorCtrl': '../app/assets/js/controllers/ckeditorCtrl.js',
+    'laddaCtrl': '../app/assets/js/controllers/laddaCtrl.js',
+    'ngTableCtrl': '../app/assets/js/controllers/ngTableCtrl.js',
+    'cropCtrl': '../app/assets/js/controllers/cropCtrl.js',
+    'asideCtrl': '../app/assets/js/controllers/asideCtrl.js',
+    'toasterCtrl': '../app/assets/js/controllers/toasterCtrl.js',
+    'sweetAlertCtrl': '../app/assets/js/controllers/sweetAlertCtrl.js',
+    'mapsCtrl': '../app/assets/js/controllers/mapsCtrl.js',
+    'chartsCtrl': '../app/assets/js/controllers/chartsCtrl.js',
+    'calendarCtrl': '../app/assets/js/controllers/calendarCtrl.js',
+    'nestableCtrl': '../app/assets/js/controllers/nestableCtrl.js',
+    'validationCtrl': ['../app/assets/js/controllers/validationCtrl.js'],
+    'userCtrl': ['../app/assets/js/controllers/userCtrl.js'],
+    'selectCtrl': '../app/assets/js/controllers/selectCtrl.js',
+    'wizardCtrl': '../app/assets/js/controllers/wizardCtrl.js',
+    'uploadCtrl': '../app/assets/js/controllers/uploadCtrl.js',
+    'treeCtrl': '../app/assets/js/controllers/treeCtrl.js',
+    'inboxCtrl': '../app/assets/js/controllers/inboxCtrl.js',
+    'xeditableCtrl': '../app/assets/js/controllers/xeditableCtrl.js',
+    'chatCtrl': '../app/assets/js/controllers/chatCtrl.js',
+    'dynamicTableCtrl': '../app/assets/js/controllers/dynamicTableCtrl.js',
+    'NotificationIconsCtrl': '../app/assets/js/controllers/notificationIconsCtrl.js',
+    'navCtrl':'./controller/nav_config.js',
 
-    'baseController': 'core/controller/baseController.js',
-    // 'dashboardCtrl': 'nav/dashboardCtrl.js',
-    // 'businessStatisticsCtrl': './nav/businessStatisticsCtrl.js',
-    // 'indexCtrl' : '/indexCtrl.js',
-    'loginCtrl' : 'login/loginCtrl.js',
-    // 'signLoginCtrl' : 'controller/signLoginCtrl.js',
-    //
-    // 'dealAppAttachmentCtrl': 'common/view/uploadCtrls.js',
-    //
-    // //*** Filters
-    // 'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js',
-    //
-    'submitDialogCtrl': 'common/workflow/submitDialogCtrl.js',
+    'loginCtrl' : './controller/loginCtrl.js',
+    'signLoginCtrl' : './controller/signLoginCtrl.js',
+
+    'productCtrl': '../app/assets/js/ctrl/productCtrl.js',
+
+
+    //*** Filters
+    'htmlToPlaintext': '../app/assets/js/filters/htmlToPlaintext.js'
   },
   //*** angularJS Modules
   modules: [{
     name: 'angularMoment',
-    files: ['lib/angular-moment/angular-moment.min.js']
-  },
-  //   {
-  //   name: 'toaster',
-  //   files: ['lib/angularjs-toaster/toaster.js', 'lib/angularjs-toaster/toaster.css']
-  // },
-    {
+    files: ['../bower_components/angular-moment/angular-moment.min.js']
+  }, {
+    name: 'toaster',
+    files: ['../bower_components/AngularJS-Toaster/toaster.js', '../bower_components/AngularJS-Toaster/toaster.css']
+  }, {
     name: 'angularBootstrapNavTree',
-    files: ['lib/angular-bootstrap-nav-tree/dist/abn_tree_directive.js', 'lib/angular-bootstrap-nav-tree/dist/abn_tree.css']
-  },
-    {
+    files: ['../bower_components/angular-bootstrap-nav-tree/dist/abn_tree_directive.js', '../bower_components/angular-bootstrap-nav-tree/dist/abn_tree.css']
+  }, {
     name: 'angular-ladda',
-    files: ['lib/angular-ladda/dist/angular-ladda.min.js']
-  },
-    {
+    files: ['../bower_components/angular-ladda/dist/angular-ladda.min.js']
+  }, {
     name: 'ngTable',
-    files: ['lib/ng-table/dist/ng-table.min.js', 'lib/ng-table/dist/ng-table.min.css']
-  },
-    {
+    files: ['../bower_components/ng-table/dist/ng-table.min.js', '../bower_components/ng-table/dist/ng-table.min.css']
+  }, {
     name: 'ui.select',
-    files: ['lib/angular-ui-select/dist/select.min.js', 'lib/angular-ui-select/dist/select.min.css', 'lib/select2/dist/css/select2.min.css', 'lib/select2-bootstrap-css/select2-bootstrap.min.css', 'lib/selectize/dist/css/selectize.bootstrap3.css']
-  },
-    {
+    files: ['../bower_components/angular-ui-select/dist/select.min.js', '../bower_components/angular-ui-select/dist/select.min.css', '../bower_components/select2/dist/css/select2.min.css', '../bower_components/select2-bootstrap-css/select2-bootstrap.min.css', '../bower_components/selectize/dist/css/selectize.bootstrap3.css']
+  }, {
     name: 'ui.mask',
-    files: ['lib/angular-ui-utils/mask.min.js']
-  },
-  //   {
-  //   name: 'ngImgCrop',
-  //   files: ['lib/ngImgCrop/compile/minified/ng-img-crop.js', 'lib/ngImgCrop/compile/minified/ng-img-crop.css']
-  // },
-    {
+    files: ['../bower_components/angular-ui-utils/mask.min.js']
+  }, {
+    name: 'ngImgCrop',
+    files: ['../bower_components/ngImgCrop/compile/minified/ng-img-crop.js', '../bower_components/ngImgCrop/compile/minified/ng-img-crop.css']
+  }, {
     name: 'angularFileUpload',
-    files: ['lib/angular-file-upload/dist/angular-file-upload.min.js']
-  },
-    {
+    files: ['../bower_components/angular-file-upload/angular-file-upload.min.js']
+  }, {
     name: 'ngAside',
-    files: ['lib/angular-aside/dist/js/angular-aside.min.js', 'lib/angular-aside/dist/css/angular-aside.min.css']
-  },
-    {
+    files: ['../bower_components/angular-aside/dist/js/angular-aside.min.js', '../bower_components/angular-aside/dist/css/angular-aside.min.css']
+  }, {
     name: 'truncate',
-    files: ['lib/angular-truncate/src/truncate.js']
-  },
-    {
+    files: ['../bower_components/angular-truncate/src/truncate.js']
+  }, {
     name: 'oitozero.ngSweetAlert',
-    files: ['lib/angular-sweetalert-promised/SweetAlert.min.js']
-  },
-    {
+    files: ['../bower_components/angular-sweetalert-promised/SweetAlert.min.js']
+  }, {
     name: 'monospaced.elastic',
-    files: ['lib/angular-elastic/elastic.js']
-  },
-  //   {
-  //   name: 'ngMap',
-  //   files: ['lib/ngmap/build/scripts/ng-map.min.js']
-  // },
-  //   {
-  //   name: 'tc.chartjs',
-  //   files: ['lib/tc-angular-chartjs/dist/tc-angular-chartjs.min.js']
-  // },
-  //   {
-  //   name: 'flow',
-  //   files: ['lib/ng-flow/dist/ng-flow-standalone.min.js']
-  // },
-    {
+    files: ['../bower_components/angular-elastic/elastic.js']
+  }, {
+    name: 'ngMap',
+    files: ['../bower_components/ngmap/build/scripts/ng-map.min.js']
+  }, {
+    name: 'tc.chartjs',
+    files: ['../bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js']
+  }, {
+    name: 'flow',
+    files: ['../bower_components/ng-flow/dist/ng-flow-standalone.min.js']
+  }, {
     name: 'uiSwitch',
-    files: ['lib/angular-ui-switch/angular-ui-switch.min.js', 'lib/angular-ui-switch/angular-ui-switch.min.css']
-  },
-    {
+    files: ['../bower_components/angular-ui-switch/angular-ui-switch.min.js', '../bower_components/angular-ui-switch/angular-ui-switch.min.css']
+  }, {
     name: 'ckeditor',
-    files: ['lib/angular-ckeditor/angular-ckeditor.min.js']
-  },
-    {
+    files: ['../bower_components/angular-ckeditor/angular-ckeditor.min.js']
+  }, {
     name: 'mwl.calendar',
-    files: ['lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js', 'lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css', 'assets/js/config/config-calendar.js']
-  },
-    {
+    files: ['../bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js', '../bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css', 'assets/js/config/config-calendar.js']
+  }, {
     name: 'ng-nestable',
-    files: ['lib/ng-nestable/src/angular-nestable.js']
-  },
-    {
+    files: ['../bower_components/ng-nestable/src/angular-nestable.js']
+  }, {
     name: 'vAccordion',
-    files: ['lib/v-accordion/dist/v-accordion.min.js', 'lib/v-accordion/dist/v-accordion.min.css']
-  },
-    {
+    files: ['../bower_components/v-accordion/dist/v-accordion.min.js', '../bower_components/v-accordion/dist/v-accordion.min.css']
+  }, {
     name: 'xeditable',
-    files: ['lib/angular-xeditable/dist/js/xeditable.min.js', 'lib/angular-xeditable/dist/css/xeditable.css', 'assets/js/config/config-xeditable.js']
-  },
-    {
+    files: ['../bower_components/angular-xeditable/dist/js/xeditable.min.js', '../bower_components/angular-xeditable/dist/css/xeditable.css', 'assets/js/config/config-xeditable.js']
+  }, {
     name: 'checklist-model',
-    files: ['lib/checklist-model/checklist-model.js']
-  },
-    {
+    files: ['../bower_components/checklist-model/checklist-model.js']
+  }, {
     name: 'angular-notification-icons',
-    files: ['lib/angular-notification-icons/dist/angular-notification-icons.min.js', 'lib/angular-notification-icons/dist/angular-notification-icons.min.css']
-  }
-  ]
+    files: ['../bower_components/angular-notification-icons/dist/angular-notification-icons.min.js', '../bower_components/angular-notification-icons/dist/angular-notification-icons.min.css']
+  }]
 });

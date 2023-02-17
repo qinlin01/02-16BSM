@@ -1,0 +1,100 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSaveVO()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+           <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" >
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit">
+                <i class="ti-save"></i>
+                <span>提交</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit&&(VO.billstatus==31)">
+                <i class="ti-save"></i>
+                <span>修改</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收账款流水号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 8px;"  ng-disabled="true" type="text" data-ng-model="VO.serialNo">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收账款年度：</label>
+                <div class="col-md-7" style="padding-right : 21px">
+                     <input class="form-control"  type="text" data-ng-model="VO.recordYear" ng-disabled="isDisabled">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收账款月度：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 8px;"   type="text" data-ng-model="VO.recordMonth"   ng-disabled="isDisabled">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收账款股东总额度（万元）：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 8px;"  ng-disabled="true" type="text" data-ng-model="VO.sumDef1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">应收账款市场总额度（万元）：</label>
+                <div class="col-md-7">
+                    <input class="form-control" style="margin-left: 8px;"  ng-disabled="true" type="text" data-ng-model="VO.sumDef2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <tabset justified="false">
+            <tab index="1" heading="应收账款明细" select="selectTab('childgridOptions')">
+                <div ui-grid="childgridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 550px"></div>
+            </tab>
+        </tabset>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">单据状态：</label>
+            <div class="col-md-7">
+                {{VO.billstatus | SELECT_BILLSTATUS}}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">经办人：</label>
+            <div class="col-md-7">
+                {{VO.pkOperator.name}}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">业务单位：</label>
+            <div class="col-md-7">
+                {{VO.pkOrg.name}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">制单日期：</label>
+            <div class="col-md-7">
+                {{VO.operateDate | date_cell_date}}
+            </div>
+        </div>
+    </div>
+</form>

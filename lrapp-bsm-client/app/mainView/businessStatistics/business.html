@@ -1,0 +1,35 @@
+<div ng-controller="businessCtrl">
+    <div class="page" id="channelTbody">
+        <div class="top">
+            <div class="tabs" id="lr-task-tabs">
+                <span  class="tab tab-select" ng-click="datTask($event)" id="datTask1">业务通知</span>
+            </div>
+        </div>
+        <div class="padding-10-0" style="height: 700px;">
+            <ul class="menu" style="position: absolute;height: 670px; overflow:auto"><!--id="lr-task-menu" -->
+                <li ng-repeat="(key, values) in msgRemind" ng-click="itemSelect(key)">
+                    <span ng-bind="key"></span>
+                    <span class="float-right" ng-bind="values.length" ng-if="key!='项目附件'&&key!='项目维护'"></span>
+                </li>
+            </ul>
+
+            <div  class="content" style="position: relative;height: 700px; overflow:auto">
+                <ul class="main">
+                    <li class="item" ng-repeat="item in msgRemindList | orderBy:item.timeSequence:'asc' ">
+                        <div class="lr-task-title">
+                            <span class="f-bold card" ng-bind="item.tile" ng-click="onView(item)"></span>
+                            <span class="badge margin-left-5" ng-show="item.emphasisTile != null">{{item.emphasisTile}}</span>
+                            <span class="f-gray margin-left-20" ng-show="item.time != null">{{item.time}}</span>
+                            <span class="float-right btn-area">
+                            <button class="btn btn-azure ng-scope" ng-show="item.menuUrl != null&&item.menuUrl != 'app.localized.projectAttachment'" ng-click="onView(item)">办理</button>
+                            <button class="btn btn-azure ng-scope" ng-show="item.menuUrl != null&&item.menuUrl == 'app.localized.projectAttachment'" ng-click="onView(item)">下载</button>
+                        </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div style="clear: both;"> </div>
+        </div>
+
+    </div>
+</div>

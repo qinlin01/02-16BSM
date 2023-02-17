@@ -1,0 +1,62 @@
+<div class="page" id="channelTbody" style="margin-left: -20px;margin-right: -20px">
+    <div class="a" style="width: inherit;height: 100%;border: 1px solid #e6e8e8;margin-right: 20px;margin-left: 20px"  ng-if="userVO.point_system == 'yg'">
+        <div class="top" style="margin-left: 1px;">
+            <div class="tabs" id="lr-task-tabs">
+                <span class="tab tab-select" ng-click="datTask($event)" id="datTask">待审批</span>
+<!--
+                <span style="margin: 0px 12px"> </span>
+-->
+                <span class="tab" ng-click="yiTask($event)" id="yiTask">已审批</span>
+                <div class="search">
+                    <input type="text" name="submitUserName" ng-model="submitUserName" class="serchInput" placeholder="请输入提交人姓名">
+                    <input type="text" name="lr-task-title" ng-model="submitUserTitle" class="serchInput" placeholder="请输入单据标题">
+                </div>
+            </div>
+        </div>
+        <div class="padding-10-0" ng-style="getGridHtmlStyle('','',120,0)">
+            <ul class="menu" style="position: absolute;height: 717px; overflow:auto" ng-style="getGridHtmlStyle('','',120,0)"><!--id="lr-task-menu" -->
+                <li ng-repeat="item in busStatisticsCount | orderBy:item.FUNCODE" class="{{item.select}}" ng-click="itemSelect(item)">
+                    <span ng-bind="item.MENU_NAME"></span><span class="float-right" ng-bind="item.COUNT"></span>
+                </li>
+            </ul>
+            <div class="content" style="position: relative;height: 717px; overflow:auto">
+                <ul class="main">
+                    <li class="item" ng-repeat="item in listTask | orderBy:item.task_id:'desc' | filter:submitUserName:item.user_name | filter:submitUserTitle">
+                        <div class="lr-task-title">
+                            <span class="f-bold card" ng-bind="item.tasktile" ng-click="onView(item)">标题待决定</span>
+                            <span class="badge margin-left-5">审批单</span>
+                            <span class="f-gray margin-left-20" ng-bind="item.operatetime"></span>
+                            <span class="float-right btn-area">
+          <button class="btn btn-azure ng-scope" ng-click="onView(item)">{{btnName}}</button>
+       </span>
+                        </div>
+                        <ul style="padding-bottom:10px">
+                            <div class="bill-left">
+                                <div>
+                                    <li ng-repeat="var in item.taskfield">
+                                        <span class="f-gray">{{var.label}}：</span><span>{{var.value}}</span>
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="bill-right">
+                                <ul class="lr-task-history">
+                                    <li>
+                                        <span class="margin-left-15 lr-user-task" ng-bind="item.user_name" user_name></span>—<span class="f-green lr-user-task" ng-bind="item.operate_name"></span>
+                                    </li>
+                                    <li class="relative">
+                                        <span class="triangle-top"></span>
+                                    </li>
+                                    <li class="suggest" ng-bind="item.opinion == undefined?'提交单据':item.opinion">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div style="clear: both"></div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>

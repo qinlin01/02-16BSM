@@ -1,0 +1,43 @@
+<!-- 首页：左上部分 待办任务管理 -->
+
+<!--<div class="form-horizontal">-->
+<!--<uib-tabset>-->
+<!--<uib-tab index="0" heading="项目待办" ng-click="baseInfo();changeTabPage('')">-->
+<!--<div data-ng-include="getURL('factoring/view/mainView/toDoManagement/projectToDo.html')"></div>-->
+<!--</uib-tab>-->
+<!--<uib-tab index="1"  heading="审核待办"  ng-click="changeTabPage(getURL('factoring/view/projectScheme/projectScheme.html'))"></uib-tab>-->
+<!--<uib-tab index="2"  heading="已办查询"  ng-click="changeTabPage(getURL('factoring/view/projectFactor/projectFactor.html'))"></uib-tab>-->
+<!--<uib-tab index="3"  heading="办结提醒"  ng-click="changeTabPage(getURL('factoring/view/projectPayment/projectPayment.html'))"></uib-tab>-->
+<!--</uib-tabset>-->
+<!--<div ng-include="tabPage"></div>-->
+<!--</div>-->
+
+<div class="form-horizontal lr-no-padding-col">
+    <div>
+        <nav class="lr-main-navbar navbar-default navbar-fixed-top" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="lr-nav-li" ng-class="active1">
+                    <a class="lr-nav-a" ng-click="changeNavPage(getURL('factoring/view/mainView/toDoManagement/projectToDo.html'));">
+                        <span class="title">{{navName.projectToDo}}</span>
+                    </a>
+                </li>
+                <li class="lr-nav-li" ng-class="active2">
+                    <a ng-click="changeNavPage();" class="lr-nav-a">
+                        <span class="title">{{navName.auditTo}}</span>
+                    </a>
+                </li>
+                <li class="lr-nav-li" ng-class="active3">
+                    <a ng-click="changeNavPage();" class="lr-nav-a">
+                        <span class="title">{{navName.doneInfo}}</span>
+                    </a>
+                </li>
+                <li class="lr-nav-li" ng-class="active4">
+                    <a ng-click="changeNavPage();" class="lr-nav-a">
+                        <span class="title">{{navName.doneRemind}}</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div data-ng-include="navPage"></div>
+</div>

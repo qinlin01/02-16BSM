@@ -1,38 +1,16 @@
-<div class="container-fluid bg-white">
-    <div class="row">
-        <div class="col-md-12 center height-155">
-            <img ng-src="data:image/png;base64,{{imgUrl}}">
-        </div>
+<div class="md-content" >
+
+    <h3 style="overflow: auto;height: 250px;padding: 0px;">
+        <img src="{{imgUrl}}">
+    </h3>
+
+    <div style="overflow: hidden;">
+        <div ui-grid="linkAuditFlowGridOptions" ui-grid-selection class="grid" style="height: 250px"></div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-hover">
-                <thead>
-                <tr class="info center">
-                    <th>流程号</th>
-                    <th>提交人</th>
-                    <th>提交日期</th>
-                    <th>流程节点</th>
-                    <th>处理人</th>
-                    <th>审批结果</th>
-                    <th>审批意见</th>
-                    <th>审批时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in tasks">
-                    <td>{{item.task_id}}</td>
-                    <td>{{item.submitter_name}}</td>
-                    <td>{{item.submit_time}}</td>
-                    <td>{{item.operate_name}}</td>
-                    <td>{{item.process_name}}</td>
-                    <td>{{item.result}}</td>
-                    <td>{{item.opinion}}</td>
-                    <td>{{item.process_time}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <!--<textarea style="width:100%" rows="4" placeholder="请输入审批意见" ng-model="textorder"></textarea>-->
+    <!--<div class="pull-right">-->
+    <!--<button ng-click="onSubmitConfirm()" style="margin-right: 10px;"class="btn btn-sm btn-info" >提交审核</button>-->
+    <!--<button ng-click="onSubmitCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >取消</button>-->
+    <!--</div>-->
 </div>

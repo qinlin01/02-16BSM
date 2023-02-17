@@ -1,0 +1,40 @@
+<!-- 首页：右上部分 交易提醒（应收账款到期，融资还款，应收账款逾期） -->
+
+<!--<div class="form-horizontal">-->
+    <!--<uib-tabset>-->
+        <!--<uib-tab index="0" heading="应收账款到期提醒" ng-click="baseInfo();changeTabPage('')">-->
+            <!--<div data-ng-include="getURL('factoring/view/mainView/tradeReminding/gatherExpireReminding.html')"></div>-->
+        <!--</uib-tab>-->
+        <!--<uib-tab index="1"  heading="融资还款到期的提醒"  ng-click="changeTabPage(getURL('factoring/view/projectScheme/projectScheme.html'))"></uib-tab>-->
+        <!--<uib-tab index="2"  heading="应收账款逾期提醒"  ng-click="changeTabPage(getURL('factoring/view/projectFactor/projectFactor.html'))"></uib-tab>-->
+    <!--</uib-tabset>-->
+    <!--<div ng-include="tabPage"></div>-->
+<!--</div>-->
+
+<div class="form-horizontal lr-no-padding-col">
+    <div>
+        <nav class="lr-main-navbar navbar-default navbar-fixed-top" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="lr-nav-li" ng-class="active1">
+                    <a class="lr-nav-a" ng-click="changeNavPage(getURL('factoring/view/mainView/tradeReminding/gatherExpireReminding.html'));">
+                        <span class="title"> {{navName.gatherReminding}} </span>
+                    </a>
+                </li>
+                <li class="lr-nav-li" ng-class="active2">
+                    <a class="lr-nav-a" ng-click="changeNavPage()">
+                        <span class="title"> {{navName.paymentReminding}} </span>
+                    </a>
+                </li>
+                <li class="lr-nav-li" ng-class="active3">
+                    <a class="lr-nav-a" ng-click="changeNavPage()">
+                        <span class="title"> {{navName.gatherOverdue}} </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div data-ng-include="navPage"></div>
+</div>
+
+
+

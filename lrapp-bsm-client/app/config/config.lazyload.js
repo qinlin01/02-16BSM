@@ -10,7 +10,7 @@ app.constant('JQ_CONFIG', {
         // easyPieChart:   ['/jquery/charts/easypiechart/jquery.easy-pie-chart.js'],
         // sparkline:      ['/jquery/charts/sparkline/jquery.sparkline.min.js'],
         // plot:           ['/jquery/charts/flot/jquery.flot.min.js',
-        //     '/jqINDEXuery/charts/flot/jquery.flot.resize.js',
+        //     '/jquery/charts/flot/jquery.flot.resize.js',
         //     '/jquery/charts/flot/jquery.flot.tooltip.min.js',
         //     '/jquery/charts/flot/jquery.flot.spline.js',
         //     '/jquery/charts/flot/jquery.flot.orderBars.js',
@@ -46,6 +46,94 @@ app.constant('JQ_CONFIG', {
             debug:  false,
             events: true,
             modules: [
+                {
+                    name: 'ngGrid',
+                    files: [
+                        'modules/ng-grid/ng-grid.min.js'
+                    ]
+                },
+               
+                {
+                    name:'angularFileUpload',
+                    files: [
+                        'modules/angular-file-upload/angular-file-upload.min.js'
+                    ]
+                },
+                {
+                    name:'ui.calendar',
+                    files: ['modules/angular-ui-calendar/calendar.js']
+                },
+                {
+                    name: 'ngImgCrop',
+                    files: [
+                        'modules/ngImgCrop/ng-img-crop.js',
+                        'modules/ngImgCrop/ng-img-crop.css'
+                    ]
+                },
+                {
+                    name: 'angularBootstrapNavTree',
+                    files: [
+                        'modules/angular-bootstrap-nav-tree/abn_tree_directive.js',
+                        'modules/angular-bootstrap-nav-tree/abn_tree.css'
+                    ]
+                },
+                {
+                    name: 'toaster',
+                    files: [
+                        'modules/angularjs-toaster/toaster.js',
+                        'modules/angularjs-toaster/toaster.css'
+                    ]
+                },
+                {
+                    name: 'textAngular',
+                    files: [
+                        'modules/textAngular/textAngular-sanitize.min.js',
+                        'modules/textAngular/textAngular.min.js'
+                    ]
+                },
+                {
+                    name: 'vr.directives.slider',
+                    files: [
+                        'modules/angular-slider/angular-slider.min.js',
+                        'modules/angular-slider/angular-slider.css'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular',
+                    files: [
+                        'modules/videogular/videogular.min.js'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular.plugins.controls',
+                    files: [
+                        'modules/videogular/plugins/controls.min.js'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular.plugins.buffering',
+                    files: [
+                        'modules/videogular/plugins/buffering.min.js'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular.plugins.overlayplay',
+                    files: [
+                        'modules/videogular/plugins/overlay-play.min.js'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular.plugins.poster',
+                    files: [
+                        'modules/videogular/plugins/poster.min.js'
+                    ]
+                },
+                {
+                    name: 'com.2fdevs.videogular.plugins.imaads',
+                    files: [
+                        'modules/videogular/plugins/ima-ads.min.js'
+                    ]
+                }
             ]
         });
     }])

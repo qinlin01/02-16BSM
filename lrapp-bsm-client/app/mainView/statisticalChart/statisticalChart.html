@@ -1,0 +1,26 @@
+<div class="form-horizontal lr-no-padding-col">
+    <div>
+        <nav class="lr-main-navbar navbar-default navbar-fixed-top" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="lr-nav-li active">
+                    <a class="lr-nav-a">
+                        <span class="title" ng-bind="getDisName(navName.statisticalChart)"> </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <!--<div ui-grid="busStatisticsGridOptions" ui-grid-selection ui-grid-pinning ui-grid-auto-resize ui-grid-resize-columns-->
+             <!--class="grid lr-main-grid">-->
+        <!--</div>-->
+        <!--<div class="pull-right">-->
+            <!--<a ng-click="loadMoreData();">-->
+                <!--更多>>-->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="lr-no-padding-col">
+            <echart id="main" legend="legend" item="item" data="data"></echart>
+        </div>
+    </div>
+</div>

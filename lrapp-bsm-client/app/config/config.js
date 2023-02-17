@@ -26,7 +26,6 @@ app
                 // $httpProvider.interceptors.push('httpInterceptor');
                 $sceProvider.enabled(false);
 
-
                 $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
                 $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
                 // 跨域session共享问题
@@ -74,13 +73,120 @@ app
                         ? param(data)
                         : data;
                 }];
-
                 //设置ui-grid的语言
                 //设置ui-grid的语言
                 $provide.decorator('GridOptions', ['$delegate', 'i18nService', '$q', '$interval', function ($delegate, i18nService, $q, $interval) {
                     i18nService.setCurrentLang('zh-cn');
                     var gridOptions = angular.copy($delegate);
+                    gridOptions.initialize = function (options) {
+                        var initOptions = {
+                            // initOptions.rowTemplate="<div ng-dblclick=\"grid.appScope.onRowDblClick(row.entity)\" " +
+                            //   "ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" " +
+                            //   "class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell'. col.isRowHeader }\" " +
+                            //   "ui-grid-cell dbl-click-row></div>",
+                            enableFullRowSelection: true,
+                            enableRowSelection: true,
+                            enableSelectAll: true,
+                            multiSelect: true,
+                            // saveFocus: true,
+                            // saveScroll: true,
+                            // saveGroupingExpandedStates: true,
+                            // modifierKeysToMultiSelect:true,
+                            // modifierKeysToMultiSelectCells:true,
+                            enableSorting: true,
+                            enableRowHeaderSelection: true,
+                            enableColumnResizing: true,
+                            paginationPageSizes: [10, 20, 50, 100, 200],
+                            paginationPageSize: 20,
+                            useExternalPagination: true,
+                            enableGridMenu: true,
+                            enableColumnMoving: true,
+                            exporterMenuCsv: true,
+                            exporterMenuPdf: false,// angular.isIE(),
+                            exporterOlderExcelCompatibility: true,
+                            exporterCsvFilename: 'download.csv',
+                            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+                            exporterFieldCallback: function (grid, row, col, input) {
+                                if (col.cellFilter) {
+                                    if ("AMOUNT_FILTER" == col.cellFilter && !input) {
+                                        return 0;
+                                    }
+                                    if ("RATE_FILTER" == col.cellFilter) {
+                                        var value = !input ? 0 : input;
+                                        return (value * 100).toFixed(4) + '%';
+                                    }
+                                    if ("CSV_FILTER" == col.cellFilter) {
+                                        return '\t' + input;
+                                    }
+                                    //  if("VOUCHER_FILTER" == col.cellFilter){
+                                    //     var ends="";
+                                    //     if(value){
+                                    //         for (var i = 0; i < value.length; i++) {
+                                    //             ends=ends+" 【"+value[i].keys+":"+value[i].values.NAME+"】";
+                                    //         }
+                                    //     }
+                                    //     return ends;
+                                    // }
+                                    var datas = getSelectOptionData[col.cellFilter.replace('SELECT_', '')];
+                                    var map = {};
+                                    if (datas) {
+                                        for (var i = 0; i < datas.length; i++) {
+                                            map[datas[i]['id']] = datas[i]['name']
+                                        }
+                                        return map[input];
+                                    }
+                                }
+                                return input;
+                            },
+                            exporterPdfDefaultStyle: {fontSize: 9},
+                            exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                            exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                            exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                            exporterPdfFooter: function (currentPage, pageCount) {
+                                return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                            },
+                            exporterPdfCustomFormatter: function (docDefinition) {
+                                docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                                docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                                return docDefinition;
+                            },
+                            exporterPdfOrientation: 'portrait',
+                            exporterPdfPageSize: 'LETTER',
+                            exporterPdfMaxGridWidth: 500
+                        };
+                        angular.extend(initOptions, options);
+                        if (initOptions.columnDefs) {
+                            angular.forEach(initOptions.columnDefs, function (columnDef) {
+                                if (columnDef.cellFilter) {
+                                    if (columnDef.cellFilter.indexOf('SELECT_') >= 0) {
+                                        columnDef['editDropdownValueLabel'] = 'name';
+                                        columnDef['editableCellTemplate'] = 'ui-grid/dropdownEditor';
+                                        columnDef['editDropdownOptionsArray'] = getSelectOptionData[columnDef.cellFilter.replace('SELECT_', '')];
+                                    } else if (columnDef.cellFilter == 'date:"yyyy-MM-dd"') {
+                                        columnDef['editableCellTemplate'] = 'ui-grid/refDate';
+                                    }
+                                }
+                                if (columnDef.url) {
+                                    columnDef['editableCellTemplate'] = 'ui-grid/refEditor';
+                                }
+                            });
+                        }
+                        var reOptions = $delegate.initialize(options);
 
+                        angular.extend(reOptions, initOptions);
+                        // initOptions.onRegisterApi =  function (gridApi) {
+                        //       //添加行头
+                        //       gridApi.core.addRowHeaderColumn({
+                        //           name: 'rowHeaderCol',
+                        //           displayName: '',
+                        //           width: 30,
+                        //           cellTemplate: 'ui-grid/rowNumberHeader'
+                        //       });
+                        //       if(options.onRegisterApi) options.onRegisterApi(gridApi);
+                        // };
+                        return reOptions;
+                    };
+                    //es is the language prefix you want
                     return gridOptions;
                 }]);
 
@@ -109,19 +215,25 @@ app.run(
                 return result;
             };
 
-            $rootScope.gridHtmlHeight = function () {
+            $rootScope.getGridHtmlStyle = function (heightId, subHeightId, sub, mul) {
                 var winowHeight = window.innerHeight; //获取窗口高度
-                var headerHeight = angular.element(".lr-grid-html-query").height();
-                var btnHeight = 100;
-                var footerHeight = 210;
+                var headerHeight = angular.element(subHeightId ? subHeightId : ".lr-grid-html-query").height();
+                ;
+                var footerHeight = 20;
 
-                var showHeight = winowHeight - btnHeight - headerHeight - footerHeight;
+                if (sub == undefined || sub == null) {
+                    sub = 0;
+                }
+                var showHeight = winowHeight - 50 - headerHeight - footerHeight - sub;
                 var style = {'height': showHeight + 'px'};
                 return style;
             };
             $rootScope['style'] = {};
+            //获取消息
+            var msg = getAlertMsg();
+            $rootScope['ALERT_MSG'] = msg;
             //添加下拉框数据
-            var selectData = getSelectOptionData();
+            var selectData = getSelectOptionData;
             $rootScope['SELECT'] = selectData;
 
             for (var key in selectData) {
@@ -166,7 +278,7 @@ angular.module('ui.grid').run(['$templateCache', function ($templateCache) {
     'use strict';
 
     $templateCache.put('ui-grid/refEditor',
-        '<input type="text" ui-grid-editor ng-class="\'colt\' + col.uid"  ' +
+        '<input  type="text" ui-grid-editor ng-class="\'colt\' + col.uid"  ' +
         ' ui-popup-grid-ref="" ng-click=""  ' +
         'ng-model="MODEL_COL_FIELD" />');
 
@@ -205,6 +317,157 @@ angular.module('ui.grid').run(['$templateCache', function ($templateCache) {
 
 function initFunction($rootScope, $http, ngDialog) {
 
+    $rootScope.onQueryDocumentHeader = function (row, isEdit) {
+        if (!row || !row.pk_pub_blob) return angular.alert("没有查询到附件!");
+        $rootScope.isPdf = true;
+        /*if(row.attachment_name.indexOf("pdf")>=0){
+          $rootScope.isPdf = true;
+        } else if(!(row.attachment_name.indexOf("doc")>=0||row.attachment_name.indexOf("docx")>=0)){
+          return angular.alert("只有word可以在线查看！");
+        }*/
+        // $rootScope.getURL;
+        if (!row.pk_pub_blob.pk_object_id) {
+            row.pk_pub_blob.pk_object_id = row.pk_project_id;
+        }
+        // window.open($rootScope.basePath+"uploadFile/downloadFileMethod?fileId="+row.pk_pub_blob.pk_object_id);
+        $http.post($rootScope.basePath + "queryDocument/queryDocumentPDF", {pk_pub_blob: row.pk_pub_blob.pk_object_id, name: row.attachment_name, url: serverApi}).success(function (response) {
+            layer.closeAll('loading');
+            if (response.code == 200) {
+                /*pdf 打开方式*/
+                if (row.attachment_name.indexOf(".pdf") >= 0 || row.attachment_name.indexOf(".png") >= 0) {
+                    window.open(getURL(response.result));
+                }
+                if (row.attachment_name.indexOf(".xlsx") >= 0 || row.attachment_name.indexOf(".xls") >= 0) {
+                    var excel = new ActiveXObject("Excel.Application");
+                    excel.Visible = true;
+                    excel.Workbooks.Open($rootScope.basePath + "uploadFile/downloadFileMethod?fileId=" + row.pk_pub_blob.pk_object_id);
+                } else {
+                    /*// window.open(getURL(response.result));
+                    var word = new ActiveXObject("Wps.Application");
+                    word.Visible = true;
+                    word.Documents.Open($rootScope.basePath+"uploadFile/downloadFileMethod?fileId="+row.pk_pub_blob.pk_object_id);*/
+                    window.open($rootScope.basePath + "uploadFile/downloadFileMethod?fileId=" + row.pk_pub_blob.pk_object_id);
+                }
+            }
+        });
+        /*if($rootScope.isPdf==true){
+
+        }else {
+          $http.post($rootScope.basePath + "queryDocument/queryDocument", {pk_pub_blob: row.pk_pub_blob.pk_pub_blob,isEdit:isEdit}).success(function (response) {
+            layer.closeAll('loading');
+            if(response.code == 200){
+              if(angular.isIE()){
+                // window.href = response.result;
+                window.open(response.result);
+
+              } else {
+                // window.href = response.result;
+                window.open(response.result);
+              }
+            }
+          });
+        }*/
+
+
+    };
+
+
+    /**
+     * 联查凭证统一接口
+     */
+    $rootScope.onLinkVoucher = function (data) {
+        ngDialog.openConfirm({
+            showClose: true,
+            closeByDocument: true,
+            template: 'view/voucher/voucher.html',
+            className: 'ngdialog-theme-formInfo',
+            data: {bill_key: data}
+        });
+    };
+
+    /**
+     * 联查会计平台数据
+     * @param data
+     * @returns {*}
+     */
+    $rootScope.onLinkGenVoucher = function (data) {
+        if (angular.isEmpty(data)) return angular.alert("业务单据主键不能为空");
+        var url = baseUrl + "factoring/view.html#/?pk_org=" + $rootScope.pk_org + "&pk_user=" + $rootScope.loginUser.pk + "&fun_code=" + $rootScope.SELECT.BL_FUN[0].id + "&source_bill=" + data;
+        window.open(url);
+    };
+
+    $rootScope.onLinkAuditFlow = function (gridApi, func) {
+        var oneItem = gridApi.selection.getSelectedRows()[0];
+        workFlowDialog.linkAuditFlow({
+            source_bill: oneItem.primaryKey,
+            source_name: angular.toJson(oneItem),
+            resultHandler: function (actionType) {
+                // $scope.queryForGrid();
+                if (func) func(actionType);
+            }
+        })
+
+    };
+    $rootScope.onGenDocument = function (gridApi, fun, conFun) {
+        if (!gridApi) return true;                                                 //   gridApi为假，肯定直接按钮不可用
+        var rows = gridApi.selection.getSelectedRows();
+        if (!rows || rows.length != 1) return angular.alert($rootScope.getDisName($rootScope['ALERT_MSG'].GENDOCUMENT_ONE_SELECT_MSG, "！"));
+        layer.load(2);
+        $http.post($rootScope.basePath + "document/onGenDocument", {data: angular.toJson(rows[0])}).success(function (response) {
+            layer.closeAll('loading');
+            if (!response.result || !response.result.length) return angular.alert($rootScope.getDisName($rootScope['ALERT_MSG'].DOCUMENT_DOC_MSG, "！"));
+            $rootScope.contractRules = response.result;
+            ngDialog.openConfirm({
+                showClose: true,
+                closeByDocument: true,
+                template: 'view/common/documentSelect/documentSelect.html',
+                className: 'ngdialog-theme-formInfo-min',
+                scope: $rootScope,
+                preCloseCallback: function (value) {
+                    if (value && value == "clear") {
+                        //重置
+                        // $scope.query = {};
+                        return false;
+                    }
+                    //取消
+                    return true;
+                }
+            }).then(function (value) {
+                if (value != null) {
+                    layer.load();
+                    $http.post($rootScope.basePath + "document/genDocument",
+                        {
+                            vo: angular.toJson(rows[0]),
+                            item: angular.toJson(value.item),
+                            data: angular.toJson(value.result)
+                        }
+                    ).success(function (response) {
+                        layer.closeAll('loading');
+                    });
+                }
+            }, function (reason) {
+
+            });
+        });
+    }
+
+    $rootScope.toDoTaskFly = function ($scope, pk, fun) {
+        var scope = this;
+        scope.findOne(pk, function () {
+            scope.isWorkFlow = true;
+            scope.isDisabled = true;
+            scope.isGrid = false;
+            if (fun) fun();
+        });
+        $http.post($rootScope.basePath + "workFlowMadelController/checkAutoAudit", {
+            data: pk
+        }).success(function (response) {
+            layer.closeAll('loading');
+            scope.isChangeAudit = response;
+        });
+
+
+    };
 }
 
 /**
@@ -539,7 +802,6 @@ function addFilter($filter, $rootScope, $sce) {
                 html = html + '<br/>' + '<span>' + input.substring(input.indexOf("遇到的困难："), input.length) + '</span>';
             }
             return $sce.trustAsHtml(html);
-            ;
         };
 
     });
@@ -677,8 +939,15 @@ function addFilter($filter, $rootScope, $sce) {
             return $filter('number')(parseFloat(input), 2);
         };
     });
+    //汇率过滤器
+    app.filter('RATE_FILTER', function () {
+        return function (input) {
+            if (!input) input = 0;
+            return $filter('number')(parseFloat(input), 4);
+        };
+    });
 
-    //证书过滤器
+    //整数过滤器
     app.filter('INT_FILTER', function () {
         return function (input) {
             if (!input) input = 0;
@@ -750,7 +1019,7 @@ function addFilter($filter, $rootScope, $sce) {
     app.filter('date_cell_date', function () {
         return function (input) {
             if (input)
-                return new Date(input).format("yyyy-MM-dd");
+                return input==""?"" : new Date(input).format("yyyy-MM-dd");
             // return input.toString().substring(0,input.toString().lastIndexOf('"'));
         };
     });
@@ -796,10 +1065,22 @@ function addFilter($filter, $rootScope, $sce) {
             if (input != null && input != 0) {
                 var editInput = input.toString();
                 //当数值中含有逗号，去掉
-                editInput = editInput.replace(/,/g, "");
+                editInput = editInput.replaceAll(/,/g, "");
                 var input = parseFloat(editInput).toFixed(2);
             }
             return $filter('number')(parseFloat(input), 2);
+        };
+    });
+
+    //去掉字符串的  [ ] "
+    app.filter('StringFilter', function () {
+        return function (input) {
+            if (input) {
+                input = input.replaceAll("[","");
+                input = input.replaceAll("]","");
+                input = input.replaceAll("\"","");
+                return input;
+            }
         };
     });
 
@@ -884,7 +1165,7 @@ function changeUIGridSelectionServiceFunction(uiGridSelectionService) {
                 //     nameValue = ends;
                 // }
               } else {
-                var firarr = getSelectOptionData()[names[i].cellFilter&&names[i].cellFilter.replace('SELECT_','')];
+                var firarr = getSelectOptionData[names[i].cellFilter&&names[i].cellFilter.replace('SELECT_','')];
                 if(firarr){
                   if(nameValue != ""){
                     for (var m = 0;m<firarr.length;m++){

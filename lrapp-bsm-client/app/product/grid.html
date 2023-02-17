@@ -1,0 +1,90 @@
+<script type="text/ng-template" id="asideContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">高级搜索</h3>
+  </div>
+  <div class="modal-body">
+    Look i'm in aside.
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-azure" ng-click="ok($event)"><i class="fa fa-search"></i>搜索</button>
+    <button class="btn btn-light-azure" ng-click="cancel($event)"><i class="fa fa-undo"></i>重置</button>
+  </div>
+</script>
+
+<div class="lr-search-box">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-md-4">
+        <label class="col-md-4 control-label">借据编码：</label>
+
+        <div class="col-md-8">
+          <input class="form-control"/>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label class="col-md-4 control-label">合同编号：</label>
+
+        <div class="col-md-8">
+          <input class="form-control" disabled type="text"
+                 ng-model="VO.application.contract.conno" required>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label class="col-md-4 control-label">客户名称：</label>
+
+        <div class="col-md-8">
+          <input class="form-control"/>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-8">
+        <div class="col-md-8 col-md-offset-4 lr-text-right">
+          <div class="btn-group">
+            <a class="btn btn-blue">
+              <i class="fa fa-search"></i>
+              查询
+            </a>
+
+            <a class="btn btn-light-blue">
+              <i class="fa fa-undo"></i>
+              重置
+            </a>
+            <a class="btn btn-dark-blue" ng-click="openAdvancedSearch('right')">
+              <i class="fa fa-align-justify"></i>
+              高级查询
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<div style="margin-top: 15px; background: #fff">
+  <div style="padding: 10px 0;">
+    <div class="btn-group">
+      <a class="btn btn-azure">
+        <i class="fa fa-plus"></i>
+        新增
+      </a>
+      <a class="btn btn-azure">
+        <i class="fa fa-edit"></i>
+        修改
+      </a>
+      <a class="btn btn-azure">
+        <i class="fa fa-remove"></i>
+        删除
+      </a>
+    </div>
+  </div>
+  <div ui-grid="mainGrid"  ui-grid-pagination ui-grid-selection ui-grid-pinning ></div>
+</div>

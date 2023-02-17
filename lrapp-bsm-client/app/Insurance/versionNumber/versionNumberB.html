@@ -1,0 +1,91 @@
+<div class="main-form-style" ng-controller="versionNumberBCtrl">
+    <div class="form-horizontal" >
+        <accordion>
+            <accordion-group is-open="status.open" class="lr-page-bg-gray" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                </accordion-heading>
+                <form class="form-horizontal">
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+    <!--<div class="col-md-4">-->
+        <!--<span>所有信息：</span><span class="fontStyle">{{list}}</span>-->
+    <!--</div>-->
+
+    <!--<div class="form-horizontal" style="background: #fff; padding: 10px;">-->
+        <!--<div ui-grid="versionNumberBGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:300px"></div>-->
+    <!--</div>-->
+    <div style="overflow-x: auto; overflow-y: auto; height: 300px; width:auto;">
+    <table border="1"  height="100px;" width="90%" class="table">
+        <!--<th >业管系统发版记录</th>-->
+        <caption>
+            <h2>
+                发版记录</h2>
+        </caption>
+        <thead>
+        <tr>
+            <!--<th>-->
+                <!--版本信息编号-->
+            <!--</th>-->
+            <th>
+                版本号
+            </th>
+            <th>
+                更新内容
+            </th>
+            <th>
+                更新时间
+            </th>
+        </tr>
+        </thead>
+        <!--<tr >-->
+            <!--<td>版本信息编号</td>-->
+            <!--<td>版本号</td>-->
+            <!--<td>更新内容</td>-->
+            <!--<td>更新时间</td>-->
+        <!--</tr>-->
+        <tr ng-repeat="x in list">
+            <!--<td>{{x.serialNo}}</td>-->
+            <td>{{x.version}}</td>
+            <td width="50%">{{x.cusContent}}</td>
+            <td>{{x.ts}}</td>
+        </tr>
+    </table>
+    </div>
+    <div class="pull-right">
+        <!--<button ng-click="onSave()"  style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>-->
+        <button ng-click="downVersionFile()" style="margin-right: 10px;"class="btn btn-sm btn-info" >下载操作手册</button>
+        <button ng-click="onCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<style type="text/css">
+    table
+    {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
+    }
+    table td, table th
+    {
+        border: 1px solid #cad9ea;
+        color: #666;
+        height: 30px;
+    }
+    table thead th
+    {
+        background-color: #CCE8EB;
+        width: 100px;
+        text-align: center;
+    }
+    table tr:nth-child(odd)
+    {
+        background: #fff;
+    }
+    table tr:nth-child(even)
+    {
+        background: #F5FAFA;
+    }
+</style>
+

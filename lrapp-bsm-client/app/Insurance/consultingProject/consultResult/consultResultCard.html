@@ -1,0 +1,110 @@
+<form class="form-horizontal" ng-if="card">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="main-div">
+        <div class="col-md-12 title">
+            <p style="font-size:20px">详细信息</p>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>项目名称：</span><span class="fontStyle">{{VO.replyName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>申请金额（万元）：</span><span class="fontStyle">{{VO.amount }}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>主送部门：</span><span class="fontStyle">{{VO.pkDeliverUnit.name }}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否纳入综合计划：</span><span class="fontStyle">{{VO.planed | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>项目类型：</span><span class="fontStyle">{{VO.kindType | SELECT_CONTSULT_TYPE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>是否集中申报项目：</span><span class="fontStyle">{{VO.group | SELECT_YESNO}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>合作单位：</span><span class="fontStyle">{{VO.collaborator }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>批复金额（万元）：</span><span class="fontStyle">{{VO.replyAmount}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>采购方式：</span><span class="fontStyle">{{VO.contractNo | SELECT_PURCHASE}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>合同名称：</span><span class="fontStyle">{{VO.contractName}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>合同金额（元）：</span><span class="fontStyle">{{VO.contractAmount}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>项目执行金额（元）：</span><span class="fontStyle">{{VO.payTotal}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>累计支付次数：</span><span class="fontStyle">{{VO.cumulativePayments}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>剩余支付次数：</span><span class="fontStyle">{{VO.remainingPayments}}</span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>立项日期：</span><span class="fontStyle">{{VO.curDate | date:"yyyy-MM-dd"}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>结项日期：</span><span class="fontStyle">{{VO.inspectedDate | date:"yyyy-MM-dd"}}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span>业务单位：</span><span class="fontStyle">{{VO.pkOrg.name}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span>项目状态：</span><span class="fontStyle">{{VO.projectStatus | SELECT_CONTSULT_PROJECT_STATUS}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 card-grid">
+                <div>
+                    <div class="pull-right lr-mr10 lr-mt10">
+                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
+                    </div>
+                    <tabset justified="false">
+                        <tab index="40" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
+                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                                 ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-md-12 font-style-audit-title title" ng-show="mess">
+            <p class="taskmess">审批信息</p>
+
+            <div ng-repeat="item in VO.taskHis" style="color: black;border-bottom:1px solid 	#C0C0C0">
+                <p><span><b>{{item.operate_name}}: </b></span><span ng-bind-html="item.pk_process.name"></span></p>
+                <p>{{item.opinion}}</p>
+                <p style="text-align: right">{{item.process_time}}</p>
+            </div>
+        </div>-->
+    </div>
+</form>

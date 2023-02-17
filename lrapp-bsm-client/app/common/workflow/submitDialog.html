@@ -1,88 +1,111 @@
-<div class=" bg-white">
-    <form name="submitForm" class="form-horizontal" verify-scope="tipStyle: 1" AUTOCOMPLETE="ON">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="user-left  min-height-350">
-                    <div collapse="activities" ng-init="activities=false" class="panel-wrapper">
-                        <div class="panel-body">
-                            <ul class="timeline-xs">
-                                <h5>审批记录</h5>
-                                <li class="timeline-item success" ng-repeat="item in tasks">
-                                    <div class="margin-left-15">
-                                        <div class="text-muted text-small">
-                                            {{item.process_name}} {{item.process_time ==null? '': ' '+ item.process_time}}
-                                        </div>
-                                        <p>
-                                            {{item.opinion }}
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
+<div >
+    <div class="main-form-style">
+        <form name="contractQueryForm" class="form-horizontal" AUTOCOMPLETE="ON">
+            <accordion class="" close-others="oneAtATime">
+                <div ng-init="status={open:true}"></div>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        提交信息<i class="pull-right glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class=" control-label" style="text-align: left">审核历史：</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea style="height: 130px;width: 400px;"  ng-model="submitVO.log" ng-disabled="true" ></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class=" control-label" style="text-align: left">审核意见（最大字数：500）：</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <select multiple class="form-control"  ng-model="submitVO.selectMsg" ng-disabled="connmitDisable" style="width: 200px; height: 123px; padding: 0px; margin-left: 15px;margin-bottom:10px;display:inline-block">
+                                        <option disabled value="">常用审批语</option>
+                                        <option ng-repeat="item in msg"  value="{{item.msg}}">{{item.msg}}</option>
+                                    </select>
+                                    <p style="display: inline-block;height:100px; line-height:100px; overflow:hidden;font-size: 20px;"><strong>→</strong></p>
+                                    <textarea style="height: 130px;width: 200px;display: inline-block" ng-model="submitVO.msg" placeholder="{{comment}}" ng-disabled="connmitDisable" maxlength="500" ng-verify></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="radio clip-radio radio-success radio-inline" ng-repeat="item in PASSES">
-                            <input checked="checked" id="radio{{item.primaryKey}}" ng-model="submitVO.pass" type="radio" value="{{item.primaryKey}}">
-                            <label for="radio{{item.primaryKey}}">
-                                {{item.transitionName}}
-                            </label>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="col-md-3"  ng-repeat="item in PASSES">
+                                    <label>
+                                        <input type="radio" name="passName" value="{{item.transitionCode}}" ng-model="submitVO.pass">
+                                        {{item.transitionName}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" ng-if="submitView">
-                    <div class="col-md-12">
-                        <div class="col-md-5">
-                            <select multiple class="form-control min-height-155" ng-model="submitVO.leftSelects">
-                                <option ng-repeat="item in LEFT_DATA" value="{{item.id}}">{{item.name}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2" style="padding: 0px;text-align: center;margin-left: -6px;">
-                            <button class="btn btn-azure" type="button" ng-click="onToRight()" ng-disabled="!submitVO.leftSelects||submitVO.leftSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
-                                <i class="fa fa-angle-right"></i>
-                            </button>
-                            </BR>
-                            <button class="btn btn-azure" type="button" ng-click="onToRightAll()" ng-disabled="!LEFT_DATA||LEFT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
-                                <i class="fa fa-angle-double-right"></i>
-                            </button>
-                            </BR>
-                            <button class="btn btn-azure" type="button" ng-click="onToLeft()" ng-disabled="!submitVO.rightSelects||submitVO.rightSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
-                                <i class="fa fa-angle-left"></i>
-                            </button>
-                            </BR>
-                            <button class="btn btn-azure" type="button" ng-click="onToLeftAll()" ng-disabled="!RIGHT_DATA||RIGHT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
-                                <i class="fa fa-angle-double-left"></i>
-                            </button>
-                            </BR>
-                        </div>
-                        <div class="col-md-5">
-                            <select multiple class="form-control min-height-155" ng-model="submitVO.rightSelects">
-                                <option ng-repeat="item in RIGHT_DATA" value="{{item.id}}">{{item.name}}</option>
-                            </select>
+                    <div class="form-group" ng-show="submitView">
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <div class="col-md-12">
+                                    <!--<ui-select   ng-model="submitVO.LeftSelects" theme="bootstrap" >-->
+                                        <!--<ui-select-match >{{$item.name}}</ui-select-match>-->
+                                        <!--<ui-select-choices repeat="item in LEFT_DATA | filter: $select.search">-->
+                                            <!--<span ng-bind-html="item.pk+'' | highlight: $select.search"></span>-->
+                                            <!--<small ng-bind-html="item.name | highlight: $select.search"></small>-->
+                                        <!--</ui-select-choices>-->
+                                    <!--</ui-select>-->
+                                    <select multiple class="form-control" ng-model="submitVO.leftSelects" style="width: 400px;height: 150px;padding: 0px;">
+                                        <option ng-repeat="item in LEFT_DATA" value="{{item.pk}}">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="padding: 0px;text-align: center;margin-left: -6px;">
+                                <button class="btn btn-azure" type="button" ng-click="onToRight()" ng-disabled="!submitVO.leftSelects||submitVO.leftSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    >
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToRightAll()" ng-disabled="!LEFT_DATA||LEFT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    >>
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToLeft()" ng-disabled="!submitVO.rightSelects||submitVO.rightSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    <
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToLeftAll()" ng-disabled="!RIGHT_DATA||RIGHT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    <<
+                                </button>
+                                </BR>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="col-md-12" style="margin-left: -73px;">
+                                    <!--<ui-select   ng-model="submitVO.rightSelects" theme="bootstrap" >-->
+                                        <!--<ui-select-match >{{$item.name}}</ui-select-match>-->
+                                        <!--&lt;!&ndash;<ui-select-match ng-bind="$select.selected.name"></ui-select-match>&ndash;&gt;-->
+                                        <!--<ui-select-choices repeat="item in RIGHT_DATA | filter: $select.search">-->
+                                            <!--<span ng-bind-html="item.pk+'' "></span>-->
+                                            <!--<small ng-bind-html="item.name | highlight: $select.search"></small>-->
+                                        <!--</ui-select-choices>-->
+                                    <!--</ui-select>-->
+                                    <select multiple class="form-control" ng-model="submitVO.rightSelects" style="width: 400px;height: 150px;">
+                                        <option ng-repeat="item in RIGHT_DATA" value="{{item.pk}}">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5>审批意见：</h5>
-                        <!--                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="submitVO.msg" placeholder="最多输入500个汉字。"></textarea>-->
-                        <insert-select model-data="submitVO.msg"
-                                       option-list="approvalMessages"
-                                       placeholder="'最多输入500个汉字。'">
-                        </insert-select>
+                    <div class="pull-right">
+                        <button ng-click="onSubmitConfirm()" style="margin-right: 10px;"class="btn btn-sm btn-info" >确定</button>
+                        <button ng-click="onSubmitCancel()" style="margin-right: 10px;"class="btn btn-sm btn-info" >取消</button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="pull-right lr-page-margin">
-                <button ng-click="onSubmitConfirm() && confirm(submitVO)" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> 确定</button>
-                <button ng-click="closeThisDialog(0)" class="btn btn-sm btn-default"><i class="fa fa-times"></i>取消</button>
-            </div>
-        </div>
-    </form>
+                </accordion-group>
+            </accordion>
+        </form>
+    </div>
 </div>
-

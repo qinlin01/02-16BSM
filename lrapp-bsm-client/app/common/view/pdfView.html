@@ -1,3 +1,11 @@
-<div class="modal-content" style=" height:780px;">
-        <object ng-show="content" data="{{content}}" type="application/pdf" style="width: 100%;height: 100%"></object>
+<div data-ng-app="lrApp" ng-controller="pdfViewCtrl">
+    <div class="modal-content" onloadstart="">
+        <object ng-if="type=='application/pdf'" ng-show="content" data="{{content}}" type="application/pdf" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='text/plain'" ng-show="content" data="{{content}}" type="text/plain" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='application/vnd.ms-excel'" ng-show="content" data="{{content}}" type="application/vnd.ms-excel" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='application/ms-word'" ng-show="content" data="{{content}}" type="application/ms-word" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='application/vnd.ms-powerpoint'" ng-show="content" data="{{content}}" type="application/vnd.ms-powerpoint" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='image/jpeg'" ng-show="content" data="{{content}}" type="image/jpeg" style="width: 100%;height: 1000px;"></object>
+        <object ng-if="type=='image/gif'" ng-show="content" data="{{content}}" type="image/gif" style="width: 100%;height: 600px;"></object>
+    </div>
 </div>

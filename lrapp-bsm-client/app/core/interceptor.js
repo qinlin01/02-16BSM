@@ -14,8 +14,8 @@ app.factory("httpInterceptor", ["$q", "$location", function ($q, $location) {
             var pass = SG_sm3encrypt(url + token);
             _config.headers['x-auth-token'] = token;
             _config.headers['Vailcode'] = pass;
-            if (_config.data != null && _config.data.funcCode != null) {
-                _config.headers['funcCode'] = _config.data.funcCode;
+            if (_config.data != null && _config.data.funCode != null) {
+                _config.headers['funCode'] = _config.data.funCode;
             }
             var dateStr = new Date().getTime();
             _config.headers['secret'] = dateStr;
@@ -30,29 +30,38 @@ app.factory("httpInterceptor", ["$q", "$location", function ($q, $location) {
             layer.closeAll('loading');
             return response || $q.when(response);
         },
-        responseError: function (rejection) {
-
+        responseError : function(rejection) {
             layer.closeAll('loading');
-            switch (rejection.status) {
-                case 404:
-                    layer.alert("页面丢失了，请联系系统管理员。", {icon: 2, skin: 'layui-layer-lan', closeBtn: 1});
-                    break;
-                case 403:
-                    layer.alert("您无权访问该界面，请联系系统管理员。", {icon: 2, skin: 'layui-layer-lan', closeBtn: 1});
-                    break;
-                case 500:
-                    layer.alert("系统访问后台失败。", {icon: 2, skin: 'layui-layer-lan', closeBtn: 1});
-                    break;
-                case 401:
-                    layer.msg("系统登录时间超时或者没有权限，请重新登录!", {icon: 2, time: 2000, shade: [0.5, '#000', true]});
-                    localStorage.clear();
-                    window.sessionStorage.removeItem("token");
-                    window.sessionStorage.removeItem("menu");
-                    window.location.href='/index.html';
-                    break;
-                default:
-                    layer.alert("系统访问后台失败。", {icon: 2, skin: 'layui-layer-lan', closeBtn: 1});
-                    break;
+            if (rejection.status == 401) {
+                $location.replace().path("login/signin").search({});
+            }
+            // if (rejection.status == -1) {
+            //     $location.replace().path("login/signin").search({});
+            // }
+            if (rejection.status == 302) {
+                $location.replace().path("login/signin").search({});
+            }
+            if (rejection.status == 405) {
+                $location.replace().path("login/signin").search({});
+            }
+            if (rejection.status == 400) {
+                layer.alert(rejection.data, {skin: 'layui-layer-lan', closeBtn: 1});
+            }
+            if (rejection.status == 404) {
+                $location.replace().path("login/notfond").search({});
+            }
+            /* if (rejection.status == 500) {
+                 $location.replace().path("login/error").search({});
+             }*/
+            if (rejection.data) {
+                if (rejection.data.msg) {
+                    // e.g. 字符转换为Entity Name
+                    rejection.data.msg = rejection.data.msg.replace(/(\D{1})/g, function (matched) {
+                        var rs = asciiChartSet_c2en[matched];
+                        return rs == undefined ? matched : rs;
+                    });
+                    layer.alert(rejection.data.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                }
             }
             return $q.reject(rejection);
         }

@@ -85,11 +85,11 @@ var initonlineView = function ($scope, $rootScope, $sce, $http, ngDialog) {
     }
 
     //添加附件界面双击预览事件
-    // if ($scope.dealAttachmentBGridOptions && !$scope.isForm) {
+    // if ($scope.dealAttachmentBGridOptions && !$scope.isEdit) {
     //     $scope.dealAttachmentBGridOptions.rowTemplate =
     //         "<a><div ng-dblclick=\"grid.appScope.onRowDblClicks(row.entity)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell dbl-click-row></div></a>";
     // }
-    // if ($scope.assistantGridOptions && !$scope.isForm) {
+    // if ($scope.assistantGridOptions && !$scope.isEdit) {
     //     $scope.assistantGridOptions.rowTemplate =
     //         "<a><div ng-dblclick=\"grid.appScope.onRowDblClicks(row.entity)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell dbl-click-row></div></a>";
     // }
@@ -102,11 +102,26 @@ var initonlineView = function ($scope, $rootScope, $sce, $http, ngDialog) {
     });
 }
 
+/**
+ * 生成随机的盐值方法
+ * @returns 返回随机的16位盐值
+ */
+function generateSalt(){
+    var s= '';
+    var randomchar=function(){
+        var n= Math.floor(Math.random()*62);
+        if(n<10) return n;
+        if(n<36) return String.fromCharCode(n+55);
+        return String.fromCharCode(n+61);
+    }
+    while(s.length< 16) s+= randomchar();
+    return s;
+}
 
 //在线预览
 var initPreviewFile = function ($scope, $rootScope) {
     $scope.onPreviewFile = function (id, name) {
-        var sm2url = SM2EncryptOnlinePreview($rootScope.basePath + "uploadFile/previewFile?id=" + id + "&fullfilename=" + name);
+        var sm2url = SM2EncryptOnlinePreview($rootScope.basePath + "uploadFile/previewFile?id=" + id + "&fullfilename=" + generateSalt() + name);
         var post_form = document.createElement("form");
         post_form.action = $rootScope.previewPath + 'onlinePreview';
         post_form.target = "_blank";
