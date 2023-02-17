@@ -1,0 +1,99 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+          <!--  <accordion class="" close-others="oneAtATime">
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-up lr-page-color" aria-hidden="true"></i>
+                        <span class="lr-page-color">基本信息</span>
+                    </div>
+                    <i class="fa pull-right fa-chevron-circle-down lr-arrow-color"
+                       ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>-->
+                        <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">数据流向：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.dataflow">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">发送时间：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.senddate">
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-md-5 control-label">返回时间：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.returndate">
+                                </div>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">数据发送成功标志：</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-disabled="isDisabled" ng-model="VO.sendstatus"
+                                                required
+                                                ng-options="item.id as item.name for item in SELECT.DATASENDSTATUS">
+                                            <option value="">--请选择数据发送成功标志--</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">数据返回的状态：</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-disabled="isDisabled" ng-model="VO.returnstatus"
+                                                required
+                                                ng-options="item.id as item.name for item in SELECT.DATAREVICESTATUS">
+                                            <option value="">--请选择数据返回的状态--</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">电网资产系统返回的消息：</label>
+                                        <div class="col-md-7">
+                                            <textarea class="form-control" style="resize:none"  ng-disabled="isDisabled" type="text" ng-model="VO.returnmsg"></textarea>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">业务管理系统发送的数据：</label>
+                                        <div class="col-md-7">
+                                            <textarea class="form-control" style="resize:none"  ng-disabled="isDisabled" type="text" ng-model="VO.sendxml"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-5 control-label">发送数据时抛的异常消息：</label>
+                                        <div class="col-md-7">
+                                            <textarea class="form-control" style="resize:none"  ng-disabled="isDisabled" type="text" ng-model="VO.exceptionmessage"></textarea>
+                                        </div>
+                                    </div>
+                        </div>
+           <!-- </accordion-group>
+        </accordion>-->
+    </div>
+</form>

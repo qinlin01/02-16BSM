@@ -4,142 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48ee78c9-07e3-4385-aa80-a70e0c62c427" name="变更" comment="System公共文件节点提交">
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def10/sum_def10.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def10/sum_def10Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def10/sum_def10Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def10/sum_def10Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def10/sum_def10Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def11/sum_def11.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def11/sum_def11Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def11/sum_def11Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def11/sum_def11Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def11/sum_def11Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def12/sum_def12.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def12/sum_def12Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def12/sum_def12Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def12/sum_def12Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def12/sum_def12Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def13/sum_def13.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def13/sum_def13Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def13/sum_def13Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def13/sum_def13Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def13/sum_def13Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def14/sum_def14.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def14/sum_def14Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def14/sum_def14Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def14/sum_def14Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def14/sum_def14Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def8/sum_def8.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def8/sum_def8Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def8/sum_def8Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def8/sum_def8Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def8/sum_def8Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9/sum_def9.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9/sum_def9Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9/sum_def9Ctrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9/sum_def9Form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9/sum_def9Grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApply/consultApply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApply/consultApplyCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApply/consultApplyCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApply/consultApplyForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApply/consultApplyGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApproval/consultApproval.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApproval/consultApprovalCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApproval/consultApprovalCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApproval/consultApprovalForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultApproval/consultApprovalGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultComplete/consultComplete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultComplete/consultCompleteCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultComplete/consultCompleteCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultComplete/consultCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultComplete/consultCompleteGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultHelper/consultHelper.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultHelper/consultHelper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultOut/consultOut.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultOut/consultOutCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultOut/consultOutCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultOut/consultOutForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultOut/consultOutGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultResult/consultResult.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultResult/consultResultCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultResult/consultResultCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultResult/consultResultForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultResult/consultResultGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultRun/consultRun.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultRun/consultRunCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultRun/consultRunCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultRun/consultRunForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/consultingProject/consultRun/consultRunGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/realityStream/realityStream.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/realityStream/realityStreamCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/realityStream/realityStreamGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/subscriptionManages/subscriptionManages.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/subscriptionManages/subscriptionManagesCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/subscriptionManages/subscriptionManagesCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/subscriptionManages/subscriptionManagesForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/elife/subscriptionManages/subscriptionManagesGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/flowdef/flowdef.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/flowdef/flowdefCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/flowdef/flowdefForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/flowdef/flowdefGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumber.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumberB.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumberCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumberCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumberForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/versionNumber/versionNumberGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/configView.router.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/login/comptroller.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/login/signLogin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/busStatisticsDetail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/busStatisticsDetail2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/busStatisticsTip.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/business.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/businessCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/businessStatistics.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/businessStatistics_31.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/businessStatistics_32.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/businessStatistics/progressOrderSetup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/infoEarlyWarning/gatherOverdueWarning.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/infoEarlyWarning/infoEarlyWarning.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/mainView.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/statisticalChart/overdueStatisPie.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/statisticalChart/receivableStatisBar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/statisticalChart/statisticalChart.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/toDoManagement/projectToDo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/toDoManagement/toDoManagement.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/tradeReminding/gatherExpireReminding.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/tradeReminding/gatherOverdueReminding.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/tradeReminding/paymentExpireReminding.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/mainView/tradeReminding/tradeReminding.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/product/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/product/product.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/product/productCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/system/logCount/logCount.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/system/logCount/logCountCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/system/logCount/logCountGrid.html" afterDir="false" />
+    <list default="true" id="48ee78c9-07e3-4385-aa80-a70e0c62c427" name="变更" comment="开始修改陆游">
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsurance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceCard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceGrid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/ems.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsCard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/ems/emsGrid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyse.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyseCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse/agentAnalyseGrid.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/common/view/pdfView.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/common/view/pdfView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/common/view/updatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/common/view/updatePassword.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/common/workflow/linkAuditFlow.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/common/workflow/linkAuditFlow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/common/workflow/submitDialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/common/workflow/submitDialog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.constant.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.constant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.lazyload.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.lazyload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQuery.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQueryCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQueryCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/accQuery/accQueryGrid.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/comInfo/accQuery/accQueryGrid.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsuranceCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/Insurance/contManage/policyInfo/property/propertyInsurance/pUnlifeInsurance/pUnlifeInsuranceCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/config/initData.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/config/initData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/core/interceptor.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/core/interceptor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/login/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/login/loginCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/login/loginCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/dashboardCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/dashboardCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/nav/nav_admin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/online/onlineView.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/online/onlineView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lrapp-bsm-client/app/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/lrapp-bsm-client/app/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,11 +49,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/IDEATXT/02-16BSM/lrapp-bsm-client/app/Insurance/busManage/monthlyPlanAndAccountsReceivable/sum_def9",
+    "last_opened_file_path": "D:/IDEATXT/02-16BSM/lrapp-bsm-client/app/Insurance/salesMarketingManagement/agentAnalyse",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="RebelAgentSelection">
@@ -178,18 +62,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def9" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def8" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\versionNumber" />
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\salesMarketingManagement\agentAnalyse" />
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\salesMarketingManagement" />
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\contManage\policyInfo\property\propertyInsurance" />
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\ems" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\contManage\policyInfo\property\propertyInsurance\pUnlifeInsurance" />
+      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\comInfo" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def14" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def13" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def12" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def11" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def10" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
@@ -201,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1676532266589</updated>
       <workItem from="1676532268559" duration="10260000" />
-      <workItem from="1676596170611" duration="14164000" />
+      <workItem from="1676596170611" duration="25310000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaaaaaaaaaaaaaaaaaa">
       <created>1676532291099</created>
@@ -224,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676534874636</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="开始修改陆游">
+      <created>1676620734388</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676620734389</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +149,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="aaaaaaaaaaaaaaaaaaaaaaaa" />
     <MESSAGE value="System公共文件节点提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="System公共文件节点提交" />
+    <MESSAGE value="开始修改陆游" />
+    <option name="LAST_COMMIT_MESSAGE" value="开始修改陆游" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -358,6 +250,18 @@
           <line>792</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js</url>
+          <line>1762</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/lrapp-bsm-client/app/config/config.router.js</url>
+          <line>2359</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

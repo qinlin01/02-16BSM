@@ -1,0 +1,373 @@
+<div class="form-horizontal">
+    <div style="margin-top: 50px" ng-show="false">
+        <tabset justified="false">
+            <tab index="1" heading="代理制人员统计分析">
+                <div ui-grid="agentAnalyseGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns ui-grid-exporter class="grid" style="height:200px"></div>
+            </tab>
+            <tab index="2" heading="代理制业务统计分析">
+                <div ui-grid="agentBusinessAnalyseGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize  ui-grid-exporter
+                     ui-grid-resize-columns ui-grid-exporter class="grid" style="height:200px"></div>
+            </tab>
+        </tabset>
+    </div>
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+                        <li class="active">
+                            <a data-toggle="tab" href="/#agent_analyse">
+                                代理制人员统计分析
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="/#agent_business_analyse">
+                                代理制业务统计分析
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="agent_analyse" class="tab-pane fade in active">
+                            <div class="table-responsive" ng-show="ifAgentAnalyse">
+                                <p style="font-size: 16px;color: #8e8e93">代理制人员统计分析</p>
+                                <div class="pull-right">
+                                    <nav>
+                                        <ul class="pagination">
+                                            <li>
+                                                <a ng-click="exportData('agentAnalyseGridOptions')" role="button">
+                                                    <span role="button">导出全部数据</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>业务单位名称</th>
+                                        <th>当前代理人总人数</th>
+                                        <th>本年度新增人数</th>
+                                        <th>本年度注销人数</th>
+                                        <th>本月新增人数</th>
+                                        <th>本月注销人数</th>
+                                        <th>第十三个月留存率</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in agentAnalyseGridOptions.data">
+                                        <td>{{item.orgName}}</td>
+                                        <td>{{item.allNum}}</td>
+                                        <td>{{item.yearAddNum}}</td>
+                                        <td>{{item.yearOutNum}}</td>
+                                        <td>{{item.monthAddNum}}</td>
+                                        <td>{{item.monthOutNum}}</td>
+                                        <td>{{item.retentionRate}}</td>
+                                        <td ng-click="queryAgentAnalyseByOrgName(item.orgName)" style="cursor:pointer;">
+                                            {{item.orgName == '汇总' ? '' : '查看详情'}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="container-fluid container-fullw bg-white" ng-show="!ifAgentAnalyse">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabbable">
+                                            <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+                                                <li class="active">
+                                                    <a data-toggle="tab" href="/#agent_all"
+                                                       ng-click="changeChild('all')">
+                                                        全部
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="tab" href="/#agent_add"
+                                                       ng-click="changeChild('add')">
+                                                        新增
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="tab" href="/#agent_out"
+                                                       ng-click="changeChild('out')">
+                                                        注销
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div id="agent_all" class="tab-pane fade in active">
+                                                    <div class="table-responsive">
+                                                        <p style="font-size: 16px;color: #8e8e93">
+                                                            分公司名称:{{orgData.orgName}}({{orgData.year}}年度)</p>
+                                                        <div class="pull-right">
+                                                            <nav>
+                                                                <ul class="pagination">
+                                                                    <li>
+                                                                        <a ng-click="backToMain()" role="button">
+                                                                            <span role="button">返回</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>姓名</th>
+                                                                <th>性别</th>
+                                                                <th>执业证编号</th>
+                                                                <th>执业证登记日期</th>
+                                                                <th>身份证号码</th>
+                                                                <th>工号</th>
+                                                                <th>入职日期</th>
+                                                                <th ng-show="childType!=null && childType=='out'">入职日期</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="item in tablePageData">
+                                                                <td>{{item.agentName}}</td>
+                                                                <td>{{item.gender | SELECT_SEXTYPE}}</td>
+                                                                <td>{{item.licensedNo}}</td>
+                                                                <td>{{item.licensedDate}}</td>
+                                                                <td>{{item.documentCode}}</td>
+                                                                <td>{{item.workNo}}</td>
+                                                                <td>{{item.inTheDate}}</td>
+                                                                <td ng-show="childType!=null && childType=='out'">{{item.inTheDate}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="row" ng-show="tablePageDataAll.length > 10">
+                                                        <div class="pull-right">
+                                                            <nav>
+                                                                <ul class="pagination">
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(1)" role="button">
+                                                                            <span role="button">首页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tablePrevious()" role="button">
+                                                                            <span role="button">上一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li ng-repeat="page in tablePagesList"
+                                                                        ng-class="{active: tableActivePage(page)}"
+                                                                        role="button">
+                                                                        <a ng-click="selectTablePage(page)">{{ page
+                                                                            }}</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tableNext()" role="button">
+                                                                            <span role="button">下一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(tablePages)"
+                                                                           role="button">
+                                                                            <span role="button">末页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="agent_add" class="tab-pane fade">
+                                                    <div class="table-responsive">
+                                                        <p style="font-size: 16px;color: #8e8e93">
+                                                            分公司名称:{{orgData.orgName}}({{orgData.year}}年度)</p>
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>姓名</th>
+                                                                <th>性别</th>
+                                                                <th>执业证编号</th>
+                                                                <th>执业证登记日期</th>
+                                                                <th>身份证号码</th>
+                                                                <th>工号</th>
+                                                                <th>入职日期</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="item in tablePageData">
+                                                                <td>{{item.agentName}}</td>
+                                                                <td>{{item.gender | SELECT_SEXTYPE}}</td>
+                                                                <td>{{item.licensedNo}}</td>
+                                                                <td>{{item.licensedDate}}</td>
+                                                                <td>{{item.documentCode}}</td>
+                                                                <td>{{item.workNo}}</td>
+                                                                <td>{{item.inTheDate}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="row" ng-show="tablePageDataAll.length > 10">
+                                                        <div class="pull-right">
+                                                            <nav>
+                                                                <ul class="pagination">
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(1)" role="button">
+                                                                            <span role="button">首页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tablePrevious()" role="button">
+                                                                            <span role="button">上一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li ng-repeat="page in tablePagesList"
+                                                                        ng-class="{active: tableActivePage(page)}"
+                                                                        role="button">
+                                                                        <a ng-click="selectTablePage(page)">{{ page
+                                                                            }}</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tableNext()" role="button">
+                                                                            <span role="button">下一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(tablePages)"
+                                                                           role="button">
+                                                                            <span role="button">末页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="agent_out" class="tab-pane fade">
+                                                    <div class="table-responsive">
+                                                        <p style="font-size: 16px;color: #8e8e93">
+                                                            分公司名称:{{orgData.orgName}}({{orgData.year}}年度)</p>
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>姓名</th>
+                                                                <th>性别</th>
+                                                                <th>执业证编号</th>
+                                                                <th>执业证登记日期</th>
+                                                                <th>身份证号码</th>
+                                                                <th>工号</th>
+                                                                <th>入职日期</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="item in tablePageData">
+                                                                <td>{{item.agentName}}</td>
+                                                                <td>{{item.gender | SELECT_SEXTYPE}}</td>
+                                                                <td>{{item.licensedNo}}</td>
+                                                                <td>{{item.licensedDate}}</td>
+                                                                <td>{{item.documentCode}}</td>
+                                                                <td>{{item.workNo}}</td>
+                                                                <td>{{item.inTheDate}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="row" ng-show="tablePageDataAll.length > 10">
+                                                        <div class="pull-right">
+                                                            <nav>
+                                                                <ul class="pagination">
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(1)" role="button">
+                                                                            <span role="button">首页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tablePrevious()" role="button">
+                                                                            <span role="button">上一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li ng-repeat="page in tablePagesList"
+                                                                        ng-class="{active: tableActivePage(page)}"
+                                                                        role="button">
+                                                                        <a ng-click="selectTablePage(page)">{{ page
+                                                                            }}</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="tableNext()" role="button">
+                                                                            <span role="button">下一页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a ng-click="selectTablePage(tablePages)"
+                                                                           role="button">
+                                                                            <span role="button">末页</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="agent_business_analyse" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <p style="font-size: 16px;color: #8e8e93">代理制业务统计分析</p>
+                                <div class="pull-right">
+                                    <nav>
+                                        <ul class="pagination">
+                                            <li>
+                                                <a ng-click="exportData('agentBusinessAnalyseGridOptions')" role="button">
+                                                    <span role="button">导出全部数据</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div style="float: left;white-space: nowrap;">
+                                    <span style="text-align: right">年份：</span><input type="text" placeholder="请输入年份" ng-model="query.businessYear"/>
+                                </div>
+                                <br/>
+                                <hr/>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>业务单位名称</th>
+                                        <th>保费总金额</th>
+                                        <th>佣金收入总金额</th>
+                                        <th>手续费支出总金额</th>
+                                        <th>人均收入</th>
+                                        <th>人均手续费</th>
+                                        <th>职域收入总金额</th>
+                                        <th>职域手续费支出总金额</th>
+                                        <th>人身险佣金收入总金额</th>
+                                        <th>人身险手续费支出总金额</th>
+                                        <th>财产险佣金收入总金额</th>
+                                        <th>财产险手续费支出总金额</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in agentBusinessAnalyseGridOptions.data">
+                                        <td>{{item.orgName}}</td>
+                                        <td>{{item.allAmount}}</td>
+                                        <td>{{item.allFee}}</td>
+                                        <td>{{item.allCharge}}</td>
+                                        <td>{{item.avgFee}}</td>
+                                        <td>{{item.avgCharge}}</td>
+                                        <td>{{item.iwmFee}}</td>
+                                        <td>{{item.iwmCharge}}</td>
+                                        <td>{{item.lifeFee}}</td>
+                                        <td>{{item.lifeCharge}}</td>
+                                        <td>{{item.unlifeFee}}</td>
+                                        <td>{{item.unlifeCharge}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
