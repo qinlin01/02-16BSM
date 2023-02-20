@@ -51,7 +51,7 @@ function SM4Encrypt(plainText,key,salt)
  */
 function SM2Encrypt(plainText,salt)
 {
-    var pubKey = '047097a1ece104af026b37e5b469f794f5dc5aa3853892e046dc76fa195face55bd0a2670aa22aa34661044614440fbb44f45a6d3852cf6fa2b622f5df7254272d';
+    var pubKey = '04f7b3f460bc5c11a3d5f2c4f0cff840d9b144ef0c48180754df75ae32438e9a7c39d594f5ff3329629cfbd27f8a879056ec71588b2e2cbdd85b03ba05f43212fb';
 	if(undefined == salt){
 		salt = generateSalt();
 	}

@@ -10,8 +10,8 @@ app.controller('LoginCtrl', function ($rootScope, $scope, $http, $location, $sta
     $scope.createCode = function() {
         code = "";
         $scope.nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-           //'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
-                   ];
+            //'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
+        ];
         $scope.clearCanvas();
         $scope.drawCode();
     };
@@ -149,45 +149,45 @@ app.controller('LoginCtrl', function ($rootScope, $scope, $http, $location, $sta
 
     //别的登录业管系统
     $scope.sysLogin = function(id,checkCode) {
-		// 加锁，等待登录请求完毕
-		window.localStorage.setItem("logindata_id",id);
+        // 加锁，等待登录请求完毕
+        window.localStorage.setItem("logindata_id",id);
         $scope.loginVO={};
         $scope.loginVO.id=id;
         $scope.loginVO.checkCode=checkCode;
         $scope.inputCode="0";
-		if($scope.isSysLogin){
-        $http.post($rootScope.basePath + "account/accountZongguanLogin",{data:SM2Encrypt(angular.toJson( {
-                id: $scope.loginVO.id,
-                checkCode: $scope.loginVO.checkCode,
-                accountZongguanLogin: $scope.loginVO.accountZongguanLogin,
-                // accept: SM2Encrypt($scope.loginVO.accept),
-                inputCheckCode:code,
-                imgCheckCode: code,
-                sessionid:$scope.sessionid
-            }))}).success(function (response) {
+        if($scope.isSysLogin){
+            $http.post($rootScope.basePath + "account/accountZongguanLogin",{data:SM2Encrypt(angular.toJson( {
+                    id: $scope.loginVO.id,
+                    checkCode: $scope.loginVO.checkCode,
+                    accountZongguanLogin: $scope.loginVO.accountZongguanLogin,
+                    // accept: SM2Encrypt($scope.loginVO.accept),
+                    inputCheckCode:code,
+                    imgCheckCode: code,
+                    sessionid:$scope.sessionid
+                }))}).success(function (response) {
                 //未授权拦截登录
                 if(response.code == 500){
-					layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                    layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
                     return null;
                 }
-            if(response.msg || !response.userVO || !response.session){
-                // return window.history.go(-1);
-                $state.go('login.zongguan',null,{
-                    reload:false//判断是否重置
-                });
-                return layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
-            }
-			// 登录完成，释放锁
-			window.localStorage.removeItem('logindata_id');
-            if (response.userVO.is_admin == 'Y') {
-                $rootScope.isAdmin = true;
-            } else {
-                $rootScope.isAdmin = false;
-            }
-            $scope.loadMenu(response);
-			$scope.isSysLogin = false;
-        });
-		}
+                if(response.msg || !response.userVO || !response.session){
+                    // return window.history.go(-1);
+                    $state.go('login.zongguan',null,{
+                        reload:false//判断是否重置
+                    });
+                    return layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                }
+                // 登录完成，释放锁
+                window.localStorage.removeItem('logindata_id');
+                if (response.userVO.is_admin == 'Y') {
+                    $rootScope.isAdmin = true;
+                } else {
+                    $rootScope.isAdmin = false;
+                }
+                $scope.loadMenu(response);
+                $scope.isSysLogin = false;
+            });
+        }
     }
 
     //门户登录业管系统
@@ -198,7 +198,7 @@ app.controller('LoginCtrl', function ($rootScope, $scope, $http, $location, $sta
                 if(response.url){
                     window.location.href = response.url;
                 }
-        });
+            });
     }
 
     //获取url中的信息
@@ -223,11 +223,11 @@ app.controller('LoginCtrl', function ($rootScope, $scope, $http, $location, $sta
 
     if (null!=getQueryVariable("id")&&null!=getQueryVariable("checkCode")) {
         $scope.isSysLogin=true;
-		
-		// 判断当前是否有锁，有锁不向下执行
-		if(window.localStorage.getItem("logindata_id") === getQueryVariable("id")){
-			return;
-		}
+
+        // 判断当前是否有锁，有锁不向下执行
+        if(window.localStorage.getItem("logindata_id") === getQueryVariable("id")){
+            return;
+        }
         $scope.sysLogin(getQueryVariable("id"),getQueryVariable("checkCode"));
     }
 
@@ -428,14 +428,14 @@ app.controller('changePasswordCtrl',['$scope', '$rootScope', '$http', 'ngDialog'
         if ($scope.VO.password == $scope.VO.confirmPassword) {
             $http.post($scope.basePath + "account/checkPassword", {password: encryptByDES($scope.VO.password, '12345678')}).success(function (response) {
                 if (response.code != 200){
-                   return layer.msg(response.message);
+                    return layer.msg(response.message);
                 }
                 $http.post($scope.basePath + "user/updatePassword", {data:SM2Encrypt(angular.toJson({
-                    userCode: userCode,
-                    password: encryptByDES($scope.VO.password, '12345678'),
-                    confirmPassword: encryptByDES($scope.VO.confirmPassword, '12345678'),
-                    oldPassword: $scope.VO.oldPassword
-                }))}).success(function (response) {
+                        userCode: userCode,
+                        password: encryptByDES($scope.VO.password, '12345678'),
+                        confirmPassword: encryptByDES($scope.VO.confirmPassword, '12345678'),
+                        oldPassword: $scope.VO.oldPassword
+                    }))}).success(function (response) {
                     if (response.code == 200) {
                         if($scope.response ){
                             $http.post(serverApi + "/foundation/account/logout").success(function (response) {

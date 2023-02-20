@@ -1,91 +1,174 @@
-// var getCookie=function(name){
-//   var value="";
-//   var cookie = ";"+document.cookie.replace(/;\s+/g,";")+";"
-//   var pos = cookie.indexOf(";"+name+"=");
-//   if(pos>-1){
-//     var start = cookie.indexOf("=",pos);
-//     var end = cookie.indexOf(";",start);
-//     value = unescape(cookie.substring(start+1,end));
-//   }
-//   return value;
-// };
-
-var app = angular.module('lrLoanApp', ['lrApp']);
-// var imgUrl = serverApi.replace('\server', "")+htdocs;
-var baseUrl = htdocs;
+var app = angular.module('lrApp', [
+    "ui.router",
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.selection',
+    'ui.grid.edit',
+    'ui.grid.cellNav',
+    'ui.grid.resizeColumns',
+    'ui.grid.autoResize',
+    'ui.grid.exporter',
+    'ui.grid.treeView',
+    'ui.grid.importer',
+    'ui.grid.moveColumns',
+    'ui.grid.pinning',
+    'ui.bootstrap',
+    'ngDialog',
+    'uiCompile',
+    'uiFormat',
+    'pascalprecht.translate',
+    'oc.lazyLoad',
+    'uiPopup',
+    'ngVerify',
+    'ui.select',
+    'datetimepicker',
+    'ui.load',
+    'angularFileUpload',
+    'moment-picker',
+    'angularMoment',
+    'uiSwitch'
+]);
+// var baseUrl = serverApi;
 var fun_code = "";
+var previewPath = previewPath;
+var version = new Date().getTime();
+var baseUrl = htdocs;
 var archivesPath = archivesPath;
 var localizedPath = localizedPath;
-var previewPath = previewPath;
-// var baseUrl = "/";
-var version = new Date().getTime();
 
-app.directive('decimal', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-
-            ngModel.$parsers.push(function (value) {
-                return parseFloat('' + value);
-            });
-            ngModel.$formatters.push(function (value) {
-                return parseFloat(parseFloat(value).toFixed(2));
-            });
-        }
-    };
-});
 
 function getURL(url) {
     return "../" + url + "?" + version;
 }
-
 function getImgURL(url) {
     return baseUrl + url;
 }
 
-app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile', '$sce', 'ngDialog', '$window', 'signModal', '$timeout',
-    function ($rootScope, $state, $stateParams, $location, $http, $compile, $sce, ngDialog, $window, signModal, $timeout) {
-        serverApi = $location.protocol() + "://" + $location.host() + ":" + $location.port() + "/";
+app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile', 'ngDialog', '$window',
+    function ($rootScope, $state, $stateParams, $location, $http, $compile, ngDialog, $window) {
+        serverApi = $location.protocol() + "://" + $location.host() + ":8080/";
         baseUrl = serverApi;
+        // $rootScope.basePath = serverApi;
         $rootScope.basePath = serverApi + '/insurance/';
-        $rootScope.archivesPath = archivesPath;
-        $rootScope.activtiyPath = serverApi;
+        // $rootScope.localizedPath = serverApi;
         $rootScope.localizedPath = localizedPath + '/insurance/';
         $rootScope.previewPath = previewPath;
-        // $rootScope.basePath = 'http://192.168.252.14:8081/server/insurance/';
+
         $rootScope.getURL = function (url) {
             return getURL(url);
         };
-        //delete by wangxy
-        // $rootScope.checkStatus = function (gridApi, statusName, statusValue, isSingle) {
-        //   if (!gridApi) return true;
-        //
-        //   if (isSingle == 'undefined' || isSingle == undefined) isSingle = true;
-        //
-        //   var rows = gridApi.selection.getSelectedRows();
-        //
-        //   if (rows.length == 0) return true;
-        //   if (!!isSingle) {
-        //     if (rows.length != 1) return true;
-        //     if (statusName == '' && statusValue == '') {
-        //       return false;
-        //     } else {
-        //       if (rows[0][statusName] == statusValue) return false;
-        //     }
-        //
-        //     return true;
-        //   } else if (isSingle == false) {
-        //     for (var i = 0; i < rows.length; i++) {
-        //       if (rows[i][statusName] != statusValue) {
-        //         return true;
-        //       }
-        //
-        //     }
-        //     return false;
-        //   }
-        // }
-        //add by wangxy
+        $rootScope.autoHeight = function (event) {
+            var elem = getScope(event.$id);
+            var autoheight = event.windowHeight - elem.firstElementChild.clientHeight - elem.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.firstElementChild.clientHeight - 400;
+            return 'height:' + autoheight + 'px';
+        }
+        function getScope(id) {
+            var elem;
+            $('.ng-scope').each(function () {
+                var s = angular.element(this).scope(),
+                    sid = s.$id;
+                if (sid == id) {
+                    elem = this;
+                    return false; // stop looking at the rest
+                }
+            });
+            return elem;
+        }
+        $rootScope.returnSystem = function () {
+            $window.history.go(-1);
+        };
+        $rootScope.returnSelectName = function (id, select) {
+            var name = "";
+            var arr = $rootScope.SELECT[select];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].id === id) {
+                    name = arr[i].name;
+                }
+            }
+            return name;
+        };
+        FastClick.attach(document.body);
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        // GLOBAL APP SCOPE
+        // set below basic information
+        $rootScope.app = {
+            name: '保险经纪', // name of your project
+            author: '北京立融软件有限公司', // author's name or company name
+            description: '业务管理系统', // brief description
+            version: '2.0', // current version
+            year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
+            isMobile: (function () {// true if the browser is a mobile device
+                var check = false;
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    check = true;
+                }
 
+                return check;
+            })(),
+            layout: {
+                isNavbarFixed: true, //true if you want to initialize the template with fixed header
+                isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
+                isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
+                isFooterFixed: false, // true if you want to initialize the template with fixed footer
+                theme: 'theme-lr', // indicate the theme chosen for your project
+                logo: 'img/logo.png', // relative path of the project logo
+            }
+        };
+        $rootScope.isAdmin = false;
+        $rootScope.userVO = {};
+        $rootScope.orgVO = {};
+        $rootScope.deptVO = {};
+        $rootScope.workDate = "";
+        $rootScope.currentTabs = [];
+        $rootScope.show = function (id, url, name) {
+
+            var tab = {name: name, active: true, id: id, url: url, billId: ''};
+            var isExsit = false;
+            if ($rootScope.currentTabs == null) {
+                $rootScope.currentTabs = [];
+            }
+            angular.forEach($rootScope.currentTabs, function (item, index) {
+                if (url == item.url) {
+                    item.active = true;
+                    tab.billId = item.billId;
+                    isExsit = true;
+                } else {
+                    item.active = false;
+                }
+            });
+            if (!isExsit) {
+                $rootScope.currentTabs.push(tab);
+            }
+            $rootScope.openMenu(url, tab.billId);
+        };
+        $rootScope.openMenu = function (url, id) {
+            // if (isExsit) {
+            //     return;
+            // }
+            if (id) {
+                $state.go(url, {'pk': id});
+            } else {
+                $state.go(url);
+            }
+
+        };
+        $rootScope.closeMenuTabs = function (item) {
+            var tabs = [];
+            if ($rootScope.currentTabs.length == 1) {
+                return;
+            }
+            for (let i = 0; i < $rootScope.currentTabs.length; i++) {
+                if (item.id != $rootScope.currentTabs[i].id) {
+                    tabs.push($rootScope.currentTabs[i]);
+                }
+            }
+            var size = tabs.length - 1;
+            tabs[size].active = true;
+            $rootScope.currentTabs = tabs;
+            $rootScope.openMenu(tabs[size].url, tabs[size].billId);
+        };
+    //    业管
         $rootScope.viewClause = function (gridApi, file) {
             var rows = gridApi.selection.getSelectedRows();
             if (!rows || rows.length != 1) return layer.alert("请选择一条单据进行查看!", {skin: 'layui-layer-lan', closeBtn: 1});
@@ -436,7 +519,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile
             layout: {
                 isNavbarFixed: true, //true if you want to initialize the template with fixed header
                 isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
-                isSidebarClosed: true, // true if you want to initialize the template with closed sidebar
+                isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
                 isFooterFixed: false, // true if you want to initialize the template with fixed footer
                 theme: 'theme-lr', // indicate the theme chosen for your project
                 logo: '../img/logo.png', // relative path of the project logo
@@ -468,275 +551,21 @@ app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile
             }
 
         });
-    }]);
-// translate config
-app.config(['$translateProvider',
-    function ($translateProvider) {
-
-        // prefix and suffix information  is required to specify a pattern
-        // You can simply use the static-files loader with this pattern:
-        $translateProvider.useStaticFilesLoader({
-            prefix: '../app/assets/i18n/',
-            suffix: '.json'
-        });
-
-        // Since you've now registered more then one translation table, angular-translate has to know which one to use.
-        // This is where preferredLanguage(langKey) comes in.
-        $translateProvider.preferredLanguage('zh_CN');
-
-        // Store the language in the local storage
-        $translateProvider.useLocalStorage();
-
-        // Enable sanitize
-        $translateProvider.useSanitizeValueStrategy('sanitize');
 
     }]);
+app.directive('decimal', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
 
-// Angular-Loading-Bar
-// configuration
-app.config(['cfpLoadingBarProvider',
-    function (cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.includeBar = true;
-        cfpLoadingBarProvider.includeSpinner = false;
-
-    }]);
-app.controller('AppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', '$state', function ($scope, $http, $rootScope, ngDialog, $state) {
-    $scope.logout = function () {
-        $http.post($rootScope.basePath + "/account/clearSession").success(function (req) {
-            window.sessionStorage.setItem("token", "");
-            $state.go('login.signin');
-        })
-    };
-
-}]);
-
-app.controller('submitCtrl', function ($rootScope, $scope, $http, uiGridConstants, ngDialog, ngVerify) {
-    $scope.initData = function () {
-        $scope.initVO = function () {
-            $scope.comment = "必输项";
-            return {};
-        };
-        //子表数据
-        $scope.submitVO = $scope.initVO();
-        var log = '';
-        if ($scope.submitData.tasks && $scope.submitData.tasks.length > 0) {
-            for (var i = 0; i < $scope.submitData.tasks.length; i++) {
-                var task = $scope.submitData.tasks[i];
-                if (task.pk_process && task.opinion) {
-                    log = log + "审批人：" + task.pk_process.name + "\r\n";
-                    log = log + "审批意见：" + task.opinion + "\r\n";
-                    log = log + "----------------------------\r\n";
-                }
-            }
-        }
-        $scope.submitVO.log = log;
-        $scope.LEFT_DATA = $scope.submitData.LeftData;
-        $scope.RIGHT_DATA = $scope.submitData.RightData;
-        $scope.PASSES = $scope.submitData.passes;
-        if ($scope.PASSES && $scope.PASSES.length > 0) {
-            for (var i = 0; i < $scope.PASSES.length; i++) {
-                //type==3 审核通过,现在有审核通过默认审核通过
-                if ($scope.PASSES[i] && ($scope.PASSES[i].transitionType == 0 || $scope.PASSES[i].transitionType == 6 || $scope.PASSES[i].transitionType == 1 || $scope.PASSES[i].transitionType == 3)) {
-                    $scope.submitVO.pass = $scope.PASSES[i].transitionCode;
-                    if ($scope.PASSES[i].transitionType == 6) {
-                        $scope.connmitDisable = true;
-                        $scope.comment = "";
-                    }
-                    break;
-                }
-            }
-        }
-        $scope.submitView = true;
-        if ($scope.submitData.type) {
-            $scope.isAudit = true;
-        } else {
-            $scope.isAudit = false;
-        }
-    };
-    $scope.initFunction = function () {
-        /**
-         * 更新常用审批语
-         */
-        $scope.updateMsg = function () {
-            layer.load(2);
-            $http.post($scope.basePath + "workFlow/updateMsg", {
-                id: "",
-                funCode: $scope.funCode
-            }).success(function (response) {
-                $scope.submitVO.selects = angular.copy($scope.RIGHT_DATA);
-                $scope.$parent.confirm($scope.submitVO);
-                ngDialog.close();
+            ngModel.$parsers.push(function (value) {
+                return parseFloat('' + value);
             });
-        };
-        $scope.$watch('submitVO.selectMsg', function (newVal, oldVal) {
-            if (null != $scope.submitVO.selectMsg) {
-                $scope.submitVO.msg = $scope.submitVO.selectMsg[0];
-            }
-        }, true);
-        /**
-         * 保存
-         */
-        $scope.onSubmitConfirm = function () {
-            // if($scope.isAudit){
-            //     $scope.submitVO.rightSelects = [$scope.RIGHT_DATA[0]];
-            // } else {
-            //     $scope.submitVO.rightSelects = [$scope.LEFT_DATA[0]];
-            // }
-            if (!$scope.submitVO.msg && $scope.comment != "") {
-                return layer.alert('请填写审批意见!', {skin: 'layui-layer-lan', closeBtn: 1});
-            }
-            if (!$scope.submitVO.pass) return layer.alert('请选择处理方式!', {skin: 'layui-layer-lan', closeBtn: 1});
-            if ($scope.submitVO.pass.indexOf("_pass") >= 0 && ($scope.RIGHT_DATA == null || $scope.RIGHT_DATA.length != 1)) {
-                return layer.alert('只能选择一个用户进行提交!', {skin: 'layui-layer-lan', closeBtn: 1});
-            }
-            //更新常用审批语
-            $scope.updateMsg();
-        };
-
-        $scope.onSubmitCancel = function () {
-            angular.assignData($scope.appVO, $scope.initVO());
-            ngDialog.close();
-            layer.closeAll('loading');
-        };
-
-        $scope.getSubmitView = function () {
-            return $scope.submitVO.pass && ($scope.submitVO.pass.transitionType == 0 || $scope.submitVO.pass.transitionType == 6 || $scope.PASSES[i].transitionType == 1);
-        };
-
+            ngModel.$formatters.push(function (value) {
+                return parseFloat(parseFloat(value).toFixed(2));
+            });
+        }
     };
-    $scope.initWatch = function () {
-        /**
-         * 由项目经理 带出其部门名称
-         */
-        $scope.$watch('submitVO.pass', function (newVal, oldVal) {
-            if (newVal == undefined || newVal == null) return;
-            if (!newVal) {
-                $scope.submitView = false;
-            } else {
-                $scope.LEFT_DATA = $scope.submitData.userPassList && $scope.submitData.userPassList[newVal] && $scope.submitData.userPassList[newVal].LeftData;
-                $scope.RIGHT_DATA = $scope.submitData.userPassList && $scope.submitData.userPassList[newVal] && $scope.submitData.userPassList[newVal].RightData;
-                if ($scope.PASSES && $scope.PASSES.length > 0) {
-                    for (var i = 0; i < $scope.PASSES.length; i++) {
-                        if (newVal == $scope.PASSES[i].transitionCode) {
-                            if ($scope.PASSES[i].transitionType == 0 || $scope.PASSES[i].transitionType == 6 || $scope.PASSES[i].transitionType == 1 || $scope.PASSES[i].transitionType == 4) {
-                                $scope.submitView = true;
-                            } else {
-                                $scope.submitView = false;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-    };
-    $scope.initClick = function () {
-        $scope.onToRight = function () {
-            if (!$scope.submitVO.leftSelects || $scope.submitVO.leftSelects.length != 1) {
-                return layer.alert("请选择一个用户!", {skin: 'layui-layer-lan', closeBtn: 1});
-            }
-            ;
-            var select = $scope.submitVO.leftSelects[0];
-            for (var i = 0; i < $scope.LEFT_DATA.length; i++) {
-                if (select == $scope.LEFT_DATA[i].pk) {
-                    $scope.RIGHT_DATA.push($scope.LEFT_DATA[i]);
-                    $scope.LEFT_DATA.splice(i, 1);
-                    $scope.submitVO.leftSelects = [];
-                    break;
-                }
-            }
-        };
-        $scope.onToRightAll = function () {
-            if (!$scope.LEFT_DATA || $scope.LEFT_DATA.length == 0) {
-                return;
-            }
-            ;
-            for (var i = 0; i < $scope.LEFT_DATA.length; i++) {
-                $scope.RIGHT_DATA.push($scope.LEFT_DATA[i]);
-                $scope.LEFT_DATA.splice(i, 1);
-            }
-        };
-        $scope.onToLeft = function () {
-            if (!$scope.submitVO.rightSelects || $scope.submitVO.rightSelects.length != 1) {
-                return layer.alert("请选择一个用户!", {skin: 'layui-layer-lan', closeBtn: 1});
-            }
-            ;
-            var select = $scope.submitVO.rightSelects[0];
-            for (var i = 0; i < $scope.RIGHT_DATA.length; i++) {
-                if (select == $scope.RIGHT_DATA[i].pk) {
-                    $scope.LEFT_DATA.push($scope.RIGHT_DATA[i]);
-                    $scope.RIGHT_DATA.splice(i, 1);
-                    $scope.submitVO.rightSelects = [];
-                    break;
-                }
-            }
-        };
-        $scope.onToLeftAll = function () {
-            if (!$scope.RIGHT_DATA || $scope.RIGHT_DATA.length == 0) {
-                return;
-            }
-            ;
-            for (var i = 0; i < $scope.RIGHT_DATA.length; i++) {
-                $scope.LEFT_DATA.push($scope.RIGHT_DATA[i]);
-                $scope.RIGHT_DATA.splice(i, 1);
-            }
-        };
-    };
-
-    $scope.initData();
-    $scope.initFunction();
-    $scope.initWatch();
-    $scope.initClick();
 });
-app.controller('linkAuditFlowCtril', function ($rootScope, $scope, $http, uiGridConstants, ngDialog, ngVerify) {
 
-    $scope.initData = function () {
-        // $scope.imgUrl = getURL("insurance/img/projectAppGroup.png");
 
-    };
-    $scope.initPage = function () {
-        $scope.linkAuditFlowGridOptions = {
-            // enableCellEdit: $scope.isEdit,
-            enableRowSelection: true,
-            enableSelectAll: true,
-            multiSelect: true,
-            enableSorting: true,
-            enableRowHeaderSelection: true,
-            showColumnFooter: false,
-            columnDefs: [
-                {name: 'task_id', displayName: '流程号', width: 100},
-                {name: 'operate_name', displayName: '操作人', width: 100, cellTooltip: true, headerTooltip: true},
-                {name: 'pk_submitter.name', displayName: '提交人', width: 100, cellTooltip: true, headerTooltip: true},
-                {name: 'submit_time', displayName: '提交时间', width: 150},
-                {name: 'pk_process.name', displayName: '处理人', width: 100, cellTooltip: true, headerTooltip: true},
-                {name: 'result', displayName: '审批结果', width: 100, cellTooltip: true, headerTooltip: true},
-                {name: 'opinion', displayName: '审批意见', width: 100, cellTooltip: true, headerTooltip: true},
-                {name: 'process_time', displayName: '处理时间', width: 150},
-                {name: 'process_status', displayName: '处理状态', cellFilter: 'SELECT_WORKFLOW_PROCESS_STATUS', width: 100},
-                {name: 'durationLabel', displayName: '持续时间', width: 100}
-            ],
-            data: $scope.tasks,
-            onRegisterApi: function (gridApi) {
-                $scope.linkAuditFlowGridOptions.gridApi = gridApi;
-            }
-        };
-    };
-    $scope.initFunction = function () {
-        /**
-         * 保存
-         */
-        $scope.onSubmitConfirm = function () {
-            $scope.$parent.confirm($scope.submitVO);
-            ngDialog.close();
-        };
-
-        $scope.onSubmitCancel = function () {
-            angular.assignData($scope.appVO, $scope.initVO());
-            ngDialog.close();
-        };
-
-    };
-    $scope.initData();
-    $scope.initPage();
-    $scope.initFunction();
-});
