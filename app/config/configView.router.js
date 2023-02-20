@@ -1986,14 +1986,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             //文档管理
             .state('app.base.business.branchDocuments', {
                 url: '/branchDocuments',
-                templateUrl: getURL('insurance/view/branchDocuments/branchDocuments.html'),
+                templateUrl: getURL('insurance/base/business/branchDocuments/branchDocuments.html'),
                 ncyBreadcrumb: {
                     label: '分公司业务模板管理'
                 },
                 resolve: {
                     deps: ['uiLoad',
                         function (uiLoad) {
-                            return uiLoad.load(['insurance/controller/branchDocumentsCtrl.js',
+                            return uiLoad.load(['insurance/base/business/branchDocuments/branchDocumentsCtrl.js',
                                 'insurance/controller/upLoadCtrls.js']);
                         }]
                 }
@@ -3342,14 +3342,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             //其他合作单位信息变更
             .state('app.base.informationChange.otherCustomerChange', {
                 url: '/otherCustomerChange',
-                templateUrl: getURL('insurance/view/otherCustomerChange/otherCustomerChange.html'),
+                templateUrl: getURL('insurance/base/informationChange/otherCustomerChange/otherCustomerChange.html'),
                 ncyBreadcrumb: {
                     label: '其他合作单位信息变更'
                 },
                 resolve: {
                     deps: ['uiLoad',
                         function (uiLoad) {
-                            return uiLoad.load('insurance/controller/otherCustomerChangeCtrl.js');
+                            return uiLoad.load('insurance/base/informationChange/otherCustomerChange/otherCustomerChangeCtrl.js');
                         }]
                 }
             })

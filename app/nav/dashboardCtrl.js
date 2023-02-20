@@ -7,7 +7,6 @@ app.controller('SparklineCtrl', ["$scope", function ($scope) {
     $scope.earnings = [400, 650, 886, 443, 502, 412, 353];
     $scope.referrals = [4879, 6567, 5022, 5890, 9234, 7128, 4811];
 }]);
-
 app.controller('VisitsCtrl', ["$scope", function ($scope) {
 
     $scope.data = {
@@ -300,5 +299,33 @@ app.controller('LastCtrl', ["$scope", function ($scope) {
         //String - A legend template
         legendTemplate: '<ul class="tc-chart-js-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
     };
+
+}]);
+app.controller('dashboardCtrl', ['$scope', '$http', 'ngDialog', '$state', '$stateParams', '$rootScope', function ($scope, $http, ngDialog, $state, $stateParams, $rootScope) {
+    /**
+     * 初始化页面变更方法
+     */
+    //列表查询
+    // $scope.queryForGrid = function (data) {
+    //     layer.load(2);
+    //     $http.post($rootScope.basePath + "dashboard/queryForGrid", {
+    //         data: "",
+    //         page: 1,
+    //         pageSize: 5
+    //     })
+    //         .success(function (response) {
+    //             if (response.code == 200) {
+    //                 $scope.toDoList = response.result.Rows;
+    //             }
+    //             layer.closeAll('loading');
+    //         });
+    // };
+    // $scope.queryForGrid();
+    $scope.onView = function () {
+        window.location.href = baseUrl + "factoring/index.html#/" + this.item.pk_billtype;
+    }
+    $scope.queryMore = function () {
+        window.location.href = baseUrl + "factoring/index.html#/app/toDoTask" ;
+    }
 
 }]);

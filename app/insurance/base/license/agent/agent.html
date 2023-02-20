@@ -1,0 +1,5 @@
+<div ng-controller="agentCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/base/license/agent/agentGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/license/agent/agentCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/license/agent/agentForm.html')" ng-show="isForm"></div>
+</div>

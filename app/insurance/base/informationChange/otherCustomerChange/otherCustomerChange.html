@@ -1,0 +1,5 @@
+<div ng-controller="otherCustomerChangeCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/base/informationChange/otherCustomerChange/otherCustomerChangeGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/informationChange/otherCustomerChange/otherCustomerChangeCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/informationChange/otherCustomerChange/otherCustomerChangeForm.html')" ng-show="!isGrid&&!isCard"></div>
+</div>

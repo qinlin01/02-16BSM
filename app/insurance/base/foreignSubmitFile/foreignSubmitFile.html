@@ -1,0 +1,5 @@
+<div ng-controller="foreignSubmitFileCtrl">
+    <div class="grid-style lr-page-less-margin" data-ng-include="getURL('insurance/base/foreignSubmitFile/foreignSubmitFileGrid.html')" ng-show="isGrid"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/foreignSubmitFile/foreignSubmitFileCard.html')" ng-show="isCard"></div>
+    <div class="form-style lr-page-less-margin" data-ng-include="getURL('insurance/base/foreignSubmitFile/foreignSubmitFileForm.html')" ng-show="isForm"></div>
+</div>

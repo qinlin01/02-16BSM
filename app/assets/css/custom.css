@@ -18,8 +18,9 @@ lr-mt10 {
 }
 
 .lr-login-box {
-  /*background: url('./imgs/landing-slider.jpg');*/
+  background: url('./imgs/landing-slider.jpg');
   background-size: cover;
+  height: 1500%;
   width: 100%;
   min-width: 100%;
   position: absolute;
