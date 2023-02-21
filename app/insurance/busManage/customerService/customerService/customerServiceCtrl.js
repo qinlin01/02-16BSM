@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('customerServiceCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal) {
+app.controller('customerServiceCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         if ($stateParams.fileType == 1) {
             $scope.type = 1;

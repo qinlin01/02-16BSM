@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('trainPlanSummarizeCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify, activitiModal) {
+app.controller('trainPlanSummarizeCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

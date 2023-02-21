@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('reportCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $timeout) {
+app.controller('reportCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify) {
 
     $scope.initData = function (data) {
         $scope.status = {open: true};

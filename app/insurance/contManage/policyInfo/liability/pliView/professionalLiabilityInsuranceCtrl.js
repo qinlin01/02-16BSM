@@ -1,4 +1,4 @@
-app.controller('professionalLiabilityInsuranceCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $location) {
+app.controller('professionalLiabilityInsuranceCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
 
     $scope.initData =function (data) {
         $scope.status = {open: true};

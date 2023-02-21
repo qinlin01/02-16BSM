@@ -1,4 +1,4 @@
-app.controller('propertyProjectCtrl', function ($rootScope, $scope, $sce, $sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog) {
+app.controller('propertyProjectCtrl', function ($rootScope, $scope, $sce, $sce, $http, $stateParams, $location, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

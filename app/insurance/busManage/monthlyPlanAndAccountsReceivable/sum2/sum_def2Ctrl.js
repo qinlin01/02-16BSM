@@ -1,4 +1,4 @@
-app.controller('sum2Ctrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location, activitiModal) {
+app.controller('sum2Ctrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog) {
 
     $scope.initData = function () {
         $scope.isGrid = true;

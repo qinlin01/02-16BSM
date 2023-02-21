@@ -1,7 +1,7 @@
 /**
  * 保险方案
  **/
-app.controller('insuranceSchemeCtrl', function ($anchorScroll, $rootScope, $sce, $state, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location, activitiModal) {
+app.controller('insuranceSchemeCtrl', function ($anchorScroll, $rootScope, $sce, $state, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location) {
     //@zhangwj【YDBXJJ-1984】 页面跳至页面顶端 line 6
     document.documentElement.style.overflow = 'hidden';
     $scope.table_name = "lr_insurancescheme";

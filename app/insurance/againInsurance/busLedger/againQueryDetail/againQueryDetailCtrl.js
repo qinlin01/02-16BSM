@@ -2,7 +2,7 @@
  * Created by WJ on 2017/10/26.
  */
 
-app.controller('againQueryDetailCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $timeout) {
+app.controller('againQueryDetailCtrl', function ($rootScope, $scope, $http) {
     $scope.status = {open: true};
     $scope.initVO = function () {
         return {

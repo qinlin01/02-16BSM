@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('voucherHeaderCtrl', function ($rootScope, $scope, $http,$compile) {
+app.controller('voucherHeaderCtrl', function ($rootScope, $scope, $http) {
     $scope.status={open : true};
     $scope.initVO = function () {
         return {

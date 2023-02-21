@@ -1,7 +1,7 @@
 /**
  * Created by 孙立坤 on 2021/12/22.
  */
-app.controller('tripartiteAgreementCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location, activitiModal) {
+app.controller('tripartiteAgreementCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

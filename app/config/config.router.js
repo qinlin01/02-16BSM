@@ -1054,14 +1054,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             .state('app.contManage.clearing', {
                 url: '/clearing',
                 params: {"id": null,"refArray":['PAYSTATETYPE']},
-                templateUrl: getURL('bsm/clearing/clearing.html'),
+                templateUrl: getURL('insurance/contManage/clearing/clearing.html'),
                 ncyBreadcrumb: {
                     label: '业务结算信息'
                 },
                 resolve: {
                     deps: ['uiLoad',
                         function (uiLoad) {
-                            return uiLoad.load('bsm/clearing/clearingCtrl.js');
+                            return uiLoad.load('insurance/contManage/clearing/clearingCtrl.js');
                         }]
                 }
             })
@@ -1738,7 +1738,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                         }]
                 }
             })
-            //分公司业务模板管理
+            //财产险保险方案
             .state('app.busManage.docDeclaration.shareholders.insuranceScheme', {
                 url: '/insuranceScheme',
                 params: {"id": null},
@@ -1750,6 +1750,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                     deps: ['uiLoad',
                         function (uiLoad) {
                             return uiLoad.load('insurance/busManage/docDeclaration/shareholders/insuranceScheme/insuranceSchemeCtrl.js');
+                        }]
+                }
+            })
+            //分公司业务模板管理
+            .state('app.base.business.branchDocuments', {
+                url: '/branchDocuments',
+                templateUrl: getURL('insurance/base/business/branchDocuments/branchDocuments.html'),
+                ncyBreadcrumb: {
+                    label: '分公司业务模板管理'
+                },
+                resolve: {
+                    deps: ['uiLoad',
+                        function (uiLoad) {
+                            return uiLoad.load('insurance/base/business/branchDocuments/branchDocumentsCtrl.js');
                         }]
                 }
             })

@@ -1,7 +1,7 @@
 /**
  * 出单通知书
  **/
-app.controller('issueNoticeGlifeCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location, activitiModal) {
+app.controller('issueNoticeGlifeCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     //@zhangwj【YDBXJJ-1984】 页面跳至页面顶端 line 6
     document.documentElement.style.overflow = 'hidden';
     $scope.table_name = "lr_issuenoticebill";

@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('pCarInsuranceCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $filter, $location, activitiModal, workFlowDialog) {
+app.controller('pCarInsuranceCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $filter) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

@@ -1,4 +1,4 @@
-app.controller('personalInsuranceArchivesCtrl', function ($rootScope, $scope,$sce, $http, $stateParams,$state, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog,$window) {
+app.controller('personalInsuranceArchivesCtrl', function ($rootScope, $scope,$sce, $http, $stateParams,$state, uiGridConstants, ngDialog, ngVerify,$window) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

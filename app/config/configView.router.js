@@ -507,14 +507,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 
             .state('app.contManage.busLedger.queryDetail', {
                 url: '/queryDetail',
-                templateUrl: getURL('insurance/view/queryDetail/queryDetail.html'),
+                templateUrl: getURL('insurance/contManage/busLedger/queryDetail/queryDetail.html'),
                 ncyBreadcrumb: {
                     label: '明细账查询'
                 },
                 resolve: {
                     deps: ['uiLoad',
                         function (uiLoad) {
-                            return uiLoad.load('insurance/controller/queryDetailCtrl.js');
+                            return uiLoad.load('insurance/contManage/busLedger/queryDetail/queryDetailCtrl.js');
                         }]
                 }
             })
@@ -1983,35 +1983,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                         }]
                 }
             })
-            //文档管理
-            .state('app.base.business.branchDocuments', {
-                url: '/branchDocuments',
-                templateUrl: getURL('insurance/base/business/branchDocuments/branchDocuments.html'),
-                ncyBreadcrumb: {
-                    label: '分公司业务模板管理'
-                },
-                resolve: {
-                    deps: ['uiLoad',
-                        function (uiLoad) {
-                            return uiLoad.load(['insurance/base/business/branchDocuments/branchDocumentsCtrl.js',
-                                'insurance/controller/upLoadCtrls.js']);
-                        }]
-                }
-            })
-            //BUSI_INSURANCE
-            .state('app.contManage.policyInfo.busiInsurance', {
-                url: '/busiInsurance',
-                templateUrl: getURL('insurance/view/busiInsurance/busiInsurance.html'),
-                ncyBreadcrumb: {
-                    label: '校核保单'
-                },
-                resolve: {
-                    deps: ['uiLoad',
-                        function (uiLoad) {
-                            return uiLoad.load('insurance/controller/busiInsuranceCtrl.js');
-                        }]
-                }
-            })
             //BUSI_INSURE_PROJECT
             .state('app.busManage.docDeclaration.busiInsureProject', {
                 url: '/busiInsureProject',
@@ -2571,21 +2542,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                         }]
                 }
             })
-
-            .state('app.comInfo.form.clientService.customerServiceB1', {
-                url: '/customerServiceB1',
-                templateUrl: getURL('insurance/view/customerServiceB/customerServiceB.html'),
-                ncyBreadcrumb: {
-                    label: '客户服务工作报告管理'
-                },
-                resolve: {
-                    deps: ['uiLoad',
-                        function (uiLoad) {
-                            return uiLoad.load('insurance/controller/customerServiceBCtrl.js');
-                        }]
-                }
-            })
-
 
             //客户培训管理
             .state('app.comInfo.form.clientService.customerTrainB', {
@@ -3204,6 +3160,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                         function (uiLoad) {
                             return uiLoad.load(['insurance/controller/marketCustomerCtrl.js',
                                 'insurance/controller/upLoadCtrls.js']);
+                        }]
+                }
+            })
+            //BUSI_INSURANCE
+            .state('app.contManage.policyInfo.busiInsurance', {
+                url: '/busiInsurance',
+                templateUrl: getURL('insurance/view/busiInsurance/busiInsurance.html'),
+                ncyBreadcrumb: {
+                    label: '校核保单'
+                },
+                resolve: {
+                    deps: ['uiLoad',
+                        function (uiLoad) {
+                            return uiLoad.load('insurance/controller/busiInsuranceCtrl.js');
                         }]
                 }
             })
