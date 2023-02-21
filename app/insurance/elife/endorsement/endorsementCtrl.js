@@ -1,4 +1,4 @@
-app.controller('endorsementCtrl', function ($rootScope, $scope,$sce,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog) {
+app.controller('endorsementCtrl', function ($rootScope, $scope,$sce,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

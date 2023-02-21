@@ -1,4 +1,4 @@
-app.controller('internetAccountCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $location) {
+app.controller('internetAccountCtrl', function ($rootScope, $scope, $sce, $http) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

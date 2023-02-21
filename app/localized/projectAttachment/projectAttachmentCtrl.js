@@ -1,4 +1,4 @@
-app.controller('projectAttachmentCtrl', function ($rootScope, $scope, $sce, $http, $state, $window, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $location) {
+app.controller('projectAttachmentCtrl', function ($rootScope, $scope, $sce, $http, $state, $window, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function () {
         $scope.status = {open: true};
         $scope.initVO = function () {

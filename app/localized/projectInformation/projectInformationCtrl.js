@@ -1,4 +1,4 @@
-app.controller('projectInformationCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog,$state,ngVerify, activitiModal, workFlowDialog) {
+app.controller('projectInformationCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog,$state,ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         //初始化查询

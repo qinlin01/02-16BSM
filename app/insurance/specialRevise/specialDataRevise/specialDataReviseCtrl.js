@@ -1,4 +1,4 @@
-app.controller('specialDataReviseCtrl', function ($rootScope, $scope,$sce, $http,$state,$window, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog) {
+app.controller('specialDataReviseCtrl', function ($rootScope, $scope,$sce, $http,$state,$window, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

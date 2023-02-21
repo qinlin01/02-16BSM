@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('elifeClearingCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, ngTableParams) {
+app.controller('elifeClearingCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function () {
         $scope.status = {open: true};
         $scope.initVO = function () {
@@ -44,18 +44,6 @@ app.controller('elifeClearingCtrl', function ($rootScope, $scope,$sce, $http, $s
         };
         $scope.QUERY = $scope.initQUERY();
     };
-    $scope.clearingBParams = new ngTableParams({
-        page: 1,
-        count: 10,
-    }, {
-        counts: [10,50,100,200],// 样式原因，去掉每页条数选择
-        getData: function ($defer, params) {
-            // $scope.queryData(0, (params.page() - 1) * params.count(), params.count(), function (data, total) {
-            //     params.total(total);
-            //     $defer.resolve(data);
-            // });
-        }
-    });
     $scope.initHttp = function () {
 
         //再次向财务管控发起请求

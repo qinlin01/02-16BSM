@@ -1,4 +1,4 @@
-app.controller('logCountCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
+app.controller('logCountCtrl', function ($rootScope, $scope, $http) {
     $scope.initData = function (data) {
 
     };

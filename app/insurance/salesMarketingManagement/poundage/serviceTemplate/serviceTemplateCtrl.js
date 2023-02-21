@@ -2,7 +2,7 @@
  * Create By zhangwj
  * Create Time 2021-11-16
  */
-app.controller('serviceTemplateCtrl', function ($rootScope, $scope, $sce, $http, $q, $stateParams, uiGridConstants, ngDialog, ngVerify, ngTableParams) {
+app.controller('serviceTemplateCtrl', function ($rootScope, $scope, $sce, $http, $q, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function () {
         $scope.status = {open: true};
         $scope.initVO = function () {

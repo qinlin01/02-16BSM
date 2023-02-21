@@ -1,7 +1,7 @@
 /**
  * Created by xlb on 2022/10/12
  */
-app.controller('localizedPersonCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location,activitiModal, workFlowDialog) {
+app.controller('localizedPersonCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

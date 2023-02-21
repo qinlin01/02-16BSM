@@ -1,0 +1,115 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
+    <div class="lr-toolbar">
+        <div class="btn-group" add-form-btn>
+            <button class="btn lr-main-btn" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onEdit()" ng-if="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn lr-main-btn" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+        </div>
+    </div>
+    <div class="lr-contant">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">节点编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_id" autofocus  maxlength="100" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">父节点编码：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.parent_id" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">节点名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_name" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">节点路径：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_url"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">节点排序：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_order" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">图标：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.Icon" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">控制方法：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_check" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">点击方法：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.menu_click" >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">是否按钮：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.is_button" ">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">子按钮编号：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.child_buttons"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">对应的数据表：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.lr_table"  >
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">所属节点名称：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.parent_name"  >
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">其他未用字段：</label>
+                <div class="col-md-7">
+                    <input class="form-control" ng-disabled="isDisabled" type="text" ng-model="VO.audit_classify"  >
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>

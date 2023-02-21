@@ -1,8 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('versionNumberCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog,
-                                                  traceInstModal, workFlowDialog, ngVerify, $location, $timeout) {
+app.controller('versionNumberCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         // $scope.type = {code:1};

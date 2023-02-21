@@ -1,4 +1,4 @@
-app.controller('benefitInsuredOrderCtrl', function ($rootScope, $scope,$sce, $http,$state,$window, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog,) {
+app.controller('benefitInsuredOrderCtrl', function ($rootScope, $scope,$sce, $http,$state,$window) {
 
     $scope.initData = function (data) {
         $scope.status = {open: true};

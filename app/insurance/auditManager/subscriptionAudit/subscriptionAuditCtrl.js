@@ -4,7 +4,7 @@
  * @date: 2020-08-07
  * @phone 15047424931
  */
-app.controller('subscriptionAuditCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog,$location) {
+app.controller('subscriptionAuditCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

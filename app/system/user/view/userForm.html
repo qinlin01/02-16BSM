@@ -1,6 +1,27 @@
-<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="form">
     <div class="lr-toolbar">
-        <div class="btn-group" add-form-btn>
+        <div class="btn-group">
+            <button class="btn btn-azure" type="button" ng-click="onSave()"
+                    ng-verify="{control:'appForm',disabled:false,tipStyle:1}" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>保存</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onCancel()" ng-if="!isGrid&&isEdit">
+                <i class="fa fa-undo"></i>
+                <span>取消</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onEdit()" ng-if="!isEdit">
+                <i class="fa fa-edit"></i>
+                <span>修改</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onBack()" ng-if="!isBack">
+                <i class="fa fa-chevron-left"></i>
+                <span>返回</span>
+            </button>
+            <button class="btn btn-azure" ng-click="onTemporary(VO)" ng-show="!isGrid&&isEdit">
+                <i class="fa fa-save"></i>
+                <span>暂存</span>
+            </button>
         </div>
     </div>
     <div class="lr-contant">
@@ -8,7 +29,7 @@
             <div class="col-md-4">
                 <label class="col-md-5 control-label">用户类型：</label>
                 <div class="col-md-7">
-                    <select class="form-control" ng-model="VO.userType"
+                    <select class="form-control" ng-disabled="isCanEdit" ng-model="VO.user_type"
                             required
                             ng-options="item.id as item.name for item in SELECT.USER_TYPE">
                         <option value="">--请选择用户类型--</option>
@@ -18,7 +39,7 @@
             <div class="col-md-4">
                 <label class="col-md-5 control-label">用户角色：</label>
                 <div class="col-md-7">
-                    <select class="form-control" ng-model="VO.userRole"
+                    <select class="form-control" ng-disabled="isCanEdit" ng-model="VO.user_role"
                             required
                             ng-options="item.id as item.name for item in SELECT.USER_ROLE">
                         <option value="">--请选择用户角色--</option>
@@ -29,71 +50,82 @@
             <div class="col-md-4">
                 <label class="col-md-5 control-label">客户号：</label>
                 <div class="col-md-7">
-                    <input class="form-control"  type="text" ng-model="VO.serial_number">
+                    <input class="form-control" ng-disabled="isCanEdit" type="text" ng-model="VO.serial_number">
                 </div>
             </div>
             -->
         </div>
         <div class="form-group">
             <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">用户编码：</label>
+                <label class="col-md-5 control-label">用户编码：</label>
                 <div class="col-md-7">
-                    <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.userCode">
+                    <input class="form-control" ng-verify="{ required: false,max:30}" ng-disabled="isCanEdit" type="text" ng-model="VO.user_code">
                 </div>
             </div>
             <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">用户名：</label>
+                <label class="col-md-5 control-label">用户名：</label>
                 <div class="col-md-7">
-                    <input class="form-control" ng-verify="{required:true,max:20}" type="text" ng-model="VO.userName">
+                    <input class="form-control" ng-verify="{ required: false,max:20}" ng-disabled="isCanEdit" type="text" ng-model="VO.user_name">
                 </div>
             </div>
-            <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">身份证号：</label>
-                <div class="col-md-7">
-                    <input class="form-control" ng-verify="{required:true, max:18}" type="text" ng-model="VO.memo">
-                </div>
-            </div>
+
         </div>
         <div class="form-group">
             <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">所在公司：</label>
+                <label class="col-md-5 control-label">所在公司：</label>
                 <div class="col-md-7">
-                    <input class="form-control" ui-popup-ref url="'sys/org/queryForRef'" popup-model="VO"  ng-verify="{required:true}"
-                           popup-model-field="'pkOrgRef'" ng-model="VO.pkOrgRef.name" type="text" placeholder="">
+                    <input class="form-control" ui-popup-ref ng-disabled="isDisabled"
+                           url="'orgRef/queryForGrid'" popup-model="VO"
+                           popup-model-field="'pk_org'"
+                           ng-model="VO.pk_org.name" type="text" placeholder="">
                 </div>
             </div>
 
             <div class="col-md-4">
-                <label class="col-md-5 control-label lr-verify">所在部门：</label>
+                <label class="col-md-5 control-label">所在部门：</label>
                 <div class="col-md-7">
-                    <input class="form-control" ui-popup-ref ng-verify="{required:true}"
-                           url="'sys/deptdoc/pageRef'" ng-click="" popup-model="VO"
-                           popup-model-field="'pkDeptRef'" popup-model-value="{pkOrg: VO.pkOrgRef.pk}"
-                           ng-model="VO.pkDeptRef.name" type="text" placeholder="">
+                    <input class="form-control" ng-disabled="isDisabled" ui-popup-ref
+                           url="reportUrl(VO.pk_org.pk)" ng-click="" popup-model="VO"
+                           popup-model-field="'pk_deptdoc'"
+                           ng-model="VO.pk_deptdoc.name" type="text" placeholder="">
                 </div>
             </div>
+
         </div>
+
     </div>
     <div class="form-group">
 
         <div class="col-md-4">
-            <label class="col-md-5 control-label lr-verify">生效日期：</label>
+            <label class="col-md-5 control-label">生效日期：</label>
             <div class="col-md-7">
-                <div class="input-group " moment-picker="VO.beginDate" locale="zh-cn" today="true" start-view="day" format="YYYY-MM-DD">
-                    <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
-                    <input class="form-control" ng-model="VO.beginDate" ng-verify="{required:true}"
-                           ng-model-options="{ updateOn: 'blur' }">
-                </div>
+                <input class="form-control" ng-disabled="disStartDate" type="text" wdate-picker ng-model="VO.begin_date">
             </div>
         </div>
         <div class="col-md-4">
-            <label class="col-md-5 control-label lr-verify">失效日期：</label>
+            <label class="col-md-5 control-label">失效日期：</label>
             <div class="col-md-7">
-                <div class="input-group " moment-picker="VO.endDate" locale="zh-cn" today="true" start-view="day" format="YYYY-MM-DD">
-                    <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
-                    <input class="form-control" ng-model="VO.endDate" ng-verify="{required:true}"
-                           ng-model-options="{ updateOn: 'blur' }">
-                </div>
+                <input class="form-control" ng-disabled="disStartDate" type="text" wdate-picker ng-model="VO.end_date">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">邮箱：</label>
+            <div class="col-md-7">
+                <input class="form-control" ng-verify="{ required: false,max:20}" ng-disabled="isDisabled" type="text" ng-model="VO.email">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">联系电话：</label>
+            <div class="col-md-7">
+                <input class="form-control" ng-disabled="isDisabled" type="text" ng-verify="{ pattern:/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/,required: false}" ng-model="VO.tel_no">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-5 control-label">身份证号：</label>
+            <div class="col-md-7">
+                <input class="form-control" ng-verify="{required, max:18}" ng-disabled="isDisabled" type="text" ng-model="VO.memo">
             </div>
         </div>
     </div>
@@ -102,19 +134,19 @@
         <div class="col-md-4">
             <label class="col-md-5 control-label">客户端IP地址：</label>
             <div class="col-md-7">
-                <input class="form-control" type="text" ng-model="VO.ip">
+                <input class="form-control"  ng-disabled="isDisabled" type="text" ng-model="VO.ip">
             </div>
         </div>
         <div class="col-md-4">
-            <label class="col-md-5 control-label lr-verify">允许访问时间开始时间(格式：8:00:00)：</label>
+            <label class="col-md-5 control-label">允许访问时间开始时间(格式：8:00:00)：</label>
             <div class="col-md-7">
-                <input class="form-control" ng-verify="{max:18}" type="text" ng-model="VO.beginTime">
+                <input class="form-control" ng-verify="{max:18}" ng-disabled="isDisabled" type="text" ng-model="VO.begin_time">
             </div>
         </div>
         <div class="col-md-4">
-            <label class="col-md-5 control-label lr-verify">允许访问时间截至时间(格式：20:00:00)：</label>
+            <label class="col-md-5 control-label">允许访问时间截至时间(格式：20:00:00)：</label>
             <div class="col-md-7">
-                <input class="form-control" ng-verify="{max:18}" type="text" ng-model="VO.endTime">
+                <input class="form-control" ng-verify="{max:18}" ng-disabled="isDisabled" type="text" ng-model="VO.end_time">
             </div>
         </div>
     </div>
@@ -122,7 +154,7 @@
         <div class="col-md-4">
             <label class="col-md-5 control-label">登录标志：</label>
             <div class="col-md-7">
-                <select class="form-control" ng-disabled="true" ng-model="VO.loginTag"
+                <select class="form-control" ng-disabled="true" ng-model="VO.login_tag"
                         required
                         ng-options="item.id as item.name for item in SELECT.YESNO">
                     <option value="">--请选择登录标志--</option>
@@ -132,7 +164,7 @@
         <div class="col-md-4">
             <label class="col-md-5 control-label">是否锁定：</label>
             <div class="col-md-7">
-                <select class="form-control" ng-disabled="true" ng-model="VO.lockedTag"
+                <select class="form-control" ng-disabled="true" ng-model="VO.locked_tag"
                         required
                         ng-options="item.id as item.name for item in SELECT.YESNO">
                     <option value="">--请选择是否锁定--</option>
@@ -142,7 +174,7 @@
         <div class="col-md-4">
             <label class="col-md-5 control-label">用户状态：</label>
             <div class="col-md-7">
-                <select class="form-control" ng-disabled="true" ng-model="VO.userStatus"
+                <select class="form-control" ng-disabled="true" ng-model="VO.user_status"
                         required
                         ng-options="item.id as item.name for item in SELECT.USER_STATUS">
                     <option value="">--请选择用户状态--</option>
@@ -150,5 +182,6 @@
             </div>
         </div>
 
+    </div>
     </div>
 </form>

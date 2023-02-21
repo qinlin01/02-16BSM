@@ -785,7 +785,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             .state('app.versionControl.upgrateLog.versionNumber', {
                 url: '/versionNumber',
                 params: {"id": null},
-                templateUrl: getURL('insurance/flowdef/versionNumber.html'),
+                templateUrl: getURL('insurance/versionNumber/versionNumber.html'),
                 ncyBreadcrumb: {
                     label: '发版记录'
                 },
@@ -2820,13 +2820,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             //台账信息
             .state('app.localized.standingBook', {
                 url: '/standingBook',
-                template: '<div  ui-view style="height: 100%;"></div>',
-                ncyBreadcrumb: {
-                    label: '台账信息'
-                }
-            })
-            .state('app.localized.standingBook.standingBook', {
-                url: '/standingBook',
                 params: {"id": null},
                 templateUrl: getURL('localized/standingBook/standingBook.html'),
                 ncyBreadcrumb: {
@@ -2980,10 +2973,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             })
             //服务评价
             .state('app.localized.serviceEvaluate', {
-                url: '/serviceEvaluate',
-                template: '<div  ui-view style="height: 100%;"></div>',
+                url: '/customerServiceEvaluate',
+                params: {"id": null},
+                templateUrl: getURL('localized/customerServiceEvaluate/customerServiceEvaluate.html'),
                 ncyBreadcrumb: {
-                    label: '服务评价'
+                    label: '客户服务工作报告管理'
+                },
+                resolve: {
+                    deps: ['uiLoad',
+                        function (uiLoad) {
+                            return uiLoad.load('localized/customerServiceEvaluate/customerServiceEvaluateCtrl.js');
+                        }]
                 }
             })
             //属地化模板管理

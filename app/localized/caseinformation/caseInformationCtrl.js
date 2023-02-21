@@ -1,4 +1,4 @@
-app.controller('caseInformationCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog) {
+app.controller('caseInformationCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function () {
         $scope.status = {open: true};
         //初始化查询

@@ -1,4 +1,4 @@
-app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
+app.controller('logManagerCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

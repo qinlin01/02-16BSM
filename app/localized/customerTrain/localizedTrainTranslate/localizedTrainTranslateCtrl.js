@@ -1,7 +1,7 @@
 /**
  * Created by Aiko on 2020/8/27
  */
-app.controller('localizedTrainTranslateCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location,activitiModal, workFlowDialog) {
+app.controller('localizedTrainTranslateCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.initVO = function () {

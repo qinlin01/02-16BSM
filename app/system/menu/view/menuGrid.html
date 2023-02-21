@@ -1,0 +1,42 @@
+<div class="lr-grid-container">
+    <div>
+        <accordion>
+            <accordion-group is-open="true" grid-button="true">
+                <accordion-heading class="lr-page-bg-white">
+                    <div class="lr-grid-toolbar">
+                        <div class="btn lr-page-bg-indigo">
+                            <i class="fa fa-database lr-page-color" aria-hidden="true"></i>
+                            <span class="lr-page-color">查询结果</span>
+                        </div>
+                        <div class="btn-group lr-grid-btn-right" add-grid-btn>
+                            <button class="btn lr-main-btn" ng-click="onAdd()">
+                                <i class="fa fa-plus"></i>
+                                增加
+                            </button>
+                            <button class="btn lr-main-btn" ng-click="onEdit()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-plus"></i>
+                                修改
+                            </button>
+
+                            <button class="btn lr-main-btn" ng-click="onDelete()" ng-disabled="checkStatus(gridApi,'','',true)">
+                                <i class="fa fa-plus"></i>
+                                删除
+                            </button>
+                            <!--<button class="btn lr-main-btn" ng-click="onCard()">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--卡片-->
+                            <!--</button>-->
+                            <!--<button class="btn lr-main-btn" ng-click="viewClause(gridApi)" ng-disabled="checkStatus(gridApi,'','',true)" >-->
+                            <!--<i class="fa fa-joomla"></i>-->
+                            <!--查看附件-->
+                            <!--</button>-->
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="clearfix lr-page-margin" ng-style="getGridHtmlStyle('','',470,0)">
+                    <div ui-grid="gridOptions" ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-tree-view class="grid" style="min-height: 500px"></div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

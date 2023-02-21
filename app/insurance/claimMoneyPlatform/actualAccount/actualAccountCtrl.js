@@ -1,4 +1,4 @@
-app.controller('actualAccountCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog,$state,$window) {
+app.controller('actualAccountCtrl', function ($rootScope, $scope, $http, $sce, $stateParams, uiGridConstants, ngDialog, ngVerify,$state,$window) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         //初始化查询

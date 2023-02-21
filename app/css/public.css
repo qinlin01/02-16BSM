@@ -1119,28 +1119,28 @@
 /*附件弹框*/
 
 /*滚动条样式*/
-/*::-webkit-scrollbar{*/
-/*    width: 13px;*/
-/*    height: 13px;*/
-/*}*/
-/*::-webkit-scrollbar-corner {*/
-/*    background: transparent;*/
-/*}*/
-/*::-webkit-scrollbar-thumb {*/
-/*    min-height: 15px;*/
-/*    background-clip: content-box;*/
-/*    !*box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2) inset;*!*/
-/*    background-color: #ccc;*/
+::-webkit-scrollbar{
+    width: 13px;
+    height: 13px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    min-height: 15px;
+    background-clip: content-box;
+    /*box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2) inset;*/
+    background-color: #ccc;
 
-/*}*/
-/*::-webkit-scrollbar-track {*/
-/*    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;*/
-/*    background-color:#EDEDED;*/
+}
+::-webkit-scrollbar-track {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+    background-color:#EDEDED;
 
-/*}*/
-/*::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {*/
-/*    border-radius: 999px;*/
-/*}*/
+}
+::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+}
 /*滚动条样式*/
 /*权限页面调整*/
 .lr-group-left{
@@ -1345,9 +1345,6 @@
     overflow: hidden
 }
 
-.procurement-style {
-    vertical-align: -webkit-baseline-middle
-}
 
 .position-check {
     position: relative;
@@ -2520,7 +2517,6 @@ a,a:hover,a:link,a:visited {
     padding: 18px 10px;
     width: 320px;
     height: 80px;
-    background-color: 1px solid #f15a4a;
     border: 2px solid #f15a4a;
     border-radius: 10px;
     color: white;

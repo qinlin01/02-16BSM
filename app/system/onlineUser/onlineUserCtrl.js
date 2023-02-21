@@ -1,18 +1,25 @@
-app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $controller ) {
-
-    $controller('baseController', {
-        $rootScope: $rootScope, $scope: $scope, $http: $http, ngVerify: ngVerify
-    });
+app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $stateParams) {
     $scope.initData = function (data) {
+        $scope.status = {open: true};
         $scope.initVO = function () {
             return {
+                pkOperator: $rootScope.userVO,
+                pkOrg: $rootScope.orgVO,
+                pkDept: $rootScope.deptVO,
+                operateDate: new Date().format("yyyy-MM-dd"),
+                operateTime: new Date().format("yyyy-MM-dd HH:mm:ss"),
+                isContinue: 0,
+                dr: 0,
+
+                costscale: [],
+                coomedium: []
             };
         };
         //主表数据
         $scope.VO = $scope.initVO();
         //初始化查询
-       $scope.initQUERY = function () {
-            return { };
+        $scope.initQUERY = function () {
+            return { "operate_year": new Date().format("yyyy")}
         };
         $scope.QUERY = $scope.initQUERY();
     };
@@ -24,11 +31,18 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
                 $scope.queryData = $scope.gridApi ? $scope.gridApi.columnDefs : $scope.gridOptions.columnDefs;
             }
             layer.load(2);
-            $http.post($scope.basePath + "sys/onlineUser/queryForGrid", {
-                params: angular.toJson(data)
+            $http.post($scope.basePath + "onlineUser/queryForGrid", {
+                params: angular.toJson(data),
+                page: $scope.gridApi ? $scope.gridApi.page : $scope.gridOptions.page,
+                pageSize: $scope.gridApi ? $scope.gridApi.pageSize : $scope.gridOptions.pageSize,
+                fields: angular.toJson($scope.queryData)
             }).success(function (response) {
                 if (response.code == 200) {
-                    $scope.gridOptions.data = response.data;
+                    if (!$scope.query) {
+                        $scope.query = $scope.gridOptions.columnDefs;
+                    }
+                    $scope.gridOptions.data = response.result.Rows;
+                    $scope.gridOptions.totalItems = response.result.Total;
                 }
                 layer.closeAll('loading');
             });
@@ -36,11 +50,25 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
     };
 
     $scope.initFunction = function () {
+        $scope.changeOpen = function () {
+            $scope.status.open = !$scope.status.open;
+        };
+        $scope.onRowDblClick = function (item) {
+            if (item && item.pkProject) {
+                $scope.findOne(item.pkProject, function (response) {
+                    $scope.isGrid = false;
+                    $scope.isBack = false;
+                    $scope.isEdit = false;
+                    $scope.isDisabled = true;
+                });
+            }
+
+        };
         $scope.onRemoveUser = function (item) {
             var rows = $scope.gridApi.selection.getSelectedRows();
             if (!rows || rows.length == 0 || rows.length != 1) return layer.alert("请选择用户进行踢出。", {skin: 'layui-layer-lan', closeBtn: 1});
             layer.confirm('是否踢出选中的用户？', {
-                    btn: ['确认', '返回'], //按钮
+                    btn: ['删除', '返回'], //按钮
                     btn2: function (index, layero) {
                         layer.msg('取消!', {
                             shift: 6,
@@ -53,7 +81,7 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
                 function () {
                     var id =rows[0].id;
                     layer.load(2);
-                    $http.post($scope.basePath + "sys/onlineUser/removeUser", {id: id}).success(function (response) {
+                    $http.post($scope.basePath + "onlineUser/removeUser", {id: id}).success(function (response) {
                         layer.closeAll('loading');
                         if (response && response.code == "200") {
                             $scope.queryForGrid($scope.QUERY);
@@ -90,6 +118,7 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
         };
         $scope.onReset = function () {
             $scope.QUERY = $scope.initQUERY();
+            $scope.QUERY.id = null;
         };
 
         /**
@@ -139,6 +168,12 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
                 cellTemplate: 'ui-grid/rowNumberHeader'
             });
 
+            gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                $scope.gridApi.page = newPage;
+                $scope.gridApi.pageSize = pageSize;
+                $scope.queryForGrid($scope.QUERY);
+            });
+
             $scope.gridApi.selection.on.rowSelectionChanged($scope, function (row, event) {
                 var rows = $scope.gridApi.selection.getSelectedRows();
                 if (rows.length == 1) {
@@ -151,6 +186,11 @@ app.controller('onlineUserCtrl', function ($rootScope, $scope, $http, $statePara
 
 
         };
+
+
+        if ($stateParams.pk != null) {
+            $scope.queryForGrid({});
+        }
     };
 
     $scope.initData();

@@ -2,7 +2,7 @@
  * Create By zhangwj
  * Create Time 2021-11-16
  */
-app.controller('dataModificationCtrl', function ($rootScope, $scope, $sce, $http, $state, $window, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $location) {
+app.controller('dataModificationCtrl', function ($rootScope, $scope, $sce, $http, $state, $window, $stateParams, uiGridConstants, ngDialog, ngVerify) {
 
     if ($stateParams.type && $stateParams.funCode) {
         $scope.menuType = $stateParams.type;

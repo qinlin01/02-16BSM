@@ -1,4 +1,4 @@
-app.controller('standingBookCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, activitiModal, workFlowDialog, $location) {
+app.controller('standingBookCtrl', function ($rootScope, $scope,$sce, $http, $stateParams, uiGridConstants, ngDialog) {
     $scope.initData =function (data) {
         $scope.status = {open: true};
         $scope.initVO= function () {
@@ -517,7 +517,7 @@ app.controller('standingBookCtrl', function ($rootScope, $scope,$sce, $http, $st
 });
 
 
-app.controller('printPagesPopCtrl', function ($rootScope, $scope,$sce, $http, uiGridConstants, ngDialog, ngVerify) {
+app.controller('printPagesPopCtrl', function ($rootScope, $scope,$sce, $http, uiGridConstants, ngDialog) {
 
 
     $scope.onCheckBox = function(){

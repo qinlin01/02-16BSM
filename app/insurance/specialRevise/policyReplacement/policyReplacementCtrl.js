@@ -1,4 +1,4 @@
-app.controller('policyReplacementCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify, $location, activitiModal, workFlowDialog) {
+app.controller('policyReplacementCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         $scope.informationAll = [];

@@ -109,8 +109,8 @@ app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile
             layout: {
                 isNavbarFixed: true, //true if you want to initialize the template with fixed header
                 isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
-                isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
-                isFooterFixed: false, // true if you want to initialize the template with fixed footer
+                isSidebarClosed: true, // true if you want to initialize the template with closed sidebar
+                isFooterFixed: true, // true if you want to initialize the template with fixed footer
                 theme: 'theme-lr', // indicate the theme chosen for your project
                 logo: 'img/logo.png', // relative path of the project logo
             }
@@ -520,7 +520,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$location', '$http', '$compile
                 isNavbarFixed: true, //true if you want to initialize the template with fixed header
                 isSidebarFixed: true, // true if you want to initialize the template with fixed sidebar
                 isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
-                isFooterFixed: false, // true if you want to initialize the template with fixed footer
+                isFooterFixed: true, // true if you want to initialize the template with fixed footer
                 theme: 'theme-lr', // indicate the theme chosen for your project
                 logo: '../img/logo.png', // relative path of the project logo
             }
