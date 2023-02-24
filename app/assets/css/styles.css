@@ -75,25 +75,25 @@ body {
     -webkit-font-smoothing: antialiased !important;
 }
 
-body.bg_style_1 {
-    background: url("../images/bg.png") transparent !important;
-}
+/*body.bg_style_1 {*/
+/*    background: url("../images/bg.png") transparent !important;*/
+/*}*/
 
-body.bg_style_2 {
-    background: url("../images/bg_2.png") transparent !important;
-}
+/*body.bg_style_2 {*/
+/*    background: url("../images/bg_2.png") transparent !important;*/
+/*}*/
 
-body.bg_style_3 {
-    background: url("../images/bg_3.png") transparent !important;
-}
+/*body.bg_style_3 {*/
+/*    background: url("../images/bg_3.png") transparent !important;*/
+/*}*/
 
-body.bg_style_4 {
-    background: url("../images/bg_4.png") transparent !important;
-}
+/*body.bg_style_4 {*/
+/*    background: url("../images/bg_4.png") transparent !important;*/
+/*}*/
 
-body.bg_style_5 {
-    background: url("../images/bg_5.png") transparent !important;
-}
+/*body.bg_style_5 {*/
+/*    background: url("../images/bg_5.png") transparent !important;*/
+/*}*/
 
 ::-moz-selection {
     background: #5F8295;

@@ -1,0 +1,43 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+
+    <div class="lr-toolbar">
+        <div class="lr-contant text-right " add-form-btn>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                基本信息
+            </legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">申报年度：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" type="text" disabled ng-model="VO.reportYear">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">季度：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.reportQuarter" ng-verify
+                                ng-options="item.id as item.name for item in SELECT.QUARTER">
+                            <option value="">--请选择季度--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                项目信息
+            </legend>
+            <div class="row">
+                <div ui-grid="projectsGrid" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                     ui-grid-resize-columns class="grid" class="min-height-250"></div>
+                </tab>
+            </div>
+        </fieldset>
+    </div>
+</form>

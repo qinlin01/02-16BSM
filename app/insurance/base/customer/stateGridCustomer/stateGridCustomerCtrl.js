@@ -1,7 +1,7 @@
 /**
  * Created by jiaoshy on 2017/3/20.
  */
-app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog, ngVerify) {
+app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, uiGridConstants, ngDialog,ngVerify, $location, $timeout) {
     $scope.initData = function (data) {
         $scope.status = {open: true};
         // $scope.type = {code:1};
@@ -46,6 +46,54 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
         ;
         $scope.QUERY = $scope.initQUERY();
         $scope.funCode = '10101';
+        $scope.AccountList = [];
+        $scope.initAccountList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.LinkmanList = [];
+        $scope.initLinkmanList = function () {
+            return {
+                linkmanType:'',
+                name:'',
+                dept:'',
+                address:'',
+                post:'',
+                tele:'',
+                fax:'',
+                mail:'',
+                memo:''
+            };
+        };
+        $scope.CustomerDeptList = [];
+        $scope.initCustomerDept = function () {
+            return {
+                dept:'',
+                remark:'',
+            };
+        };
+
+        $scope.AccountList = [];
+        $scope.initAccountList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+
+
+
+
+
+
     };
 
     $scope.initHttp = function () {
@@ -124,9 +172,9 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     angular.assignData($scope.VO, response.result);
-                    $scope.accountGridOptions.data = $scope.VO.account;
-                    $scope.linkmanGridOptions.data = $scope.VO.linkman;
-                    $scope.customerDeptGridOptions.data = $scope.VO.customerDept;
+                    $scope.AccountList = $scope.VO.account;
+                    $scope.LinkmanList = $scope.VO.linkman;
+                    $scope.CustomerDeptList = $scope.VO.customerDept;
                     $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                     if (callback) {
                         callback();
@@ -147,9 +195,12 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
         $scope.onSaveVO = function () {
             layer.load(2);
             $scope.VO.dealAttachmentB = $scope.dealAttachmentBGridOptions.data;
-            $scope.VO.account = $scope.accountGridOptions.data;
-            $scope.VO.linkman = $scope.linkmanGridOptions.data;
-            $scope.VO.customerDept = $scope.customerDeptGridOptions.data;
+            $scope.VO.account=$scope.AccountList;
+            $scope.VO.linkman=$scope.LinkmanList;
+            $scope.VO.customerDept =$scope.CustomerDeptList;
+            // $scope.VO.account = $scope.AccountList;
+            // $scope.VO.linkman = $scope.linkmanGridOptions.data;
+            // $scope.VO.customerDept = $scope.customerDeptGridOptions.data;
             $http.post($rootScope.basePath + "stateGridCustomer/save", {data: angular.toJson($scope.VO), funCode: $scope.funCode})
                 .success(function (response) {
                     if (response && response.code == 200) {
@@ -414,7 +465,7 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/common/attachments.html',
+                template: 'insurance/base/customer/stateGridCustomer/attachments.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {
@@ -616,6 +667,9 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
         // };
 
         $scope.onAdd = function () {
+            $scope.onAddAccount();
+            $scope.onAddLinkman();
+            $scope.onAddCustomerDept();
             $scope.isClear = true;
             $scope.form = true;
             $scope.isGrid = false;
@@ -764,7 +818,12 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
             //阻止页面渲染
             $scope.form = false;
             $scope.card = false;
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
+
             $scope.queryForGrid($scope.QUERY);
+
         };
         /**
          * 保存判断必输项
@@ -873,6 +932,60 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                 }
             }
         };
+        /**
+         * 子表信息增加
+         */
+        $scope.onAddAccount =function(){
+            $scope.AccountList.push($scope.initAccountList());
+        }
+        $scope.onAddLinkman =function(){
+            $scope.LinkmanList.push($scope.initLinkmanList());
+        }
+        $scope.onAddCustomerDept =function(){
+            $scope.CustomerDeptList.push($scope.initCustomerDept());
+        }
+        $scope.onAddDealAttachmentB =function(){
+            $scope.CustomerDeptList.push($scope.initCustomerDept());
+        }
+        /**
+         * 子表信息删除
+         */
+        $scope.deletelistOptions=function(nowNumber,type){
+            //type 1:账户信息 2：联系人信息 3：部门信息 4：注册号信息
+            layer.confirm('请确认是否要删除此记录？', {
+                    btn: ['确定', '取消'], //按钮
+                    btn2: function (index, layero) {
+                    },
+                    shade: 0.6,//遮罩透明度
+                    shadeClose: true,//点击遮罩关闭层
+                },
+                function (index) {
+                if(type==1){
+                    $scope.AccountList.splice(nowNumber,1);
+                    $scope.$apply();
+                    layer.close(layer.index);
+                }
+                if(type==2){
+                    $scope.LinkmanList.splice(nowNumber,1);
+                    $scope.$apply();
+                    layer.close(layer.index);
+                }
+                if(type==3){
+                    $scope.CustomerDeptList.splice(nowNumber,1);
+                    $scope.$apply();
+                    layer.close(layer.index);
+                }
+                if(type==4){
+                    $scope.LinkmanList.splice(nowNumber,1);
+                    $scope.$apply();
+                    layer.close(layer.index);
+                }
+                }
+            );
+        };
+
+
+
     };
 
     $scope.initPage = function () {
@@ -958,7 +1071,7 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
             });
         };
 
-        $scope.selectTabName = 'accountGridOptions';
+        $scope.selectTabName = 'dealAttachmentBGridOptions';
         $scope.accountGridOptions = {
             enableCellEditOnFocus: true,
             enableRowSelection: true,

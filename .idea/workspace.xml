@@ -5,130 +5,127 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48ee78c9-07e3-4385-aa80-a70e0c62c427" name="变更" comment="所有节点打开修复">
-      <change afterPath="$PROJECT_DIR$/app/system/onlineUser/onlineUserGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/system/setting/settingFrom.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/acceptance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/acceptanceCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/agreement.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/agreementCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/clearing.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/clearingCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/dialog/paymentDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/dialog/paymentDialogCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/common/commonProject.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/common/projectInfoCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contract.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractCard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractForm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractGrid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/detail/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/detail/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/detail/detailCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/detail/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/detail/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/download/download.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/download/downloadCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/frameworkApply.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/frameworkApplyCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/help/help.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/help/helpCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/projectApply.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/projectApplyCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/projectChange.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/projectChangeCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/dialog/examinieDialogCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/dialog/examnieDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/projectExamines.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/projectExaminesCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/dialog/projectDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/dialog/projectDialogCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/projectReply.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/projectReplyCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/dialog/replyDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/dialog/replyDialogCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/projectReview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/projectReviewCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/stepDetail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/stepDetailCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/grid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/stepInfo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/stepInfoCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/attachment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/attachmentFile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/attachmentLocaltion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/attachmentLog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/attachments.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/checkPassword.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/dealAppAttachmentCtrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/form_upload.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/onPrint.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/passwordRest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/pdfView.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/upLoadCtrls.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/updatePassword.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/config.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config.router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/css/public.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/css/public.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againBusinessExamine/againBusinessExamine.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againBusinessExamine/againBusinessExamine.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againBusinessExamine/againBusinessExamineCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againBusinessExamine/againBusinessExamineCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againClearing/againClearing.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againClearing/againClearing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againClearing/againClearingCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againClearing/againClearingCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againPropertyProject/againPropertyProject.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againPropertyProject/againPropertyProject.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againPropertyProject/againPropertyProjectCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againPropertyProject/againPropertyProjectCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againSubscription/againSubscription.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againSubscription/againSubscription.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againSubscription/againSubscription.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againSubscription/againSubscription.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againchangebillcheck/againchangebillcheck.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againchangebillcheck/againchangebillcheck.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/againchangebillcheck/againchangebillcheckCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/againchangebillcheck/againchangebillcheckCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againChangebillInsurance/againChangebillInsurance.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againChangebillInsurance/againChangebillInsurance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againChangebillInsurance/againChangebillInsuranceCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againChangebillInsurance/againChangebillInsuranceCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againInsurance/againInsurance.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againInsurance/againInsurance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againInsurance/againInsuranceCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/againInsurance/policyInfo/againInsurance/againInsuranceCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/advancePremiumsAudit/advancePremiumsAudit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/advancePremiumsAudit/advancePremiumsAudit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/advancePremiumsAudit/advancePremiumsAuditCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/advancePremiumsAudit/advancePremiumsAuditCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/clearingAudit/clearingAudit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/clearingAudit/clearingAudit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/clearingAudit/clearingAuditCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/clearingAudit/clearingAuditCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/merchantNumberFlowAudit/merchantNumberFlowAudit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/merchantNumberFlowAudit/merchantNumberFlowAudit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/merchantNumberFlowAudit/merchantNumberFlowAuditCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/merchantNumberFlowAudit/merchantNumberFlowAuditCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/rechargeManageAudit/rechargeManageAudit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/rechargeManageAudit/rechargeManageAudit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/rechargeManageAudit/rechargeManageAuditCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/rechargeManageAudit/rechargeManageAuditCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/subscriptionAudit/subscriptionAudit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/subscriptionAudit/subscriptionAudit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/auditManager/subscriptionAudit/subscriptionAuditCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/auditManager/subscriptionAudit/subscriptionAuditCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/benefitInsured/benefitInsuredOrder/benefitInsuredOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/benefitInsured/benefitInsuredOrder/benefitInsuredOrder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/benefitInsured/benefitInsuredOrder/benefitInsuredOrderCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/benefitInsured/benefitInsuredOrder/benefitInsuredOrderCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/busManage/busDevelop/busProject/common/againPropertyProjectCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/busManage/busDevelop/busProject/common/againPropertyProjectCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/actualAccount/actualAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/actualAccount/actualAccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/actualAccount/actualAccountCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/actualAccount/actualAccountCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/advancePremiums/advancePremiums.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/advancePremiums/advancePremiums.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/advancePremiums/advancePremiumsCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/advancePremiums/advancePremiumsCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumber/merchantNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumber/merchantNumber.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumber/merchantNumberCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumber/merchantNumberCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumberFlow/merchantNumberFlow.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumberFlow/merchantNumberFlow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumberFlow/merchantNumberFlowCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/erchantNumberManage/merchantNumberFlow/merchantNumberFlowCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/subscription/subscription.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/subscription/subscription.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/subscription/subscriptionCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/claimMoneyPlatform/subscription/subscriptionCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/dataModification/dataModification/dataModification.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/dataModification/dataModification/dataModification.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/dataModification/dataModification/dataModificationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/dataModification/dataModification/dataModificationCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/eLifeInsurance/eLifeInsurance.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/eLifeInsurance/eLifeInsurance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/eLifeInsurance/eLifeInsuranceCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/eLifeInsurance/eLifeInsuranceCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/elifeClearing/elifeClearing.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/elifeClearing/elifeClearing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/elifeClearing/elifeClearingCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/elifeClearing/elifeClearingCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsement.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsementCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsementCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/endorsementsConsolidation/endorsementsConsolidation.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/endorsementsConsolidation/endorsementsConsolidation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/internetAccount/internetAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/internetAccount/internetAccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/internetAccount/internetAccountCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/internetAccount/internetAccountCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManageCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManageCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/elife/webInsurance/webInsurance.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/webInsurance/webInsurance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentClearing/agentClearing.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentClearing/agentClearing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentClearing/agentClearingCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentClearing/agentClearingCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentPayment/agentPayment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentPayment/agentPayment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentPayment/agentPaymentCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/agentPayment/agentPaymentCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/agentRule/agentRule.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/agentRule/agentRule.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/agentRule/agentRuleCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/agentRule/agentRuleCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/serviceTemplate/serviceTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/serviceTemplate/serviceTemplate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/serviceTemplate/serviceTemplateCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/salesMarketingManagement/poundage/serviceTemplate/serviceTemplateCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/customerPropertyRight/customerPropertyRight.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/customerPropertyRight/customerPropertyRight.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/customerPropertyRight/customerPropertyRightCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/customerPropertyRight/customerPropertyRightCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/policyReplacement/policyReplacement.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/policyReplacement/policyReplacement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/policyReplacement/policyReplacementCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/policyReplacement/policyReplacementCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/referToManage/referToManage.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/referToManage/referToManage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/referToManage/referToManageCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/referToManage/referToManageCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/specialDataRevise/specialDataRevise.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/specialDataRevise/specialDataRevise.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/specialRevise/specialDataRevise/specialDataReviseCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/specialRevise/specialDataRevise/specialDataReviseCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/versionNumber/versionNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/versionNumber/versionNumber.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/versionNumber/versionNumberCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/versionNumber/versionNumberCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/caseinformation/caseInformation.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/caseinformation/caseInformation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/caseinformation/caseInformationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/caseinformation/caseInformationCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerServiceEvaluate/customerServiceEvaluate.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerServiceEvaluate/customerServiceEvaluate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerServiceEvaluate/customerServiceEvaluateCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerServiceEvaluate/customerServiceEvaluateCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerTrain/localizedCustomerTrain/localizedCustomerTrain.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerTrain/localizedCustomerTrain/localizedCustomerTrain.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerTrain/localizedCustomerTrain/localizedCustomerTrainCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerTrain/localizedCustomerTrain/localizedCustomerTrainCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerTrain/localizedTrainTranslate/localizedTrainTranslate.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerTrain/localizedTrainTranslate/localizedTrainTranslate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/customerTrain/localizedTrainTranslate/localizedTrainTranslateCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/customerTrain/localizedTrainTranslate/localizedTrainTranslateCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/dailyConsultation/dailyConsultation.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/dailyConsultation/dailyConsultation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/dailyConsultation/dailyConsultationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/dailyConsultation/dailyConsultationCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/disasterPrevention/disasterPrevention.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/disasterPrevention/disasterPrevention.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/disasterPrevention/disasterPreventionCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/disasterPrevention/disasterPreventionCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/messageQuery/messageQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/messageQuery/messageQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/dailyConsultation/messageQuery/messageQueryCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/dailyConsultation/messageQuery/messageQueryCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/localizedAssociation/localizedAssociation.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/localizedAssociation/localizedAssociation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/localizedAssociation/localizedAssociationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/localizedAssociation/localizedAssociationCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/localizedPerson/localizedPerson.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/localizedPerson/localizedPerson.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/localizedPerson/localizedPersonCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/localizedPerson/localizedPersonCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/projectAttachment/projectAttachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/projectAttachment/projectAttachment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/projectAttachment/projectAttachmentCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/projectAttachment/projectAttachmentCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/projectInformation/projectInformation.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/projectInformation/projectInformation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/projectInformation/projectInformationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/projectInformation/projectInformationCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/standingBook/standingBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/standingBook/standingBook.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/localized/standingBook/standingBookCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/localized/standingBook/standingBookCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/js/directives/ui-popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/js/directives/ui-popup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/view/inputFileUploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/inputFileUploader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/view/pdfView.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/pdfView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/view/updatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/updatePassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/workflow/linkAuditFlow.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/linkAuditFlow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/workflow/submitDialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/submitDialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/common/workflow/submitDialogCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/submitDialogCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fileAdministration/fictitiousArchives/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/fictitiousArchives/attachment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/attachment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/contManage/consult/attachments.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/contManage/consult/attachments.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/group/controller/groupCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/group/controller/groupCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/group/view/group.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/group/view/group.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/logCount/logCount.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/logCount/logCount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/logCount/logCountCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/logCount/logCountCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/logManager/logManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/logManager/logManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/logManager/logManagerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/logManager/logManagerCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/menu/controller/menuCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/menu/controller/menuCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/menu/view/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/menu/view/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/menu/view/menuCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/menu/view/menuCard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/menu/view/menuForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/menu/view/menuForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/menu/view/menuGrid.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/menu/view/menuGrid.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/onlineUser/onlineUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/onlineUser/onlineUser.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/onlineUser/onlineUserCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/onlineUser/onlineUserCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/setting/setting.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/setting/setting.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/setting/settingCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/setting/settingCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/user/controller/userCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/user/controller/userCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/user/view/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/user/view/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/user/view/userCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/user/view/userCard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/user/view/userForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/user/view/userForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/system/user/view/userGrid.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/system/user/view/userGrid.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -141,9 +138,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/app/lib/angular-translate/package.json" />
   </component>
   <component name="ProjectId" id="2LoL0SU3Kys0AxW8lrRqiEGCYrf" />
   <component name="ProjectLevelVcsManager">
@@ -159,7 +153,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/IDEATXT/02-16BSM/app/system/logCount",
+    "last_opened_file_path": "D:/IDEATXT/02-16BSM/app/common",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -174,11 +168,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IDEATXT\02-16BSM\app\common" />
+      <recent name="D:\IDEATXT\02-16BSM\app\common\view" />
+      <recent name="D:\IDEATXT\02-16BSM\app" />
       <recent name="D:\IDEATXT\02-16BSM\app\system\logCount" />
       <recent name="D:\IDEATXT\02-16BSM\app\system\logManager" />
-      <recent name="D:\IDEATXT\02-16BSM\app\insurance\versionNumber" />
-      <recent name="D:\IDEATXT\02-16BSM\app\system\setting" />
-      <recent name="D:\IDEATXT\02-16BSM\app\system\onlineUser" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\IDEATXT\02-16BSM\app\system" />
@@ -212,7 +206,9 @@
       <workItem from="1676596170611" duration="28309000" />
       <workItem from="1676635466255" duration="168000" />
       <workItem from="1676856149759" duration="25452000" />
-      <workItem from="1676942342888" duration="25224000" />
+      <workItem from="1676942342888" duration="25707000" />
+      <workItem from="1677115307486" duration="23079000" />
+      <workItem from="1677200986066" duration="9651000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaaaaaaaaaaaaaaaaaa">
       <created>1676532291099</created>
@@ -270,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676963128691</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="所有节点打开修复">
+      <created>1676977849820</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676977849820</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +310,8 @@
     <MESSAGE value="开始修改陆游" />
     <MESSAGE value="新文件" />
     <MESSAGE value="经纪业务节点打开修复" />
-    <option name="LAST_COMMIT_MESSAGE" value="经纪业务节点打开修复" />
+    <MESSAGE value="所有节点打开修复" />
+    <option name="LAST_COMMIT_MESSAGE" value="所有节点打开修复" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -404,7 +408,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/main.js</url>
-          <line>48</line>
+          <line>49</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>

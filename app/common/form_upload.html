@@ -1,0 +1,98 @@
+<div class="container-fluid" style="background-color: white;padding-top: 10px" ng-controller="dealAppAttachmentCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<form  name="dealAttachmentsForm" verify-scope="tipStyle: 1">
+			<div ng-controller="upLoadFormCtrls" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+				<div class="row">
+					<div class="col-md-3">
+						<h5>选择文件</h5>
+						<div class="panel panel-white">
+							<div class="panel-body">
+								<div ng-show="uploader.isHTML5">
+									<div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone" style="height: 150px;text-align: center">
+										<p><img src="img/Cloud%20upload.png" height="80" width="80"/></p>
+										<p>拖拽文件到此区域上传</p>
+									</div>
+								</div>
+								<span class="btn btn-primary btn-o btn-file margin-bottom-15" style="float: left;color: #0095C8;border: 1px solid #0095C8;"> 选择多个文件
+									<input type="file" nv-file-select="" uploader="uploader" multiple  />
+								</span>
+								<span class="btn btn-primary btn-o btn-file" style="float: right;color: #0095C8;border: 1px solid #0095C8;"> 选择单个文件
+									<input type="file" nv-file-select="" uploader="uploader" />
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9" style="margin-bottom: 40px">
+						<h4>上传队列</h4>
+						<div class="panel panel-transparent">
+							<div class="panel-body">
+								<p>
+									队列数: {{ uploader.queue.length }}
+								</p>
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+										<tr>
+											<th width="50%">名称</th>
+											<th ng-show="uploader.isHTML5">大小</th>
+											<th ng-show="uploader.isHTML5">进度</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="item in uploader.queue">
+											<td><strong>{{ item.file.name }}</strong></td>
+											<td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+											<td ng-show="uploader.isHTML5">
+												<div class="progress progress-xs margin-bottom-0">
+													<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+												</div></td>
+											<td class="text-center"><span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span><span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span><span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span></td>
+											<td nowrap>
+<!--												<button type="button" class="btn btn-success btn-xs" style="background-color: #0095C8;border: 1px solid #0095C8" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">-->
+<!--													<span class="glyphicon glyphicon-upload"></span> 上传-->
+<!--												</button>-->
+<!--												<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">-->
+<!--													<span class="glyphicon glyphicon-ban-circle"></span> 取消-->
+<!--												</button>-->
+												<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+													<span class="glyphicon glyphicon-trash"></span> 删除
+												</button></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+								<div>
+									<div>
+										队列进度:
+										<div class="progress progress-xs margin-top-5 margin-bottom-20">
+											<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+										</div>
+									</div>
+<!--									<button type="button" class="btn btn-primary btn-s" ng-click="uploader.uploadAll()" style="background-color: #0095c8;border: 1px solid #0095C8" ng-disabled="!uploader.getNotUploadedItems().length">-->
+<!--										<span class="glyphicon glyphicon-upload"></span> 上传所有-->
+<!--									</button>-->
+<!--									<button type="button" class="btn btn-primary btn-o  btn-s" ng-click="uploader.cancelAll()" style="color: #0095C8;border: 1px solid #0095C8" ng-disabled="!uploader.isUploading">-->
+<!--										<span class="glyphicon glyphicon-ban-circle"></span> 取消所有-->
+<!--									</button>-->
+									<button type="button" class="btn btn-primary btn-o btn-s" ng-click="uploader.clearQueue()" style="color: #0095C8;border: 1px solid #0095C8" ng-disabled="!uploader.queue.length">
+										<span class="glyphicon glyphicon-trash"></span> 删除所有
+									</button>
+									<button type="button" class="btn btn-primary btn-o btn-s" ng-click="onSubCancel()" style="color: #0095C8;border: 1px solid #0095C8;float: right;">
+										<span class="glyphicon glyphicon-trash"></span> 取消
+									</button>
+									<button type="button" class="btn btn-primary btn-s" ng-click="onSubSave()" ng-disabled="getIfUploads()" style="background-color: #0095C8;border: 1px solid #0095C8;float: right;margin-right: 10px">
+										<span class="glyphicon glyphicon-upload"></span> 确定
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>

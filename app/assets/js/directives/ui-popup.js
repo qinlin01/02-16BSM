@@ -149,8 +149,8 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
             openCustomerMore: '=',              //是否打开更多按钮（客户信息调用远程）
             data: '=',                //静态数据
             popupInit: '=',        //是否多选
-            ngModel:'='
-
+            ngModel:'=',
+            ngSearchField: '='   //查询时查询那个字段，默认name
         },
         controller: function ($scope,ngDialog) {
             if($scope.popupInit) $scope.popupModel[$scope.popupModelField] = angular.copy($scope.popupInit);
@@ -167,9 +167,6 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                 divScope.openCustomerMore = true;
             } else {
                 divScope.openCustomerMore = false;
-            }
-            if ($scope.data) {
-                divScope.data = $scope.data;
             }
             $scope.divScope = divScope;
             // 定义多选数组
@@ -188,6 +185,10 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
             ];
             if (config) {
                 $scope.columnDefs = config.columnDefs;
+            }
+
+            if ($scope.data) {
+                divScope.data = $scope.data;
             }
 
             divScope.pagination = {
@@ -420,11 +421,16 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                     if (divScope.$root.basePath&&ifHttp==-1) {
                         url = divScope.$root.basePath + url;
                     }
-                    var data = {current: page, size: 10};
+                    var data = {page: divScope.pageNow, pageSize: 5,current:divScope.pageNow,size: 5};
                     if (!divScope.$parent.popupModelValue) divScope.$parent.popupModelValue = {};
-                    divScope.$parent.popupModelValue['name'] = divScope.popupSearch;
+                    if(divScope.$parent.ngSearchField){
+                        divScope.$parent.popupModelValue[divScope.$parent.ngSearchField] = divScope.popupSearch;
+                    }else{
+                        divScope.$parent.popupModelValue['name'] = divScope.popupSearch;
+                    }
                     var caxun = divScope.$parent.popupModelValue;
                     data['data'] = angular.toJson(caxun);
+                    data['params'] = angular.toJson(caxun);
                     layer.load(2)
                     if (divScope.data) {
                         divScope.popupRefData_show = divScope.data;
@@ -433,15 +439,37 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                         $http.post(url, data)
                             .success(function (response) {
                                 if (response.code == 200) {
-
-                                    divScope.popupRefData = response.data.records;
-
-                                    divScope.popupRefData_show = response.data.records;
-
-                                    divScope.countNum = response.data.pages;
+                                    //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                    var responseResult = {Rows:null,Total:null};
+                                    if(response.result){
+                                        responseResult.Rows = response.result.Rows;
+                                        responseResult.Total = response.result.Total;
+                                    }
+                                    if(response.data){
+                                        responseResult.Rows = response.data.records;
+                                        responseResult.Total = response.data.total;
+                                    }
+                                    //@zhangwj 参照增加字段Filter
+                                    for (let i = 0; i < divScope.$parent.columnDefs.length; i++) {
+                                        //如果增加cellFilter参数则数据过滤
+                                        if(divScope.$parent.columnDefs[i].cellFilter && "" != divScope.$parent.columnDefs[i].cellFilter && divScope.$parent.columnDefs[i].cellFilter.indexOf("SELECT_") >= 0){
+                                            var types = getSelectOptionData[divScope.$parent.columnDefs[i].cellFilter.replace('SELECT_', '')];
+                                            for (let j = 0; j < responseResult.Rows.length; j++) {
+                                                for (let k = 0; k < types.length; k++) {
+                                                    let key = divScope.$parent.columnDefs[i].field.replace("_ref","");
+                                                    if(types[k].id == responseResult.Rows[j][key]){
+                                                        responseResult.Rows[j][divScope.$parent.columnDefs[i].field] = types[k].name;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //放入数据
+                                    divScope.popupRefData = responseResult;
+                                    divScope.popupRefData_show = responseResult.Rows
+                                    divScope.countNum = Math.ceil(responseResult.Total / 5);
+                                    divScope.pagination.total = responseResult.Total
                                     layer.closeAll('loading');
-                                    divScope.pagination.total = response.data.total;
-
                                     //scope.popupRefData = response.result;
                                     if (response.columnDefs) {
                                         divScope.columnDefs = response.columnDefs;
@@ -469,7 +497,7 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                 ngDialog.openConfirm({
                     showClose: true,
                     closeByDocument: true,
-                    template: 'view/stateGridCustomer/addCustomerForm.html',
+                    template: 'base/customer/stateGridCustomer/addCustomerForm.html',
                     className: 'ngdialog-theme-formInfo',
                     scope: $scope,
                     preCloseCallback: function (value) {
@@ -720,10 +748,12 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                         if (divScope.$root.basePath&&ifHttp==-1) {
                             url = divScope.$root.basePath + url;
                         }
-                        var data = {page: divScope.pageNow, size: 10};
+                        var data = {page: divScope.pageNow, pageSize: 5,current:divScope.pageNow,size: 5};
                         if (divScope.popupModelValue) data['data'] = angular.toJson(divScope.popupModelValue);
+                        if (divScope.popupModelValue) data['params'] = angular.toJson(divScope.popupModelValue);
                         divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
                         if (divScope.$parent.popupModelValue) data['data'] = angular.toJson(divScope.$parent.popupModelValue);
+                        if (divScope.$parent.popupModelValue) data['params'] = angular.toJson(divScope.$parent.popupModelValue);
                         divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
                         if (divScope.data) {
                             divScope.popupRefData_show = divScope.data;
@@ -735,14 +765,36 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
                                 .success(function (response) {
                                     if (response.code == 200) {
 
-                                        divScope.popupRefData = response.data;
-
-                                        divScope.popupRefData_show = response.data.records;
-
-                                        divScope.countNum = response.data.pages;
-
-                                        divScope.pagination.total = response.data.total;
-
+                                        //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                        var responseResult = {Rows:null,Total:null};
+                                        if(response.result){
+                                            responseResult.Rows = response.result.Rows;
+                                            responseResult.Total = response.result.Total;
+                                        }
+                                        if(response.data){
+                                            responseResult.Rows = response.data.records;
+                                            responseResult.Total = response.data.total;
+                                        }
+                                        //@zhangwj 参照增加字段Filter
+                                        for (let i = 0; i < divScope.$parent.columnDefs.length; i++) {
+                                            //如果增加cellFilter参数则数据过滤
+                                            if(divScope.$parent.columnDefs[i].cellFilter && "" != divScope.$parent.columnDefs[i].cellFilter && divScope.$parent.columnDefs[i].cellFilter.indexOf("SELECT_") >= 0){
+                                                var types = getSelectOptionData[divScope.$parent.columnDefs[i].cellFilter.replace('SELECT_', '')];
+                                                for (let j = 0; j < responseResult.Rows.length; j++) {
+                                                    for (let k = 0; k < types.length; k++) {
+                                                        let key = divScope.$parent.columnDefs[i].field.replace("_ref","");
+                                                        if(types[k].id == responseResult.Rows[j][key]){
+                                                            responseResult.Rows[j][divScope.$parent.columnDefs[i].field] = types[k].name;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        //放入数据
+                                        divScope.popupRefData = responseResult;
+                                        divScope.popupRefData_show = responseResult.Rows
+                                        divScope.countNum = Math.ceil(responseResult.Total / 5);
+                                        divScope.pagination.total = responseResult.Total
                                         //scope.popupRefData = response.result;
                                         if (divScope.$parent.isMultiple) {
                                             divScope.isMultiple = divScope.$parent.isMultiple;
@@ -773,16 +825,970 @@ pub.directive("uiPopupRef", function ($compile, $filter, $http, $timeout) {
     }
 });
 
+
+pub.directive("uiPopupRefInsurance", function ($compile, $filter, $http) {
+    return {
+        scope: {
+            uiPopupRef: '=',//配置 里面必须带parentScope 哪个controller调用就传哪个
+            popupModel: '=',//文本框存放的上层对象
+            popupModelField: '=',//model对象的属性名称 文本框本身的.namecolumnDefs
+            url: '=',
+            popupModelValue: '=',//联动
+            isSearch: '=',                  //是否需要查询
+            isMultiple: '=',        //是否多选
+            popupInit: '=',        //是否多选
+            ngModel: '='
+
+
+        },
+        controller: function ($scope,ngDialog) {
+            if ($scope.popupInit) $scope.popupModel[$scope.popupModelField] = angular.copy($scope.popupInit);
+            //根据scopeId获取scope
+            var config = $scope.uiPopupRef;
+            var parentScope = $scope;
+            var divScope = parentScope.$new(true);
+            divScope.maxPageSize = 5;
+            $scope.divScope = divScope;
+            // 定义多选数组
+            divScope.arr = [];
+            // divScope.popupRefData = config.data;
+            $scope.columnDefs = [
+                {
+                    field: 'code',
+                    displayName: '编号'
+                },
+                {
+                    field: 'name',
+                    displayName: '名称'
+
+                }
+            ];
+            if (config) {
+                $scope.columnDefs = config.columnDefs;
+            }
+
+            divScope.pagination = {
+                total: 0,
+                current: 1
+            }
+
+            divScope.url = $scope.url;
+            divScope.popupModelValue = $scope.popupModelValue;
+            divScope.mousein = false;
+
+            divScope.selectRow = function (row, num) {
+                if (divScope.isMultiple) {
+                    if ($("#" + num).prop('checked')) {
+                        $("#" + num).prop('checked', false);
+                    } else {
+                        $("#" + num).prop('checked', true);
+                    }
+                } else {
+                    if (row && row.$$hashKey) {
+                        // divScope.hashKey = angular.copy(row.$$hashKey);
+                        delete row.$$hashKey
+                    }
+
+                    $scope.popupModel[$scope.popupModelField] = row;
+                    // $scope.$apply();//需要手动刷新
+                    $scope.ngModel;
+                    divScope.value = angular.copy(row);
+                    divScope.popupRefShow = false;
+                    $("#" + divScope.popupRefId).hide();
+                }
+
+            };
+
+            divScope.hidepopup = function (event) {
+                divScope.popupRefShow = false;
+            }
+            divScope.searchDataFocus = function () {
+                this.searchData = null;
+            };
+            divScope.filterData = function () {
+                var newVal = this.searchData;
+                var data = [];
+                angular.copy(divScope.popupRefData, data);
+                if (!newVal || newVal == null || newVal == "") {
+                    //$scope.popupModel[$scope.popupModelField]={};
+                    divScope.popupRefData_show = data;
+                } else {
+                    var newData = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var isAdd = false;
+                        if (data[i] != null && data[i] != undefined) {
+                            for (var col in data[i]) {
+                                if (col == '_id' || col == 'pk') continue;
+                                var value = data[i][col] == null || angular.isUndefined(data[i][col]) ? '' : data[i][col].toString();
+                                if (value.indexOf(newVal) != -1) {
+                                    isAdd = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isAdd) {
+                            newData.push(data[i]);
+                        }
+                    }
+                    divScope.popupRefData_show = newData;
+                    // divScope.popupRefShow=false;
+                }
+            };
+
+            function makePage(number, isActive) {
+                return {
+                    number: number,
+                    isActive: isActive
+                }
+            }
+
+
+            divScope.generatePagination = function (current) {
+                var _total = divScope.pagination.total;
+
+                var _totalPage = Math.ceil(_total / 5);
+
+                var _startPage = (current - 2) <= 0 ? 1 : (current - 2);
+                var _endPage = _startPage + 4 > _totalPage ? _totalPage : _startPage + 4;
+                if (_endPage == _totalPage) {
+                    _startPage = _endPage - 4 <= 0 ? 1 : _endPage - 4;
+                }
+
+                divScope.pages = [];
+
+                for (var number = _startPage; number <= _endPage; number++) {
+                    var page = makePage(number, number === current);
+
+                    divScope.pages.push(page);
+                }
+
+            }
+
+            divScope.close = function (num) {
+                if (num == 1) {
+                    $scope.popupModel[$scope.popupModelField] = "";
+                }
+
+                $("#" + divScope.popupRefId).hide();
+            }
+            divScope.popupClickAll = function () {
+                if ($("#popuptable input:eq(0)").prop('checked')) {
+                    $("#popuptable input").prop('checked', true);
+                } else {
+                    $("#popuptable input").prop('checked', false);
+                }
+            }
+            divScope.multiple = function () {
+                divScope.arr = [];
+                var obj = $("#popuptbody :checked");
+                for (var i = 0; i < obj.length; i++) {
+                    divScope.arr.push(obj[i].value);
+                    alert(obj[i].value);
+                }
+            }
+            if ($scope.isSearch == undefined) {
+                divScope.isSearch = true;
+            } else {
+                divScope.isSearch = $scope.isSearch;
+            }
+            if (divScope.isMultiple) {
+                divScope.isMultiple = $scope.isMultiple;
+            } else {
+                divScope.isMultiple = false;
+            }
+            divScope.requestGridData = function (page, num) {
+                if (divScope.countNum < page && num == 0) {
+                    return;
+                }
+                if (page < 1) {
+                    return;
+                }
+                divScope.pageNow = page;
+                if (divScope.url) {
+                    var url = divScope.$parent.url;
+                    if (typeof url == 'function') {
+                        url = url();
+                    }
+                    var ifHttp=url.indexOf("http");
+                    if (divScope.$root.basePath&&ifHttp==-1) {
+                        url = divScope.$root.basePath + url;
+                    }
+                    var data = {page: page, pageSize: !divScope.maxPageSize ? 5 : divScope.maxPageSize};
+                    if (!divScope.$parent.popupModelValue) divScope.$parent.popupModelValue = {};
+                    divScope.$parent.popupModelValue['name'] = divScope.popupSearch;
+                    data['data'] = angular.toJson(divScope.$parent.popupModelValue);
+                    // layer.load(2)
+                    $http.post(url, data)
+                        .success(function (response) {
+                            if (response.code == 200) {
+                                //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                if(response.result){
+                                    divScope.popupRefData = response.result;
+                                    divScope.popupRefData_show = response.result.Rows;
+                                    divScope.countNum = Math.ceil(response.result.Total / 5);
+                                    divScope.pagination.total = response.result.Total;
+                                }
+                                if(response.data){
+                                    divScope.popupRefData = response.data;
+                                    divScope.popupRefData_show = response.data.records;
+                                    divScope.countNum = Math.ceil(response.data.total / 5);
+                                    divScope.pagination.total = response.data.total;
+                                }
+                                if (response.columnDefs) {
+                                    divScope.columnDefs = response.columnDefs;
+                                }
+                                if (page >= divScope.countNum) {
+                                    divScope.pageNow = divScope.countNum;
+                                    divScope.generatePagination(divScope.countNum);
+                                } else {
+                                    divScope.generatePagination(page);
+                                }
+                            }
+                            layer.closeAll('loading');
+
+
+                            divScope.showRef(event);
+                        }).error(function (error) {
+                        layer.closeAll('loading');
+                        divScope.showRef(event);
+                    });
+                }
+            },
+                divScope.addCustomer = function () {
+                    ngDialog.openConfirm({
+                        showClose: true,
+                        closeByDocument: true,
+                        template: 'base/customer/stateGridCustomer/addCustomerForm.html',
+                        className: 'ngdialog-theme-formInfo',
+                        scope: $scope,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    }).then(function (value) {
+                        if (value != null) {
+                            $scope.selectRow(value,null)
+                        }
+                    }, function (reason) {
+
+                    });
+                }
+        },
+        link: function (scope, element, attrs, ngModelCtrl) {
+            var config = scope.uiPopupRef;
+            if (!config) {
+                config = {};
+            }
+            var columnDefs = scope.columnDefs;
+            if (!columnDefs) return;
+            var parentDom = getScopeDomById(scope.$parent.$id);
+            var divScope = scope.divScope;
+            divScope.maxPageSize = 5;
+            //获取滚动条DOM的主键
+            //var parent=attrs.$$element.context.parentElement;
+            //if(parent.style !=null &&　angular.isDefined(parent.style)){
+            //    while(parent.style.overflowY!='auto'){
+            //        parent=parent.parentElement;
+            //    }
+            //}
+            var uiPopupRefId;
+            if (scope.popupIsNgGrid) {
+                var dom = document.getElementById('uiPopupRefId');
+                if (angular.isDefined(dom) && dom != null && dom != '') {
+                    dom.parentNode.removeChild(dom);
+                }
+                uiPopupRefId = ' id="uiPopupRefId" ';
+            } else {
+                var id = new Date().getTime() + Math.floor(Math.random())
+                uiPopupRefId = ' id="' + id + '"';
+
+                divScope.popupRefId = id;
+            }
+
+            divScope.popupRefShow = false;
+
+            var divClass = angular.isDefined(config.divClass) ? config.divClass : '';
+            var tableClass = angular.isDefined(config.tableClass) ? config.tableClass : 'table table-striped';
+            var tableStyle = config.tableStyle ? config.tableStyle : ('width:' + columnDefs.length * 190 + 'px');//'height:280px;width:600px';
+            var divStyle = angular.isDefined(config.divStyle) ? config.divStyle : 'min-width:550px;background-color:#fff;position: absolute;z-index:1000';
+
+            //var html = '<div ng-mouseleave="" '+ uiPopupRefId +' ng-show="popupRefShow" style="'+divStyle+'" class="'+divClass+'" >' +
+            //    '<table class="'+tableClass+'" ng-grid="pubRefSelect"  style="'+tableStyle+'" > </table>' +
+            //    '</div>';
+            /*var html = '<div   ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false" ' + uiPopupRefId + ' ng-show="popupRefShow" style="' + divStyle + '" class="' + divClass + '" >' +
+             '<input id="searchData" placeholder="请输入过滤条件" ng-blur="hidepopup()" type="text" ng-model="searchData" size="25" style="width:{{input_width}}px;height:{{input_height}}px;float:{{float}}"/>' +
+             '<div style="width:400px; height:300px; overflow:auto; border:1px solid #eaeff0;">' +
+             '<table  st-table="popupRefData" class="' + tableClass + '" style="' + tableStyle + '">' +
+             '<thead>' +
+             '<tr>';*/
+
+
+            var html = '<div ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false"  class="lr-ref" ' + uiPopupRefId + ' style="' + divStyle + '">' +
+                '<div class="panel-heading" style="border-bottom: solid 1px #DDDDDD;"><span style="float: left">请选择{{titlename}}</span> <span style="float: right;"><button class="btn w-xs fa fa-times" type="button" style="background: #fff" ng-click="close(0)"></button></span>' +
+                '</div>' +
+                '<div>' +
+                '<div ng-show="isSearch" style="padding: 5px 0px 0px 5px;"><input class="form-control" ng-model="popupSearch" placeholder="请输入关键字查询" style="width: 70%;display: inline-block;border-radius:0px;"><span style="vertical-align: text-bottom;"><button class="btn w-xs fa fa-search" style="padding: 9px 13px 9px 13px;border-bottom: solid 1px #ccc;border-top: solid 1px #ccc;border-right: solid 1px #ccc;" ng-click="requestGridData(pageNow,1)"></button></span></div>' +
+                '<div class="lr-ref-body-table"     style="padding: 5px 5px 0px 5px;">' +
+                '<table class="table table-hover table-bordered" id="popuptable"><thead><tr>';
+            var radioth = "";
+            var radiotd = "";
+            if (divScope.isMultiple) {
+                radioth = '<th style="width:20px"><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="checkboxPopup" ng-click="popupClickAll()"> <label for="checkboxPopup"> </label> </div></th>';
+                radiotd = '<td><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="{{$index}}" value="{{row}}"> <label for="{{$index}}"> </label> </div></td>';
+            }
+            var td = '<tr ng-repeat="row in popupRefData_show" ng-click="selectRow(row,$index)">';
+            for (var i = 0; i < columnDefs.length; i++) {
+                var columnDef = columnDefs[i];
+                var th = '<th><span>' + columnDef.displayName + '</span></th>';
+                if (i == columnDefs.length - 1) {
+                    html = html + th + radioth + '</tr></thead><tbody id="popuptbody">';
+                    td = td + '<td style="min-width: 100px;">{{row.' + columnDef.field + '}}</td>' + radiotd + '</tr></tbody></table></div>' +
+                        '<div ng-show=" popupRefData_show == null " class="center" style="padding: 10px 10px 20px"><span style="font-size: 12px; color: #8e8e93"><i class="fa fa-smile-o"></i>暂无数据</span></div>' +
+                        ' <div class="panel-footer" ng-show=" popupRefData_show != null ">' +
+                        '<div class="row">' +
+                        '<div class="col-sm-9 pad">' +
+                        '<ul class="pagination pagination-sm m-t-none m-b-none">' +
+                        '<li><a ng-click="requestGridData(pageNow-1,0)"><i class="fa fa-chevron-left"></i></a></li>' +
+                        '<li><a href id="pageNumNow" ng-bind-html="pageNow"></a></li>' +
+                        '<li><a ng-click="requestGridData(1,0)" >首页</a></li>' +
+                        ' <li ng-repeat="page in pages"><a ng-click="requestGridData(page.number,0)"> {{page.number}} </a></li>' +
+                        '<li><a ng-click="requestGridData(countNum,0)" >尾页</a></li>' +
+                        '<li><a ng-click="requestGridData(pageNow+1,0)"><i class="fa fa-chevron-right"></i></a></li>' +
+                        '</ul>' +
+                        '</div>' +
+                        '<div class="approvalbut col-sm-3">' +
+                        '<button ng-show="divScope.isMultiple" type="button" class="btn w-xs" ng-click="multiple()"> 确认</button>' +
+                        '<select style="width: 50px;height: 30px;" ng-model="maxPageSize" ng-change="requestGridData(pageNow,0)"> ' +
+                        '<option value="5">5</option> ' +
+                        '<option value="10">10</option> ' +
+                        '<option value="15">15</option> ' +
+                        '</select> ' +
+                        '<button type="button" class="btn w-xs" ng-click="close(1)"> 清空</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div></div>';
+                } else {
+                    html = html + th;
+                    if (columnDef.cellFilter) {
+                        td = td + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + ' | ' + columnDef.cellFilter + '}}</div></td>';
+                    } else {
+                        td = td + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + '}}</div></td>';
+                    }
+                }
+                //生成表体html
+            }
+            html = html + td;
+            var newElm = $compile(html)(divScope);
+
+            parentDom.append(newElm);
+
+            $("#" + divScope.popupRefId).hide().mouseleave(function () {
+                // $(this).hide();
+                divScope.mousein = false;
+            });
+
+            divScope.showRef = function (event) {
+                //scope.filterDate('');
+                // var offset=$("#content").scrollTop();
+                var e = event.currentTarget;
+                var x = e.offsetLeft;
+                var y = e.offsetTop;
+                var offsetheight = e.offsetHeight;
+                var offsetWidth = e.offsetWidth;
+                while (e = e.offsetParent) {
+                    x += e.offsetLeft;
+                    y += e.offsetTop;
+                }
+
+                e = parentDom[0];
+                var x2 = 0;
+                var y2 = 0;
+
+                while (e = e.offsetParent) {
+                    x2 += e.offsetLeft;
+                    y2 += e.offsetTop;
+                    offsetheight++;
+                }
+
+                if (x > window.screen.width * 0.6) {
+                    divScope.float = "right";
+                    newElm.css("top", y - y2 + offsetheight + "px");
+                    newElm.css("left", x - x2 - 550 + offsetWidth + "px");
+                }
+                else {
+                    divScope.float = "left";
+                    newElm.css("top", y - y2 + offsetheight + "px");
+                    newElm.css("left", x - x2 + "px");
+                }
+
+
+                /* if(divScope.popupRefShow==null||divScope.popupRefShow==false){
+                 divScope.popupRefShow=true;
+                 }else{
+                 divScope.popupRefShow=false;
+                 }*/
+
+                // divScope.popupRefShow = !divScope.popupRefShow;
+
+                divScope.input_width = event.currentTarget.offsetWidth;
+                divScope.input_height = event.currentTarget.offsetHeight;
+
+                var queryID = "#" + divScope.popupRefId;
+                $(queryID).show();
+
+
+                //angular.element("#searchData").focus();
+
+            };
+            // if(scope.ngChange) element.bind("change",scope.ngChange);
+            element.bind("blur", function (event) {
+                // divScope.hidepopup(event);
+                if (!divScope.mousein) {
+                    $("#" + divScope.popupRefId).hide();
+                }
+            });
+            // document.body.addEventListener('click',function (event) {
+            //     if(event.target.parentElement.id != divScope.popupRefId){
+            //         $("#" + divScope.popupRefId).hide();
+            //     }
+            // })
+
+            element.bind("focus", function (event) {
+                if (divScope.$parent.popupModelValue) {
+                    divScope.$parent.popupModel[divScope.$parent.popupModelField] = "";
+                }
+
+                divScope.pageNow = 1;
+                divScope.popupSearch = "";
+                if (divScope.url) {
+                    var url = divScope.$parent.url;
+                    if (typeof url == 'function') {
+                        url = url();
+                    }
+                    if (divScope.$root.basePath) {
+                        url = divScope.$root.basePath + url;
+                    }
+                    var data = {page: divScope.pageNow, pageSize: !divScope.maxPageSize ? 5 : divScope.maxPageSize};
+                    if (divScope.$parent.popupModelValue) data['data'] = angular.toJson(divScope.$parent.popupModelValue);
+                    divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
+                    layer.load(2);
+                    $http.post(url, data)
+                        .success(function (response) {
+                            if (response.code == 200) {
+
+                                //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                if(response.result){
+                                    divScope.popupRefData = response.result;
+                                    divScope.popupRefData_show = response.result.Rows;
+                                    divScope.countNum = Math.ceil(response.result.Total / 5);
+                                    divScope.pagination.total = response.result.Total;
+                                }
+                                if(response.data){
+                                    divScope.popupRefData = response.data;
+                                    divScope.popupRefData_show = response.data.records;
+                                    divScope.countNum = Math.ceil(response.data.total / 5);
+                                    divScope.pagination.total = response.data.total;
+                                }
+                                if (divScope.$parent.isMultiple) {
+                                    divScope.isMultiple = divScope.$parent.isMultiple;
+                                }
+                                if (response.columnDefs) {
+                                    divScope.columnDefs = response.columnDefs;
+                                }
+                            }
+                            layer.closeAll('loading');
+
+                            divScope.generatePagination(1);
+
+                            divScope.showRef(event);
+                        }).error(function (error) {
+                        layer.closeAll('loading');
+                        divScope.showRef(event);
+                    });
+                }
+                else {
+                    showRef(event);
+                }
+
+            });
+        }
+    }
+});
+pub.directive("uiPopupRefMultiple", function ($compile, $filter, $http) {
+    return {
+        scope: {
+            uiPopupRef: '=',//配置 里面必须带parentScope 哪个controller调用就传哪个
+            popupModel: '=',//文本框存放的上层对象
+            popupModelField: '=',//model对象的属性名称 文本框本身的.namecolumnDefs
+            url: '=',
+            popupModelValue: '=',//联动
+            isSearch: '=',                  //是否需要查询
+
+        },
+        controller: function ($scope,ngDialog) {
+            //根据scopeId获取scope
+            var config = $scope.uiPopupRefMultiple;
+            var parentScope = $scope;
+            var divScope = parentScope.$new(true);
+            $scope.divScope = divScope;
+            // 定义多选数组
+            divScope.arr = [];
+            // divScope.popupRefData = config.data;
+            $scope.columnDefs = [
+                {
+                    field: 'code',
+                    displayName: '编号'
+                },
+                {
+                    field: 'name',
+                    displayName: '名称'
+
+                }
+            ];
+            if (config) {
+                $scope.columnDefs = config.columnDefs;
+            }
+
+            divScope.pagination = {
+                total: 0,
+                current: 1
+            }
+
+            divScope.url = $scope.url;
+
+            divScope.mousein = true;
+
+            divScope.selectRow = function (row, num) {
+                if (true) {
+                    if ($("#" + num).prop('checked')) {
+                        $("#" + num).prop('checked', false);
+                    } else {
+                        $("#" + num).prop('checked', true);
+                    }
+                } else {
+                    if (row.$$hashKey) {
+                        delete row.$$hashKey
+                    }
+                    $scope.popupModel[$scope.popupModelField] = row;
+                    divScope.popupRefShow = false;
+                    $("#" + divScope.popupRefId).hide();
+                }
+
+            };
+
+            divScope.hidepopup = function (event) {
+                divScope.popupRefShow = false;
+            }
+            divScope.searchDataFocus = function () {
+                this.searchData = null;
+            };
+            divScope.filterData = function () {
+                var newVal = this.searchData;
+                var data = [];
+                angular.copy(divScope.popupRefData, data);
+                if (!newVal || newVal == null || newVal == "") {
+                    //$scope.popupModel[$scope.popupModelField]={};
+                    divScope.popupRefData_show = data;
+                } else {
+                    var newData = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var isAdd = false;
+                        if (data[i] != null && data[i] != undefined) {
+                            for (var col in data[i]) {
+                                if (col == '_id' || col == 'pk') continue;
+                                var value = data[i][col] == null || angular.isUndefined(data[i][col]) ? '' : data[i][col].toString();
+                                if (value.indexOf(newVal) != -1) {
+                                    isAdd = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isAdd) {
+                            newData.push(data[i]);
+                        }
+                    }
+                    divScope.popupRefData_show = newData;
+                    // divScope.popupRefShow=false;
+                }
+            };
+
+            function makePage(number, isActive) {
+                return {
+                    number: number,
+                    isActive: isActive
+                }
+            }
+
+
+            divScope.generatePagination = function (current) {
+                var _total = divScope.pagination.total;
+
+                var _totalPage = Math.ceil(_total / 5);
+
+                var _startPage = (current - 2) <= 0 ? 1 : (current - 2);
+                var _endPage = _startPage + 4 > _totalPage ? _totalPage : _startPage + 4;
+                if (_endPage == _totalPage) {
+                    _startPage = _endPage - 4 <= 0 ? 1 : _endPage - 4;
+                }
+
+                divScope.pages = [];
+
+                for (var number = _startPage; number <= _endPage; number++) {
+                    var page = makePage(number, number === current);
+
+                    divScope.pages.push(page);
+                }
+
+            }
+
+            divScope.close = function (num) {
+                if (num == 1) {
+                    $scope.popupModel[$scope.popupModelField] = "";
+                }
+                $("#" + divScope.popupRefId).hide();
+            }
+            divScope.popupClickAll = function () {
+                if ($("#popupTable input:eq(0)").prop('checked')) {
+                    $("#popupTable input").prop('checked', true);
+                } else {
+                    $("#popupTable input").prop('checked', false);
+                }
+            }
+            divScope.multiple = function () {
+                divScope.arr = [];
+                var obj = $("#popuptbody :checked");
+                for (var i = 0; i < obj.length; i++) {
+                    divScope.arr.push(obj[i].value);
+                }
+                var temp = angular.fromJson(divScope.arr[0]);
+                var kiVO = null;
+                for (var c = 1; c < divScope.arr.length; c++) {
+                    kiVO = angular.fromJson(divScope.arr[c])
+                    temp.pk = kiVO.pk + ";" + temp.pk;
+                    temp.name = kiVO.name + ";" + temp.name;
+                    temp.code = kiVO.code + ";" + temp.code;
+                }
+                $scope.popupModel[$scope.popupModelField] = temp;
+                divScope.popupRefShow = false;
+                $("#" + divScope.popupRefId).hide();
+            }
+            if ($scope.isSearch == undefined) {
+                divScope.isSearch = true;
+            } else {
+                divScope.isSearch = $scope.isSearch;
+            }
+            divScope.requestGridData = function (page, num) {
+                if (divScope.countNum < page && num == 0) {
+                    return;
+                }
+                if (page < 1) {
+                    return;
+                }
+                divScope.pageNow = page;
+                if (divScope.url) {
+                    var url = divScope.$parent.url;
+                    if (typeof url == 'function') {
+                        url = url();
+                    }
+                    var ifHttp=url.indexOf("http");
+                    if (divScope.$root.basePath&&ifHttp==-1) {
+                        url = divScope.$root.basePath + url;
+                    }
+                    var data = {page: page, pageSize: 5};
+                    if (!divScope.$parent.popupModelValue) divScope.$parent.popupModelValue = {};
+                    divScope.$parent.popupModelValue['name'] = divScope.popupSearch;
+                    data['data'] = angular.toJson(divScope.$parent.popupModelValue);
+                    // layer.load(2)
+                    $http.post(url, data)
+                        .success(function (response) {
+                            if (response.code == 200) {
+
+                                //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                if(response.result){
+                                    divScope.popupRefData = response.result;
+                                    divScope.popupRefData_show = response.result.Rows;
+                                    divScope.countNum = Math.ceil(response.result.Total / 5);
+                                    divScope.pagination.total = response.result.Total;
+                                }
+                                if(response.data){
+                                    divScope.popupRefData = response.data;
+                                    divScope.popupRefData_show = response.data.records;
+                                    divScope.countNum = Math.ceil(response.data.total / 5);
+                                    divScope.pagination.total = response.data.total;
+                                }
+                                if (response.columnDefs) {
+                                    divScope.columnDefs = response.columnDefs;
+                                }
+                                if (page >= divScope.countNum) {
+                                    divScope.pageNow = divScope.countNum;
+                                    divScope.generatePagination(divScope.countNum);
+                                } else {
+                                    divScope.generatePagination(page);
+                                }
+                            }
+                            layer.closeAll('loading');
+
+
+                            divScope.showRef(event);
+                        }).error(function (error) {
+                        layer.closeAll('loading');
+                        divScope.showRef(event);
+                    });
+                }
+            }
+            divScope.addCustomer = function () {
+                ngDialog.openConfirm({
+                    showClose: true,
+                    closeByDocument: true,
+                    template: 'base/customer/stateGridCustomer/addCustomerForm.html',
+                    className: 'ngdialog-theme-formInfo',
+                    scope: $scope,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                }).then(function (value) {
+                    if (value != null) {
+                        $scope.selectRow(value,null)
+                    }
+                }, function (reason) {
+
+                });
+            }
+        },
+        link: function (scope, element, attrs, ngModelCtrl) {
+            var config = scope.uiPopupRef;
+            if (!config) {
+                config = {};
+            }
+            var columnDefs = scope.columnDefs;
+            if (!columnDefs) return;
+            var parentDom = getScopeDomById(scope.$parent.$id);
+            var divScope = scope.divScope;
+            //获取滚动条DOM的主键
+            //var parent=attrs.$$element.context.parentElement;
+            //if(parent.style !=null &&　angular.isDefined(parent.style)){
+            //    while(parent.style.overflowY!='auto'){
+            //        parent=parent.parentElement;
+            //    }
+            //}
+            var uiPopupRefId;
+            if (scope.popupIsNgGrid) {
+                var dom = document.getElementById('uiPopupRefId');
+                if (angular.isDefined(dom) && dom != null && dom != '') {
+                    dom.parentNode.removeChild(dom);
+                }
+                uiPopupRefId = ' id="uiPopupRefId" ';
+            } else {
+                var id = new Date().getTime() + Math.floor(Math.random())
+                uiPopupRefId = ' id="' + id + '"';
+
+                divScope.popupRefId = id;
+            }
+
+            divScope.popupRefShow = false;
+
+            var divClass = angular.isDefined(config.divClass) ? config.divClass : '';
+            var tableClass = angular.isDefined(config.tableClass) ? config.tableClass : 'table table-striped';
+            var tableStyle = config.tableStyle ? config.tableStyle : ('width:' + columnDefs.length * 190 + 'px');//'height:280px;width:600px';
+            var divStyle = angular.isDefined(config.divStyle) ? config.divStyle : 'min-width:550px;background-color:#fff;position: absolute;z-index:1000';
+
+            //var html = '<div ng-mouseleave="" '+ uiPopupRefId +' ng-show="popupRefShow" style="'+divStyle+'" class="'+divClass+'" >' +
+            //    '<table class="'+tableClass+'" ng-grid="pubRefSelect"  style="'+tableStyle+'" > </table>' +
+            //    '</div>';
+            /*var html = '<div   ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false" ' + uiPopupRefId + ' ng-show="popupRefShow" style="' + divStyle + '" class="' + divClass + '" >' +
+             '<input id="searchData" placeholder="请输入过滤条件" ng-blur="hidepopup()" type="text" ng-model="searchData" size="25" style="width:{{input_width}}px;height:{{input_height}}px;float:{{float}}"/>' +
+             '<div style="width:400px; height:300px; overflow:auto; border:1px solid #eaeff0;">' +
+             '<table  st-table="popupRefData" class="' + tableClass + '" style="' + tableStyle + '">' +
+             '<thead>' +
+             '<tr>';*/
+
+
+            var html = '<div ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false"  class="lr-ref" ' + uiPopupRefId + ' style="' + divStyle + '">' +
+                '<div class="panel-heading" style="border-bottom: solid 1px #DDDDDD;"><span style="float: left">请选择{{titlename}}</span> <span style="float: right;"><button class="btn w-xs fa fa-times" type="button" style="background: #fff" ng-click="close(0)"></button></span>' +
+                '</div>' +
+                '<div>' +
+                '<div ng-show="isSearch" style="padding: 5px 0px 0px 5px;"><input class="form-control" ng-model="popupSearch" placeholder="请输入关键字查询" style="width: 70%;display: inline-block;border-radius:0px;"><span style="vertical-align: text-bottom;"><button class="btn w-xs fa fa-search" style="padding: 9px 13px 9px 13px;border-bottom: solid 1px #ccc;border-top: solid 1px #ccc;border-right: solid 1px #ccc;" ng-click="requestGridData(pageNow,1)"></button></span></div>' +
+                '<div class="lr-ref-body-table"     style="padding: 5px 5px 0px 5px;">' +
+                '<table class="table table-hover table-bordered" id="popupTable"><thead><tr>';
+            var radioth = '<th style="width:20px"><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="checkboxPopup" ng-click="popupClickAll()"> <label for="checkboxPopup"> </label> </div></th>';
+            var radiotd = '<td><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="{{$index}}" value="{{row}}"> <label for="{{$index}}"> </label> </div></td>';
+            var td = '<tr ng-repeat="row in popupRefData_show" >';
+            for (var i = 0; i < columnDefs.length; i++) {
+                var columnDef = columnDefs[i];
+                var th = '<th><span>' + columnDef.displayName + '</span></th>';
+                if (i == columnDefs.length - 1) {
+                    html = html + th + '</tr></thead><tbody id="popuptbody">';
+                    td = td + '<td style="min-width: 100px;">{{row.' + columnDef.field + '}}</td></tr></tbody></table></div>' +
+                        '<div ng-show=" popupRefData_show == null " class="center" style="padding: 10px 10px 20px"><span style="font-size: 12px; color: #8e8e93"><i class="fa fa-smile-o"></i> 暂无数据</span></div>' +
+                        ' <div class="panel-footer" ng-show=" popupRefData_show != null ">' +
+                        '<div class="row">' +
+                        '<div class="col-sm-9 pad">' +
+                        '<ul class="pagination pagination-sm m-t-none m-b-none">' +
+                        '<li><a ng-click="requestGridData(pageNow-1,0)"><i class="fa fa-chevron-left"></i></a></li>' +
+                        '<li><a href id="pageNumNow" ng-bind-html="pageNow"></a></li>' +
+                        '<li><a ng-click="requestGridData(1,0)" >首页</a></li>' +
+                        ' <li ng-repeat="page in pages"><a ng-click="requestGridData(page.number,0)"> {{page.number}} </a></li>' +
+                        '<li><a ng-click="requestGridData(countNum,0)" >尾页</a></li>' +
+                        '<li><a ng-click="requestGridData(pageNow+1,0)"><i class="fa fa-chevron-right"></i></a></li>' +
+                        '</ul>' +
+                        '</div>' +
+                        '<div class="approvalbut col-sm-3">' +
+                        '<button type="button" class="btn w-xs" ng-click="multiple()"> 确认</button>' +
+                        '<button type="button" class="btn w-xs" ng-click="close(1)"> 清空</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div></div>';
+                } else {
+                    html = html + radioth + th;
+                    if (columnDef.cellFilter) {
+                        td = td + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + ' | ' + columnDef.cellFilter + '}}</div></td>';
+                    } else {
+                        td = td + radiotd + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + '}}</div></td>';
+                    }
+                }
+                //生成表体html
+            }
+            html = html + td;
+            var newElm = $compile(html)(divScope);
+
+            parentDom.append(newElm);
+
+            $("#" + divScope.popupRefId).hide().mouseleave(function () {
+                // $(this).hide();
+                divScope.mousein = false;
+            });
+
+            divScope.showRef = function (event) {
+                //scope.filterDate('');
+                // var offset=$("#content").scrollTop();
+                var e = event.currentTarget;
+                var x = e.offsetLeft;
+                var y = e.offsetTop;
+                var offsetheight = e.offsetHeight;
+                var offsetWidth = e.offsetWidth;
+                while (e = e.offsetParent) {
+                    x += e.offsetLeft;
+                    y += e.offsetTop;
+                }
+
+                e = parentDom[0];
+                var x2 = 0;
+                var y2 = 0;
+
+                while (e = e.offsetParent) {
+                    x2 += e.offsetLeft;
+                    y2 += e.offsetTop;
+                    offsetheight++;
+                }
+
+                if (x > window.screen.width * 0.6) {
+                    divScope.float = "right";
+                    newElm.css("top", y - y2 + offsetheight + "px");
+                    newElm.css("left", x - x2 - 550 + offsetWidth + "px");
+                }
+                else {
+                    divScope.float = "left";
+                    newElm.css("top", y - y2 + offsetheight + "px");
+                    newElm.css("left", x - x2 + "px");
+                }
+
+
+                /* if(divScope.popupRefShow==null||divScope.popupRefShow==false){
+                 divScope.popupRefShow=true;
+                 }else{
+                 divScope.popupRefShow=false;
+                 }*/
+
+                // divScope.popupRefShow = !divScope.popupRefShow;
+
+                divScope.input_width = event.currentTarget.offsetWidth;
+                divScope.input_height = event.currentTarget.offsetHeight;
+
+                var queryID = "#" + divScope.popupRefId;
+                $(queryID).show();
+
+
+                //angular.element("#searchData").focus();
+
+            };
+            // if(scope.ngChange) element.bind("change",scope.ngChange);
+            element.bind("blur", function (event) {
+                // divScope.hidepopup(event);
+                if (!divScope.mousein) {
+                    $("#" + divScope.popupRefId).hide();
+                }
+            });
+            // document.body.addEventListener('click',function (event) {
+            //     if(event.target.parentElement.id != divScope.popupRefId){
+            //         $("#" + divScope.popupRefId).hide();
+            //     }
+            // })
+
+            element.bind("focus", function (event) {
+                if (divScope.$parent.popupModelValue) {
+                    divScope.$parent.popupModel[divScope.$parent.popupModelField] = "";
+                }
+
+                divScope.pageNow = 1;
+                divScope.popupSearch = "";
+                if (divScope.url) {
+                    var url = divScope.$parent.url;
+                    if (typeof url == 'function') {
+                        url = url();
+                    }
+                    var ifHttp=url.indexOf("http");
+                    if (divScope.$root.basePath&&ifHttp==-1) {
+                        url = divScope.$root.basePath + url;
+                    }
+                    var data = {page: divScope.pageNow, pageSize: 5};
+                    if (divScope.$parent.popupModelValue) data['data'] = angular.toJson(divScope.$parent.popupModelValue);
+                    divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
+                    layer.load(2);
+                    $http.post(url, data)
+                        .success(function (response) {
+                            if (response.code == 200) {
+
+                                //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                if(response.result){
+                                    divScope.popupRefData = response.result;
+                                    divScope.popupRefData_show = response.result.Rows;
+                                    divScope.countNum = Math.ceil(response.result.Total / 5);
+                                    divScope.pagination.total = response.result.Total;
+                                }
+                                if(response.data){
+                                    divScope.popupRefData = response.data;
+                                    divScope.popupRefData_show = response.data.records;
+                                    divScope.countNum = Math.ceil(response.data.total / 5);
+                                    divScope.pagination.total = response.data.total;
+                                }
+                                if (response.columnDefs) {
+                                    divScope.columnDefs = response.columnDefs;
+                                }
+                            }
+                            layer.closeAll('loading');
+
+                            divScope.generatePagination(1);
+
+                            divScope.showRef(event);
+                        }).error(function (error) {
+                        layer.closeAll('loading');
+                        divScope.showRef(event);
+                    });
+                }
+                else {
+                    showRef(event);
+                }
+
+            });
+        }
+    }
+});
 pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
     return {
         scope: true,
-        //scope:{
-        //    uiPopupRef:'=',//配置 里面必须带parentScope 哪个controller调用就传哪个
-        //    popupModel:'=',//文本框存放的上层对象
-        //    popupModelField:'=',//model对象的属性名称 文本框本身的.name
-        //    popupIsNgGrid:'=',/*是否是ng-grid中默认不是*/
-        //    ngModel:'='
-        //},
         controller: function ($scope,ngDialog) {
             //if($scope.uiPopupRef) return;
             //根据scopeId获取scope
@@ -1109,7 +2115,7 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
                     if (divScope.$root.basePath&&ifHttp==-1) {
                         url = divScope.$root.basePath + url;
                     }
-                    var data = {page: page, size: 20};
+                    var data = {page: page, pageSize: 5};
                     if (divScope.popupSearch) {
                         data.data = angular.toJson({name: divScope.popupSearch});
                     }
@@ -1117,15 +2123,19 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
                     $http.post(url, data)
                         .success(function (response) {
                             if (response.code == 200) {
-                                divScope.popupRefData = response.result.records;
-
-                                divScope.popupRefData_show = response.result.records;
-
-                                divScope.countNum = response.result.pages;
-
-                                divScope.pagination.total = response.result.total;
-
-                                //scope.popupRefData = response.result;
+                                //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                if(response.result){
+                                    divScope.popupRefData = response.result;
+                                    divScope.popupRefData_show = response.result.Rows;
+                                    divScope.countNum = Math.ceil(response.result.Total / 5);
+                                    divScope.pagination.total = response.result.Total;
+                                }
+                                if(response.data){
+                                    divScope.popupRefData = response.data;
+                                    divScope.popupRefData_show = response.data.records;
+                                    divScope.countNum = Math.ceil(response.data.total / 5);
+                                    divScope.pagination.total = response.data.total;
+                                }
                                 if (response.columnDefs) {
                                     divScope.columnDefs = response.columnDefs;
                                 }
@@ -1149,7 +2159,7 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
                 ngDialog.openConfirm({
                     showClose: true,
                     closeByDocument: true,
-                    template: 'view/stateGridCustomer/addCustomerForm.html',
+                    template: 'base/customer/stateGridCustomer/addCustomerForm.html',
                     className: 'ngdialog-theme-formInfo',
                     scope: $scope,
                     preCloseCallback: function (value) {
@@ -1241,10 +2251,11 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
                         html = html + th + radioth + '</tr></thead><tbody>';
                         td = td + '<td style="min-width: 100px;">{{row.' + columnDef.field + '}}</td>' + radiotd + '</tr></tbody></table></div>' +
                             '<div ng-show=" popupRefData_show == null || popupRefData_show.length == 0 " class="center" style="padding: 10px 10px 20px"><span style="font-size: 12px; color: #8e8e93"><i class="ti-face-sad"></i>暂无数据</span>';
+                        // debugger
                         if (divScope.openCustomerMore){
                             td = td + '<p><button ng-click="addCustomer()">点击添加企业信息</button></p>'
                         }
-                        td = td + ' <div class="panel-footer" ng-show=" popupRefData_show != null ">' +
+                        td = td + '</div> <div class="panel-footer" ng-show=" popupRefData_show != null ">' +
                             // '<ul class="pagination">' +
                             // ' <li ng-class="{active: page.isActive}" ng-repeat="page in pages"><a ng-click="requestGridData(page.number)"> {{page.number}} </a></li>' +
                             // '</ul>' +
@@ -1357,13 +2368,23 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
                         }
                         // divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
                         layer.load(2);
-                        $http.post(url, {page: divScope.pageNow, size: 20})
+                        $http.post(url, {page: 1, pageSize: 5})
                             .success(function (response) {
                                 if (response.code == 200) {
-                                    divScope.popupRefData = response.data.records;
-                                    divScope.popupRefData_show = response.data.records;
-                                    divScope.countNum = response.data.pages;
-                                    divScope.pagination.total = response.data.total;
+                                    //@zhangwj 新增支持mybatis plus 原生分页查询结果
+                                    if(response.result){
+                                        divScope.popupRefData = response.result;
+                                        divScope.popupRefData_show = response.result.Rows;
+                                        divScope.countNum = Math.ceil(response.result.Total / 5);
+                                        divScope.pagination.total = response.result.Total;
+                                    }
+                                    if(response.data){
+                                        divScope.popupRefData = response.data;
+                                        divScope.popupRefData_show = response.data.records;
+                                        divScope.countNum = Math.ceil(response.data.total / 5);
+                                        divScope.pagination.total = response.data.total;
+                                    }
+
                                     //scope.popupRefData = response.result;
                                     if (response.columnDefs) {
                                         divScope.columnDefs = response.columnDefs;
@@ -1406,471 +2427,6 @@ pub.directive("uiPopupGridRef", function ($compile, $filter, $http, $timeout) {
 
                     divScope.showRef(event);
                 }
-            });
-        }
-    }
-});
-
-
-pub.directive("uiPopupRefMultiple", function ($compile, $filter, $http) {
-    return {
-        scope: {
-            uiPopupRef: '=',//配置 里面必须带parentScope 哪个controller调用就传哪个
-            popupModel: '=',//文本框存放的上层对象
-            popupModelField: '=',//model对象的属性名称 文本框本身的.namecolumnDefs
-            url: '=',
-            popupModelValue: '=',//联动
-            isSearch: '=',                  //是否需要查询
-
-        },
-        controller: function ($scope,ngDialog) {
-            //根据scopeId获取scope
-            var config = $scope.uiPopupRefMultiple;
-            var parentScope = $scope;
-            var divScope = parentScope.$new(true);
-            $scope.divScope = divScope;
-            // 定义多选数组
-            divScope.arr = [];
-            // divScope.popupRefData = config.data;
-            $scope.columnDefs = [
-                {
-                    field: 'code',
-                    displayName: '编号'
-                },
-                {
-                    field: 'name',
-                    displayName: '名称'
-
-                }
-            ];
-            if (config) {
-                $scope.columnDefs = config.columnDefs;
-            }
-
-            divScope.pagination = {
-                total: 0,
-                current: 1
-            }
-
-            divScope.url = $scope.url;
-
-            divScope.mousein = true;
-
-            divScope.selectRow = function (row, num) {
-                if (true) {
-                    if ($("#" + num).prop('checked')) {
-                        $("#" + num).prop('checked', false);
-                    } else {
-                        $("#" + num).prop('checked', true);
-                    }
-                } else {
-                    if (row.$$hashKey) {
-                        delete row.$$hashKey
-                    }
-                    $scope.popupModel[$scope.popupModelField] = row;
-                    divScope.popupRefShow = false;
-                    $("#" + divScope.popupRefId).hide();
-                }
-
-            };
-
-            divScope.hidepopup = function (event) {
-                divScope.popupRefShow = false;
-            }
-            divScope.searchDataFocus = function () {
-                this.searchData = null;
-            };
-            divScope.filterData = function () {
-                var newVal = this.searchData;
-                var data = [];
-                angular.copy(divScope.popupRefData, data);
-                if (!newVal || newVal == null || newVal == "") {
-                    //$scope.popupModel[$scope.popupModelField]={};
-                    divScope.popupRefData_show = data;
-                } else {
-                    var newData = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var isAdd = false;
-                        if (data[i] != null && data[i] != undefined) {
-                            for (var col in data[i]) {
-                                if (col == '_id' || col == 'pk') continue;
-                                var value = data[i][col] == null || angular.isUndefined(data[i][col]) ? '' : data[i][col].toString();
-                                if (value.indexOf(newVal) != -1) {
-                                    isAdd = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (isAdd) {
-                            newData.push(data[i]);
-                        }
-                    }
-                    divScope.popupRefData_show = newData;
-                    // divScope.popupRefShow=false;
-                }
-            };
-
-            function makePage(number, isActive) {
-                return {
-                    number: number,
-                    isActive: isActive
-                }
-            }
-
-
-            divScope.generatePagination = function (current) {
-                var _total = divScope.pagination.total;
-
-                var _totalPage = Math.ceil(_total / 5);
-
-                var _startPage = (current - 2) <= 0 ? 1 : (current - 2);
-                var _endPage = _startPage + 4 > _totalPage ? _totalPage : _startPage + 4;
-                if (_endPage == _totalPage) {
-                    _startPage = _endPage - 4 <= 0 ? 1 : _endPage - 4;
-                }
-
-                divScope.pages = [];
-
-                for (var number = _startPage; number <= _endPage; number++) {
-                    var page = makePage(number, number === current);
-
-                    divScope.pages.push(page);
-                }
-
-            }
-
-            divScope.close = function (num) {
-                if (num == 1) {
-                    $scope.popupModel[$scope.popupModelField] = "";
-                }
-                $("#" + divScope.popupRefId).hide();
-            }
-            divScope.popupClickAll = function () {
-                if ($("#popupTable input:eq(0)").prop('checked')) {
-                    $("#popupTable input").prop('checked', true);
-                } else {
-                    $("#popupTable input").prop('checked', false);
-                }
-            }
-            divScope.multiple = function () {
-                divScope.arr = [];
-                var obj = $("#popuptbody :checked");
-                for (var i = 0; i < obj.length; i++) {
-                    divScope.arr.push(obj[i].value);
-                }
-                var temp = angular.fromJson(divScope.arr[0]);
-                var kiVO = null;
-                for (var c = 1; c < divScope.arr.length; c++) {
-                    kiVO = angular.fromJson(divScope.arr[c])
-                    temp.pk = kiVO.pk + ";" + temp.pk;
-                    temp.name = kiVO.name + ";" + temp.name;
-                    temp.code = kiVO.code + ";" + temp.code;
-                }
-                $scope.popupModel[$scope.popupModelField] = temp;
-                divScope.popupRefShow = false;
-                $("#" + divScope.popupRefId).hide();
-            }
-            if ($scope.isSearch == undefined) {
-                divScope.isSearch = true;
-            } else {
-                divScope.isSearch = $scope.isSearch;
-            }
-            divScope.requestGridData = function (page, num) {
-                if (divScope.countNum < page && num == 0) {
-                    return;
-                }
-                if (page < 1) {
-                    return;
-                }
-                divScope.pageNow = page;
-                if (divScope.url) {
-                    var url = divScope.$parent.url;
-                    if (typeof url == 'function') {
-                        url = url();
-                    }
-                    var ifHttp=url.indexOf("http");
-                    if (divScope.$root.basePath&&ifHttp==-1) {
-                        url = divScope.$root.basePath + url;
-                    }
-                    var data = {page: page, pageSize: 10};
-                    if (!divScope.$parent.popupModelValue) divScope.$parent.popupModelValue = {};
-                    divScope.$parent.popupModelValue['name'] = divScope.popupSearch;
-                    data['data'] = angular.toJson(divScope.$parent.popupModelValue);
-                    // layer.load(2)
-                    $http.post(url, data)
-                        .success(function (response) {
-                            if (response.code == 200) {
-
-                                divScope.popupRefData = response.result.records;
-
-                                divScope.popupRefData_show = response.result.records;
-
-                                divScope.countNum = response.result.pages;
-
-                                divScope.pagination.total = response.result.total;
-
-                                //scope.popupRefData = response.result;
-                                if (response.columnDefs) {
-                                    divScope.columnDefs = response.columnDefs;
-                                }
-                                if (page >= divScope.countNum) {
-                                    divScope.pageNow = divScope.countNum;
-                                    divScope.generatePagination(divScope.countNum);
-                                } else {
-                                    divScope.generatePagination(page);
-                                }
-                            }
-                            layer.closeAll('loading');
-
-
-                            divScope.showRef(event);
-                        }).error(function (error) {
-                        layer.closeAll('loading');
-                        divScope.showRef(event);
-                    });
-                }
-            }
-            divScope.addCustomer = function () {
-                ngDialog.openConfirm({
-                    showClose: true,
-                    closeByDocument: true,
-                    template: 'view/stateGridCustomer/addCustomerForm.html',
-                    className: 'ngdialog-theme-formInfo',
-                    scope: $scope,
-                    preCloseCallback: function (value) {
-                        return true;
-                    }
-                }).then(function (value) {
-                    if (value != null) {
-                        $scope.selectRow(value,null)
-                    }
-                }, function (reason) {
-
-                });
-            }
-        },
-        link: function (scope, element, attrs, ngModelCtrl) {
-            var config = scope.uiPopupRef;
-            if (!config) {
-                config = {};
-            }
-            var columnDefs = scope.columnDefs;
-            if (!columnDefs) return;
-            var parentDom = getScopeDomById(scope.$parent.$id);
-            var divScope = scope.divScope;
-            //获取滚动条DOM的主键
-            //var parent=attrs.$$element.context.parentElement;
-            //if(parent.style !=null &&　angular.isDefined(parent.style)){
-            //    while(parent.style.overflowY!='auto'){
-            //        parent=parent.parentElement;
-            //    }
-            //}
-            var uiPopupRefId;
-            if (scope.popupIsNgGrid) {
-                var dom = document.getElementById('uiPopupRefId');
-                if (angular.isDefined(dom) && dom != null && dom != '') {
-                    dom.parentNode.removeChild(dom);
-                }
-                uiPopupRefId = ' id="uiPopupRefId" ';
-            } else {
-                var id = new Date().getTime() + Math.floor(Math.random())
-                uiPopupRefId = ' id="' + id + '"';
-
-                divScope.popupRefId = id;
-            }
-
-            divScope.popupRefShow = false;
-
-            var divClass = angular.isDefined(config.divClass) ? config.divClass : '';
-            var tableClass = angular.isDefined(config.tableClass) ? config.tableClass : 'table table-striped';
-            var tableStyle = config.tableStyle ? config.tableStyle : ('width:' + columnDefs.length * 190 + 'px');//'height:280px;width:600px';
-            var divStyle = angular.isDefined(config.divStyle) ? config.divStyle : 'min-width:550px;background-color:#fff;position: absolute;z-index:1000';
-
-            //var html = '<div ng-mouseleave="" '+ uiPopupRefId +' ng-show="popupRefShow" style="'+divStyle+'" class="'+divClass+'" >' +
-            //    '<table class="'+tableClass+'" ng-grid="pubRefSelect"  style="'+tableStyle+'" > </table>' +
-            //    '</div>';
-            /*var html = '<div   ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false" ' + uiPopupRefId + ' ng-show="popupRefShow" style="' + divStyle + '" class="' + divClass + '" >' +
-             '<input id="searchData" placeholder="请输入过滤条件" ng-blur="hidepopup()" type="text" ng-model="searchData" size="25" style="width:{{input_width}}px;height:{{input_height}}px;float:{{float}}"/>' +
-             '<div style="width:400px; height:300px; overflow:auto; border:1px solid #eaeff0;">' +
-             '<table  st-table="popupRefData" class="' + tableClass + '" style="' + tableStyle + '">' +
-             '<thead>' +
-             '<tr>';*/
-
-
-            var html = '<div ng-mouseenter="mousein=true"  ng-mouseleave="mousein=false"  class="lr-ref" ' + uiPopupRefId + ' style="' + divStyle + '">' +
-                '<div class="panel-heading" style="border-bottom: solid 1px #DDDDDD;"><span style="float: left">请选择{{titlename}}</span> <span style="float: right;"><button class="btn w-xs fa fa-times" type="button" style="background: #fff" ng-click="close(0)"></button></span>' +
-                '</div>' +
-                '<div>' +
-                '<div ng-show="isSearch" style="padding: 5px 0px 0px 5px;"><input class="form-control" ng-model="popupSearch" placeholder="请输入关键字查询" style="width: 70%;display: inline-block;border-radius:0px;"><span style="vertical-align: text-bottom;"><button class="btn w-xs fa fa-search" style="padding: 9px 13px 9px 13px;border-bottom: solid 1px #ccc;border-top: solid 1px #ccc;border-right: solid 1px #ccc;" ng-click="requestGridData(pageNow,1)"></button></span></div>' +
-                '<div class="lr-ref-body-table"     style="padding: 5px 5px 0px 5px;">' +
-                '<table class="table table-hover table-bordered" id="popupTable"><thead><tr>';
-            var radioth = '<th style="width:20px"><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="checkboxPopup" ng-click="popupClickAll()"> <label for="checkboxPopup"> </label> </div></th>';
-            var radiotd = '<td><div class="checkbox clip-check check-info checkbox-inline"> <input type="checkbox" id="{{$index}}" value="{{row}}"> <label for="{{$index}}"> </label> </div></td>';
-            var td = '<tr ng-repeat="row in popupRefData_show" >';
-            for (var i = 0; i < columnDefs.length; i++) {
-                var columnDef = columnDefs[i];
-                var th = '<th><span>' + columnDef.displayName + '</span></th>';
-                if (i == columnDefs.length - 1) {
-                    html = html + th + '</tr></thead><tbody id="popuptbody">';
-                    td = td + '<td style="min-width: 100px;">{{row.' + columnDef.field + '}}</td></tr></tbody></table></div>' +
-                        '<div ng-show=" popupRefData_show == null " class="center" style="padding: 10px 10px 20px"><span style="font-size: 12px; color: #8e8e93"><i class="fa fa-smile-o"></i> 暂无数据</span></div>' +
-                        ' <div class="panel-footer" ng-show=" popupRefData_show != null ">' +
-                        '<div class="row">' +
-                        '<div class="col-sm-9 pad">' +
-                        '<ul class="pagination pagination-sm m-t-none m-b-none">' +
-                        '<li><a ng-click="requestGridData(pageNow-1,0)"><i class="fa fa-chevron-left"></i></a></li>' +
-                        '<li><a href id="pageNumNow" ng-bind-html="pageNow"></a></li>' +
-                        '<li><a ng-click="requestGridData(1,0)" >首页</a></li>' +
-                        ' <li ng-repeat="page in pages"><a ng-click="requestGridData(page.number,0)"> {{page.number}} </a></li>' +
-                        '<li><a ng-click="requestGridData(countNum,0)" >尾页</a></li>' +
-                        '<li><a ng-click="requestGridData(pageNow+1,0)"><i class="fa fa-chevron-right"></i></a></li>' +
-                        '</ul>' +
-                        '</div>' +
-                        '<div class="approvalbut col-sm-3">' +
-                        '<button type="button" class="btn w-xs" ng-click="multiple()"> 确认</button>' +
-                        '<button type="button" class="btn w-xs" ng-click="close(1)"> 清空</button>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div></div>';
-                } else {
-                    html = html + radioth + th;
-                    if (columnDef.cellFilter) {
-                        td = td + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + ' | ' + columnDef.cellFilter + '}}</div></td>';
-                    } else {
-                        td = td + radiotd + '<td  style="min-width: {{row.' + columnDef.field + '.length > 4 ? (row.' + columnDef.field + '.length * 20) : 100}}px"><div>{{row.' + columnDef.field + '}}</div></td>';
-                    }
-                }
-                //生成表体html
-            }
-            html = html + td;
-            var newElm = $compile(html)(divScope);
-
-            parentDom.append(newElm);
-
-            $("#" + divScope.popupRefId).hide().mouseleave(function () {
-                // $(this).hide();
-                divScope.mousein = false;
-            });
-
-            divScope.showRef = function (event) {
-                //scope.filterDate('');
-                // var offset=$("#content").scrollTop();
-                var e = event.currentTarget;
-                var x = e.offsetLeft;
-                var y = e.offsetTop;
-                var offsetheight = e.offsetHeight;
-                var offsetWidth = e.offsetWidth;
-                while (e = e.offsetParent) {
-                    x += e.offsetLeft;
-                    y += e.offsetTop;
-                }
-
-                e = parentDom[0];
-                var x2 = 0;
-                var y2 = 0;
-
-                while (e = e.offsetParent) {
-                    x2 += e.offsetLeft;
-                    y2 += e.offsetTop;
-                    offsetheight++;
-                }
-
-                if (x > window.screen.width * 0.6) {
-                    divScope.float = "right";
-                    newElm.css("top", y - y2 + offsetheight + "px");
-                    newElm.css("left", x - x2 - 550 + offsetWidth + "px");
-                }
-                else {
-                    divScope.float = "left";
-                    newElm.css("top", y - y2 + offsetheight + "px");
-                    newElm.css("left", x - x2 + "px");
-                }
-
-
-                /* if(divScope.popupRefShow==null||divScope.popupRefShow==false){
-                 divScope.popupRefShow=true;
-                 }else{
-                 divScope.popupRefShow=false;
-                 }*/
-
-                // divScope.popupRefShow = !divScope.popupRefShow;
-
-                divScope.input_width = event.currentTarget.offsetWidth;
-                divScope.input_height = event.currentTarget.offsetHeight;
-
-                var queryID = "#" + divScope.popupRefId;
-                $(queryID).show();
-
-
-                //angular.element("#searchData").focus();
-
-            };
-            // if(scope.ngChange) element.bind("change",scope.ngChange);
-            element.bind("blur", function (event) {
-                // divScope.hidepopup(event);
-                if (!divScope.mousein) {
-                    $("#" + divScope.popupRefId).hide();
-                }
-            });
-            // document.body.addEventListener('click',function (event) {
-            //     if(event.target.parentElement.id != divScope.popupRefId){
-            //         $("#" + divScope.popupRefId).hide();
-            //     }
-            // })
-
-            element.bind("focus", function (event) {
-                if (divScope.$parent.popupModelValue) {
-                    divScope.$parent.popupModel[divScope.$parent.popupModelField] = "";
-                }
-
-                divScope.pageNow = 1;
-                divScope.popupSearch = "";
-                if (divScope.url) {
-                    var url = divScope.$parent.url;
-                    if (typeof url == 'function') {
-                        url = url();
-                    }
-                    var ifHttp=url.indexOf("http");
-                    if (divScope.$root.basePath&&ifHttp==-1) {
-                        url = divScope.$root.basePath + url;
-                    }
-                    var data = {page: divScope.pageNow, size: 10};
-                    if (divScope.$parent.popupModelValue) data['data'] = angular.toJson(divScope.$parent.popupModelValue);
-                    divScope.titlename = event.target.parentNode.parentElement.firstChild.innerText;
-                    layer.load(2);
-                    $http.post(url, data)
-                        .success(function (response) {
-                            if (response.code == 200) {
-
-                                divScope.popupRefData = response.result.records;
-
-                                divScope.popupRefData_show = response.result.records;
-
-                                divScope.countNum = response.result.pages;
-
-                                divScope.pagination.total = response.result.total;
-
-                                //scope.popupRefData = response.result;
-                                if (response.columnDefs) {
-                                    divScope.columnDefs = response.columnDefs;
-                                }
-                            }
-                            layer.closeAll('loading');
-
-                            divScope.generatePagination(1);
-
-                            divScope.showRef(event);
-                        }).error(function (error) {
-                        layer.closeAll('loading');
-                        divScope.showRef(event);
-                    });
-                }
-                else {
-                    showRef(event);
-                }
-
             });
         }
     }
@@ -1960,6 +2516,7 @@ pub.directive('wdatePicker', function () {
                     scope.oncleared();
                 }
             }
+
             element.bind('click', function () {
                 init97Date(this);
             });
@@ -2062,84 +2619,6 @@ pub.directive('wdatePickers', function () {
     };
 });
 
-/*pub.directive('keyDown', function ($timeout) {
- return {
- scope: true,
- controller: function ($scope) {
- var parentScope = $scope;
- var divScope = parentScope.$new(true);
- $scope.divScope = divScope;
- divScope.selectRow = function (value) {
- if(value.replace(/\s/g, '^&^').split("^&^").length > 1){
- if($scope.row.grid.options) {
- var dataOne = [];
- var dataTwo = [];
- var dataThree = [];
- var dataIsRight = false;
- var oldData = $scope.row.grid.options.data;
- for (var  i= 0;i<oldData.length;i++){
- if($scope.row.grid.options.data[i] == $scope.row.entity){
- dataIsRight = true;
- }else{
- if(dataIsRight){
- dataThree.push(oldData[i]);
- }else{
- dataOne.push(oldData[i]);
- }
- }
- }
- var indexName = $scope.col.name;
- var index  = false;
- var names = [];
- var array = $scope.row.grid.options.columnDefs;
- for (var i = 0; i < array.length; i++) {
- if(index){
- names.push(array[i].name);
- }else{
- if(array[i].name == indexName){
- index = true;
- names.push(array[i].name);
- }
- }
- }
-
-
- var str = value.split(' ');
- for (var k = 0;k<str.length;k++){
- var values = str[k].replace(/\s/g, '^&^').split("^&^");
- var object = {};
- for (var i = 0; i < names.length; i++) {
- object[names[i]] = values[i];
- }
- dataTwo.push(object);
- }
- }
- $timeout(function(){
- $scope.row.grid.options.data.length = 0;
- var data = dataOne.concat(dataTwo.concat(dataThree));
- for(var i = 0; i<data.length;i++){
- $scope.row.grid.options.data.push(data[i]);
- }
- $scope.$apply();
- },5);
- }
- }
- },
- link: function (scope, element, attr, ngModel) {
- var divScope = scope.divScope;
- element.bind('change', function () {
- if(this.value){
- divScope.selectRow(this.value);
- }
- });
- element.bind('keydown', function () {
- if(this.value){
- divScope.selectRow(this.value);
- }
- });
- }
- };
- });*/
 pub.directive('keyDown', function ($timeout, $rootScope) {
     return {
         scope: true,
@@ -2226,3 +2705,89 @@ pub.directive('keyDown', function ($timeout, $rootScope) {
         }
     };
 })
+app.controller('addCustomerCtrl', function ($rootScope, $scope, $sce, $http, $stateParams, ngVerify, uiGridConstants, ngDialog) {
+    $scope.initRef = function () {
+
+    }
+    $scope.initData = function () {
+        $scope.initVO = function () {
+            return {
+                pkOperator: $rootScope.userVO,
+                pkOrg: $rootScope.orgVO,
+                pkDept: $rootScope.deptVO,
+                operateDate: new Date().format("yyyy-MM-dd"),
+                operateTime: new Date().format("yyyy-MM-dd HH:mm:ss"),
+                isContinue: 0,
+                dr: 0,
+            };
+        };
+        $scope.VO = $scope.initVO();
+    }
+
+    $scope.initFunction = function () {
+        /**
+         * 保存
+         */
+        $scope.onSave = function () {
+            ngVerify.check('addCustomerForm', function (errEls) {
+                if (errEls && errEls.length) {
+                    return layer.alert(errEls[0].ngVerify.OPTS.message,
+                        {skin: 'layui-layer-lan', closeBtn: 1});
+                } else {
+                    $scope.onSaveVO();
+                }
+            }, true)
+        };
+
+        $scope.onCancel = function () {
+            ngDialog.close();
+        };
+
+        $scope.searchCustomer = function () {
+            if (!$scope.VO.c0Name || $scope.VO.c0Name == "") {
+                layer.alert("请输入客户名称", {skin: 'layui-layer-lan', closeBtn: 1});
+                return;
+            }
+            layer.load(2);
+            $http.post($rootScope.basePath + "customerRef/searchCustomer", {name: $scope.VO.c0Name}).success(function (response) {
+                layer.closeAll('loading');
+                if (response && response.code == "200") {
+                    $scope.VO = response.result;
+                } else {
+
+                }
+            });
+        };
+
+        /*
+         * 保存VO
+         * */
+        $scope.onSaveVO = function () {
+            layer.load(2);
+            $http.post($rootScope.basePath + "stateGridCustomer/save", {data: angular.toJson($scope.VO), funCode:$scope.funCode})
+                .success(function (response) {
+                    if (response && response.code == 200) {
+                        $scope.VO = response.result;
+                        $scope.$parent.confirm($scope.VO);
+                        ngDialog.close();
+                    }
+                    if (response&&response.msg) {
+                        if (response.code == 200){
+                            layer.alert("保存成功，请重新选择！", {skin: 'layui-layer-lan', closeBtn: 1});
+                        }else {
+                            // e.g. 字符转换为Entity Name
+                            response.msg = response.msg.replace(/(\D{1})/g, function (matched) {
+                                var rs = asciiChartSet_c2en[matched];
+                                return rs == undefined ? matched : rs;
+                            });
+                            layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
+                        }
+                    }
+                });
+        };
+    };
+
+    $scope.initData();
+    $scope.initRef();
+    $scope.initFunction();
+});

@@ -154,38 +154,241 @@
         </accordion-group>
     </accordion>
     </div>
+<!--    <div>-->
+<!--        <div class="pull-right lr-mr10 lr-mt10" style="margin-right: 50px;">-->
+<!--            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit&&!upOrDown" ng-click="onAddLine();">增行</button>-->
+<!--            <button class="btn btn-sm btn-info" type="button" ng-click="onUploads();" ng-show="upOrDown">上传</button>-->
+<!--            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>-->
+<!--            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>-->
+<!--        </div>-->
+<!--        <tabset justified="false">-->
+<!--            <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">-->
+<!--                <div ui-grid="accountGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize-->
+<!--                     ui-grid-resize-columns class="grid" style="height: 200px"></div>-->
+<!--            </tab>-->
+<!--            <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">-->
+<!--                <div ui-grid="linkmanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize-->
+<!--                     ui-grid-resize-columns class="grid" style="height: 200px"></div>-->
+<!--            </tab>-->
+<!--            <tab index="3" heading="部门信息" select="selectTab('customerDeptGridOptions')">-->
+<!--                <div ui-grid="customerDeptGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection-->
+<!--                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>-->
+<!--            </tab>-->
+<!--            <tab index="4" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">-->
+<!--                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection-->
+<!--                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>-->
+<!--            </tab>-->
+<!--        </tabset>-->
+<!--    </div>-->
     <div>
-        <div class="pull-right lr-mr10 lr-mt10">
-            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit&&!upOrDown" ng-click="onAddLine();">增行</button>
-
-
-            <button class="btn btn-sm btn-info" type="button"
-                    ng-click="onUploads();" ng-show="upOrDown">上传
-            </button>
-            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
-            <button class="btn btn-sm btn-info" type="button"
-                    ng-click="onDownLoads();" ng-show="upOrDown">下载
-            </button>
-        </div>
-        <tabset justified="false">
-            <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">
-                <div ui-grid="accountGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">
-                <div ui-grid="linkmanGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="3" heading="部门信息" select="selectTab('customerDeptGridOptions')">
-                <div ui-grid="customerDeptGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="4" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
-                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-        </tabset>
+    <button class="btn lr-insureType-btn" ng-click="onAddAccount()">
+        <i class="fa fa-plus-square"></i>
+        增加账户信息
+    </button>
+    <div ng-repeat="item in AccountList" style="background:#f7f7f7">
+        <accordion class=""  >
+            <accordion-group is-open="true" class="lr-page-bg-gray">
+                <div class="btn lr-page-bg-indigo">
+                    <i class="fa fa-hand-o-right lr-page-color"></i>
+                    <span class="lr-page-color">账户信息</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10" >
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">账户类型：</label>
+                            <div class="col-md-7">
+                                <select class="form-control"  ng-model="item.accType" required
+                                 ng-options="iten.id as iten.name for iten in SELECT.ACCTYPE">
+                                    <option value="">--账户类型--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">开户名称：</label>
+                            <div class="col-md-7">
+                                <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.accName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">账号：</label>
+                            <div class="col-md-7">
+                                <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.accNum">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">开户银行：</label>
+                            <div class="col-md-7">
+                                <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.accBlank">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-5 control-label">银行联行号：</label>
+                            <div class="col-md-7">
+                                <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.jointBankNum">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align: right">
+                        <button type="button" class="btn btn-azure" ng-if="AccountList.length>1"
+                                ng-click="deletelistOptions($index,1)" type="button">
+                            <i class="fa fa-trash-o"></i>
+                            <span>删除</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="btn lr-page-bg-indigo">
+                </div>
+            </accordion-group>
+        </accordion>
     </div>
+
+    <button class="btn lr-insureType-btn" ng-click="onAddLinkman()">
+        <i class="fa fa-plus-square"></i>
+        增加联系人信息
+    </button>
+    <div ng-repeat="item in LinkmanList" style="background:#f7f7f7">
+            <accordion class=""  >
+                <accordion-group is-open="true" class="lr-page-bg-gray">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color"></i>
+                        <span class="lr-page-color">联系人信息</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10" >
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">联系人类型：</label>
+                                <div class="col-md-7">
+                                    <select class="form-control"  ng-model="item.linkmanType" required
+                                            ng-options="iten.id as iten.name for iten in SELECT.LINKMANTYPE">
+                                        <option value="">--联系人类型--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">联系人姓名：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">联系人部门：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.dept">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">联系人地址：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.address">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">邮编：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.post">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">联系人电话：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.tele">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">传真：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.fax">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">电子邮箱：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.mail">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">备注：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.memo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right">
+                            <button type="button" class="btn btn-azure" ng-if="LinkmanList.length>1"
+                                    ng-click="deletelistOptions($index,2)" type="button">
+                                <i class="fa fa-trash-o"></i>
+                                <span>删除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="btn lr-page-bg-indigo">
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+
+    <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+        <i class="fa fa-plus-square"></i>
+        增加部门信息
+    </button>
+    <div ng-repeat="item in CustomerDeptList" style="background:#f7f7f7">
+            <accordion class=""  >
+                <accordion-group is-open="true" class="lr-page-bg-gray">
+                    <div class="btn lr-page-bg-indigo">
+                        <i class="fa fa-hand-o-right lr-page-color"></i>
+                        <span class="lr-page-color">部门信息</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10" >
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">部门名称：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.dept">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-5 control-label">备注：</label>
+                                <div class="col-md-7">
+                                    <input class="form-control"  type="text" ng-verify="{max:200}" ng-model="item.remark">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right">
+                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                    ng-click="deletelistOptions($index,3)" type="button">
+                                <i class="fa fa-trash-o"></i>
+                                <span>删除</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="btn lr-page-bg-indigo">
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+
+    <button class="btn lr-insureType-btn" ng-click="onAddassistclaimworkrecord()">
+        <i class="fa fa-plus-square"></i>
+        注册号/统一社会信用代码证附件
+    </button>
+        <div class="pull-right lr-mr10 lr-mt10" style="margin-right: 50px;">
+            <button class="btn btn-sm btn-info" type="button" ng-click="onUploads();" >上传</button>
+            <button class="btn btn-sm btn-info" type="button" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
+            <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>
+        </div>
+            <div>
+                <tabset justified="false">
+                    <tab index="4" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
+                        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                             ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+                    </tab>
+                </tabset>
+            </div>
+
+
+    </div>
+
+
     <accordion class="" close-others="oneAtATime">
         <accordion-group is-open="false" class="lr-page-bg-gray">
             <accordion-heading class="lr-page-bg-white">

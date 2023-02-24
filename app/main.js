@@ -26,7 +26,8 @@ var app = angular.module('lrApp', [
     'angularFileUpload',
     'moment-picker',
     'angularMoment',
-    'uiSwitch'
+    'uiSwitch',
+    'angularBootstrapNavTree'
 ]);
 // var baseUrl = serverApi;
 var fun_code = "";

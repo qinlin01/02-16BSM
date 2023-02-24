@@ -1,0 +1,81 @@
+<div class="form-horizontal" ng-if="isGrid">
+    <div class="panel-body lr-grid-html-query">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group pull-right buttons-widget">
+                    <button class="btn btn-primary " ng-click="onQuery();">
+                        <i class="fa fa-search"></i>
+                        <span>查询</span>
+                    </button>
+                    <button class="btn btn-primary btn-o" ng-click="onReset();">
+                        <i class="fa fa-undo"></i>
+                        <span>重置</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="col-md-5 control-label">项目名称</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" ng-model="QUERY['project_name']"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="lr-grid-toolbar">
+                <div class="buttons-widget" add-grid-btn>
+                    <button class="btn btn-sm btn-primary btn-o"  ng-click="onAdd()">
+                        <i class="fa fa-pencil"></i>
+                        新增
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-o" ng-disabled=" checkStatus(gridApi,'billstatus',[0,2,25,26,27,36,31],false)" ng-click="onEdit()">
+                        <i class="fa fa-pencil"></i>
+                        修改
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-o" ng-click="onSubmit()">
+                        <i class="fa fa-mail-forward"></i>
+                        提交
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-o" type="button" ng-click="onAudit()"
+                            ng-if="!isEdit&&(VO.billstatus==33||VO.billstatus==32)">
+                        <i class="ti-check"></i>
+                        <span>审核</span>
+                    </button>
+                    <button class="btn btn-sm btn-primary  btn-o" type="button" ng-click="onLinkAuditFlow()">
+                        <i class="fa fa-list-ol"></i>
+                        <span>查询审批流</span>
+                    </button>
+                    <button class="btn btn-sm btn-red  btn-o" ng-click="onClearWorkflow()">
+                        <i class="fa fa-chain-broken"></i>
+                        清理流程图
+                    </button>
+                    <button class="btn btn-sm btn-primary  btn-o" ng-click="onRecall()">
+                        <i class="fa fa-mail-reply"></i>
+                        撤回
+                    </button>
+                    <button class="btn btn-sm btn-primary  btn-o" ng-click="onPrintBill()">
+                        <i class="fa fa-print"></i>
+                        打印
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clearfix lr-page-margin" style="height: 550px" >
+                <div ui-grid="gridOptions" ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-infinite-scroll class="grid" style="min-height: 100%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

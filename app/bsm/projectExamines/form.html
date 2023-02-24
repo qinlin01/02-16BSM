@@ -1,0 +1,303 @@
+<form class="form-horizontal" name="appForm" verify-scope="tipStyle: 1" ng-if="isForm">
+    <div class="lr-toolbar">
+        <div class="lr-contant text-right " add-form-btn>
+        </div>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                项目基本信息
+            </legend>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目分类（用途）：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.projectType" disabled
+                                required
+                                ng-options="item.id as item.name for item in SELECT.PROJECT_TYPE">
+                            <option value="">--请选择项目类型--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.projectType == 1">
+                    <label class="col-md-5 control-label lr-verify">项目类型：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.projectEpibolyType" disabled
+                                ng-required="VO.projectType == 1"
+                                ng-options="item.id as item.name for item in SELECT.PROJECT_EPIBOLY_TYPE">
+                            <option value="">--请选择项目类型--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.projectType==1">
+                    <label class="col-md-5 control-label lr-verify">服务内容：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true,max:10}" type="text" ng-model="VO.serviceContent" placeholder="不超过10个字">
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="VO.projectType==0">
+                    <label class="col-md-5 control-label lr-verify">客户名称：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{max:30}" type="text" ng-model="VO.customerName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">项目名称：</label>
+                    <div class="col-md-254">
+                        <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.projectName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目费用（万元）：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true,max:30}" type="number" data-prefix="¥" ng-model="VO.projectCost">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目分类（规模）：</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="VO.projectClass"
+                                required disabled
+                                ng-options="item.id as item.name for item in SELECT.PROJECT_CLASS">
+                            <option value="">--请选择项目分类--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目负责人：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.projectManger">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">项目周期：</label>
+                    <div class="col-md-7">
+                        <div class="input-group input-daterange datepicker">
+                            <input type="date" class="form-control" ng-model="VO.period"/>
+                            <span class="input-group-addon bg-primary">-</span>
+                            <input type="date" class="form-control" ng-model="VO.periodEnd"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">专业审查部门：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ui-popup-ref
+                               url="deptRefUrl(VO.pkOrg.pk)" ng-click="" popup-model="VO"
+                               popup-model-field="'examineDept'"
+                               ng-model="VO.examineDept.name" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant" ng-if="VO.projectEpibolyType ==2">
+        <fieldset>
+            <legend>
+                项目成员单位
+            </legend>
+            <div class="row">
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('memberEnterpriseGridOptions')">增行</button>
+                    <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('memberEnterpriseGridOptions')">减行</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <tabset justified="false">
+                    <tab index="1" heading="项目成员单位">
+                        <div ui-grid="memberEnterpriseGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
+                             ui-grid-resize-columns class="grid" style="height: 120px"></div>
+                    </tab>
+                </tabset>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                1.项目背景、目的及意义
+            </legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">①项目背景：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.background" placeholder="最多输入500个汉字。" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">②项目目的：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.target" placeholder="最多输入500个汉字。"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">③项目意义：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.meaning" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                2.项目思路、内容及要求
+            </legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">①项目开展基本思路：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.basicIdea" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">②项目主要内容：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.mainContent" placeholder="最多输入500个汉字。"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">③项目时间安排：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.plans" placeholder="最多输入500个汉字。"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">④项目重点难点、创新点：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.innovationPoints" placeholder="最多输入500个汉字。"></textarea>
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                3.项目目标、成果及形式
+            </legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">①项目预期目标：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.expects" placeholder="最多输入500个汉字。"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">②项目成果或成效：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.results" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify"> ③项目成果推广应用前景：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.promotions" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                4.项目合作机构及团队要求
+            </legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify"> ①项目合作机构与业绩要求：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.cooperations" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify">②项目团队最低人数要求：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.teams" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify"> ③项目负责人具备的专业、职称、项目经验：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.mangers" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>
+                5.项目经济性及财务合规性
+            </legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="col-md-255 control-label lr-verify"> 其他补充说明：</label>
+                    <div class="col-md-254">
+                        <textarea maxlength="512" class="form-control limited autosize area-animated msd-elastic: \n;" ng-model="VO.others" placeholder="最多输入500个汉字。"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label class="col-md-5 control-label lr-verify">预计收入：</label>
+                    <div class="col-md-7">
+                        <input class="form-control" ng-verify="{required:true,max:30}" type="text" ng-model="VO.planIncome">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="lr-contant">
+        <fieldset>
+            <legend>项目申报补充材料：</legend>
+            <div class="row">
+                <div class="pull-right lr-mr10 lr-mt10">
+                    <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
+                    <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
+                    <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+                </div>
+            </div>
+            <tabset justified="false">
+                <tab index="4" heading="附项目申报补充材料：">
+                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 100px"></div>
+                </tab>
+            </tabset>
+        </fieldset>
+    </div>
+</form>

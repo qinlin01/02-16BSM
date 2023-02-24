@@ -1,0 +1,83 @@
+<div class="form-horizontal" ng-if="isGrid">
+    <div class="panel-body lr-grid-html-query">
+        <div class="form-group ">
+            <div class="col-md-6">
+                <div class="btn lr-page-bg-indigo" ng-click="changeOpen();">
+                    <i class="fa fa-search lr-page-color" aria-hidden="true"></i>
+                    <span class="lr-page-color">查询条件</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group pull-right buttons-widget">
+                    <button class="btn btn-primary " ng-click="onQuery();">
+                        <i class="fa fa-search"></i>
+                        <span>查询</span>
+                    </button>
+                    <button class="btn btn-primary btn-o" ng-click="onReset();">
+                        <i class="fa fa-undo"></i>
+                        <span>重置</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">制单年度</label>
+                <div class="col-md-8">
+                    <div class="input-group " moment-picker="QUERY['subString(created_time,1,4)']" locale="zh-cn" today="true" start-view="year" format="YYYY">
+                        <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                        <input class="form-control" placeholder="查询单据录入的年度" ng-model="QUERY['subString(created_time,1,4)']"
+                               ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">制单月度</label>
+                <div class="col-md-8">
+                    <div class="input-group " moment-picker="QUERY['subString(created_time,1,7)']" locale="zh-cn" today="true" start-view="month" format="YYYY-MM">
+                        <span class="input-group-addon">  <i class="fa fa-calendar"></i> </span>
+                        <input class="form-control" placeholder="查询单据录入的年度" ng-model="QUERY['subString(created_time,1,7)']"
+                               ng-model-options="{ updateOn: 'blur' }">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">合同编号</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" ng-model="QUERY['contract_code']"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">合同名称</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" ng-model="QUERY['contract_name']"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="col-md-4 control-label">合作单位</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" ng-model="QUERY['partner']"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="lr-grid-toolbar">
+                <div class="buttons-widget" add-grid-btn>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clearfix lr-page-margin" ng-style="gridHtmlHeight()">
+                <div ui-grid="gridOptions" ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui-grid-resize-columns ui-grid-selection ui-grid-pinning ui-grid-infinite-scroll class="grid" style="min-height: 100%"></div>
+            </div>
+        </div>
+
+    </div>
+</div>

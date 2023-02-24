@@ -16,14 +16,14 @@ angular.module("lrApp")
                 var uidPrefix = 'fileUploader-' + new Date().getTime();
                 $scope.uid = uidPrefix;
 
-                var url = "/sys/uploadFile/upLoad";
+                var url =$rootScope.basePath + 'uploadFile/upLoadFileMethod';
                 var token = window.sessionStorage.getItem("token");
                 var pass = SG_sm3encrypt(url + token);
                 console.log(url + token);
                 var dateStr = new Date().getTime();
                 $scope.maxSize = 100; // 限制上传文件的大小
                 var uploaderList = $scope.uploaderList = new FileUploader({
-                    url: $rootScope.basePath + 'sys/uploadFile/upLoad',
+                    url: $rootScope.basePath +'uploadFile/upLoadFileMethod',
                     queueLimit: 100,  //文件个数
                     removeAfterUpload: true,
                     autoUpload: true,

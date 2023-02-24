@@ -1,0 +1,60 @@
+<form class="form-horizontal" ng-if="isCard">
+    <div class="main-div text-right" add-card-btn>
+    </div>
+    <div class=" main-div">
+        <fieldset>
+            <legend>
+                项目季度执行情况
+            </legend>
+            <div class="row">
+                <span class="text-bold">申报年度：</span> <span>{{VO.reportYear}}年</span>
+                <span class="text-bold">申报季度：</span> <span>{{VO.reportQuarter| SELECT_QUARTER}}</span>
+            </div>
+        </fieldset>
+    </div>
+    <div class=" main-div">
+        <fieldset>
+            <legend>
+                项目信息
+            </legend>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>项目编号</th>
+                    <th>项目名称</th>
+                    <th>专业审查部门</th>
+                    <th>客户名称</th>
+                    <th>项目费用</th>
+                    <th>业务收入水平</th>
+                    <th>开展阶段</th>
+                    <th>合同签订情况</th>
+                    <th>合同金额</th>
+                    <th>已支付金额</th>
+                    <th>下一步计划</th>
+                    <th>预计成果</th>
+                    <th>预计年内是否完成并说明原因</th>
+                    <th>是否进行预算调整</th>
+                    <th>明年项目储备计划</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in VO.projects">
+                    <td>{{ item.pkProjectApplay.code}}</td>
+                    <td>{{ item.pkProjectApplay.name}}</td>
+                    <td>{{ item.examineDept.name}}</td>
+                    <td>{{ item.customer}}</td>
+                    <td>{{ item.projectCost}}</td>
+                    <td>{{ item.income}}</td>
+                    <td>{{ item.projectStatus | SELECT_PROJECT_STATUS}}</td>
+                    <td>{{ item.contractStatus}}</td>
+                    <td>{{ item.contractAmount}}</td>
+                    <td>{{ item.payAmount}}</td>
+                    <td>{{ item.nextPlan}}</td>
+                    <td>{{ item.expectedResults}}</td>
+                    <td>{{ item.doneInfo}}</td>
+                    <td>{{ item.changeInfo}}</td>
+                    <td>{{ item.storeInfo}}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+</form>

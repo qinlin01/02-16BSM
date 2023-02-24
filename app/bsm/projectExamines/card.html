@@ -1,0 +1,70 @@
+<form class="form-horizontal" ng-if="isCard" style="height: auto">
+    <div class="row ">
+        <div class="col-md-12 text-right" add-card-btn>
+        </div>
+    </div>
+    <project-info data="VO.projectApplyVO"></project-info>
+
+    <div class="row main-div">
+        <fieldset>
+            <legend>
+                专业审查结果
+            </legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                    <span class="text-bold">专业审查部门审查结果:</span> {{VO.examineOpinion | SELECT_EXAMINIE_OPTION}}
+                    </div>
+                    <div class="col-md-3">
+                        <span class="text-bold">归口部门审查结果:</span> {{VO.strategicOpinion | SELECT_EXAMINIE_OPTION}}
+                    </div>
+                </div>
+            </div>
+<!--            <ul class="timeline-xs margin-top-15 margin-bottom-15">-->
+
+<!--                <li class="timeline-item success">-->
+<!--                    <div class="margin-left-15">-->
+<!--                        <div class="text-primary">-->
+<!--                            <strong>专业审查部门审查结果:</strong> {{VO.examineChecker.name}} {{VO.examineDate | date_cell_date}}-->
+<!--                        </div>-->
+<!--                        <p ng-if="VO.examineOpinion !=null">-->
+<!--                            <strong>{{VO.examineOpinion == 1 ? '同意': VO.examineOpinion == 0 ? '驳回修改' :'不同意'}}</strong><br/>-->
+<!--                            {{VO.examineMsg}}-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="timeline-item">-->
+<!--                    <div class="margin-left-15">-->
+<!--                        <div class="text-primary">-->
+<!--                            <strong>归口部门审查结果:</strong>{{VO.strategicChecker.name}} {{VO.strategicDate | date_cell_date}}-->
+<!--                        </div>-->
+<!--                        <p ng-if="VO.strategicOpinion !=null">-->
+<!--                            <strong>{{VO.strategicOpinion == 1 ? '同意': VO.strategicOpinion == 0 ? '驳回修改' :'不同意'}}</strong><br/>-->
+<!--                            {{VO.strategicMsg}}-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </ul>-->
+        </fieldset>
+    </div>
+    <div class="main-div">
+        <fieldset>
+            <legend>
+                专业审查记录
+            </legend>
+            <ul class="timeline-xs margin-top-15 margin-bottom-15">
+                <li class="timeline-item success" ng-repeat="item in VO.histories">
+                    <div class="margin-left-15">
+                        <div class="text-primary">
+                            <strong>审查结果:</strong> {{item.checker.name}} {{item.checkDate | date_cell_date}}
+                        </div>
+                        <p ng-if="VO.examineOpinion !=null">
+                            <strong>{{item.opinion == 1 ? '同意': item.opinion == 0 ? '驳回修改' :'不同意'}}</strong><br/>
+                            {{item.msg}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+</form>

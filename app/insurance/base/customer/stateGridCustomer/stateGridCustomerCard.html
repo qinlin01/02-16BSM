@@ -10,7 +10,8 @@
                 <i class="fa fa-undo"></i>
                 <span>取消</span>
             </button>
-            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==0||VO.billstatus==36)">
+            <button class="btn btn-azure" ng-click="onSubmit()" ng-if="!isEdit&&(VO.billstatus==0||VO.billstatus==36)" style="    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;">
                 <i class="ti-save"></i>
                 <span>提交</span>
             </button>
@@ -125,6 +126,32 @@
                     </tabset>
                 </div>
             </div>
+        </div>
+        <div class="row main-div">
+            <fieldset>
+                <legend>
+                    附件
+                </legend>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th width="50%">文件名称</th>
+                        <th>文件大小</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="item in VO.dealAttachmentB">
+                        <td><a href="#" ng-click="onPreviewFile(item.id,item.fileName)" class="text-primary" tooltip="点击浏览文件"> {{ item.fileName }}</a></td>
+                        <td>{{ item.fileSize/1024/1024|number:2 }}MB</td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="onDownLoadFile(item.id,item.fileName)">
+                                <span class="fa fa-download"></span> 下载
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+            </fieldset>
         </div>
         <div class="col-md-12 font-style-audit-title title">
             <p class="taskmess">审批信息</p>

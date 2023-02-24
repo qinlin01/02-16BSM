@@ -9,7 +9,7 @@
     "@retailwe/ui-load-more": "0.0.17",
     "angular": "^1.5.11",
     "angular-aside": "^1.3.0",
-    "angular-bootstrap-nav-tree": "^0.2.1",
+    "angular-bootstrap-nav-tree": "^0.2.0",
     "angular-file-upload": "^2.6.1",
     "angular-ladda": "^0.4.3",
     "angular-loader": "^1.5.11",
