@@ -1,0 +1,70 @@
+<div >
+    <div class="main-form-style">
+        <form name="contractQueryForm" class="form-horizontal" AUTOCOMPLETE="ON">
+            <accordion class="" close-others="oneAtATime">
+                <div ng-init="status={open:true}"></div>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        提交信息<i class="pull-right glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <label class=" control-label" style="text-align: left">审核意见：</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea style="height: 130px;width: 100%;" ng-model="submitVO.comment" placeholder="必输项" ng-verify></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group" ng-show="submitView">
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <div class="col-md-12" style="margin-right: -73px;">
+                                    <select ui-input-select multiple class="form-control" ng-model="submitVO.leftSelects" style="width: 400px;height: 150px;">
+                                        <option ng-repeat="item in LEFT_DATA" value="{{item.loginId}}">{{item.name}}--{{item.pk_corp}}--{{item.deptname}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="padding: 0px;text-align: center;margin-left: -6px;">
+                                <button class="btn btn-azure" type="button" ng-click="onToRight()" ng-disabled="!submitVO.leftSelects||submitVO.leftSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    >
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToRightAll()" ng-disabled="!LEFT_DATA||LEFT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    >>
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToLeft()" ng-disabled="!submitVO.rightSelects||submitVO.rightSelects.length!=1" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    <
+                                </button>
+                                </BR>
+                                <button class="btn btn-azure" type="button" ng-click="onToLeftAll()" ng-disabled="!RIGHT_DATA||RIGHT_DATA.length==0" style="width: 30px;height: 30px;margin: 3px;padding: 0px;">
+                                    <<
+                                </button>
+                                </BR>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="col-md-12" style="margin-left: -73px;">
+                                    <select ui-input-select multiple class="form-control" ng-model="submitVO.rightSelects" style="width: 400px;height: 150px;">
+                                        <option ng-repeat="item in RIGHT_DATA" value="{{item.loginId}}">{{item.name}}--{{item.pk_corp}}--{{item.deptname}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right" style="margin-right: 40px;">
+                        <div class="pull-right" ng-repeat="item in buttons">
+                            <button class="btn btn-sm btn-info"  style="margin-left:10px;"  ng-click="auditCallBack('{{item.event}}')">{{item.name}}</button>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </form>
+    </div>
+</div>

@@ -489,7 +489,7 @@ app.controller('otherCustomerChangeCtrl', function ($rootScope, $scope, $http, $
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/common/attachments.html',
+                template: 'insurance/base/customer/stateGridCustomer/attachments.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {

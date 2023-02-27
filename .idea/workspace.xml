@@ -5,115 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48ee78c9-07e3-4385-aa80-a70e0c62c427" name="变更" comment="所有节点打开修复">
-      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/acceptance.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/acceptanceCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/acceptance/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/agreement.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/agreementCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/agreement/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/clearing.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/clearingCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/dialog/paymentDialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/dialog/paymentDialogCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/clearing/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/common/commonProject.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/common/projectInfoCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contract.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractCard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/contract/contractGrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/detail/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/detail/detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/detail/detailCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/detail/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/detail/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/download/download.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/download/downloadCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/frameworkApply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/frameworkApplyCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/frameworkApply/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/help/help.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/help/helpCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/projectApply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectApply/projectApplyCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/projectChange.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectChange/projectChangeCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/dialog/examinieDialogCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/dialog/examnieDialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/projectExamines.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectExamines/projectExaminesCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/dialog/projectDialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/dialog/projectDialogCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/projectReply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReply/projectReplyCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/dialog/replyDialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/dialog/replyDialogCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/projectReview.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/projectReview/projectReviewCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/stepDetail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepDetail/stepDetailCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/stepInfo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bsm/stepInfo/stepInfoCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/attachment.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/attachmentFile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/attachmentLocaltion.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/attachmentLog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/attachments.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/checkPassword.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/dealAppAttachmentCtrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/form_upload.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/onPrint.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/passwordRest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/pdfView.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/upLoadCtrls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/common/updatePassword.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/endorseDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/traceInst.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/unPassDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/voteDialog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/workFlow.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/common/workflow/workFlowDialog.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/assets/js/directives/ui-popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/js/directives/ui-popup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/view/inputFileUploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/inputFileUploader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/view/pdfView.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/pdfView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/view/updatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/view/updatePassword.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/workflow/linkAuditFlow.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/linkAuditFlow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/workflow/submitDialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/submitDialog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/common/workflow/submitDialogCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/common/workflow/submitDialogCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/fileAdministration/fictitiousArchives/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/fictitiousArchives/attachment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/attachment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/workflow_changan.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/workflow_changan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/css/public.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/css/public.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fileAdministration/consultArchives/consultArchivesCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/consultArchives/consultArchivesCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/fileAdministrationCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileAdministration/fileAdministration/fileAdministrationCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/business/branchDocuments/branchDocumentsCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/business/branchDocuments/branchDocumentsCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/business/documents/branchDocumentsCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/business/documents/branchDocumentsCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/business/documents/documentsCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/business/documents/documentsCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/agencyCustomer/agencyCustomerForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/insureCustomer/insureCustomerForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/cooperator/otherCustomer/otherCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/cooperator/otherCustomer/otherCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/marketCustomer/marketCustomerForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/personalCustomer/personalCustomerForm.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/insurance/contManage/consult/attachments.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/contManage/consult/attachments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerGrid.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/customer/stateGridCustomer/stateGridCustomerGrid.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/expertManage/expert/expertCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/expertManage/expert/expertCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/foreignSubmitFile/foreignSubmitFileCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/foreignSubmitFile/foreignSubmitFileCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeCard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeCard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/informationChange/insureCustomerChange/insureCustomerChangeCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/informationChange/insureCustomerChange/insureCustomerChangeCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/informationChange/otherCustomerChange/otherCustomerChangeCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/informationChange/otherCustomerChange/otherCustomerChangeCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/license/agent/agentCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/license/agent/agentCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/base/trainingRecord/trainingRecordCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/base/trainingRecord/trainingRecordCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/busManage/agreement/cooperationAgreement/cooperationAgreementCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/busManage/agreement/cooperationAgreement/cooperationAgreementCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/busManage/busSign/report/reportCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/busManage/busSign/report/reportCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/elife/common/againBusinessExamineCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/common/againBusinessExamineCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsementCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/endorsement/endorsementCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManageCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/rechargeManage/rechargeManageCtrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/insurance/elife/subscriptionManages/subscriptionManagesCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/insurance/elife/subscriptionManages/subscriptionManagesCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/nav/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/nav/nav.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,40 +85,41 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/IDEATXT/02-16BSM/app/common",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IDEATXT/02-16BSM/app/common&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\JAVA\\IDEA\\IntelliJ IDEA 2022.1.1\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;
   }
-}]]></component>
+}</component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IDEATXT\02-16BSM\app\common" />
+      <recent name="D:\IDEATXT\02-16BSM\app\common\workflow" />
       <recent name="D:\IDEATXT\02-16BSM\app\common\view" />
       <recent name="D:\IDEATXT\02-16BSM\app" />
       <recent name="D:\IDEATXT\02-16BSM\app\system\logCount" />
-      <recent name="D:\IDEATXT\02-16BSM\app\system\logManager" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IDEATXT\02-16BSM\app\common" />
       <recent name="D:\IDEATXT\02-16BSM\app\system" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\contManage\policyInfo\property\propertyInsurance\pUnlifeInsurance" />
       <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\comInfo" />
-      <recent name="D:\IDEATXT\02-16BSM\lrapp-bsm-client\app\Insurance\busManage\monthlyPlanAndAccountsReceivable\sum_def14" />
     </key>
   </component>
   <component name="RunManager">
@@ -208,7 +148,8 @@
       <workItem from="1676856149759" duration="25452000" />
       <workItem from="1676942342888" duration="25707000" />
       <workItem from="1677115307486" duration="23079000" />
-      <workItem from="1677200986066" duration="9651000" />
+      <workItem from="1677200986066" duration="26219000" />
+      <workItem from="1677460602309" duration="17091000" />
     </task>
     <task id="LOCAL-00001" summary="aaaaaaaaaaaaaaaaaaaaaaaa">
       <created>1676532291099</created>
@@ -273,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676977849820</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="所有节点打开修复">
+      <created>1677218974873</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677218974873</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,6 +358,17 @@
           <url>file://$PROJECT_DIR$/app/main.js</url>
           <line>49</line>
           <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/insurance/contManage/issueNotice/issueNoticeGlife/issueNoticeForm.html</url>
+          <line>191</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/insurance/base/informationChange/groupCustomerChange/groupCustomerChangeCtrl.js</url>
+          <line>365</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

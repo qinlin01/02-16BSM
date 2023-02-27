@@ -37,6 +37,37 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
         };
         $scope.QUERY = $scope.initQUERY();
         $scope.funCode = '10202';
+        $scope.AccountList = [];
+        $scope.initAccountList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.LinkmanList = [];
+        $scope.initLinkmanList = function () {
+            return {
+                linkmanType:'',
+                name:'',
+                dept:'',
+                address:'',
+                post:'',
+                tele:'',
+                fax:'',
+                mail:'',
+                memo:''
+            };
+        };
+        $scope.CustomerDeptList = [];
+        $scope.initCustomerDept = function () {
+            return {
+                dept:'',
+                remark:'',
+            };
+        };
     };
 
     $scope.initHttp = function () {
@@ -71,7 +102,10 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     angular.assignData($scope.VO, response.result);
-
+                    $scope.AccountList = $scope.VO.account;
+                    $scope.LinkmanList = $scope.VO.linkman;
+                    $scope.CustomerDeptList = $scope.VO.customerDept;
+                    $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                 } else {
                     if (response) {
                         if (response.msg) {
@@ -92,6 +126,10 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
          * */
         $scope.onSaveVO = function () {
             var accArr = $scope.VO.account;
+            $scope.VO.dealAttachmentB = $scope.dealAttachmentBGridOptions.data;
+            $scope.VO.account=$scope.AccountList;
+            $scope.VO.linkman=$scope.LinkmanList;
+            $scope.VO.customerDept =$scope.CustomerDeptList;
             $scope.childMust = true;
             if (accArr) {
                 angular.forEach(accArr, function (item) {
@@ -240,7 +278,7 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/common/attachments.html',
+                template: 'insurance/base/customer/stateGridCustomer/attachments.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {
@@ -412,6 +450,14 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
         };
 
         $scope.onAdd = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
+            $scope.onAddAccount();
+            $scope.onAddLinkman();
+            $scope.onAddCustomerDept();
+            $scope.VO = $scope.initVO();
+            $scope.dealAttachmentBGridOptions.data = [];
             $scope.isClear = true;
             $scope.form = true;
             $scope.isGrid = false;
@@ -533,6 +579,9 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
          * 返回
          */
         $scope.onBack = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
             $scope.isGrid = true;
             $scope.isEdit = false;
             $scope.isCard = false;
@@ -556,7 +605,8 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
                             {skin: 'layui-layer-lan', closeBtn: 1});
                     }
 
-                    $scope.VO.linkman = $scope.linkmanGridOptions.data;
+                    $scope.VO.linkman = $scope.LinkmanList;
+
                     if ($scope.VO.linkman) {
                         if ($scope.VO.linkman.length == 0) {
                             return layer.alert("子表联系人信息不可为空!",
@@ -661,6 +711,49 @@ app.controller('agencyCustomerCtrl', function ($rootScope, $scope, $sce, $http, 
                     }
                 }
             }
+        };
+        /**
+         * 子表信息增加
+         */
+        $scope.onAddAccount =function(){
+            $scope.AccountList.push($scope.initAccountList());
+        }
+        $scope.onAddLinkman =function(){
+            $scope.LinkmanList.push($scope.initLinkmanList());
+        }
+        $scope.onAddCustomerDept =function(){
+            $scope.CustomerDeptList.push($scope.initCustomerDept());
+        }
+        /**
+         * 子表信息删除
+         */
+        $scope.deletelistOptions=function(nowNumber,type){
+            //type 1:账户信息 2：联系人信息 3：部门信息 4：注册号信息
+            layer.confirm('请确认是否要删除此记录？', {
+                    btn: ['确定', '取消'], //按钮
+                    btn2: function (index, layero) {
+                    },
+                    shade: 0.6,//遮罩透明度
+                    shadeClose: true,//点击遮罩关闭层
+                },
+                function (index) {
+                    if(type==1){
+                        $scope.AccountList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==2){
+                        $scope.LinkmanList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==3){
+                        $scope.CustomerDeptList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                }
+            );
         };
     };
 

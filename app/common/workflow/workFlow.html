@@ -1,0 +1,15 @@
+<!--附件公共界面-->
+<div class="main-form-style" ng-init="init()">
+    <div class="form-horizontal" >
+        <iframe name="workflow" id="workflow" height="600" width="100%" frameborder=0  src='{{myURL}}'></iframe>
+        <!--<div class="grid-style lr-page-less-margin" data-ng-include="workFlowUrl"></div>-->
+    </div>
+    <div class="pull-right" >
+        <button ng-click="onSubSave()" ng-show="!isSubDisabled" style="margin-right: 10px;"class="btn btn-sm lr-sub-btn" >
+            <span ng-bind="getDisName('确定')"></span></button>
+        <button ng-click="onSubCancel()" style="margin-right: 10px;"class="btn btn-sm lr-sub-btn" >
+            <span ng-bind="getDisName('取消')"></span></button>
+    </div>
+    <div style="clear: both"></div>
+</div>
+

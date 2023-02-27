@@ -131,15 +131,11 @@ var initworkflow =function ($scope, $http, ngDialog, $location, $stateParams,bea
         }
         var jsonObject = angular.toJson($scope.VO);
         layer.load(2);
-        $http.post($scope.basePath + "workFlow/audit", {pk:pkProject,msg: msg,data:angular.toJson(selects),_pass:_pass,type:type,tableName:$scope.table_name,childTable:child_table,beanName:$scope.beanName,mainVoPath:mainVoPath,jsonObject:jsonObject, funCode: $scope.funCode,ifEntity:$scope.ifEntity,entityVO:entityVOPath})
+        $http.post($scope.basePath + "workFlow/auditBulk", {datas:angular.toJson(data),msg: msg,data:angular.toJson(selects),_pass:_pass,type:type,tableName:$scope.table_name,childTable:child_table,beanName:$scope.beanName,mainVoPath:mainVoPath, funCode: $scope.funCode,ifEntity:$scope.ifEntity,entityVO:entityVOPath})
             .success(function (response) {
                 layer.alert(response.msg, {skin: 'layui-layer-lan', closeBtn: 1});
                 if (response.code == 200) {
-                    if($scope.isGrid){
-                        $scope.queryForGrid($scope.QUERY);
-                    } else {
-                        $scope.findOne($scope.VO.id);
-                    }
+                    $scope.queryForGrid($scope.QUERY);
                 }
                 return true;
             });
@@ -172,7 +168,7 @@ var initworkflow =function ($scope, $http, ngDialog, $location, $stateParams,bea
             ngDialog.openConfirm({
                 showClose:false,
                 closeByDocument:false,
-                template:'view/workflowDef/submitDialog.html',
+                template:'common/workflowDef/submitDialog.html',
                 className:'ngdialog-theme-formInfo',
                 controller: 'submitCtrl',
                 scope:$scope,
@@ -216,7 +212,7 @@ var initworkflow =function ($scope, $http, ngDialog, $location, $stateParams,bea
             ngDialog.openConfirm({
                 showClose:true,
                 closeByDocument:true,
-                template:'view/workflowDef/linkAuditFlow.html',
+                template:'common/workflowDef/linkAuditFlow.html',
                 className:'ngdialog-theme-formInfo',
                 controller: 'linkAuditFlowCtril',
                 scope:$scope,
@@ -277,7 +273,7 @@ var initworkflow =function ($scope, $http, ngDialog, $location, $stateParams,bea
             ngDialog.openConfirm({
                 showClose:true,
                 closeByDocument:true,
-                template:'view/workflowDef/submitDialog.html',
+                template:'common/workflowDef/submitDialog.html',
                 className:'ngdialog-theme-formInfo',
                 controller: 'submitCtrl',
                 scope:$scope,

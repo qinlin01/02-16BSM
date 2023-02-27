@@ -34,6 +34,30 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
         };
         $scope.QUERY = $scope.initQUERY();
         $scope.funCode = '10103';
+        $scope.AccountList = [];
+        $scope.initAccountList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.LinkmanList = [];
+        $scope.initLinkmanList = function () {
+            return {
+                linkmanType:'',
+                name:'',
+                dept:'',
+                address:'',
+                post:'',
+                tele:'',
+                fax:'',
+                mail:'',
+                memo:''
+            };
+        };
     };
 
     $scope.initHttp = function () {
@@ -68,8 +92,11 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     angular.assignData($scope.VO, response.result);
+                    $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                     $scope.accountGridOptions.data = $scope.VO.account;
                     $scope.linkmanGridOptions.data = $scope.VO.linkman;
+                    $scope.AccountList = $scope.VO.account;
+                    $scope.LinkmanList = $scope.VO.linkman;
                 } else {
                     if (response) {
                         if (response.msg) {
@@ -89,6 +116,9 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
          * 保存VO
          * */
         $scope.onSaveVO = function () {
+            $scope.VO.dealAttachmentB = $scope.dealAttachmentBGridOptions.data;
+            $scope.VO.account=$scope.AccountList;
+            $scope.VO.linkman=$scope.LinkmanList;
             layer.load(2);
             $http.post($rootScope.basePath + "personalCustomer/save", {data: angular.toJson($scope.VO), funCode: $scope.funCode})
                 .success(function (response) {
@@ -291,6 +321,10 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
         };
 
         $scope.onAdd = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.onAddAccount();
+            $scope.onAddLinkman();
             $scope.form = true;
             $scope.isClear = true;
             $scope.isGrid = false;
@@ -300,6 +334,9 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
             $scope.isBack = true;
             $scope.initView();
             angular.assignData($scope.VO, $scope.initVO());
+            $scope.dealAttachmentBGridOptions.data = [];
+            $scope.accountGridOptions.data = [];
+            $scope.linkmanGridOptions.data = [];
             $rootScope.onAddCheck($scope);
         };
         /**
@@ -408,6 +445,8 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
          * 返回
          */
         $scope.onBack = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
             $scope.isCard = false;
             $scope.isGrid = true;
             $scope.isEdit = false;
@@ -415,6 +454,8 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
             //阻止页面渲染
             $scope.form = false;
             $scope.card = false;
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
             $scope.queryForGrid($scope.QUERY);
         };
         /**
@@ -488,39 +529,44 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
         };
 
         /**
-         * 子表新增
+         * 子表信息增加
          */
-        $scope.onAddLine = function () {
-            if ($scope.selectTabName == 'accountGridOptions' || $scope.selectTabName == 'linkmanGridOptions') {
-                $scope[$scope.selectTabName].data.push({
-                    pkOperator: $rootScope.userVO,
-                    operateDate: new Date().format("yyyy-MM-dd"),
-                    pkDept: $rootScope.deptVO,
-                    pkOrg: $rootScope.orgVO
-                });
-            } else if ($scope.selectTabName == 'customerDeptGridOptions') {
-                $scope[$scope.selectTabName].data.push({
-                    pkOperator: $rootScope.userVO,
-                    operateDate: new Date().format("yyyy-MM-dd")
-                });
-            }
-        };
+        $scope.onAddAccount =function(){
+            $scope.AccountList.push($scope.initAccountList());
+        }
+        $scope.onAddLinkman =function(){
+            $scope.LinkmanList.push($scope.initLinkmanList());
+        }
         /**
-         * 子表删除
+         * 子表信息删除
          */
-        $scope.onDeleteLine = function () {
-            var delRow = $scope[$scope.selectTabName].gridApi.selection.getSelectedRows();
-            if (!delRow || delRow.length == 0) return layer.alert('请选择行数据', {
-                skin: 'layui-layer-lan',
-                closeBtn: 1
-            });
-            for (var i = 0; i < $scope[$scope.selectTabName].data.length; i++) {
-                for (var j = 0; j < delRow.length; j++) {
-                    if ($scope[$scope.selectTabName].data[i].$$hashKey == delRow[j].$$hashKey) {
-                        $scope[$scope.selectTabName].data.splice(i, 1);
+        $scope.deletelistOptions=function(nowNumber,type){
+            //type 1:账户信息 2：联系人信息 3：部门信息 4：注册号信息
+            layer.confirm('请确认是否要删除此记录？', {
+                    btn: ['确定', '取消'], //按钮
+                    btn2: function (index, layero) {
+                    },
+                    shade: 0.6,//遮罩透明度
+                    shadeClose: true,//点击遮罩关闭层
+                },
+                function (index) {
+                    if(type==1){
+                        $scope.AccountList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==2){
+                        $scope.LinkmanList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==3){
+                        $scope.CustomerDeptList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
                     }
                 }
-            }
+            );
         };
     };
 

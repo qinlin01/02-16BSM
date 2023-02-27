@@ -26,6 +26,8 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                 dealAttachmentB:[],
                 account:[],
                 customerDept:[],
+                sealReason:"",
+                num:0
 
             };
         };
@@ -43,6 +45,45 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
         $scope.upCustomer = {pk:null};
         $scope.orgName = true;
         $scope.funCode ='10301';
+        $scope.AccountList = [];
+        $scope.initAccountList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.LinkmanList = [];
+        $scope.initLinkmanList = function () {
+            return {
+                linkmanType:'',
+                name:'',
+                dept:'',
+                address:'',
+                post:'',
+                tele:'',
+                fax:'',
+                mail:'',
+                memo:''
+            };
+        };
+        $scope.CustomerDeptList = [];
+        $scope.initCustomerDept = function () {
+            return {
+                dept:'',
+                remark:'',
+            };
+        };
+        $scope.CustomerChangeCompareList = [];
+        $scope.initCustomerChangeCompare = function () {
+            return {
+                colName:'0',
+                colOldVal:'',
+                colNewVal:''
+            };
+        };
     };
 
     $scope.initHttp = function () {
@@ -81,7 +122,10 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                     $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                     $scope.customerDeptGridOptions.data = $scope.VO.customerDept;
                     $scope.accountGridOptions.data = $scope.VO.account;
-
+                    $scope.AccountList = $scope.VO.account;
+                    $scope.LinkmanList = $scope.VO.linkman;
+                    $scope.CustomerDeptList = $scope.VO.customerDept;
+                    $scope.CustomerChangeCompareList = response.result.customerChangeCompare;
                     if($scope.VO.update){
                         $scope.update =$scope.VO.update;
                     }else {
@@ -160,13 +204,11 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
          * */
         $scope.onSaveVO = function () {
             $scope.VO.dealAttachmentB = $scope.dealAttachmentBGridOptions.data;
-            $scope.VO.account = $scope.accountGridOptions.data;
-            $scope.VO.linkman = $scope.linkmanGridOptions.data;
-            $scope.VO.customerDept = $scope.customerDeptGridOptions.data;
+            $scope.VO.account=$scope.AccountList;
+            $scope.VO.linkman=$scope.LinkmanList;
+            $scope.VO.customerDept =$scope.CustomerDeptList;
             layer.load(2);
-
             $scope.VO.linkman = $scope.linkmanGridOptions.data;
-
             $http.post($rootScope.basePath + "groupCustomerChange/save", {data: angular.toJson($scope.VO), funCode:$scope.funCode})
                 .success(function (response) {
                     if (!response.flag) {
@@ -232,6 +274,10 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                 $scope.onCard(item.id);
             }
 
+        };
+        $scope.changeText = function () {
+            var length = $scope.VO.sealReason.length;
+            $scope.VO.num = length;
         };
     };
 
@@ -313,7 +359,12 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                             $scope.VO.linkman = response.result.linkman;
                             $scope.linkmanGridOptions.data = response.result.linkman;
 
+                            $scope.dealAttachmentBGridOptions.data = response.result.dealAttachmentB;
+                            $scope.AccountList = response.result.account;
+                            $scope.LinkmanList = response.result.linkman
+                            $scope.CustomerDeptList = response.result.customerDept;
                             $scope.customerDeptGridOptions.data = response.result.customerDept;
+
 
 
                             $scope.update = [];
@@ -496,6 +547,15 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
         };
 
         $scope.onAdd = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
+            $scope.CustomerChangeCompareList = [];
+            $scope.onAddAccount();
+            $scope.onAddLinkman();
+            $scope.onAddCustomerDept();
+            $scope.onAddCustomerChangeCompare();
+            $scope.VO = $scope.initVO();
             $scope.form=true;
             $scope.isGrid = false;
             $scope.isClear = true;
@@ -510,7 +570,6 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
             angular.assignData($scope.VO, $scope.initVO());
             $rootScope.onAddCheck($scope);
             $scope.customerChangeCompareGridOptions.data = [];
-
             $scope.linkmanGridOptions.data = [];
             $scope.customerDeptGridOptions.data = [];
             $scope.accountGridOptions.data = [];
@@ -585,7 +644,7 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/common/attachments.html',
+                template: 'insurance/base/customer/stateGridCustomer/attachments.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {
@@ -750,6 +809,10 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
          * 返回
          */
         $scope.onBack = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
+            $scope.CustomerChangeCompareList = [];
             $scope.isCard = false;
             $scope.isGrid = true;
             $scope.isEdit = false;
@@ -775,6 +838,7 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                     }
                     $scope.VO.linkman = $scope.linkmanGridOptions.data;
                     $scope.customerChangeCompareGridOptions.data = [];
+                    $scope.CustomerChangeCompareList=[];
                     if ($scope.update) {
                         for (var i = 0; i < $scope.update.length; i++) {
                             var value = "";
@@ -797,10 +861,11 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                         for (var i = 0; i < $scope.update.length; i++) {
                             if ($scope.update[i].colOldVal != $scope.update[i].colNewVal) {
                                 $scope.customerChangeCompareGridOptions.data.push($scope.update[i]);
+                                $scope.CustomerChangeCompareList.push($scope.update[i]);
                                 // $scope.VO.customerChangeCompare.push($scope.update[i]);
                             }
                         }
-                        $scope.VO.customerChangeCompare=$scope.customerChangeCompareGridOptions.data;
+                        $scope.VO.customerChangeCompare=$scope.CustomerChangeCompareList;
                     }
                     $scope.VO.update=$scope.update;
                     $scope.VO.cusChangeTypeName = $rootScope.returnSelectName($scope.VO.cusChangeType,"GWCHANGETYPE");
@@ -865,6 +930,57 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                     }
                 }
             }
+        };
+        /**
+         * 子表信息增加
+         */
+        $scope.onAddAccount =function(){
+            $scope.AccountList.push($scope.initAccountList());
+        }
+        $scope.onAddLinkman =function(){
+            $scope.LinkmanList.push($scope.initLinkmanList());
+        }
+        $scope.onAddCustomerDept =function(){
+            $scope.CustomerDeptList.push($scope.initCustomerDept());
+        }
+        $scope.onAddCustomerChangeCompare =function(){
+            $scope.CustomerChangeCompareList.push($scope.initCustomerChangeCompare());
+        }
+        /**
+         * 子表信息删除
+         */
+        $scope.deletelistOptions=function(nowNumber,type){
+            //type 1:账户信息 2：联系人信息 3：部门信息 4：客户信息变更对比
+            layer.confirm('请确认是否要删除此记录？', {
+                    btn: ['确定', '取消'], //按钮
+                    btn2: function (index, layero) {
+                    },
+                    shade: 0.6,//遮罩透明度
+                    shadeClose: true,//点击遮罩关闭层
+                },
+                function (index) {
+                    if(type==1){
+                        $scope.AccountList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==2){
+                        $scope.LinkmanList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==3){
+                        $scope.CustomerDeptList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==4){
+                        $scope.CustomerDeptList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                }
+            );
         };
     };
 

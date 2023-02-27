@@ -77,23 +77,6 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                 remark:'',
             };
         };
-
-        $scope.AccountList = [];
-        $scope.initAccountList = function () {
-            return {
-                accType:'',
-                accName:'',
-                accNum:'',
-                accBlank:'',
-                jointBankNum:''
-            };
-        };
-
-
-
-
-
-
     };
 
     $scope.initHttp = function () {
@@ -175,6 +158,9 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                     $scope.AccountList = $scope.VO.account;
                     $scope.LinkmanList = $scope.VO.linkman;
                     $scope.CustomerDeptList = $scope.VO.customerDept;
+                    $scope.accountGridOptions.data = $scope.VO.account;
+                    $scope.linkmanGridOptions.data = $scope.VO.linkman;
+                    $scope.customerDeptGridOptions.data = $scope.VO.customerDept;
                     $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                     if (callback) {
                         callback();
@@ -667,9 +653,13 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
         // };
 
         $scope.onAdd = function () {
+            $scope.AccountList = [];
+            $scope.LinkmanList = [];
+            $scope.CustomerDeptList = [];
             $scope.onAddAccount();
             $scope.onAddLinkman();
             $scope.onAddCustomerDept();
+            $scope.VO = $scope.initVO();
             $scope.isClear = true;
             $scope.form = true;
             $scope.isGrid = false;
@@ -838,7 +828,7 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                         return layer.alert("注册号/统一社会信用代码证附件 不能为空。",
                             {skin: 'layui-layer-lan', closeBtn: 1});
                     }
-                    $scope.VO.linkman = $scope.linkmanGridOptions.data;
+                    $scope.VO.linkman = $scope.LinkmanList;
                     $scope.isEmpty = true;
                     if ($scope.isEmpty) {
                         if ($scope.VO.linkman) {
@@ -944,9 +934,6 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
         $scope.onAddCustomerDept =function(){
             $scope.CustomerDeptList.push($scope.initCustomerDept());
         }
-        $scope.onAddDealAttachmentB =function(){
-            $scope.CustomerDeptList.push($scope.initCustomerDept());
-        }
         /**
          * 子表信息删除
          */
@@ -972,11 +959,6 @@ app.controller('stateGridCustomerCtrl', function ($rootScope, $scope, $sce, $htt
                 }
                 if(type==3){
                     $scope.CustomerDeptList.splice(nowNumber,1);
-                    $scope.$apply();
-                    layer.close(layer.index);
-                }
-                if(type==4){
-                    $scope.LinkmanList.splice(nowNumber,1);
                     $scope.$apply();
                     layer.close(layer.index);
                 }

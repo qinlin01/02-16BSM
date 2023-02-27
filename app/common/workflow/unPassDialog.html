@@ -1,0 +1,30 @@
+<div class="main-form-style">
+    <div class="form-horizontal" style="background: #fff; padding: 10px;">
+        <accordion class="" close-others="oneAtATime">
+            <div ng-init="status={open:true}"></div>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    {{getDisName('执行状态')}}<i class="pull-right glyphicon"
+                                             ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div ui-grid="executeInfoGridOptions" ui-grid-auto-resize ui-grid-resize-columns
+                     ui-grid-selection ui-grid-pinning
+                     class="grid" style="min-height:100%; text-align: center;">
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <label class=" control-label" style="text-align: left">审核意见：</label>
+                    </div>
+                    <div class="col-md-12">
+                        <textarea style="height: 130px;width: 100%;" ng-model="unPassVO.comment" placeholder="必输项" ng-verify></textarea>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pull-right">
+        <button ng-click="onSubCancel()" style="margin-right: 10px;" class="btn btn-sm btn-info" ng-bind="getDisName('返回','')"></button>
+        <button ng-click="onSubConfirm()" style="margin-right: 10px;" class="btn btn-sm btn-info" ng-bind="getDisName('确定','')"></button>
+    </div>
+    <div style="clear: both"></div>
+</div>

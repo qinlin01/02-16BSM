@@ -568,5 +568,244 @@ app.directive('decimal', function () {
         }
     };
 });
+app.controller('submitCtrl', function ($rootScope, $scope, $http, uiGridConstants, ngDialog, ngVerify) {
+    $scope.initData = function () {
+        $scope.initVO = function () {
+            $scope.comment = "必输项";
+            return {};
+        };
+        //子表数据
+        $scope.submitVO = $scope.initVO();
+        var log = '';
+        if ($scope.submitData.tasks && $scope.submitData.tasks.length > 0) {
+            for (var i = 0; i < $scope.submitData.tasks.length; i++) {
+                var task = $scope.submitData.tasks[i];
+                if (task.pk_process && task.opinion) {
+                    log = log + "审批人：" + task.pk_process.name + "\r\n";
+                    log = log + "审批意见：" + task.opinion + "\r\n";
+                    log = log + "----------------------------\r\n";
+                }
+            }
+        }
+        $scope.submitVO.log = log;
+        $scope.LEFT_DATA = $scope.submitData.LeftData;
+        $scope.RIGHT_DATA = $scope.submitData.RightData;
+        $scope.PASSES = $scope.submitData.passes;
+        if ($scope.PASSES && $scope.PASSES.length > 0) {
+            for (var i = 0; i < $scope.PASSES.length; i++) {
+                //type==3 审核通过,现在有审核通过默认审核通过
+                if ($scope.PASSES[i] && ($scope.PASSES[i].transitionType == 0 || $scope.PASSES[i].transitionType == 6 || $scope.PASSES[i].transitionType == 1 || $scope.PASSES[i].transitionType == 3)) {
+                    $scope.submitVO.pass = $scope.PASSES[i].transitionCode;
+                    if ($scope.PASSES[i].transitionType == 6) {
+                        $scope.connmitDisable = true;
+                        $scope.comment = "";
+                    }
+                    break;
+                }
+            }
+        }
+        $scope.submitView = true;
+        if ($scope.submitData.type) {
+            $scope.isAudit = true;
+        } else {
+            $scope.isAudit = false;
+        }
+    };
+    $scope.initFunction = function () {
+        /**
+         * 更新常用审批语
+         */
+        $scope.updateMsg = function () {
+            layer.load(2);
+            $http.post($scope.basePath + "workFlow/updateMsg", {
+                id: "",
+                funCode: $scope.funCode
+            }).success(function (response) {
+                $scope.submitVO.selects = angular.copy($scope.RIGHT_DATA);
+                $scope.$parent.confirm($scope.submitVO);
+                ngDialog.close();
+            });
+        };
+        $scope.$watch('submitVO.selectMsg', function (newVal, oldVal) {
+            if (null != $scope.submitVO.selectMsg) {
+                $scope.submitVO.msg = $scope.submitVO.selectMsg[0];
+            }
+        }, true);
+        /**
+         * 保存
+         */
+        $scope.onSubmitConfirm = function () {
+            // if($scope.isAudit){
+            //     $scope.submitVO.rightSelects = [$scope.RIGHT_DATA[0]];
+            // } else {
+            //     $scope.submitVO.rightSelects = [$scope.LEFT_DATA[0]];
+            // }
+            if (!$scope.submitVO.msg && $scope.comment != "") {
+                return layer.alert('请填写审批意见!', {skin: 'layui-layer-lan', closeBtn: 1});
+            }
+            if (!$scope.submitVO.pass) return layer.alert('请选择处理方式!', {skin: 'layui-layer-lan', closeBtn: 1});
+            if ($scope.submitVO.pass.indexOf("_pass") >= 0 && ($scope.RIGHT_DATA == null || $scope.RIGHT_DATA.length != 1)) {
+                return layer.alert('只能选择一个用户进行提交!', {skin: 'layui-layer-lan', closeBtn: 1});
+            }
+            //更新常用审批语
+            $scope.updateMsg();
+        };
+
+        $scope.onSubmitCancel = function () {
+            angular.assignData($scope.appVO, $scope.initVO());
+            ngDialog.close();
+            layer.closeAll('loading');
+        };
+
+        $scope.getSubmitView = function () {
+            return $scope.submitVO.pass && ($scope.submitVO.pass.transitionType == 0 || $scope.submitVO.pass.transitionType == 6 || $scope.PASSES[i].transitionType == 1);
+        };
+
+    };
+    $scope.initWatch = function () {
+        /**
+         * 由项目经理 带出其部门名称
+         */
+        $scope.$watch('submitVO.pass', function (newVal, oldVal) {
+            if (newVal == undefined || newVal == null) return;
+            if (!newVal) {
+                $scope.submitView = false;
+            } else {
+                $scope.LEFT_DATA = $scope.submitData.userPassList && $scope.submitData.userPassList[newVal] && $scope.submitData.userPassList[newVal].LeftData;
+                $scope.RIGHT_DATA = $scope.submitData.userPassList && $scope.submitData.userPassList[newVal] && $scope.submitData.userPassList[newVal].RightData;
+                if ($scope.PASSES && $scope.PASSES.length > 0) {
+                    for (var i = 0; i < $scope.PASSES.length; i++) {
+                        if (newVal == $scope.PASSES[i].transitionCode) {
+                            if ($scope.PASSES[i].transitionType == 0 || $scope.PASSES[i].transitionType == 6 || $scope.PASSES[i].transitionType == 1 || $scope.PASSES[i].transitionType == 4) {
+                                $scope.submitView = true;
+                            } else {
+                                $scope.submitView = false;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    };
+    $scope.initClick = function () {
+        $scope.onToRight = function () {
+            if (!$scope.submitVO.leftSelects || $scope.submitVO.leftSelects.length != 1) {
+                return layer.alert("请选择一个用户!", {skin: 'layui-layer-lan', closeBtn: 1});
+            }
+            ;
+            var select = $scope.submitVO.leftSelects[0];
+            for (var i = 0; i < $scope.LEFT_DATA.length; i++) {
+                if (select == $scope.LEFT_DATA[i].pk) {
+                    $scope.RIGHT_DATA.push($scope.LEFT_DATA[i]);
+                    $scope.LEFT_DATA.splice(i, 1);
+                    $scope.submitVO.leftSelects = [];
+                    break;
+                }
+            }
+        };
+        $scope.onToRightAll = function () {
+            if (!$scope.LEFT_DATA || $scope.LEFT_DATA.length == 0) {
+                return;
+            }
+            ;
+            for (var i = 0; i < $scope.LEFT_DATA.length; i++) {
+                $scope.RIGHT_DATA.push($scope.LEFT_DATA[i]);
+                $scope.LEFT_DATA.splice(i, 1);
+            }
+        };
+        $scope.onToLeft = function () {
+            if (!$scope.submitVO.rightSelects || $scope.submitVO.rightSelects.length != 1) {
+                return layer.alert("请选择一个用户!", {skin: 'layui-layer-lan', closeBtn: 1});
+            }
+            ;
+            var select = $scope.submitVO.rightSelects[0];
+            for (var i = 0; i < $scope.RIGHT_DATA.length; i++) {
+                if (select == $scope.RIGHT_DATA[i].pk) {
+                    $scope.LEFT_DATA.push($scope.RIGHT_DATA[i]);
+                    $scope.RIGHT_DATA.splice(i, 1);
+                    $scope.submitVO.rightSelects = [];
+                    break;
+                }
+            }
+        };
+        $scope.onToLeftAll = function () {
+            if (!$scope.RIGHT_DATA || $scope.RIGHT_DATA.length == 0) {
+                return;
+            }
+            ;
+            for (var i = 0; i < $scope.RIGHT_DATA.length; i++) {
+                $scope.LEFT_DATA.push($scope.RIGHT_DATA[i]);
+                $scope.RIGHT_DATA.splice(i, 1);
+            }
+        };
+    };
+
+    $scope.initData();
+    $scope.initFunction();
+    $scope.initWatch();
+    $scope.initClick();
+});
+app.controller('linkAuditFlowCtril', function ($rootScope, $scope, $http, uiGridConstants, ngDialog, ngVerify) {
+
+    $scope.initData = function () {
+        // $scope.imgUrl = getURL("insurance/img/projectAppGroup.png");
+
+    };
+    $scope.initPage = function () {
+        $scope.linkAuditFlowGridOptions = {
+            // enableCellEdit: $scope.isEdit,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            multiSelect: true,
+            enableSorting: true,
+            enableRowHeaderSelection: true,
+            showColumnFooter: false,
+            columnDefs: [
+                {name: 'task_id', displayName: '流程号', width: 100},
+                {name: 'operate_name', displayName: '操作人', width: 100, cellTooltip: true, headerTooltip: true},
+                {name: 'pk_submitter.name', displayName: '提交人', width: 100, cellTooltip: true, headerTooltip: true},
+                {name: 'submit_time', displayName: '提交时间', width: 150},
+                {name: 'pk_process.name', displayName: '处理人', width: 100, cellTooltip: true, headerTooltip: true},
+                {name: 'result', displayName: '审批结果', width: 100, cellTooltip: true, headerTooltip: true},
+                {name: 'opinion', displayName: '审批意见', width: 100, cellTooltip: true, headerTooltip: true},
+                {name: 'process_time', displayName: '处理时间', width: 150},
+                {name: 'process_status', displayName: '处理状态', cellFilter: 'SELECT_WORKFLOW_PROCESS_STATUS', width: 100},
+                {name: 'durationLabel', displayName: '持续时间', width: 100}
+            ],
+            data: $scope.tasks,
+            onRegisterApi: function (gridApi) {
+                $scope.linkAuditFlowGridOptions.gridApi = gridApi;
+            }
+        };
+    };
+    $scope.initFunction = function () {
+        /**
+         * 保存
+         */
+        $scope.onSubmitConfirm = function () {
+            $scope.$parent.confirm($scope.submitVO);
+            ngDialog.close();
+        };
+
+        $scope.onSubmitCancel = function () {
+            angular.assignData($scope.appVO, $scope.initVO());
+            ngDialog.close();
+        };
+
+    };
+    $scope.initData();
+    $scope.initPage();
+    $scope.initFunction();
+});
+app.controller('AppCtrl', ['$scope', '$http', '$rootScope', 'ngDialog', '$state', function ($scope, $http, $rootScope, ngDialog, $state) {
+    $scope.logout = function () {
+        $http.post($rootScope.basePath + "/account/clearSession").success(function (req) {
+            window.sessionStorage.setItem("token", "");
+            $state.go('login.signin');
+        })
+    };
+
+}]);
 
 

@@ -101,32 +101,170 @@
                                     <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
                                 </div>
                     </div>
-            <div class="col-md-12 card-grid">
-                <div>
-                    <div class="pull-right lr-mr10 lr-mt10">
-                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
-                    </div>
-                    <tabset justified="false">
-                                <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">
-                                    <div ui-grid="accountGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                                </tab>
-                                <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">
-                                    <div ui-grid="linkmanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                                </tab>
-                                <tab index="3" heading="客户部门信息" select="selectTab('customerDeptGridOptions')">
-                                    <div ui-grid="customerDeptGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                                </tab>
-                        <tab index="4" heading="变更信息" select="selectTab('customerChangeCompareGridOptions')">
-                            <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns
-                                 class="grid" style="height: 200px"></div>
-                        </tab>
-                        <tab index="40" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
-                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
-                        </tab>
-                    </tabset>
+<!--            <div class="col-md-12 card-grid">-->
+<!--                <div>-->
+<!--                    <div class="pull-right lr-mr10 lr-mt10">-->
+<!--                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>-->
+<!--                    </div>-->
+<!--                    <tabset justified="false">-->
+<!--                                <tab index="1" heading="账户信息" select="selectTab('accountGridOptions')">-->
+<!--                                    <div ui-grid="accountGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                                </tab>-->
+<!--                                <tab index="2" heading="联系人" select="selectTab('linkmanGridOptions')">-->
+<!--                                    <div ui-grid="linkmanGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                                </tab>-->
+<!--                                <tab index="3" heading="客户部门信息" select="selectTab('customerDeptGridOptions')">-->
+<!--                                    <div ui-grid="customerDeptGridOptions" ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                                </tab>-->
+<!--                        <tab index="4" heading="变更信息" select="selectTab('customerChangeCompareGridOptions')">-->
+<!--                            <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns-->
+<!--                                 class="grid" style="height: 200px"></div>-->
+<!--                        </tab>-->
+<!--                        <tab index="40" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">-->
+<!--                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>-->
+<!--                        </tab>-->
+<!--                    </tabset>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <!--        账户信息-->
+        <div class="col-md-12 title" ng-show="AccountList.length>0">
+            <p style="font-size:20px">账户信息</p>
+            <div class="col-md-12">
+                <div ng-repeat="item in AccountList" style="background:#ffffff">
+                    <accordion class=""  >
+                        <accordion-group is-open="true" class="lr-page-bg-gray">
+                            <div class="col-md-12" >
+                                <div class="col-md-4">
+                                    <span>账户类型：</span><span class="fontStyle">{{item.accType | SELECT_ACCTYPE}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>开户名称：</span><span class="fontStyle">{{item.accName}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>账号：</span><span class="fontStyle"> {{item.accNum}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12" >
+                                <div class="col-md-4">
+                                    <span>开户银行：</span><span class="fontStyle">{{item.accBlank}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>银行联行号：</span><span class="fontStyle">{{item.jointBankNum}}</span>
+                                </div>
+                            </div>
+                        </accordion-group>
+                    </accordion>
                 </div>
             </div>
         </div>
+        <!--        联系人信息-->
+        <div class="col-md-12 title" ng-show="LinkmanList.length>0">
+            <p style="font-size:20px">联系人信息</p>
+            <div class="col-md-12">
+                <div ng-repeat="item in LinkmanList" style="background:#ffffff">
+                    <accordion class=""  >
+                        <accordion-group is-open="true" class="lr-page-bg-gray">
+                            <div class="form-group">
+                                <div class="col-md-12" >
+                                    <div class="col-md-4">
+                                        <span>联系人类型：</span><span class="fontStyle">{{item.linkmanType | SELECT_LINKMANTYPE}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>联系人姓名：</span><span class="fontStyle">{{item.name}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>联系人部门：</span><span class="fontStyle">{{item.dept}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="col-md-4">
+                                        <span>联系人地址：</span><span class="fontStyle">{{item.address}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>邮编：</span><span class="fontStyle">{{item.post}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>联系人电话：</span><span class="fontStyle"> {{item.tele}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="col-md-4">
+                                        <span>传真：</span><span class="fontStyle"> {{item.fax}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>电子邮箱：</span><span class="fontStyle"> {{item.mail}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>备注：</span><span class="fontStyle"> {{item.memo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <!--        部门信息-->
+        <div class="col-md-12 title" ng-show="CustomerDeptList.length>0">
+            <p style="font-size:20px">部门信息</p>
+            <div class="col-md-12">
+                <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                    <accordion class=""  >
+                        <accordion-group is-open="true" class="lr-page-bg-gray">
+                            <div class="form-group">
+                                <div class="col-md-12" >
+                                    <div class="col-md-4">
+                                        <span>部门名称：</span><span class="fontStyle"> {{item.dept}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>备注：</span><span class="fontStyle"> {{item.remark}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <!--        附件信息-->
+        <div class="col-md-12 title" ng-if="VO.dealAttachmentB.length!=0">
+            <p style="font-size:20px">附件信息</p>
+            <div class="col-md-12"  ng-if="VO.dealAttachmentB.length!=0">
+                <div class="table-responsive">
+                    <p style="font-size: 14px;color: #748390;margin-left: 0px;font-weight: 600">其他附件</p>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>附件名称</th>
+                            <th>下载</th>
+                            <th>在线预览</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in VO.dealAttachmentB">
+                            <td>{{item.attachment_name}}</td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载" style="color: #af2b27"><i
+                                            class="fa fa-download"></i></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                       class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                            class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-12 font-style-audit-title title" ng-show="mess">
             <p class="taskmess">审批信息</p>
 
