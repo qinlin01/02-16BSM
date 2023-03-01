@@ -982,6 +982,9 @@ app.controller('groupCustomerChangeCtrl', function ($rootScope, $scope,$sce, $ht
                 }
             );
         };
+
+
+
     };
 
     $scope.initPage = function () {

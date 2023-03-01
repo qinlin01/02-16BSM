@@ -242,7 +242,7 @@ app.controller('branchDocumentsCtrl', function ($rootScope, $scope, $http, $stat
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/documents/add.html',
+                template: 'insurance/base/business/documents/add.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {
@@ -293,7 +293,7 @@ app.controller('branchDocumentsCtrl', function ($rootScope, $scope, $http, $stat
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/documents/add.html',
+                template: 'insurance/base/business/documents/add.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {

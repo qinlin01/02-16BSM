@@ -67,6 +67,34 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
         };
         $scope.QUERY = $scope.initQUERY();
         $scope.funCode ='11001';
+
+        $scope.contractList=[];
+        $scope.rewardPunishmentList=[];
+        $scope.compensationList=[];
+        $scope.initContractList = function () {
+            return {
+                economicContract:{
+                    code:"",
+                    name:"",
+                },
+                contStartDate:"",
+                contEndDate:""
+            };
+        };
+        $scope.initRewardPunishmentList = function () {
+            return {
+                rewardPunishmentType:"",
+                acceptDate:"",
+                memo:""
+            };
+        };
+        $scope.initCompensationList = function () {
+            return {
+                wage:"",
+                acceptDate:"",
+                memo:""
+            };
+        };
     };
 
     $scope.initHttp = function () {
@@ -127,7 +155,11 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
                     $scope.trainingRecordGridOptions.data = $scope.VO.trainingRecordList;
                     $scope.contractGridOptions.data = $scope.VO.contractList;
                     $scope.compensationGridOptions.data = $scope.VO.compensationList;
+
                     $scope.dealAttachmentBGridOptions.data = $scope.VO.dealattachmentb;
+                    $scope.contractList= $scope.VO.contractList;
+                    $scope.rewardPunishmentList=$scope.VO.rewardPunishmentList;
+                    $scope.compensationList=$scope.VO.compensationList;
                     if (callback) {
                         callback();
                     }
@@ -140,11 +172,12 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
          * 保存VO
          * */
         $scope.onSaveVO = function () {
+
             $scope.VO.referralCode = $scope.VO.agentCode;
-            $scope.VO.rewardPunishmentList = $scope.rewardPunishmentGridOptions.data;
+            $scope.VO.rewardPunishmentList = $scope.rewardPunishmentList;
             $scope.VO.trainingRecordList = $scope.trainingRecordGridOptions.data;
-            $scope.VO.contractList = $scope.contractGridOptions.data;
-            $scope.VO.compensationList = $scope.compensationGridOptions.data;
+            $scope.VO.contractList = $scope.contractList;
+            $scope.VO.compensationList = $scope.compensationList;
             $scope.VO.dealattachmentb = $scope.dealAttachmentBGridOptions.data;
             layer.load(2);
             $http.post($rootScope.basePath + "agent/save", {data: angular.toJson($scope.VO)})
@@ -248,6 +281,14 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
         };
 
         $scope.onAdd = function () {
+            $scope.contractList=[];
+            $scope.rewardPunishmentList=[];
+            $scope.compensationList=[];
+            $scope.VO = $scope.initVO();
+            $scope.dealAttachmentBGridOptions.data = [];
+            $scope.onAddContract();
+            $scope.onAddRewardPunishment();
+            $scope.onAddCompensation();
             $scope.isGrid = false;
             $scope.isCard = false;
             $scope.isForm = true;
@@ -324,6 +365,9 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
          * 返回
          */
         $scope.onBack = function () {
+            $scope.contractList=[];
+            $scope.rewardPunishmentList=[];
+            $scope.compensationList=[];
             if ($stateParams.id) {
                 window.history.back(-2);
                 return;
@@ -523,6 +567,50 @@ app.controller('agentCtrl', function ($rootScope, $scope, $sce, $http, $state, $
                     }
                 }
             }
+        };
+
+        /**
+         * 子表信息增加
+         */
+        $scope.onAddContract =function(){
+            $scope.contractList.push($scope.initContractList());
+        }
+        $scope.onAddRewardPunishment =function(){
+            $scope.rewardPunishmentList.push($scope.initRewardPunishmentList());
+        }
+        $scope.onAddCompensation =function(){
+            $scope.compensationList.push($scope.initCompensationList());
+        }
+        /**
+         * 子表信息删除
+         */
+        $scope.deletelistOptions=function(nowNumber,type){
+            //type 1:经法合同信息 2：奖惩信息 3：薪资
+            layer.confirm('请确认是否要删除此记录？', {
+                    btn: ['确定', '取消'], //按钮
+                    btn2: function (index, layero) {
+                    },
+                    shade: 0.6,//遮罩透明度
+                    shadeClose: true,//点击遮罩关闭层
+                },
+                function (index) {
+                    if(type==1){
+                        $scope.contractList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==2){
+                        $scope.rewardPunishmentList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                    if(type==3){
+                        $scope.compensationList.splice(nowNumber,1);
+                        $scope.$apply();
+                        layer.close(layer.index);
+                    }
+                }
+            );
         };
 
 

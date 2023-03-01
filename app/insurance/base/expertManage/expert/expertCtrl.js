@@ -38,6 +38,63 @@ app.controller('expertCtrl', function ($rootScope, $scope,$sce, $http, $statePar
         };
         $scope.QUERY = $scope.initQUERY();
         $scope.funCode ='10601';
+
+        $scope.expertTeclList=[];
+        $scope.expertReportList=[];
+        $scope.expertProjectList=[];
+        $scope.expertEmployedList=[];
+        $scope.expertProjectExperienceList=[];
+        $scope.expertCaibnoList=[];
+        $scope.initExpertTeclList = function () {
+            return {
+                etDate:'',
+                etName:'',
+                department:'',
+            };
+        };
+        $scope.initExpertReportList = function () {
+            return {
+                erDate:'',
+                erName:'',
+                duty:'',
+            };
+        };
+        $scope.initExpertProjectList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.initExpertEmployedList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.initExpertProjectExperienceList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
+        $scope.initExpertCaibnoList = function () {
+            return {
+                accType:'',
+                accName:'',
+                accNum:'',
+                accBlank:'',
+                jointBankNum:''
+            };
+        };
     };
 
     $scope.initHttp = function () {

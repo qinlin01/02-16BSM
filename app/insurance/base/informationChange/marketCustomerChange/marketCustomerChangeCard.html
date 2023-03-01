@@ -124,32 +124,177 @@
                     <span>制单时间：</span><span class="fontStyle">{{VO.operateTime}}</span>
                 </div>
             </div>
-            <div class="col-md-12 card-grid">
-                <div>
-                    <div class="pull-right lr-mr10 lr-mt10">
-                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>
-                    </div>
-                    <tabset justified="false">
-                        <tab index="1" heading="客户信息变更对比" select="selectTab('customerChangeCompareGridOptions')">
-                            <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav
-                                 ui-grid-selection class="grid" style="height: 200px"></div>
-                        </tab>
-                        <tab index="2" heading="账户信息" select="selectTab('accountGridOptions')">
-                            <div ui-grid="accountGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                        </tab>
-                        <tab index="3" heading="联系人" select="selectTab('linkmanGridOptions')">
-                            <div ui-grid="linkmanGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                        </tab>
-                        <tab index="4" heading="客户部门信息" select="selectTab('customerDeptGridOptions')">
-                            <div ui-grid="customerDeptGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>
-                        </tab>
-                        <tab index="5" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">
-                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>
-                        </tab>
-                    </tabset>
-                </div>
+<!--            <div class="col-md-12 card-grid">-->
+<!--                <div>-->
+<!--                    <div class="pull-right lr-mr10 lr-mt10">-->
+<!--                        <button class="btn btn-sm btn-info" ng-click="onDownLoads();" ng-show="upOrDown">批量下载</button>-->
+<!--                    </div>-->
+<!--                    <tabset justified="false">-->
+<!--                        <tab index="1" heading="客户信息变更对比" select="selectTab('customerChangeCompareGridOptions')">-->
+<!--                            <div ui-grid="customerChangeCompareGridOptions" ui-grid-edit ui-grid-cellnav-->
+<!--                                 ui-grid-selection class="grid" style="height: 200px"></div>-->
+<!--                        </tab>-->
+<!--                        <tab index="2" heading="账户信息" select="selectTab('accountGridOptions')">-->
+<!--                            <div ui-grid="accountGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                        </tab>-->
+<!--                        <tab index="3" heading="联系人" select="selectTab('linkmanGridOptions')">-->
+<!--                            <div ui-grid="linkmanGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                        </tab>-->
+<!--                        <tab index="4" heading="客户部门信息" select="selectTab('customerDeptGridOptions')">-->
+<!--                            <div ui-grid="customerDeptGridOptions" ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height:200px"></div>-->
+<!--                        </tab>-->
+<!--                        <tab index="5" heading="注册号/统一社会信用代码证附件" select="selectTab('dealAttachmentBGridOptions')">-->
+<!--                            <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize ui-grid-resize-columns  class="grid" style="height: 200px"></div>-->
+<!--                        </tab>-->
+<!--                    </tabset>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <!--        客户信息变更对比-->
+        <div class="col-md-12" ng-show="CustomerChangeCompareList.length>0">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">客户信息变更对比</p>
+                <table class="table table-bordered table-hover">
+                    <thead style="background: #d9edf7;font-weight: bold">
+                    <tr>
+                        <th>序号</th>
+                        <th>变更字段名称</th>
+                        <th>变更前</th>
+                        <th>变更后</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in CustomerChangeCompareList" >
+                        <th>{{$index+1}}</th>
+                        <td>{{item.colName}}</td>
+                        <td>{{item.colOldVal}}</td>
+                        <td>{{item.colNewVal}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <!--        账户信息-->
+        <div class="col-md-12" ng-show="AccountList.length>0">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">账户信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead style="background: #d9edf7;font-weight: bold">
+                    <tr>
+                        <th>序号</th>
+                        <th>账户类型</th>
+                        <th>开户名称</th>
+                        <th>账号</th>
+                        <th>开户银行</th>
+                        <th>银行联行号</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in AccountList" >
+                        <th>{{$index+1}}</th>
+                        <td>{{item.accType | SELECT_ACCTYPE}}</td>
+                        <td>{{item.accName}}</td>
+                        <th>{{item.accNum}}</th>
+                        <td>{{item.accBlank}}</td>
+                        <td>{{item.jointBankNum}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--        联系人信息-->
+        <div class="col-md-12" ng-show="LinkmanList.length>0">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">联系人信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead style="background: #d9edf7;font-weight: bold">
+                    <tr>
+                        <th>序号</th>
+                        <th>联系人类型</th>
+                        <th>联系人姓名</th>
+                        <th>联系人部门</th>
+                        <th>联系人地址</th>
+                        <th>邮编</th>
+                        <th>联系人电话</th>
+                        <th>传真</th>
+                        <th>电子邮箱</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in LinkmanList" >
+                        <th>{{$index+1}}</th>
+                        <td>{{item.linkmanType | SELECT_LINKMANTYPE}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.dept}}</td>
+                        <td>{{item.address}}</td>
+                        <td>{{item.post}}</td>
+                        <td>{{item.tele}}</td>
+                        <td>{{item.fax}}</td>
+                        <td>{{item.mail}}</td>
+                        <td>{{item.memo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--        部门信息-->
+        <div class="col-md-12" ng-show="CustomerDeptList.length>0">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">部门信息</p>
+                <table class="table table-bordered table-hover">
+                    <thead style="background: #d9edf7;font-weight: bold">
+                    <tr>
+                        <th>序号</th>
+                        <th>部门名称</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in CustomerDeptList" >
+                        <th>{{$index+1}}</th>
+                        <td>{{item.dept}}</td>
+                        <td>{{item.remark}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--        附件信息-->
+        <div class="col-md-12" ng-if="VO.dealAttachmentB.length!=0">
+            <div class="table-responsive">
+                <p style="font-size: 16px;color: #8e8e93">附件信息</p>
+                <table class="table table-bordered table-hover" ng-if="VO.dealAttachmentB.length!=0">
+                    <thead style="background: #d9edf7;font-weight: bold">
+                    <tr>
+                        <th>附件名称</th>
+                        <th>下载</th>
+                        <th>在线预览</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in VO.dealAttachmentB">
+                        <td>{{item.attachment_name}}</td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onDownLoadsCard(item.pk_project_id)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="下载"><i
+                                        class="fa fa-download"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="#" ng-click="onPreviewFile(item.pk_project_id,item.attachment_name)"
+                                   class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="在线预览"><i
+                                        class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="col-md-12 font-style-audit-title title" ng-show="mess">
             <p class="taskmess">审批信息</p>
 

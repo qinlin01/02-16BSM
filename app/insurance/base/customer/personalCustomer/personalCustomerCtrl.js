@@ -87,12 +87,12 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
             });
         };
         $scope.findOne = function (pk,ifDesensitize) {
+
             $scope.pk = pk;
             $http.post($scope.basePath + "personalCustomer/findOne", {pk: pk,ifDesensitize:ifDesensitize}).success(function (response) {
                 layer.closeAll('loading');
                 if (response && response.code == "200") {
                     angular.assignData($scope.VO, response.result);
-                    $scope.dealAttachmentBGridOptions.data = $scope.VO.dealAttachmentB;
                     $scope.accountGridOptions.data = $scope.VO.account;
                     $scope.linkmanGridOptions.data = $scope.VO.linkman;
                     $scope.AccountList = $scope.VO.account;
@@ -116,7 +116,6 @@ app.controller('personalCustomerCtrl', function ($rootScope, $scope, $http, $sta
          * 保存VO
          * */
         $scope.onSaveVO = function () {
-            $scope.VO.dealAttachmentB = $scope.dealAttachmentBGridOptions.data;
             $scope.VO.account=$scope.AccountList;
             $scope.VO.linkman=$scope.LinkmanList;
             layer.load(2);

@@ -28,11 +28,15 @@
             </button>
         </div>
     </div>
+<!--    基本信息-->
     <div class="lr-contant">
         <fieldset>
             <legend>
-                基本信息
+                <button  ng-click="Text = !Text" style="border-style: none; background: #ffffff">
+                    <span>基本信息</span>
+                </button>
             </legend>
+            <div ng-if="!Text">
             <div class="form-group">
                 <div class="col-md-4" ng-if="VO.agentCode != null && VO.agentCode != ''">
                     <label class="col-md-5 control-label">执业人员信息编号：</label>
@@ -238,14 +242,14 @@
                 <div class="col-md-4">
                     <label class="col-md-5 control-label lr-verify">入职日期：</label>
                     <div class="col-md-7">
-                        <input class="form-control" ng-verify type="text" wdate-picker ng-model="VO.inTheDate" maxlength="10">
+                        <input class="form-control" ng-verify type="text" onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="VO.inTheDate" maxlength="10">
                     </div>
                 </div>
                 <!--        在职非必填        -->
                 <div class="col-md-4">
                     <label class="col-md-5 control-label">离职日期：</label>
                     <div class="col-md-7">
-                        <input class="form-control" type="text" wdate-picker ng-model="VO.outTheDate" maxlength="10">
+                        <input class="form-control" type="text" onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="VO.outTheDate" maxlength="10">
                     </div>
                 </div>
             </div>
@@ -321,13 +325,13 @@
                 <div class="col-md-4">
                     <label class="col-md-5 control-label">协议生效日期：</label>
                     <div class="col-md-7">
-                        <input class="form-control" type="text" wdate-picker ng-model="VO.agreementStartDate" maxlength="10">
+                        <input class="form-control" ng-verify type="text" onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="VO.agreementStartDate" maxlength="10">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label class="col-md-5 control-label">协议到期日期：</label>
                     <div class="col-md-7">
-                        <input class="form-control" type="text" wdate-picker ng-model="VO.agreementEndDate" maxlength="10">
+                        <input class="form-control" type="text" onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="VO.agreementEndDate" maxlength="10">
                     </div>
                 </div>
             </div>
@@ -343,29 +347,97 @@
                     </div>
                 </div>
             </div>
-
-    </div>
+            </div>
+            <div ng-if="Text" class="lr-contant">.....</div>
     </fieldset>
     </div>
-    <div class="lr-contant" ng-if="VO.agentType == 2">
-        <fieldset>
-            <legend>经法合同信息</legend>
-            <div class="pull-right lr-mr10 lr-mt10">
-                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('contractGridOptions')">增行</button>
-                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('contractGridOptions')">减行</button>
-            </div>
-            <tabset justified="false">
-                <tab index="1" heading="合同信息">
-                    <div ui-grid="contractGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                         ui-grid-resize-columns class="grid"></div>
-                </tab>
-            </tabset>
-        </fieldset>
+
+<!--    经法合同信息-->
+<!--    <div class="lr-contant" ng-if="VO.agentType == 2">-->
+    <div class="col-md-12">
+        <div class="lr-contant">
+            <fieldset>
+                <legend>
+                    <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                        <span>经法合同信息</span>
+                    </button>
+                </legend>
+                <div class="col-md-12" ng-if="!Customer">
+                    <button class="btn lr-insureType-btn" ng-click="onAddContract()">
+                        <i class="fa fa-plus-square"></i>
+                        增加经法合同信息
+                    </button>
+                    <div ng-repeat="item in contractList" style="background:#ffffff">
+                        <accordion class=""  >
+                            <accordion-group is-open="true" class="lr-page-bg-gray">
+                                <div class="form-group">
+                                    <div class="btn lr-page-bg-indigo">
+                                    </div>
+                                    <div style="text-align: right">
+                                        <button type="button" class="btn btn-azure" ng-if="contractList.length>1"
+                                                ng-click="deletelistOptions($index,1)" type="button" style="float: right;margin-right: 10px">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span>删除</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" >
+                                        <div class="form-group">
+                                        <div class="col-md-4">
+<!--                                            <label class="col-md-5 control-label">经法合同编号：</label>-->
+<!--                                            <div class="col-md-7">-->
+<!--                                                <input class="form-control"  type="text"  ng-model="item.economicContract.code">-->
+<!--                                            </div>-->
+                                            <label class="col-md-5 control-label lr-verify">经法合同编号：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control" ng-verify ui-popup-ref url="'economicContract/queryForClearing'"
+                                                        popup-model="item" popup-model-field="'economicContract'"
+                                                       ng-model="item.economicContract.code" type="text" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">经法合同名称：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  ng-model="item.economicContract.name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">协议生效日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  ng-model="item.contStartDate" onFocus="WdatePicker({isShowClear:false, readOnly:true})">
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-md-4">
+                                              <label class="col-md-5 control-label">协议到期日期：</label>
+                                              <div class="col-md-7">
+                                                  <input class="form-control"  type="text"  ng-model="item.contEndDate" onFocus="WdatePicker({isShowClear:false, readOnly:true})">
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+                <div ng-if="Customer" class="lr-contant">.....</div>
+            </fieldset>
+        </div>
     </div>
-    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
+
+<!--    劳动合同信息-->
+<!--    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">-->
+    <div class="lr-contant">
         <fieldset>
-            <legend>劳动合同</legend>
-            <div class="form-group">
+            <legend>
+                <button  ng-click="LaborContract = !LaborContract" style="border-style: none; background: #ffffff">
+                    <span>劳动合同</span>
+                </button>
+            </legend>
+            <div class="form-group" ng-if="!LaborContract">
                 <div class="col-md-4">
                     <label class="col-md-5 control-label">合同生效日期：</label>
                     <div class="col-md-7">
@@ -379,52 +451,144 @@
                     </div>
                 </div>
             </div>
+            <div ng-if="LaborContract" class="lr-contant">.....</div>
         </fieldset>
     </div>
-    <div class="lr-contant">
-        <fieldset>
-            <legend>奖惩记录</legend>
-            <div class="pull-right lr-mr10 lr-mt10">
-                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('rewardPunishmentGridOptions')">增行</button>
-                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('rewardPunishmentGridOptions')">减行</button>
-            </div>
-            <tabset justified="false">
-                <tab index="1" heading="奖惩记录">
-                    <div ui-grid="rewardPunishmentGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                         ui-grid-resize-columns class="grid"></div>
-                </tab>
-            </tabset>
-        </fieldset>
+
+<!--    奖惩记录-->
+    <div class="col-md-12">
+        <div class="lr-contant">
+            <fieldset>
+                <legend>
+                    <button  ng-click="rewardPunishment = !rewardPunishment" style="border-style: none; background: #ffffff">
+                        <span>奖惩记录</span>
+                    </button>
+                </legend>
+                <div class="col-md-12" ng-if="!rewardPunishment">
+                    <button class="btn lr-insureType-btn" ng-click="onAddRewardPunishment()">
+                        <i class="fa fa-plus-square"></i>
+                        增加奖惩记录
+                    </button>
+                    <div ng-repeat="item in rewardPunishmentList" style="background:#ffffff">
+                        <accordion class=""  >
+                            <accordion-group is-open="true" class="lr-page-bg-gray">
+                                <div class="form-group">
+                                    <div class="btn lr-page-bg-indigo">
+                                    </div>
+                                    <div style="text-align: right">
+                                        <button type="button" class="btn btn-azure" ng-if="rewardPunishmentList.length>1"
+                                                ng-click="deletelistOptions($index,2)" type="button" style="float: right;margin-right: 10px">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span>删除</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" >
+                                        <div class="form-group"></div>
+                                        <div class="col-md-4">
+                                                <label class="col-md-5 control-label">奖惩类型：</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control"  ng-model="item.accType" required
+                                                            ng-options="iten.id as iten.name for iten in SELECT.REWARDPUNISHMENTTYPE">
+                                                        <option value="">--奖惩类型--</option>
+                                                    </select>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="item.acceptDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">事项描述：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  ng-model="item.memo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+                <div ng-if="rewardPunishment" class="lr-contant">.....</div>
+            </fieldset>
+        </div>
     </div>
-    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">
-        <fieldset>
-            <legend>薪酬</legend>
-            <div class="pull-right lr-mr10 lr-mt10">
-                <button class="btn btn-sm btn-info" type="button" ng-click="onAddLine('compensationGridOptions')">增行</button>
-                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('compensationGridOptions')">减行</button>
-            </div>
-            <tabset justified="false">
-                <tab index="1" heading="薪酬">
-                    <div ui-grid="compensationGridOptions" ui-grid-exporter ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                         ui-grid-resize-columns class="grid"></div>
-                </tab>
-            </tabset>
-        </fieldset>
+
+<!--    薪酬-->
+<!--    <div class="lr-contant" ng-if="VO.ifInternal == 'Y' || VO.agentType == 3">-->
+    <div class="col-md-12">
+        <div class="lr-contant">
+            <fieldset>
+                <legend>
+                    <button  ng-click="compensation = !compensation" style="border-style: none; background: #ffffff">
+                        <span>薪酬</span>
+                    </button>
+                </legend>
+                <div class="col-md-12" ng-if="!compensation">
+                    <button class="btn lr-insureType-btn" ng-click="onAddCompensation()">
+                        <i class="fa fa-plus-square"></i>
+                        增加薪酬记录
+                    </button>
+                    <div ng-repeat="item in compensationList" style="background:#ffffff">
+                        <accordion class=""  >
+                            <accordion-group is-open="true" class="lr-page-bg-gray">
+                                <div class="form-group">
+                                    <div class="btn lr-page-bg-indigo">
+                                    </div>
+                                    <div style="text-align: right">
+                                        <button type="button" class="btn btn-azure" ng-if="compensationList.length>1"
+                                                ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span>删除</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" >
+                                        <div class="form-group"></div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">薪酬金额（元）：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  ng-model="item.wage">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">发放日期：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  onFocus="WdatePicker({isShowClear:false, readOnly:true})" ng-model="item.acceptDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-md-5 control-label">说明：</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control"  type="text"  ng-model="item.memo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+                <div ng-if="compensation" class="lr-contant">.....</div>
+            </fieldset>
+        </div>
     </div>
-    <div class="lr-contant">
-        <fieldset>
-            <legend>附件</legend>
-            <div class="pull-right lr-mr10 lr-mt10">
-                <button class="btn btn-sm btn-info" type="button" ng-click="onUploads()">上传</button>
-                <button class="btn btn-sm btn-info" type="button" ng-click="onDeleteLine('dealAttachmentBGridOptions')">减行</button>
-                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads()">下载</button>
+
+    <!--        附件-->
+    <div class="col-md-12">
+        <div class="btn lr-insureType-btn" style="width: 100%">
+            <div class="pull-right lr-mr10 lr-mt10" style="margin-right: 50px;">
+                <button class="btn btn-sm btn-info" type="button" ng-show="isForm" ng-click="onUploads();" >上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-show="isForm" ng-click="onDeleteLine();">删除</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>
             </div>
-            <tabset justified="false">
-                <tab index="4" heading="附件">
-                    <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                         ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-                </tab>
-            </tabset>
-        </fieldset>
+        </div>
+        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+             ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
     </div>
 </form>

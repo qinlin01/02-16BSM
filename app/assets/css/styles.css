@@ -6919,7 +6919,7 @@ input[type="radio"], input[type="checkbox"] {
 .dropup .btn-danger .caret {
     border-bottom: 4px solid #ffffff;
 }
-
+/*按钮样式*/
 .btn-azure {
     background-color: #0095C8;
     border-color: #0095C8;

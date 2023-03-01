@@ -264,7 +264,7 @@ app.controller('documentsCtrl', function ($rootScope, $scope, $http, $stateParam
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/documents/add.html',
+                template: 'insurance/base/business/documents/add.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {
@@ -315,7 +315,7 @@ app.controller('documentsCtrl', function ($rootScope, $scope, $http, $stateParam
             ngDialog.openConfirm({
                 showClose: true,
                 closeByDocument: false,
-                template: 'view/documents/add.html',
+                template: 'insurance/base/business/documents/add.html',
                 className: 'ngdialog-theme-formInfo',
                 scope: $scope,
                 preCloseCallback: function (value) {

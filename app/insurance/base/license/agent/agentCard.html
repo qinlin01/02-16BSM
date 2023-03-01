@@ -155,7 +155,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in VO.rewardPunishmentList">
-                        <td>{{item.rewardPunishmentType | SELECT_REWARDPUNISHMENTTYPE}}</td>
+                        <td>{{item.accType | SELECT_REWARDPUNISHMENTTYPE}}</td>
                         <td>{{item.acceptDate| date_cell_date}}</td>
                         <td>{{item.memo}}</td>
                     </tr>
@@ -204,7 +204,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive" ng-if="VO.agentType == 2">
+<!--            <div class="table-responsive" ng-if="VO.agentType == 2">-->
+            <div class="table-responsive">
                 <p style="font-size: 14px;color: #748390">合同信息</p>
                 <table class="table table-bordered table-hover">
                     <thead>

@@ -284,48 +284,337 @@
         </accordion>-->
     </div>
     <div>
-        <div class="pull-right lr-mr10 lr-mt10">
-            <button class="btn btn-sm btn-info" ng-show="isEdit&&!upOrDown" ng-click="onAddLine();">增行</button>
-
-
-            <button class="btn btn-sm btn-info"
-                    ng-click="onUploads();" ng-show="upOrDown">上传
-            </button>
-            <button class="btn btn-sm btn-info" ng-show="isEdit" ng-click="onDeleteLine();">减行</button>
-            <button class="btn btn-sm btn-info"
-                    ng-click="onDownLoads();" ng-show="upOrDown">下载
-            </button>
+<!--    专家职称信息 expertTeclList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
         </div>
-        <tabset justified="false">
-            <tab index="1" heading="专家职称信息" select="selectTab('expertTeclGridOptions')">
-                <div ui-grid="expertTeclGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection ui-grid-auto-resize
-                     ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="2" heading="专家发表学术刊物信息" select="selectTab('expertReportGridOptions')">
-                <div ui-grid="expertReportGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="3" heading="专家调用记录及评价" select="selectTab('expertProjectGridOptions')">
-                <div ui-grid="expertProjectGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="4" heading="专家聘用信息" select="selectTab('expertEmployedGridOptions')">
-                <div ui-grid="expertEmployedGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="5" heading="专家项目经验" select="selectTab('expertProjectExperienceGridOptions')">
-                <div ui-grid="expertProjectExperienceGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="6" heading="专家资格证书" select="selectTab('expertCaibnoGridOptions')">
-                <div ui-grid="expertCaibnoGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-            <tab index="7" heading="附件信息" select="selectTab('dealAttachmentBGridOptions')">
-                <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
-                     ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
-            </tab>
-        </tabset>
+<!--    专家发表学术刊物信息 expertReportList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
+        </div>
+<!--    专家调用记录及评价 expertProjectList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
+        </div>
+<!--    专家聘用信息 expertEmployedList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
+        </div>
+<!--    专家项目经验 expertProjectExperienceList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
+        </div>
+<!--    专家资格证书 expertCaibnoList-->
+        <div class="col-md-12">
+            <div class="lr-contant">
+                <fieldset>
+                    <legend>
+                        <button  ng-click="Customer = !Customer" style="border-style: none; background: #ffffff">
+                            <span>部门信息</span>
+                        </button>
+                    </legend>
+                    <div class="col-md-12" ng-if="!Customer">
+                        <button class="btn lr-insureType-btn" ng-click="onAddCustomerDept()">
+                            <i class="fa fa-plus-square"></i>
+                            增加部门信息
+                        </button>
+                        <div ng-repeat="item in CustomerDeptList" style="background:#ffffff">
+                            <accordion class=""  >
+                                <accordion-group is-open="true" class="lr-page-bg-gray">
+                                    <div class="form-group">
+                                        <div class="btn lr-page-bg-indigo">
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button type="button" class="btn btn-azure" ng-if="CustomerDeptList.length>1"
+                                                    ng-click="deletelistOptions($index,3)" type="button" style="float: right;margin-right: 10px">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" >
+                                            <div class="form-group"></div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">部门名称：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.dept">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-5 control-label">备注：</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control"  type="text"  ng-model="item.remark">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                    </div>
+                    <div ng-if="Customer" class="lr-contant">.....</div>
+                </fieldset>
+            </div>
+        </div>
+
+<!--    附件信息 dealAttachmentB-->
+        <div class="col-md-12">
+        <div class="btn lr-insureType-btn" style="width: 100%">
+            <div class="pull-right lr-mr10 lr-mt10" style="margin-right: 50px;">
+                <button class="btn btn-sm btn-info" type="button" ng-show="isForm" ng-click="onUploads();" >上传</button>
+                <button class="btn btn-sm btn-info" type="button" ng-show="isForm" ng-click="onDeleteLine();">删除</button>
+                <button class="btn btn-sm btn-info" type="button" ng-click="onDownLoads();" ng-show="upOrDown">下载</button>
+            </div>
+        </div>
+        <div ui-grid="dealAttachmentBGridOptions" ui-grid-edit ui-grid-cellnav ui-grid-selection
+             ui-grid-auto-resize ui-grid-resize-columns class="grid" style="height: 200px"></div>
+    </div>
     </div>
     <accordion class="" close-others="oneAtATime">
         <accordion-group is-open="false" class="lr-page-bg-gray">

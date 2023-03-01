@@ -1,0 +1,38 @@
+/**
+ * Created by AN MENG on 2018/2/5.
+ */
+var asciiChartSet_c2en = {
+    ' ': '&nbsp;',
+    '!': '&excl;',
+    '"': '&quot;',
+    '#': '&num;',
+    '$': '&dollar;',
+    '%': '&percnt;',
+    '&': '&amp;',
+    '\'': '&apos;',
+    '(': '&lpar;',
+    ')': '&rpar;',
+    '*': '&ast;',
+    '+': '&plus;',
+    ',': '&comma;',
+    '-': '&hyphen;',
+    '.': '&period;',
+    '/': '&sol;',
+    ':': '&colon;',
+    ';': '&semi;',
+    '<': '&lt;',
+    '=': '&equals;',
+    '>': '&gt;',
+    '?': '&quest;',
+    '@': '&commat;',
+    '[': '&lsqb;',
+    '\\': '&bsol;',
+    ']': '&rsqb;',
+    '^': '&circ;',
+    '_': '&lowbar;',
+    '`': '&grave;',
+    '{': '&lcub;',
+    '|': '&verbar;',
+    '}': '&rcub;',
+    '~': '&tilde;'
+}
